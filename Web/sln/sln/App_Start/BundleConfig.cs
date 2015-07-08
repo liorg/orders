@@ -24,7 +24,7 @@ namespace sln
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/css/bootstrap-rtl.css",
                       "~/Content/site.css"));
         }
     }
