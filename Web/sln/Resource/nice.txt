@@ -1,1 +1,4 @@
 http://bootsnipp.com/snippets/featured/single-column-timeline-dotted
+http://bootsnipp.com/snippets/featured/list-group-with-hidden-sub-menu
+http://bootsnipp.com/snippets/featured/form-wizard-and-validation
+http://bootsnipp.com/snippets/featured/single-column-timeline-collapsed
