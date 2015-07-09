@@ -12,6 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOSHOP", "PHOTOSHOP", "{
 		PHOTOSHOP\vespa-ran.psd = PHOTOSHOP\vespa-ran.psd
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{418164C5-D8C5-4802-BC2C-0C2648F19248}"
+	ProjectSection(SolutionItems) = preProject
+		Resource\nice.txt = Resource\nice.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
