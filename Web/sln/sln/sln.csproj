@@ -191,6 +191,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap-rtl.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\delivery.png" />
+    <Content Include="Content\img\register.png" />
+    <Content Include="Content\img\return.jpg" />
+    <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
     <Content Include="favicon.ico" />
@@ -227,6 +231,8 @@
     <Content Include="Scripts\tooltip.js" />
     <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Test\m.html" />
+    <Content Include="Test\h.html" />
     <Content Include="Test\t1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
