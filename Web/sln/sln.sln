@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sln.Tests", "sln.Tests\sln.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOSHOP", "PHOTOSHOP", "{D0B77621-3F5F-4626-995C-B435A2A50F23}"
 	ProjectSection(SolutionItems) = preProject
+		PHOTOSHOP\run2.psd = PHOTOSHOP\run2.psd
 		PHOTOSHOP\vespa-ran.psd = PHOTOSHOP\vespa-ran.psd
 	EndProjectSection
 EndProject

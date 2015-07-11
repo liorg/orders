@@ -3,192 +3,419 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Twitch-like Navbar - Bootsnipp.com</title>
+    <title>Admin Side Menu  - Bootsnipp.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
-        @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+                :focus {
+                    outline: none;
+                }
 
-        body {
-            padding-top: 15px;
-            padding-left: 65px;
-        }
+                .row {
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+                /*
+            Sometimes the sub menus get too large for the page and prevent the menu from scrolling, limiting functionality
+            A quick fix is to change .side-menu to
 
-        .navbar-twitch {
+            -> position:absolute
+
+            and uncomment the code below.
+            You also need to uncomment
+
+            -> <div class="absolute-wrapper"> </div> in the html file
+
+            you also need to tweek the animation. Just uncomment the code in that section
+            --------------------------------------------------------------------------------------------------------------------
+            If you want to make it really neat i suggest you look into an alternative like http://areaaperta.com/nicescroll/
+            This will allow the menu to say fixed on body scoll and scoll on the side bar if it get to large
+        */
+                /*.absolute-wrapper{
             position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 50px;
+            width: 300px;
             height: 100%;
-            border-radius: 0px;
-            border: 0px;
-            z-index: 1030;
-        }
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+        }*/
 
-            .navbar-twitch.open {
-                width: 240px;
-            }
-
-            .navbar-twitch > .container {
-                padding: 0px;
-                width: 100%;
-            }
-
-            .navbar-twitch .navbar-header,
-            .navbar-twitch .navbar-brand {
-                float: none;
-                display: block;
-                width: 100%;
-                margin: 0px;
-            }
-
-            .navbar-twitch .navbar-brand {
-                height: 50px;
-            }
-
-            .navbar-twitch > .container .navbar-brand {
-                padding: 0px;
-                margin: 0px;
-            }
-
-                .navbar-twitch > .container .navbar-brand > .small-nav {
-                    display: block;
+                .side-menu {
+                    position: fixed;
+                    width: 300px;
+                    height: 100%;
+                    background-color: #f8f8f8;
+                    border-right: 1px solid #e7e7e7;
                 }
 
-                    .navbar-twitch > .container .navbar-brand > .small-nav > span.logo,
-                    .navbar-twitch.open > .container .navbar-brand > .full-nav {
-                        display: block;
-                        font-weight: bold;
-                        padding: 15px 2px 15px 3px;
-                        font-size: 18pt;
+                    .side-menu .navbar {
+                        border: none;
                     }
 
-            .navbar-twitch.open > .container .navbar-brand {
-                width: 100%;
-                padding: 15px 15px 60px;
-                text-align: center;
-            }
+                    .side-menu .navbar-header {
+                        width: 100%;
+                        border-bottom: 1px solid #e7e7e7;
+                    }
 
-            .navbar-twitch.navbar-inverse > .container .navbar-brand > .small-nav > span.logo {
-                /*color: rgb(255, 255, 255);*/
-            }
+                    .side-menu .navbar-nav .active a {
+                        background-color: transparent;
+                        margin-right: -1px;
+                        border-right: 5px solid #e7e7e7;
+                    }
 
-            .navbar-twitch .navbar-nav > li {
-                float: none;
-            }
+                    .side-menu .navbar-nav li {
+                        display: block;
+                        width: 100%;
+                        border-bottom: 1px solid #e7e7e7;
+                    }
 
-            .navbar-twitch > .container .full-nav {
-                display: none;
-            }
+                        .side-menu .navbar-nav li a {
+                            padding: 15px;
+                        }
 
-            .navbar-twitch.open > .container .full-nav {
-                display: block;
-            }
+                            .side-menu .navbar-nav li a .glyphicon {
+                                padding-right: 10px;
+                            }
 
-            .navbar-twitch.open > .container .small-nav {
-                display: none;
-            }
+                    .side-menu #dropdown {
+                        border: 0;
+                        margin-bottom: 0;
+                        border-radius: 0;
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
 
-            .navbar-twitch .navbar-collapse {
-                padding: 0px;
-            }
+                        .side-menu #dropdown .caret {
+                            float: right;
+                            margin: 9px 5px 0;
+                        }
 
-            .navbar-twitch .navbar-nav {
-                float: none;
-                margin: 0px;
-            }
+                        .side-menu #dropdown .indicator {
+                            float: right;
+                        }
 
-                .navbar-twitch .navbar-nav > li > a {
-                    padding: 0px;
+                        .side-menu #dropdown > a {
+                            border-bottom: 1px solid #e7e7e7;
+                        }
+
+                        .side-menu #dropdown .panel-body {
+                            padding: 0;
+                            background-color: #f3f3f3;
+                        }
+
+                            .side-menu #dropdown .panel-body .navbar-nav {
+                                width: 100%;
+                            }
+
+                                .side-menu #dropdown .panel-body .navbar-nav li {
+                                    padding-left: 15px;
+                                    border-bottom: 1px solid #e7e7e7;
+                                }
+
+                                    .side-menu #dropdown .panel-body .navbar-nav li:last-child {
+                                        border-bottom: none;
+                                    }
+
+                            .side-menu #dropdown .panel-body .panel > a {
+                                margin-left: -20px;
+                                padding-left: 35px;
+                            }
+
+                            .side-menu #dropdown .panel-body .panel-body {
+                                margin-left: -15px;
+                            }
+
+                                .side-menu #dropdown .panel-body .panel-body li {
+                                    padding-left: 30px;
+                                }
+
+                                    .side-menu #dropdown .panel-body .panel-body li:last-child {
+                                        border-bottom: 1px solid #e7e7e7;
+                                    }
+
+                    .side-menu #search-trigger {
+                        background-color: #f3f3f3;
+                        border: 0;
+                        border-radius: 0;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        padding: 15px 18px;
+                    }
+
+                    .side-menu .brand-name-wrapper {
+                        min-height: 50px;
+                    }
+
+                        .side-menu .brand-name-wrapper .navbar-brand {
+                            display: block;
+                        }
+
+                    .side-menu #search {
+                        position: relative;
+                        z-index: 1000;
+                    }
+
+                        .side-menu #search .panel-body {
+                            padding: 0;
+                        }
+
+                            .side-menu #search .panel-body .navbar-form {
+                                padding: 0;
+                                padding-right: 50px;
+                                width: 100%;
+                                margin: 0;
+                                position: relative;
+                                border-top: 1px solid #e7e7e7;
+                            }
+
+                                .side-menu #search .panel-body .navbar-form .form-group {
+                                    width: 100%;
+                                    position: relative;
+                                }
+
+                                .side-menu #search .panel-body .navbar-form input {
+                                    border: 0;
+                                    border-radius: 0;
+                                    box-shadow: none;
+                                    width: 100%;
+                                    height: 50px;
+                                }
+
+                                .side-menu #search .panel-body .navbar-form .btn {
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    border: 0;
+                                    border-radius: 0;
+                                    background-color: #f3f3f3;
+                                    padding: 15px 18px;
+                                }
+                /* Main body section */
+                .side-body {
+                    margin-left: 310px;
                 }
-
-                    .navbar-twitch .navbar-nav > li > a > span {
-                        display: block;
-                        font-size: 16pt;
-                        padding: 13px 15px 13px 12px;
+                /* small screen */
+                @media (max-width: 768px) {
+                    .side-menu {
+                        position: relative;
+                        width: 100%;
+                        height: 0;
+                        border-right: 0;
+                        border-bottom: 1px solid #e7e7e7;
                     }
 
-            .navbar-twitch .tooltip,
-            .navbar-twitch .tooltip .tooltip-inner {
-                max-width: auto;
-                white-space: nowrap;
-            }
+                        .side-menu .brand-name-wrapper .navbar-brand {
+                            display: inline-block;
+                        }
+                    /* Slide in animation */
+                    @-moz-keyframes slidein {
+                        0% {
+                            left: -300px;
+                        }
 
-        .navbar-twitch-toggle {
-            position: fixed;
-            top: 5px;
-            left: 55px;
-        }
+                        100% {
+                            left: 10px;
+                        }
+                    }
 
-        .navbar-twitch ~ .navbar-twitch-toggle > .nav-open {
-            display: inline-block;
-        }
+                    @-webkit-keyframes slidein {
+                        0% {
+                            left: -300px;
+                        }
 
-        .navbar-twitch ~ .navbar-twitch-toggle > .nav-close {
-            display: none;
-        }
+                        100% {
+                            left: 10px;
+                        }
+                    }
 
-        .navbar-twitch.open ~ .navbar-twitch-toggle {
-            left: 245px;
-        }
+                    @keyframes slidein {
+                        0% {
+                            left: -300px;
+                        }
 
-            .navbar-twitch.open ~ .navbar-twitch-toggle > .nav-open {
-                display: none;
-            }
+                        100% {
+                            left: 10px;
+                        }
+                    }
 
-            .navbar-twitch.open ~ .navbar-twitch-toggle > .nav-close {
-                display: inline-block;
-            }
+                    @-moz-keyframes slideout {
+                        0% {
+                            left: 0;
+                        }
 
+                        100% {
+                            left: -300px;
+                        }
+                    }
 
-        .btn-purple,
-        .btn-purple:hover,
-        .btn-purple:focus,
-        .btn-purple:Active {
-            color: rgb(255, 255, 255);
-            background-color: rgb(86, 61, 124);
-            border-color: rgb(111, 84, 153);
-        }
+                    @-webkit-keyframes slideout {
+                        0% {
+                            left: 0;
+                        }
 
-            .btn-purple:hover,
-            .btn-purple:focus,
-            .btn-purple:Active {
-                background-color: rgb(111, 84, 153);
-                border-color: rgb(86, 61, 124);
-            }
+                        100% {
+                            left: -300px;
+                        }
+                    }
 
-        .navbar {
-            background-image: none !important;
-        }
+                    @keyframes slideout {
+                        0% {
+                            left: 0;
+                        }
 
-        .navbar-purple {
-            background-color: rgb(86, 61, 124);
-            border-color: rgb(111, 84, 153);
-        }
+                        100% {
+                            left: -300px;
+                        }
+                    }
+                    /* Slide side menu*/
+                    /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
+                    .side-menu-container > .navbar-nav.slide-in {
+                        -moz-animation: slidein 300ms forwards;
+                        -o-animation: slidein 300ms forwards;
+                        -webkit-animation: slidein 300ms forwards;
+                        animation: slidein 300ms forwards;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                    }
 
-            .navbar-purple .navbar-brand,
-            .navbar-purple .navbar-nav > li > a,
-            .navbar-purple .navbar-brand:hover,
-            .navbar-purple .navbar-nav > li > a:hover,
-            .navbar-purple .navbar-brand:focus,
-            .navbar-purple .navbar-nav > li > a:focus {
-                color: rgb(205, 191, 227);
-                ;
-            }
+                    .side-menu-container > .navbar-nav {
+                        /* Add position:absolute for scrollable menu -> see top comment */
+                        position: fixed;
+                        left: -300px;
+                        width: 300px;
+                        top: 43px;
+                        height: 100%;
+                        border-right: 1px solid #e7e7e7;
+                        background-color: #f8f8f8;
+                        -moz-animation: slideout 300ms forwards;
+                        -o-animation: slideout 300ms forwards;
+                        -webkit-animation: slideout 300ms forwards;
+                        animation: slideout 300ms forwards;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                    }
+                    /* Uncomment for scrollable menu -> see top comment */
+                    /*.absolute-wrapper{
+                width:285px;
+                -moz-animation: slideout 300ms forwards;
+                -o-animation: slideout 300ms forwards;
+                -webkit-animation: slideout 300ms forwards;
+                animation: slideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }*/
+                    @-moz-keyframes bodyslidein {
+                        0% {
+                            left: 0;
+                        }
 
-                .navbar-purple .navbar-brand:hover,
-                .navbar-purple .navbar-nav > li > a:hover,
-                .navbar-purple .navbar-brand:focus,
-                .navbar-purple .navbar-nav > li > a:focus,
-                .navbar-purple .navbar-nav > .active > a,
-                .navbar-purple .navbar-nav > .active > a:hover,
-                .navbar-purple .navbar-nav > .active > a:focus {
-                    background-color: rgb(111, 84, 153);
-                    color: rgb(255, 255, 255);
+                        100% {
+                            left: 300px;
+                        }
+                    }
+
+                    @-webkit-keyframes bodyslidein {
+                        0% {
+                            left: 0;
+                        }
+
+                        100% {
+                            left: 300px;
+                        }
+                    }
+
+                    @keyframes bodyslidein {
+                        0% {
+                            left: 0;
+                        }
+
+                        100% {
+                            left: 300px;
+                        }
+                    }
+
+                    @-moz-keyframes bodyslideout {
+                        0% {
+                            left: 300px;
+                        }
+
+                        100% {
+                            left: 0;
+                        }
+                    }
+
+                    @-webkit-keyframes bodyslideout {
+                        0% {
+                            left: 300px;
+                        }
+
+                        100% {
+                            left: 0;
+                        }
+                    }
+
+                    @keyframes bodyslideout {
+                        0% {
+                            left: 300px;
+                        }
+
+                        100% {
+                            left: 0;
+                        }
+                    }
+                    /* Slide side body*/
+                    .side-body {
+                        margin-left: 5px;
+                        margin-top: 70px;
+                        position: relative;
+                        -moz-animation: bodyslideout 300ms forwards;
+                        -o-animation: bodyslideout 300ms forwards;
+                        -webkit-animation: bodyslideout 300ms forwards;
+                        animation: bodyslideout 300ms forwards;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                    }
+
+                    .body-slide-in {
+                        -moz-animation: bodyslidein 300ms forwards;
+                        -o-animation: bodyslidein 300ms forwards;
+                        -webkit-animation: bodyslidein 300ms forwards;
+                        animation: bodyslidein 300ms forwards;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                    }
+                    /* Hamburger */
+                    .navbar-toggle {
+                        border: 0;
+                        float: left;
+                        padding: 18px;
+                        margin: 0;
+                        border-radius: 0;
+                        background-color: #f3f3f3;
+                    }
+                    /* Search */
+                    #search .panel-body .navbar-form {
+                        border-bottom: 0;
+                    }
+
+                        #search .panel-body .navbar-form .form-group {
+                            margin: 0;
+                        }
+
+                    .navbar-header {
+                        /* this is probably redundant */
+                        position: fixed;
+                        z-index: 3;
+                        background-color: #f8f8f8;
+                    }
+                    /* Dropdown tweek */
+                    #dropdown .panel-body .navbar-nav {
+                        margin: 0;
+                    }
                 }
     </style>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         window.alert = function () { };
         var defaultCSS = document.getElementById('bootstrap-css');
@@ -203,77 +430,138 @@
     </script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-twitch" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <span class="small-nav"> <span class="logo"> &lt;B> </span> </span>
-                    <span class="full-nav"> &lt; Bootsnipp > </span>
-                </a>
-            </div>
-            <div class="">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">
-                            <span class="small-nav" data-toggle="tooltip" data-placement="right" title="Home">
-                                <span class="glyphicon glyphicon-home"></span>
-                            </span>
-                            <span class="full-nav"> Home </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about-us">
-                            <span class="small-nav" data-toggle="tooltip" data-placement="right" title="About Us">
-                                <span class="fa fa-users"></span>
-                            </span>
-                            <span class="full-nav"> About Us </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact-us">
-                            <span class="small-nav" data-toggle="tooltip" data-placement="right" title="Contact Us">
-                                <span class="glyphicon glyphicon-comment"></span>
-                            </span>
-                            <span class="full-nav"> Contact Us </span>
-                        </a>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
-    <button type="button" class="btn btn-default btn-xs navbar-twitch-toggle">
-        <span class="glyphicon glyphicon-chevron-right nav-open"></span>
-        <span class="glyphicon glyphicon-chevron-left nav-close"></span>
-    </button>
+    <div class="row">
+        <!-- uncomment code for absolute positioning tweek see top comment in css -->
+        <!-- <div class="absolute-wrapper"> </div> -->
+        <!-- Menu -->
+        <div class="side-menu">
 
-    <div class="container">
-        <div class="row">
-            <h2>Bootstrap Navigation meets Twitch Navigation</h2>
-            <p>This is just a quick and dirty example I made to show off to a friend. Don't forget to change the theme using the dropdown above.</p>
+            <nav class="navbar navbar-default" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <div class="brand-wrapper">
+                        <!-- Hamburger -->
+                        <button type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Brand -->
+                        <div class="brand-name-wrapper">
+                            <a class="navbar-brand" href="#">
+                                Brand
+                            </a>
+                        </div>
+
+                        <!-- Search -->
+                        <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </a>
+
+                        <!-- Search body -->
+                        <div id="search" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="navbar-form" role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                    <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Main Menu -->
+                <div class="side-menu-container">
+                    <ul class="nav navbar-nav">
+
+                        <li><a href="#"><span class="glyphicon glyphicon-send"></span> Link</a></li>
+                        <li class="active"><a href="#"><span class="glyphicon glyphicon-plane"></span> Active Link</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+
+                        <!-- Dropdown-->
+                        <li class="panel panel-default" id="dropdown">
+                            <a data-toggle="collapse" href="#dropdown-lvl1">
+                                <span class="glyphicon glyphicon-user"></span> Sub Level <span class="caret"></span>
+                            </a>
+
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-lvl1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+                                        <li><a href="#">Link</a></li>
+
+                                        <!-- Dropdown level 2 -->
+                                        <li class="panel panel-default" id="dropdown">
+                                            <a data-toggle="collapse" href="#dropdown-lvl2">
+                                                <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
+                                            </a>
+                                            <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <ul class="nav navbar-nav">
+                                                        <li><a href="#">Link</a></li>
+                                                        <li><a href="#">Link</a></li>
+                                                        <li><a href="#">Link</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+
         </div>
-        <div class="row">
-            <h2>Navbar Styles</h2>
-            <p>Just to show off how easy it is to theme!</p>
-            <button type="button" class="btn btn-inverse nav-style-toggle disabled" data-type="inverse"> Inverse</button>
-            <button type="button" class="btn btn-default nav-style-toggle" data-type="default"> Default</button>
-            <button type="button" class="btn btn-purple nav-style-toggle" data-type="purple"> Purple</button>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body">
+                <h1> Main Content here </h1>
+                <pre> Resize the screen to view the left slide menu </pre>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+
+            </div>
         </div>
     </div>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.navbar-nav [data-toggle="tooltip"]').tooltip();
-            $('.navbar-twitch-toggle').on('click', function (event) {
-                event.preventDefault();
-                $('.navbar-twitch').toggleClass('open');
+        $(function () {
+            $('.navbar-toggle').click(function () {
+                $('.navbar-nav').toggleClass('slide-in');
+                $('.side-body').toggleClass('body-slide-in');
+                $('#search').removeClass('in').addClass('collapse').slideUp(200);
+
+                /// uncomment code for absolute positioning tweek see top comment in css
+                //$('.absolute-wrapper').toggleClass('slide-in');
+
             });
 
-            $('.nav-style-toggle').on('click', function (event) {
-                event.preventDefault();
-                var $current = $('.nav-style-toggle.disabled');
-                $(this).addClass('disabled');
-                $current.removeClass('disabled');
-                $('.navbar-twitch').removeClass('navbar-' + $current.data('type'));
-                $('.navbar-twitch').addClass('navbar-' + $(this).data('type'));
+            // Remove menu for searching
+            $('#search-trigger').click(function () {
+                $('.navbar-nav').removeClass('slide-in');
+                $('.side-body').removeClass('body-slide-in');
+
+                /// uncomment code for absolute positioning tweek see top comment in css
+                //$('.absolute-wrapper').removeClass('slide-in');
+
             });
         });
     </script>
