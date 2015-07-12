@@ -6,32 +6,58 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
-
-
+    <style>
+        /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
+        body {
+            padding-top: 70px;
+        }
+    </style>
+    
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("מערכת של רן", "Index", "Home", null, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/"><img src="../Content/img/c32.png" /> <span>רן שליחויות</span></a>
+              
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("דף בית", "Index", "Home")</li>
-                    <li>@Html.ActionLink("עלינו", "About", "Home")</li>
-                    <li>@Html.ActionLink("צור קשר", "Contact", "Home")</li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio"><span class="glyphicon glyphicon-plus"> </span> צור משלוח חדש </a>
+                    </li>
+                   
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @*<div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>*@
             </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-    <div class="container body-content">
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
         @RenderBody()
         <hr />
         <footer>
@@ -39,8 +65,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

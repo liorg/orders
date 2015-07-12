@@ -4,3 +4,6 @@ http://bootsnipp.com/snippets/featured/form-wizard-and-validation
 http://bootsnipp.com/snippets/featured/single-column-timeline-collapsed
 
 http://bootsnipp.com/snippets/featured/dropdown-userlist-plus-administration
+
+
+http://www.codeproject.com/Articles/682113/Extending-Identity-Accounts-and-Implementing-Rol

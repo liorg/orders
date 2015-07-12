@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using sln.Models;
+using sln.Helper;
 
 namespace sln.Controllers
 {
@@ -30,6 +31,7 @@ namespace sln.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -40,6 +42,7 @@ namespace sln.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {

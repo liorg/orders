@@ -5,18 +5,18 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("שלום " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+    @*<ul class="nav navbar-nav navbar-right">*@
+    <li class="page-scroll">
+        @Html.ActionLink("שלום " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+    </li>
+    <li class="page-scroll"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    @*</ul>*@
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("צור משתמש חדש", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("כניסה", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    @*<ul class="nav navbar-nav navbar-right">*@
+    @*<li class="page-scroll">@Html.ActionLink("צור משתמש חדש", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+    <li class="page-scroll">@Html.ActionLink("כניסה", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    @*</ul>*@
 }

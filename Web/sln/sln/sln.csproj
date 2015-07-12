@@ -176,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\LayoutInjecterAttribute.cs" />
     <Compile Include="Migrations\201507081849419_B2.cs" />
     <Compile Include="Migrations\201507081849419_B2.Designer.cs">
       <DependentUpon>201507081849419_B2.cs</DependentUpon>
@@ -265,6 +266,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Homepage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
