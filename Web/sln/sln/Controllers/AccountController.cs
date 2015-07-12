@@ -19,6 +19,7 @@ namespace sln.Controllers
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
+            PasswordValidator = new CustomPasswordValidator(10);
         }
 
         public AccountController(UserManager<ApplicationUser> userManager)
@@ -529,5 +530,7 @@ namespace sln.Controllers
             }
         }
         #endregion
+
+        public CustomPasswordValidator PasswordValidator { get; set; }
     }
 }
