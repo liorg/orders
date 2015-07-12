@@ -232,12 +232,14 @@
     <Content Include="Scripts\tooltip.js" />
     <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Test\h - Copy %282%29.html" />
+    <Content Include="Test\f.html" />
     <Content Include="Test\m.html" />
     <Content Include="Test\h.html" />
     <Content Include="Test\sr.html" />
-    <Content Include="Test\sl.html" />
     <Content Include="Test\s.html" />
     <Content Include="Test\t1.html" />
+    <Content Include="Test\tl.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

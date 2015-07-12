@@ -3,419 +3,156 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Admin Side Menu  - Bootsnipp.com</title>
+    <title>Sidebar navigation with Scrollspy - Bootsnipp.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
-                :focus {
-                    outline: none;
-                }
+        #wrapper {
+            padding-left: 250px;
+            transition: all 0.4s ease 0s;
+        }
 
-                .row {
-                    margin-right: 0;
-                    margin-left: 0;
-                }
-                /*
-            Sometimes the sub menus get too large for the page and prevent the menu from scrolling, limiting functionality
-            A quick fix is to change .side-menu to
-
-            -> position:absolute
-
-            and uncomment the code below.
-            You also need to uncomment
-
-            -> <div class="absolute-wrapper"> </div> in the html file
-
-            you also need to tweek the animation. Just uncomment the code in that section
-            --------------------------------------------------------------------------------------------------------------------
-            If you want to make it really neat i suggest you look into an alternative like http://areaaperta.com/nicescroll/
-            This will allow the menu to say fixed on body scoll and scoll on the side bar if it get to large
-        */
-                /*.absolute-wrapper{
+        #sidebar-wrapper {
+            margin-left: -250px;
+            left: 250px;
+            width: 250px;
+            background: #000;
             position: fixed;
-            width: 300px;
             height: 100%;
-            background-color: #f8f8f8;
-            border-right: 1px solid #e7e7e7;
-        }*/
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.4s ease 0s;
+        }
 
-                .side-menu {
-                    position: fixed;
-                    width: 300px;
-                    height: 100%;
-                    background-color: #f8f8f8;
-                    border-right: 1px solid #e7e7e7;
+        #wrapper.active {
+            padding-left: 0;
+        }
+
+            #wrapper.active #sidebar-wrapper {
+                left: 0;
+            }
+
+        #page-content-wrapper {
+            width: 100%;
+        }
+
+
+
+        .sidebar-nav {
+            position: absolute;
+            top: 0;
+            width: 250px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .sidebar-nav li {
+                line-height: 40px;
+                text-indent: 20px;
+            }
+
+                .sidebar-nav li a {
+                    color: #999999;
+                    display: block;
+                    text-decoration: none;
+                    padding-left: 60px;
                 }
 
-                    .side-menu .navbar {
-                        border: none;
-                    }
-
-                    .side-menu .navbar-header {
-                        width: 100%;
-                        border-bottom: 1px solid #e7e7e7;
-                    }
-
-                    .side-menu .navbar-nav .active a {
-                        background-color: transparent;
-                        margin-right: -1px;
-                        border-right: 5px solid #e7e7e7;
-                    }
-
-                    .side-menu .navbar-nav li {
-                        display: block;
-                        width: 100%;
-                        border-bottom: 1px solid #e7e7e7;
-                    }
-
-                        .side-menu .navbar-nav li a {
-                            padding: 15px;
-                        }
-
-                            .side-menu .navbar-nav li a .glyphicon {
-                                padding-right: 10px;
-                            }
-
-                    .side-menu #dropdown {
-                        border: 0;
-                        margin-bottom: 0;
-                        border-radius: 0;
-                        background-color: transparent;
-                        box-shadow: none;
-                    }
-
-                        .side-menu #dropdown .caret {
-                            float: right;
-                            margin: 9px 5px 0;
-                        }
-
-                        .side-menu #dropdown .indicator {
-                            float: right;
-                        }
-
-                        .side-menu #dropdown > a {
-                            border-bottom: 1px solid #e7e7e7;
-                        }
-
-                        .side-menu #dropdown .panel-body {
-                            padding: 0;
-                            background-color: #f3f3f3;
-                        }
-
-                            .side-menu #dropdown .panel-body .navbar-nav {
-                                width: 100%;
-                            }
-
-                                .side-menu #dropdown .panel-body .navbar-nav li {
-                                    padding-left: 15px;
-                                    border-bottom: 1px solid #e7e7e7;
-                                }
-
-                                    .side-menu #dropdown .panel-body .navbar-nav li:last-child {
-                                        border-bottom: none;
-                                    }
-
-                            .side-menu #dropdown .panel-body .panel > a {
-                                margin-left: -20px;
-                                padding-left: 35px;
-                            }
-
-                            .side-menu #dropdown .panel-body .panel-body {
-                                margin-left: -15px;
-                            }
-
-                                .side-menu #dropdown .panel-body .panel-body li {
-                                    padding-left: 30px;
-                                }
-
-                                    .side-menu #dropdown .panel-body .panel-body li:last-child {
-                                        border-bottom: 1px solid #e7e7e7;
-                                    }
-
-                    .side-menu #search-trigger {
-                        background-color: #f3f3f3;
-                        border: 0;
-                        border-radius: 0;
+                    .sidebar-nav li a span:before {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        padding: 15px 18px;
+                        left: 0;
+                        color: #41484c;
+                        text-align: center;
+                        width: 20px;
+                        line-height: 18px;
                     }
 
-                    .side-menu .brand-name-wrapper {
-                        min-height: 50px;
+                    .sidebar-nav li a:hover,
+                    .sidebar-nav li.active {
+                        color: #fff;
+                        background: rgba(255,255,255,0.2);
+                        text-decoration: none;
                     }
 
-                        .side-menu .brand-name-wrapper .navbar-brand {
-                            display: block;
-                        }
-
-                    .side-menu #search {
-                        position: relative;
-                        z-index: 1000;
+                    .sidebar-nav li a:active,
+                    .sidebar-nav li a:focus {
+                        text-decoration: none;
                     }
 
-                        .side-menu #search .panel-body {
-                            padding: 0;
-                        }
+            .sidebar-nav > .sidebar-brand {
+                height: 65px;
+                line-height: 60px;
+                font-size: 18px;
+            }
 
-                            .side-menu #search .panel-body .navbar-form {
-                                padding: 0;
-                                padding-right: 50px;
-                                width: 100%;
-                                margin: 0;
-                                position: relative;
-                                border-top: 1px solid #e7e7e7;
-                            }
-
-                                .side-menu #search .panel-body .navbar-form .form-group {
-                                    width: 100%;
-                                    position: relative;
-                                }
-
-                                .side-menu #search .panel-body .navbar-form input {
-                                    border: 0;
-                                    border-radius: 0;
-                                    box-shadow: none;
-                                    width: 100%;
-                                    height: 50px;
-                                }
-
-                                .side-menu #search .panel-body .navbar-form .btn {
-                                    position: absolute;
-                                    right: 0;
-                                    top: 0;
-                                    border: 0;
-                                    border-radius: 0;
-                                    background-color: #f3f3f3;
-                                    padding: 15px 18px;
-                                }
-                /* Main body section */
-                .side-body {
-                    margin-left: 310px;
+                .sidebar-nav > .sidebar-brand a {
+                    color: #999999;
                 }
-                /* small screen */
-                @media (max-width: 768px) {
-                    .side-menu {
-                        position: relative;
-                        width: 100%;
-                        height: 0;
-                        border-right: 0;
-                        border-bottom: 1px solid #e7e7e7;
+
+                    .sidebar-nav > .sidebar-brand a:hover {
+                        color: #fff;
+                        background: none;
                     }
 
-                        .side-menu .brand-name-wrapper .navbar-brand {
-                            display: inline-block;
-                        }
-                    /* Slide in animation */
-                    @-moz-keyframes slidein {
-                        0% {
-                            left: -300px;
-                        }
 
-                        100% {
-                            left: 10px;
-                        }
-                    }
 
-                    @-webkit-keyframes slidein {
-                        0% {
-                            left: -300px;
-                        }
+        .content-header {
+            height: 65px;
+            line-height: 65px;
+        }
 
-                        100% {
-                            left: 10px;
-                        }
-                    }
+            .content-header h1 {
+                margin: 0;
+                margin-left: 20px;
+                line-height: 65px;
+                display: inline-block;
+            }
 
-                    @keyframes slidein {
-                        0% {
-                            left: -300px;
-                        }
+        #menu-toggle {
+            text-decoration: none;
+        }
 
-                        100% {
-                            left: 10px;
-                        }
-                    }
+        .btn-menu {
+            color: #000;
+        }
 
-                    @-moz-keyframes slideout {
-                        0% {
-                            left: 0;
-                        }
+        .inset {
+            padding: 20px;
+        }
 
-                        100% {
-                            left: -300px;
-                        }
-                    }
+        @media (max-width:767px) {
 
-                    @-webkit-keyframes slideout {
-                        0% {
-                            left: 0;
-                        }
+            #wrapper {
+                padding-left: 0;
+            }
 
-                        100% {
-                            left: -300px;
-                        }
-                    }
+            #sidebar-wrapper {
+                left: 0;
+            }
 
-                    @keyframes slideout {
-                        0% {
-                            left: 0;
-                        }
+            #wrapper.active {
+                position: relative;
+                left: 250px;
+            }
 
-                        100% {
-                            left: -300px;
-                        }
-                    }
-                    /* Slide side menu*/
-                    /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
-                    .side-menu-container > .navbar-nav.slide-in {
-                        -moz-animation: slidein 300ms forwards;
-                        -o-animation: slidein 300ms forwards;
-                        -webkit-animation: slidein 300ms forwards;
-                        animation: slidein 300ms forwards;
-                        -webkit-transform-style: preserve-3d;
-                        transform-style: preserve-3d;
-                    }
-
-                    .side-menu-container > .navbar-nav {
-                        /* Add position:absolute for scrollable menu -> see top comment */
-                        position: fixed;
-                        left: -300px;
-                        width: 300px;
-                        top: 43px;
-                        height: 100%;
-                        border-right: 1px solid #e7e7e7;
-                        background-color: #f8f8f8;
-                        -moz-animation: slideout 300ms forwards;
-                        -o-animation: slideout 300ms forwards;
-                        -webkit-animation: slideout 300ms forwards;
-                        animation: slideout 300ms forwards;
-                        -webkit-transform-style: preserve-3d;
-                        transform-style: preserve-3d;
-                    }
-                    /* Uncomment for scrollable menu -> see top comment */
-                    /*.absolute-wrapper{
-                width:285px;
-                -moz-animation: slideout 300ms forwards;
-                -o-animation: slideout 300ms forwards;
-                -webkit-animation: slideout 300ms forwards;
-                animation: slideout 300ms forwards;
-                -webkit-transform-style: preserve-3d;
-                transform-style: preserve-3d;
-            }*/
-                    @-moz-keyframes bodyslidein {
-                        0% {
-                            left: 0;
-                        }
-
-                        100% {
-                            left: 300px;
-                        }
-                    }
-
-                    @-webkit-keyframes bodyslidein {
-                        0% {
-                            left: 0;
-                        }
-
-                        100% {
-                            left: 300px;
-                        }
-                    }
-
-                    @keyframes bodyslidein {
-                        0% {
-                            left: 0;
-                        }
-
-                        100% {
-                            left: 300px;
-                        }
-                    }
-
-                    @-moz-keyframes bodyslideout {
-                        0% {
-                            left: 300px;
-                        }
-
-                        100% {
-                            left: 0;
-                        }
-                    }
-
-                    @-webkit-keyframes bodyslideout {
-                        0% {
-                            left: 300px;
-                        }
-
-                        100% {
-                            left: 0;
-                        }
-                    }
-
-                    @keyframes bodyslideout {
-                        0% {
-                            left: 300px;
-                        }
-
-                        100% {
-                            left: 0;
-                        }
-                    }
-                    /* Slide side body*/
-                    .side-body {
-                        margin-left: 5px;
-                        margin-top: 70px;
-                        position: relative;
-                        -moz-animation: bodyslideout 300ms forwards;
-                        -o-animation: bodyslideout 300ms forwards;
-                        -webkit-animation: bodyslideout 300ms forwards;
-                        animation: bodyslideout 300ms forwards;
-                        -webkit-transform-style: preserve-3d;
-                        transform-style: preserve-3d;
-                    }
-
-                    .body-slide-in {
-                        -moz-animation: bodyslidein 300ms forwards;
-                        -o-animation: bodyslidein 300ms forwards;
-                        -webkit-animation: bodyslidein 300ms forwards;
-                        animation: bodyslidein 300ms forwards;
-                        -webkit-transform-style: preserve-3d;
-                        transform-style: preserve-3d;
-                    }
-                    /* Hamburger */
-                    .navbar-toggle {
-                        border: 0;
-                        float: left;
-                        padding: 18px;
-                        margin: 0;
-                        border-radius: 0;
-                        background-color: #f3f3f3;
-                    }
-                    /* Search */
-                    #search .panel-body .navbar-form {
-                        border-bottom: 0;
-                    }
-
-                        #search .panel-body .navbar-form .form-group {
-                            margin: 0;
-                        }
-
-                    .navbar-header {
-                        /* this is probably redundant */
-                        position: fixed;
-                        z-index: 3;
-                        background-color: #f8f8f8;
-                    }
-                    /* Dropdown tweek */
-                    #dropdown .panel-body .navbar-nav {
-                        margin: 0;
-                    }
+                #wrapper.active #sidebar-wrapper {
+                    left: 250px;
+                    width: 250px;
+                    transition: all 0.4s ease 0s;
                 }
+
+            #menu-toggle {
+                display: inline-block;
+            }
+
+            .inset {
+                padding: 15px;
+            }
+        }
     </style>
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         window.alert = function () { };
         var defaultCSS = document.getElementById('bootstrap-css');
@@ -430,139 +167,120 @@
     </script>
 </head>
 <body>
-    <div class="row">
-        <!-- uncomment code for absolute positioning tweek see top comment in css -->
-        <!-- <div class="absolute-wrapper"> </div> -->
-        <!-- Menu -->
-        <div class="side-menu">
+    <div id="wrapper">
 
-            <nav class="navbar navbar-default" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <div class="brand-wrapper">
-                        <!-- Hamburger -->
-                        <button type="button" class="navbar-toggle">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <!-- Brand -->
-                        <div class="brand-name-wrapper">
-                            <a class="navbar-brand" href="#">
-                                Brand
-                            </a>
-                        </div>
-
-                        <!-- Search -->
-                        <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
-                            <span class="glyphicon glyphicon-search"></span>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <nav id="spy">
+                <ul class="sidebar-nav nav">
+                    <li class="sidebar-brand">
+                        <a href="#home"><span class="fa fa-home solo">Home</span></a>
+                    </li>
+                    <li>
+                        <a href="#anch1" data-scroll>
+                            <span class="fa fa-anchor solo">Anchor 1</span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="#anch2" data-scroll>
+                            <span class="fa fa-anchor solo">Anchor 2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#anch3" data-scroll>
+                            <span class="fa fa-anchor solo">Anchor 3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#anch4" data-scroll>
+                            <span class="fa fa-anchor solo">Anchor 4</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
-                        <!-- Search body -->
-                        <div id="search" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form class="navbar-form" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                    <button type="submit" class="btn btn-default "><span class="glyphicon glyphicon-ok"></span></button>
-                                </form>
-                            </div>
-                        </div>
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <div class="content-header">
+                <h1 id="home">
+                    <a id="menu-toggle" href="#" class="glyphicon glyphicon-align-justify btn-menu toggle">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    Sidebar Navigation Template
+                </h1>
+            </div>
+
+            <div class="page-content inset" data-spy="scroll" data-target="#spy">
+                <div class="row">
+
+                    <div class="jumbotron text-center">
+                        <h1>Hello Beautiful!</h1>
+                        <p>This is a sidebar navigation responsive template built off of Bootstrap 3.0 and simple sidebar template. It includes anchors, scroll spy, smooth scroll, and Awesome icon fonts.</p>
+                        <p>
+                            <a class="btn btn-default">Click On Me!</a>
+                            <a class="btn btn-info">Tweet Me!</a>
+                        </p>
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-md-12 well">
+                        <legend id="anch1">Anchor 1</legend>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies, metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque ante eget mi. Donec cursus nibh ultrices vulputate aliquet. Morbi nulla enim, molestie eu ullamcorper quis, placerat a mauris. Proin vel magna ullamcorper, vulputate leo eu, egestas odio. Vivamus erat leo, egestas in euismod sed, fermentum nec magna. Nunc nisi enim, euismod a tellus sit amet, fermentum adipiscing ipsum. Fusce rhoncus diam ac neque aliquam convallis. Etiam malesuada, nibh id rutrum euismod, enim augue gravida dolor, at vulputate felis mi at magna. Nulla luctus, libero eget luctus gravida, sapien enim varius massa, adipiscing aliquet lacus mi eu eros. Duis pretium laoreet ullamcorper. Aenean in mauris nec libero tincidunt pharetra non et dui. Sed tortor turpis, mollis et tempus eu, auctor laoreet neque. Etiam eu tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt nisi. Nam consectetur velit ac pharetra venenatis.</p>
+                        <p>Donec pellentesque id quam vel iaculis. Phasellus commodo tempor metus, eget sollicitudin odio ultricies id. Proin sed ipsum quis turpis suscipit luctus vitae id urna. Fusce et rhoncus quam. Etiam vel justo ligula. Nullam euismod lacinia risus a pulvinar. Pellentesque sit amet nisl eget ante vulputate feugiat. Suspendisse venenatis magna nunc, mollis facilisis neque condimentum ac. Vivamus non semper dui. Aenean sed eleifend dui. Vivamus a massa aliquam nibh consectetur luctus id at ligula. Nunc ipsum dolor, mollis at sem et, auctor rhoncus ipsum. Nulla faucibus venenatis est sit amet facilisis. In vestibulum nisi at tellus egestas, in pharetra enim fringilla. In ac erat non magna accumsan aliquam.</p>
+                    </div>
+                    <div class="col-md-12 well">
+                        <legend id="anch2">Anchor 2</legend>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies, metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque ante eget mi. Donec cursus nibh ultrices vulputate aliquet. Morbi nulla enim, molestie eu ullamcorper quis, placerat a mauris. Proin vel magna ullamcorper, vulputate leo eu, egestas odio. Vivamus erat leo, egestas in euismod sed, fermentum nec magna. Nunc nisi enim, euismod a tellus sit amet, fermentum adipiscing ipsum. Fusce rhoncus diam ac neque aliquam convallis. Etiam malesuada, nibh id rutrum euismod, enim augue gravida dolor, at vulputate felis mi at magna. Nulla luctus, libero eget luctus gravida, sapien enim varius massa, adipiscing aliquet lacus mi eu eros. Duis pretium laoreet ullamcorper. Aenean in mauris nec libero tincidunt pharetra non et dui. Sed tortor turpis, mollis et tempus eu, auctor laoreet neque. Etiam eu tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt nisi. Nam consectetur velit ac pharetra venenatis.</p>
+                        <p>Donec pellentesque id quam vel iaculis. Phasellus commodo tempor metus, eget sollicitudin odio ultricies id. Proin sed ipsum quis turpis suscipit luctus vitae id urna. Fusce et rhoncus quam. Etiam vel justo ligula. Nullam euismod lacinia risus a pulvinar. Pellentesque sit amet nisl eget ante vulputate feugiat. Suspendisse venenatis magna nunc, mollis facilisis neque condimentum ac. Vivamus non semper dui. Aenean sed eleifend dui. Vivamus a massa aliquam nibh consectetur luctus id at ligula. Nunc ipsum dolor, mollis at sem et, auctor rhoncus ipsum. Nulla faucibus venenatis est sit amet facilisis. In vestibulum nisi at tellus egestas, in pharetra enim fringilla. In ac erat non magna accumsan aliquam.</p>
+                    </div>
+                    <div class="col-md-12 well">
+                        <legend id="anch3">Anchor 3</legend>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies, metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque ante eget mi. Donec cursus nibh ultrices vulputate aliquet. Morbi nulla enim, molestie eu ullamcorper quis, placerat a mauris. Proin vel magna ullamcorper, vulputate leo eu, egestas odio. Vivamus erat leo, egestas in euismod sed, fermentum nec magna. Nunc nisi enim, euismod a tellus sit amet, fermentum adipiscing ipsum. Fusce rhoncus diam ac neque aliquam convallis. Etiam malesuada, nibh id rutrum euismod, enim augue gravida dolor, at vulputate felis mi at magna. Nulla luctus, libero eget luctus gravida, sapien enim varius massa, adipiscing aliquet lacus mi eu eros. Duis pretium laoreet ullamcorper. Aenean in mauris nec libero tincidunt pharetra non et dui. Sed tortor turpis, mollis et tempus eu, auctor laoreet neque. Etiam eu tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt nisi. Nam consectetur velit ac pharetra venenatis.</p>
+                        <p>Donec pellentesque id quam vel iaculis. Phasellus commodo tempor metus, eget sollicitudin odio ultricies id. Proin sed ipsum quis turpis suscipit luctus vitae id urna. Fusce et rhoncus quam. Etiam vel justo ligula. Nullam euismod lacinia risus a pulvinar. Pellentesque sit amet nisl eget ante vulputate feugiat. Suspendisse venenatis magna nunc, mollis facilisis neque condimentum ac. Vivamus non semper dui. Aenean sed eleifend dui. Vivamus a massa aliquam nibh consectetur luctus id at ligula. Nunc ipsum dolor, mollis at sem et, auctor rhoncus ipsum. Nulla faucibus venenatis est sit amet facilisis. In vestibulum nisi at tellus egestas, in pharetra enim fringilla. In ac erat non magna accumsan aliquam.</p>
+                    </div>
+                    <div class="col-md-12 well">
+                        <legend id="anch4">Anchor 4</legend>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies, metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque ante eget mi. Donec cursus nibh ultrices vulputate aliquet. Morbi nulla enim, molestie eu ullamcorper quis, placerat a mauris. Proin vel magna ullamcorper, vulputate leo eu, egestas odio. Vivamus erat leo, egestas in euismod sed, fermentum nec magna. Nunc nisi enim, euismod a tellus sit amet, fermentum adipiscing ipsum. Fusce rhoncus diam ac neque aliquam convallis. Etiam malesuada, nibh id rutrum euismod, enim augue gravida dolor, at vulputate felis mi at magna. Nulla luctus, libero eget luctus gravida, sapien enim varius massa, adipiscing aliquet lacus mi eu eros. Duis pretium laoreet ullamcorper. Aenean in mauris nec libero tincidunt pharetra non et dui. Sed tortor turpis, mollis et tempus eu, auctor laoreet neque. Etiam eu tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt nisi. Nam consectetur velit ac pharetra venenatis.</p>
+                        <p>Donec pellentesque id quam vel iaculis. Phasellus commodo tempor metus, eget sollicitudin odio ultricies id. Proin sed ipsum quis turpis suscipit luctus vitae id urna. Fusce et rhoncus quam. Etiam vel justo ligula. Nullam euismod lacinia risus a pulvinar. Pellentesque sit amet nisl eget ante vulputate feugiat. Suspendisse venenatis magna nunc, mollis facilisis neque condimentum ac. Vivamus non semper dui. Aenean sed eleifend dui. Vivamus a massa aliquam nibh consectetur luctus id at ligula. Nunc ipsum dolor, mollis at sem et, auctor rhoncus ipsum. Nulla faucibus venenatis est sit amet facilisis. In vestibulum nisi at tellus egestas, in pharetra enim fringilla. In ac erat non magna accumsan aliquam.</p>
+                    </div>
+                </div>
 
-                <!-- Main Menu -->
-                <div class="side-menu-container">
-                    <ul class="nav navbar-nav">
-
-                        <li><a href="#"><span class="glyphicon glyphicon-send"></span> Link</a></li>
-                        <li class="active"><a href="#"><span class="glyphicon glyphicon-plane"></span> Active Link</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
-
-                        <!-- Dropdown-->
-                        <li class="panel panel-default" id="dropdown">
-                            <a data-toggle="collapse" href="#dropdown-lvl1">
-                                <span class="glyphicon glyphicon-user"></span> Sub Level <span class="caret"></span>
-                            </a>
-
-                            <!-- Dropdown level 1 -->
-                            <div id="dropdown-lvl1" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="#">Link</a></li>
-                                        <li><a href="#">Link</a></li>
-                                        <li><a href="#">Link</a></li>
-
-                                        <!-- Dropdown level 2 -->
-                                        <li class="panel panel-default" id="dropdown">
-                                            <a data-toggle="collapse" href="#dropdown-lvl2">
-                                                <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
-                                            </a>
-                                            <div id="dropdown-lvl2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <ul class="nav navbar-nav">
-                                                        <li><a href="#">Link</a></li>
-                                                        <li><a href="#">Link</a></li>
-                                                        <li><a href="#">Link</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
-
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </nav>
-
-        </div>
-
-        <!-- Main Content -->
-        <div class="container-fluid">
-            <div class="side-body">
-                <h1> Main Content here </h1>
-                <pre> Resize the screen to view the left slide menu </pre>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-
+                <div class="navbar navbar-default navbar-static-bottom">
+                    <p class="navbar-text pull-left">
+                        Built by <a href="http://mvnguyen.com" target="_blank">Michael V Nguyen
+                    </p>
+                </div>
             </div>
+
         </div>
+
     </div>
     <script type="text/javascript">
-        $(function () {
-            $('.navbar-toggle').click(function () {
-                $('.navbar-nav').toggleClass('slide-in');
-                $('.side-body').toggleClass('body-slide-in');
-                $('#search').removeClass('in').addClass('collapse').slideUp(200);
 
-                /// uncomment code for absolute positioning tweek see top comment in css
-                //$('.absolute-wrapper').toggleClass('slide-in');
+        /*Menu-toggle*/
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("active");
+        });
 
-            });
+        /*Scroll Spy*/
+        $('body').scrollspy({ target: '#spy', offset: 80 });
 
-            // Remove menu for searching
-            $('#search-trigger').click(function () {
-                $('.navbar-nav').removeClass('slide-in');
-                $('.side-body').removeClass('body-slide-in');
+        /*Smooth link animation*/
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
-                /// uncomment code for absolute positioning tweek see top comment in css
-                //$('.absolute-wrapper').removeClass('slide-in');
-
-            });
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
         });
     </script>
 </body>
