@@ -7,3 +7,4 @@ http://bootsnipp.com/snippets/featured/dropdown-userlist-plus-administration
 
 
 http://www.codeproject.com/Articles/682113/Extending-Identity-Accounts-and-Implementing-Rol
+http://typecastexception.com/post/2013/10/27/Configuring-Db-Connection-and-Code-First-Migration-for-Identity-Accounts-in-ASPNET-MVC-5-and-Visual-Studio-2013.aspx

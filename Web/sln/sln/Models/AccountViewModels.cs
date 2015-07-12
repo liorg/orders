@@ -41,6 +41,19 @@ namespace sln.Models
 
         [Display(Name = "זכור אותי?")]
         public bool RememberMe { get; set; }
+
+        [Required]
+        [Display(Name = "שם פרטי")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "שם משפחה")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "דוא''ל")]
+        public string Email { get; set; }
+
     }
 
     public class RegisterViewModel
@@ -59,6 +72,18 @@ namespace sln.Models
         [Display(Name = "בדוק סיסמא שוב")]
         [Compare("Password", ErrorMessage = "הסיסמא חייבת להיות תואמת")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
     }
 }

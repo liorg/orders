@@ -67,6 +67,7 @@ namespace sln.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Register()
         {
             return View();
@@ -77,6 +78,7 @@ namespace sln.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
