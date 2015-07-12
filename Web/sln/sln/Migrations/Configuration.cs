@@ -56,14 +56,14 @@ namespace sln.Migrations
             bool success = false;
 
             var idManager = new IdentityManager();
-            success = idManager.CreateRole("Admin");
-            if (!success == true) return success;
+            //success = idManager.CreateRole("Admin");
+            //if (!success == true) return success;
 
-            success = idManager.CreateRole("CanEdit");
-            if (!success == true) return success;
+            //success = idManager.CreateRole("CanEdit");
+            //if (!success == true) return success;
 
-            success = idManager.CreateRole("User");
-            if (!success) return success;
+            //success = idManager.CreateRole("User");
+            //if (!success) return success;
 
 
             var newUser = new ApplicationUser()
