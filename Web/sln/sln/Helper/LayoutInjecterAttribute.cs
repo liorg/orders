@@ -21,7 +21,7 @@ namespace sln.Helper
             if (result != null)
             {
                 result.MasterName = _masterName;
-            }
+                }
         }
     }
 }

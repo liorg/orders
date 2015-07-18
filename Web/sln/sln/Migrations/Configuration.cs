@@ -2,20 +2,22 @@ namespace sln.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using sln.Dal;
+    using sln.DataModel;
     using sln.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<sln.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(sln.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             AddUserAndRoles();
             //var manager = new UserManager<ApplicationUser>(

@@ -26,18 +26,16 @@ namespace sln.Helper
             if (String.IsNullOrEmpty(item) || item.Length < RequiredLength)
             {
 
-                return Task.FromResult(IdentityResult.Failed(String.Format("Password should be of length {0}", RequiredLength)));
+                return Task.FromResult(IdentityResult.Failed(String.Format("סיסמא אמורה להיות {0}", RequiredLength)));
 
             }
 
-            string pattern = @"^(?=.*[0-9])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*0-9]{10,}$";
+           // string pattern = @"^(?=.*[0-9])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*0-9]{10,}$";
 
-            if (!Regex.IsMatch(item, pattern))
-            {
-
-                return Task.FromResult(IdentityResult.Failed("Password should have one numeral and one special character"));
-
-            }
+            //if (!Regex.IsMatch(item, pattern))
+            //{
+            //    return Task.FromResult(IdentityResult.Failed("Password should have one numeral and one special character"));
+            //}
 
             return Task.FromResult(IdentityResult.Success);
 

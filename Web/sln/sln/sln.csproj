@@ -173,6 +173,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Dal\ApplicationDbContext.cs" />
+    <Compile Include="Dal\ApplicationUserManager.cs" />
+    <Compile Include="Dal\IdentityModels.cs" />
+    <Compile Include="DataModel\ApplicationUser.cs" />
+    <Compile Include="DataModel\Organization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -184,9 +189,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
+    <Compile Include="Models\UserManagement\LoginViewModel.cs" />
+    <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
+    <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
+    <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

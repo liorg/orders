@@ -10,18 +10,23 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using sln.Models;
 using sln.Helper;
+using sln.Dal;
+using sln.DataModel;
 
 namespace sln.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+        //public AccountController()
+        //    : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+        //{
+        //   // PasswordValidator = new CustomPasswordValidator(10);
+        //}
+        public AccountController( ):this (new ApplicationUserManager())
         {
-            PasswordValidator = new CustomPasswordValidator(10);
+          
         }
-
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
