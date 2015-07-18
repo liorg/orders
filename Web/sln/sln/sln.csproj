@@ -171,12 +171,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
+    <Compile Include="DataModel\Distance.cs" />
     <Compile Include="DataModel\Organization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +192,18 @@
     <Compile Include="Migrations\201507182232497_domain.cs" />
     <Compile Include="Migrations\201507182232497_domain.Designer.cs">
       <DependentUpon>201507182232497_domain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507182250176_d.cs" />
+    <Compile Include="Migrations\201507182250176_d.Designer.cs">
+      <DependentUpon>201507182250176_d.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507182255580_distance.cs" />
+    <Compile Include="Migrations\201507182255580_distance.Designer.cs">
+      <DependentUpon>201507182255580_distance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507182258403_distance_many_to_many.cs" />
+    <Compile Include="Migrations\201507182258403_distance_many_to_many.Designer.cs">
+      <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -299,6 +313,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507182232497_domain.resx">
       <DependentUpon>201507182232497_domain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507182250176_d.resx">
+      <DependentUpon>201507182250176_d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507182255580_distance.resx">
+      <DependentUpon>201507182255580_distance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507182258403_distance_many_to_many.resx">
+      <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

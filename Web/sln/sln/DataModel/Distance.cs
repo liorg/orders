@@ -7,48 +7,50 @@ using System.Web;
 
 namespace sln.DataModel
 {
-    public class Organization : IModifieder
+
+    public class Distance : IModifieder
     {
-        public Organization()
+        public Distance()
         {
-            Users = new HashSet<ApplicationUser>();
-            Distances = new HashSet<Distance>();
-
+            Organizations = new HashSet<Organization>();
         }
-
-        public ICollection<Distance> Distances { get; set; }
         [Key]
-        public Guid OrgId { get; set; }
+        public Guid DistanceId { get; set; }
 
         public string Name { get; set; }
 
-        public string Domain { get; set; }
-
-        public ICollection<ApplicationUser> Users {get;set;}
 
         public DateTime? CreatedOn
         {
-            get; set;
+            get;
+            set;
         }
 
         public DateTime? ModifiedOn
         {
-            get; set;
+            get;
+            set;
         }
 
         public Guid? CreatedBy
         {
-            get;  set;
+            get;
+            set;
         }
 
         public Guid? ModifiedBy
         {
-            get; set;
+            get;
+            set;
         }
 
         public bool IsActive
         {
-            get;  set;
+            get;
+            set;
         }
+
+        public ICollection<Organization> Organizations { get; set; }
+
     }
 }
