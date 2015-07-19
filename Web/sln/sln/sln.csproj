@@ -179,6 +179,7 @@
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\PriceListForOrg.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
     <Compile Include="DataModel\StatusShipping.cs" />
@@ -226,6 +227,18 @@
     <Compile Include="Migrations\201507190935269_zzz.cs" />
     <Compile Include="Migrations\201507190935269_zzz.Designer.cs">
       <DependentUpon>201507190935269_zzz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507191451394_ss.cs" />
+    <Compile Include="Migrations\201507191451394_ss.Designer.cs">
+      <DependentUpon>201507191451394_ss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507191452405_ssד.cs" />
+    <Compile Include="Migrations\201507191452405_ssד.Designer.cs">
+      <DependentUpon>201507191452405_ssד.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507191455207_city3.cs" />
+    <Compile Include="Migrations\201507191455207_city3.Designer.cs">
+      <DependentUpon>201507191455207_city3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -353,6 +366,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507190935269_zzz.resx">
       <DependentUpon>201507190935269_zzz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507191451394_ss.resx">
+      <DependentUpon>201507191451394_ss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507191452405_ssד.resx">
+      <DependentUpon>201507191452405_ssד.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507191455207_city3.resx">
+      <DependentUpon>201507191455207_city3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

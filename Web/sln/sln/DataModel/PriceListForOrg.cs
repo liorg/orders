@@ -9,25 +9,37 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class TimeLine : IModifieder
+    public class PriceListForOrg : IModifieder
     {
-        public TimeLine()
+        public PriceListForOrg()
         {
-            
+
         }
 
-        public Shipping Shipping { get; set; }
+        public Organization Organizations { get; set; }
 
         [Key]
-        public Guid TimeLineId { get; set; }
-
-        public StatusTimeLine StatusTimeLine { get; set; }
+        public Guid PriceListForOrgId { get; set; }
 
         public string Name { get; set; }
 
+        public decimal MinTimeWait { get; set; }
+
+        public decimal? Present { get; set; }
+
         public string Desc { get; set; }
 
-        public string DescHtml { get; set; }
+        public DateTime BeginDate
+        {
+            get;
+            set;
+        }
+
+        public DateTime? EndDate
+        {
+            get;
+            set;
+        }
 
         public DateTime? CreatedOn
         {

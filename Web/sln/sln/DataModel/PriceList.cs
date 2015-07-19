@@ -20,6 +20,8 @@ namespace sln.DataModel
 
         Product Product { get; set; }
 
+        public Distance Distance { get; set; }
+
         public Organization Organizations { get; set; }
 
         [Key]

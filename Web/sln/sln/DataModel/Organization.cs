@@ -11,16 +11,15 @@ namespace sln.DataModel
     {
         public Organization()
         {
+            PriceListsForOrg = new HashSet<PriceListForOrg>();
             Users = new HashSet<ApplicationUser>();
             Distances = new HashSet<Distance>();
             PriceLists = new HashSet<PriceList>();
 
         }
-       
+        public ICollection<PriceListForOrg> PriceListsForOrg { get; set; }
         public ICollection<ApplicationUser> Users { get; set; }
-
         public ICollection<PriceList> PriceLists { get; set; }
-
         public ICollection<Distance> Distances { get; set; }
 
         [Key]

@@ -14,8 +14,9 @@ namespace sln.DataModel
         public Shipping()
         {
             ShippingItems = new HashSet<ShippingItem>();
+            TimeLines = new HashSet<TimeLine>();
         }
-
+        public ICollection<TimeLine> TimeLines { get; set; }
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]

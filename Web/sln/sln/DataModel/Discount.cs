@@ -23,6 +23,8 @@ namespace sln.DataModel
 
         public decimal Present { get; set; }
 
+        public Distance Distance { get; set; }
+
         public int? MinQuantity { get; set; }
 
         public int? MaxQuantity { get; set; }
