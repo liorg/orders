@@ -19,6 +19,7 @@ namespace sln.Dal
         public DbSet<Distance> Distance { get; set; }
         public DbSet<PriceList> PriceList { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Discount> Discount { get; set; }
 
         
     }

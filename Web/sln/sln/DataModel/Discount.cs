@@ -2,22 +2,37 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace sln.DataModel
 {
 
-    public class Distance : IModifieder
+    public class Discount : IModifieder
     {
-        public Distance()
+        public Discount()
         {
-           Organizations = new HashSet<Organization>();
+          //  Organizations = new HashSet<Organization>();
+           // Distances = new HashSet<Distance>();
         }
+
+        PriceList PriceList { get; set; }
+
         [Key]
-        public Guid DistanceId { get; set; }
+        public Guid DiscountId { get; set; }
+
+        public decimal Present { get; set; }
+
+        public int? MinQuantity { get; set; }
+
+        public int? MaxQuantity { get; set; }
 
         public string Name { get; set; }
+
+        public decimal Precent { get; set; }
+
+        public string Desc { get; set; }
 
         public DateTime? CreatedOn
         {
@@ -49,7 +64,6 @@ namespace sln.DataModel
             set;
         }
 
-        public ICollection<Organization> Organizations { get; set; }
-
+       
     }
 }

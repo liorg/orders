@@ -178,6 +178,7 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
+    <Compile Include="DataModel\Discount.cs" />
     <Compile Include="DataModel\PriceList.cs" />
     <Compile Include="DataModel\Product.cs" />
     <Compile Include="DataModel\Distance.cs" />
@@ -214,6 +215,10 @@
     <Compile Include="Migrations\201507190605501_prices2.cs" />
     <Compile Include="Migrations\201507190605501_prices2.Designer.cs">
       <DependentUpon>201507190605501_prices2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507190935269_zzz.cs" />
+    <Compile Include="Migrations\201507190935269_zzz.Designer.cs">
+      <DependentUpon>201507190935269_zzz.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -338,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507190605501_prices2.resx">
       <DependentUpon>201507190605501_prices2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507190935269_zzz.resx">
+      <DependentUpon>201507190935269_zzz.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -14,8 +14,9 @@ namespace sln.DataModel
         public PriceList()
         {
           //  Organizations = new HashSet<Organization>();
-           // Distances = new HashSet<Distance>();
+            Discounts = new HashSet<Discount>();
         }
+        public ICollection<Discount> Discounts { get; set; }
 
         Product Product { get; set; }
         public Organization Organizations { get; set; }
@@ -27,6 +28,8 @@ namespace sln.DataModel
         public decimal Price { get; set; }
 
         public string Name { get; set; }
+
+        public decimal MinTimeWait { get; set; }
 
         public string Desc { get; set; }
 
