@@ -240,6 +240,10 @@
     <Compile Include="Migrations\201507191455207_city3.Designer.cs">
       <DependentUpon>201507191455207_city3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507191500005_timeline.cs" />
+    <Compile Include="Migrations\201507191500005_timeline.Designer.cs">
+      <DependentUpon>201507191500005_timeline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -375,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507191455207_city3.resx">
       <DependentUpon>201507191455207_city3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507191500005_timeline.resx">
+      <DependentUpon>201507191500005_timeline.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
