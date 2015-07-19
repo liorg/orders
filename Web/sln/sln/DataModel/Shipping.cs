@@ -9,27 +9,25 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class Discount : IModifieder
+    public class Shipping : IModifieder
     {
-        public Discount()
+        public Shipping()
         {
-       
+            ShippingItems = new HashSet<ShippingItem>();
         }
 
-        PriceList PriceList { get; set; }
+        public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]
-        public Guid DiscountId { get; set; }
+        public Guid ShippingId { get; set; }
 
-        public decimal Present { get; set; }
+        public Distance Distance { get; set; }
 
-        public int? MinQuantity { get; set; }
+        public StatusShipping StatusShipping { get; set; }
 
-        public int? MaxQuantity { get; set; }
+        public Organization Organization { get; set; }
 
         public string Name { get; set; }
-
-        public decimal Precent { get; set; }
 
         public string Desc { get; set; }
 
@@ -63,6 +61,15 @@ namespace sln.DataModel
             set;
         }
 
-       
+        public City CityFrom { get; set; }
+        public City CityTo { get; set; }
+
+        public string AddressFrom { get; set; }
+        public string AddressTo { get; set; }
+
+        public string AddressNumFrom { get; set; }
+        public string AddressNumTo { get; set; }
+
+
     }
 }

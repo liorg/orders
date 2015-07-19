@@ -13,7 +13,13 @@ namespace sln.DataModel
         public Distance()
         {
            Organizations = new HashSet<Organization>();
+           Shippings = new HashSet<Shipping>();
         }
+
+        public ICollection<Organization> Organizations { get; set; }
+       
+        public ICollection<Shipping> Shippings { get; set; }
+       
         [Key]
         public Guid DistanceId { get; set; }
 
@@ -49,7 +55,6 @@ namespace sln.DataModel
             set;
         }
 
-        public ICollection<Organization> Organizations { get; set; }
-
+        
     }
 }

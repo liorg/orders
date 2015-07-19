@@ -15,12 +15,16 @@ namespace sln.Dal
             : base("DefaultConnection")
         {
         }
+
         public DbSet<Organization> Organization { get; set; }
         public DbSet<Distance> Distance { get; set; }
         public DbSet<PriceList> PriceList { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Discount> Discount { get; set; }
+        public DbSet<Shipping> Shipping { get; set; }
+        public DbSet<ShippingItem> ShippingItem { get; set; }
+        public DbSet<PriceCalc> PriceCalc { get; set; }
+        public DbSet<StatusShipping> StatusShipping { get; set; }
 
-        
     }
 }

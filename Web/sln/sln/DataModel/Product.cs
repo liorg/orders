@@ -14,7 +14,9 @@ namespace sln.DataModel
         {
             PriceLists = new HashSet<PriceList>();
         }
+
         public ICollection<PriceList> PriceLists { get; set; }
+
         [Key]
         public Guid ProductId { get; set; }
 

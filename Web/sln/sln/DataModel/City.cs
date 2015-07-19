@@ -9,42 +9,24 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class PriceList : IModifieder
+    public class City : IModifieder
     {
-        public PriceList()
+        public City()
         {
-            Discounts = new HashSet<Discount>();
-           
+            ShippingsFrom = new HashSet<Shipping>();
+            ShippingsTo = new HashSet<Shipping>();
+
         }
-        public ICollection<Discount> Discounts { get; set; }
 
-        Product Product { get; set; }
-
-        public Organization Organizations { get; set; }
+        public ICollection<Shipping> ShippingsFrom { get; set; }
+        public ICollection<Shipping> ShippingsTo { get; set; }
 
         [Key]
-        public Guid PriceListId { get; set; }
-
-        [Column(TypeName = "Money")]
-        public decimal Price { get; set; }
+        public Guid CityId { get; set; }
 
         public string Name { get; set; }
 
-        //public decimal MinTimeWait { get; set; }
-
         public string Desc { get; set; }
-
-        public DateTime BeginDate
-        {
-            get;
-            set;
-        }
-
-        public DateTime? EndDate
-        {
-            get;
-            set;
-        }
 
         public DateTime? CreatedOn
         {
@@ -75,6 +57,7 @@ namespace sln.DataModel
             get;
             set;
         }
- 
+
+       
     }
 }

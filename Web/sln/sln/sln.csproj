@@ -178,6 +178,13 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
+    <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\StatusTimeLine.cs" />
+    <Compile Include="DataModel\TimeLine.cs" />
+    <Compile Include="DataModel\StatusShipping.cs" />
+    <Compile Include="DataModel\PriceCalc.cs" />
+    <Compile Include="DataModel\ShippingItem.cs" />
+    <Compile Include="DataModel\Shipping.cs" />
     <Compile Include="DataModel\Discount.cs" />
     <Compile Include="DataModel\PriceList.cs" />
     <Compile Include="DataModel\Product.cs" />

@@ -16,16 +16,19 @@ namespace sln.DataModel
             PriceLists = new HashSet<PriceList>();
 
         }
+       
+        public ICollection<ApplicationUser> Users { get; set; }
+
         public ICollection<PriceList> PriceLists { get; set; }
+
         public ICollection<Distance> Distances { get; set; }
+
         [Key]
         public Guid OrgId { get; set; }
 
         public string Name { get; set; }
 
         public string Domain { get; set; }
-
-        public ICollection<ApplicationUser> Users {get;set;}
 
         public DateTime? CreatedOn
         {
