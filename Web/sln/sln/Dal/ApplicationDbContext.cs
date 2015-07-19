@@ -17,6 +17,8 @@ namespace sln.Dal
         }
         public DbSet<Organization> Organization { get; set; }
         public DbSet<Distance> Distance { get; set; }
+        public DbSet<PriceList> PriceList { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         
     }

@@ -178,6 +178,8 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
+    <Compile Include="DataModel\PriceList.cs" />
+    <Compile Include="DataModel\Product.cs" />
     <Compile Include="DataModel\Distance.cs" />
     <Compile Include="DataModel\Organization.cs" />
     <Compile Include="Global.asax.cs">
@@ -204,6 +206,14 @@
     <Compile Include="Migrations\201507182258403_distance_many_to_many.cs" />
     <Compile Include="Migrations\201507182258403_distance_many_to_many.Designer.cs">
       <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507190604480_prices.cs" />
+    <Compile Include="Migrations\201507190604480_prices.Designer.cs">
+      <DependentUpon>201507190604480_prices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507190605501_prices2.cs" />
+    <Compile Include="Migrations\201507190605501_prices2.Designer.cs">
+      <DependentUpon>201507190605501_prices2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -322,6 +332,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507182258403_distance_many_to_many.resx">
       <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507190604480_prices.resx">
+      <DependentUpon>201507190604480_prices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507190605501_prices2.resx">
+      <DependentUpon>201507190605501_prices2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
