@@ -17,9 +17,11 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBY)
+            @Html.DisplayNameFor(model => model.CreatedBy)
         </th>
-     
+      <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
         <th> @Html.DisplayNameFor(model => model.CityToName)</th>
         <th> @Html.DisplayNameFor(model => model.CityFormName)</th>
      
@@ -37,11 +39,13 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
       <td>
-            @Html.DisplayFor(model => model.CreatedBY)
+            @Html.DisplayFor(modelItem => item.CreatedBy)
         </td>
-       
-        <td> @Html.DisplayFor(model => model.CityToName)</td>
-        <td> @Html.DisplayFor(model => model.CityFormName)</td>
+         <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td> @Html.DisplayFor(modelItem => item.CityToName)</td>
+        <td> @Html.DisplayFor(modelItem => item.CityFormName)</td>
     </tr>
 }
 

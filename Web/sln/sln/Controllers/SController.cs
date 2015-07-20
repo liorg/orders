@@ -50,7 +50,7 @@ namespace sln.Controllers
                     u.Status = ship.StatusShipping.Name;
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.CreatedBY = created != null ? created.FirstName + " " + created.LastName : "";
+                    u.CreatedBy = created != null ? created.FirstName + " " + created.LastName : "";
                     u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";

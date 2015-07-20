@@ -46,7 +46,7 @@ namespace sln.Models
         public string CreatedOn { get; set; }
 
         [Display(Name = "נוצר ע''י ")]
-        public string CreatedBY { get; set; }
+        public string CreatedBy { get; set; }
 
         [Display(Name = "חישוב היעד")]
         public string DistanceName { get; set; }
