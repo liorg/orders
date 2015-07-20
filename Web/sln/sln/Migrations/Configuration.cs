@@ -51,6 +51,7 @@ namespace sln.Migrations
             //
         }
 
+      
         bool AddUserAndRoles()
         {
             bool success = false;

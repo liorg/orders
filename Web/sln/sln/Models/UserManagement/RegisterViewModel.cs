@@ -36,6 +36,10 @@ namespace sln.Models
         [Display(Name = "דוא''ל")]
         public string Email { get; set; }
 
+        [Required]
+        [Display(Name = "ארגון")]
+        public Guid OrgId { get; set; }
+
         // Return a pre-poulated instance of AppliationUser:
         public ApplicationUser GetUser()
         {

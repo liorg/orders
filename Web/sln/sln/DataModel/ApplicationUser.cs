@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +10,10 @@ namespace sln.DataModel
 {
     public class ApplicationUser : IdentityUser
     {
-
+        //public ApplicationUser()
+        //{
+        //  //  Organization = new Organization();
+        //}
         [Required]
         public string FirstName { get; set; }
 
@@ -18,7 +22,9 @@ namespace sln.DataModel
 
         [Required]
         public string Email { get; set; }
-
+       
+        public Guid? Organization_OrgId { get; set; }
+       
         public Organization Organization { get; set; }
 
        // [Required]

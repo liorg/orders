@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,8 +19,12 @@ namespace sln.DataModel
 
         }
         public ICollection<PriceListForOrg> PriceListsForOrg { get; set; }
+
+       [ForeignKey("Organization_OrgId")]
         public ICollection<ApplicationUser> Users { get; set; }
+        
         public ICollection<PriceList> PriceLists { get; set; }
+
         public ICollection<Distance> Distances { get; set; }
 
         [Key]
@@ -31,27 +36,32 @@ namespace sln.DataModel
 
         public DateTime? CreatedOn
         {
-            get; set;
+            get;
+            set;
         }
 
         public DateTime? ModifiedOn
         {
-            get; set;
+            get;
+            set;
         }
 
         public Guid? CreatedBy
         {
-            get;  set;
+            get;
+            set;
         }
 
         public Guid? ModifiedBy
         {
-            get; set;
+            get;
+            set;
         }
 
         public bool IsActive
         {
-            get;  set;
+            get;
+            set;
         }
     }
 }

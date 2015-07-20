@@ -19,7 +19,6 @@ namespace sln.Dal
             return rm.RoleExists(name);
         }
 
-
         public bool CreateRole(string name)
         {
             var rm = new RoleManager<IdentityRole>(
@@ -27,7 +26,6 @@ namespace sln.Dal
             var idResult = rm.Create(new IdentityRole(name));
             return idResult.Succeeded;
         }
-
 
         public bool CreateUser(ApplicationUser user, string password)
         {
@@ -37,7 +35,6 @@ namespace sln.Dal
             return idResult.Succeeded;
         }
 
-
         public bool AddUserToRole(string userId, string roleName)
         {
             var um = new UserManager<ApplicationUser>(
@@ -45,7 +42,6 @@ namespace sln.Dal
             var idResult = um.AddToRole(userId, roleName);
             return idResult.Succeeded;
         }
-
 
         public void ClearUserRoles(string userId)
         {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -17,8 +18,9 @@ namespace sln.DataModel
            PriceLists = new HashSet<PriceList>();
            Discounts = new HashSet<Discount>();
         }
-
+        
         public ICollection<Organization> Organizations { get; set; }
+      
         public ICollection<PriceList> PriceLists { get; set; }
         public ICollection<Shipping> Shippings { get; set; }
         public ICollection<Discount> Discounts { get; set; }
