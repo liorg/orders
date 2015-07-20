@@ -38,8 +38,9 @@ namespace sln.Controllers
                         }
 
                     }
-                    shippings = shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && sx.Organization_OrgId.Value == orgId).ToList();
                 }
+                shippings = shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToList();
+
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
