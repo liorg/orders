@@ -15,18 +15,28 @@ namespace sln.DataModel
         {
 
         }
+        [Key]
+        public Guid PriceCalcId { get; set; }
+
         public int Order { get; set; }
+
+        public int Total { get; set; }
+
+        public int TotalPerPruduct { get; set; }
+
+        public int IncrementalItem { get; set; }
+
+        public int IncrementalPerPruduct { get; set; }
 
         public Guid ShippingId { get; set; }
 
         public Guid ShippingItemId { get; set; }
 
+        public Guid PruductId { get; set; }
+
         public Guid PriceListId { get; set; }
 
         public Guid DiscountId { get; set; }
-
-        [Key]
-        public Guid PriceCalcId { get; set; }
 
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }

@@ -21,7 +21,8 @@ namespace sln.DataModel
 
         public Organization Organization { get; set; }
 
-        public bool? IsActive
+       // [Required]
+        public bool IsActive
         {
             get;
             set;

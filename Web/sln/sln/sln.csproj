@@ -244,6 +244,34 @@
     <Compile Include="Migrations\201507191500005_timeline.Designer.cs">
       <DependentUpon>201507191500005_timeline.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507200721147_PriceList.cs" />
+    <Compile Include="Migrations\201507200721147_PriceList.Designer.cs">
+      <DependentUpon>201507200721147_PriceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200722277_us.cs" />
+    <Compile Include="Migrations\201507200722277_us.Designer.cs">
+      <DependentUpon>201507200722277_us.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200723009_use.cs" />
+    <Compile Include="Migrations\201507200723009_use.Designer.cs">
+      <DependentUpon>201507200723009_use.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200724343_userre1.cs" />
+    <Compile Include="Migrations\201507200724343_userre1.Designer.cs">
+      <DependentUpon>201507200724343_userre1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200725121_useradd.cs" />
+    <Compile Include="Migrations\201507200725121_useradd.Designer.cs">
+      <DependentUpon>201507200725121_useradd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200726073_useradd3.cs" />
+    <Compile Include="Migrations\201507200726073_useradd3.Designer.cs">
+      <DependentUpon>201507200726073_useradd3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200726486_useradd5.cs" />
+    <Compile Include="Migrations\201507200726486_useradd5.Designer.cs">
+      <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -382,6 +410,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507191500005_timeline.resx">
       <DependentUpon>201507191500005_timeline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200721147_PriceList.resx">
+      <DependentUpon>201507200721147_PriceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200722277_us.resx">
+      <DependentUpon>201507200722277_us.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200723009_use.resx">
+      <DependentUpon>201507200723009_use.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200724343_userre1.resx">
+      <DependentUpon>201507200724343_userre1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200725121_useradd.resx">
+      <DependentUpon>201507200725121_useradd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200726073_useradd3.resx">
+      <DependentUpon>201507200726073_useradd3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200726486_useradd5.resx">
+      <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

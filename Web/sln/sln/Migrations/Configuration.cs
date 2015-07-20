@@ -19,7 +19,7 @@ namespace sln.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
-            AddUserAndRoles();
+         //   AddUserAndRoles();
             //var manager = new UserManager<ApplicationUser>(
             //      new UserStore<ApplicationUser>(
             //          new ApplicationDbContext()));
@@ -50,8 +50,6 @@ namespace sln.Migrations
             //    );
             //
         }
-
-
 
         bool AddUserAndRoles()
         {

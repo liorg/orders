@@ -25,9 +25,7 @@ namespace sln.DataModel
 
         public Distance Distance { get; set; }
 
-        public int? MinQuantity { get; set; }
-
-        public int? MaxQuantity { get; set; }
+        public int? MinQuantityOneWay { get; set; }
 
         public string Name { get; set; }
 
