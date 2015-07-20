@@ -148,7 +148,7 @@ namespace sln.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
+        //[LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Login(string returnUrl)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -164,7 +164,7 @@ namespace sln.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
+       // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -201,7 +201,7 @@ namespace sln.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
+       // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Register()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -217,7 +217,7 @@ namespace sln.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
+       // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             using (var db = new ApplicationDbContext())
