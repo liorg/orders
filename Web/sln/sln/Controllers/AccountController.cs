@@ -52,8 +52,9 @@ namespace sln.Controllers
         public ActionResult Edit(string id, ManageMessageId? Message = null)
         {
             var Db = new ApplicationDbContext();
-            var user = Db.Users.First(u => u.UserName == id);
+            var user = Db.Users.First(u => u.Id == id);
             var model = new EditUserViewModel(user);
+
             ViewBag.MessageId = Message;
             return View(model);
         }
@@ -67,7 +68,7 @@ namespace sln.Controllers
             if (ModelState.IsValid)
             {
                 var Db = new ApplicationDbContext();
-                var user = Db.Users.First(u => u.UserName == model.UserName);
+                var user = Db.Users.First(u => u.Id == model.UserId);
 
                 // Update the user data:
                 user.FirstName = model.FirstName;
@@ -217,7 +218,7 @@ namespace sln.Controllers
         [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (var db = new ApplicationDbContext())
             {
                 var orgs = await db.Organization.ToListAsync();
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
@@ -377,7 +378,8 @@ namespace sln.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            //identity.AddClaim(new Claim(ClaimTypes.or, user.Country));
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }

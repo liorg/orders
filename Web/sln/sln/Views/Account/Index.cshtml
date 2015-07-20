@@ -131,9 +131,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.UserName }) |
-            @Html.ActionLink("Roles", "UserRoles", new { id = item.UserName }) |
-            @*@Html.ActionLink("Delete", "Delete", new { id = item.UserName })*@
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) 
         </td>
     </tr>
 }
