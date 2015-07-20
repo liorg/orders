@@ -16,12 +16,12 @@ namespace sln.DataModel
             
         }
 
-        public Shipping Shipping { get; set; }
+        public virtual Shipping Shipping { get; set; }
 
         [Key]
         public Guid TimeLineId { get; set; }
 
-        public StatusTimeLine StatusTimeLine { get; set; }
+        public virtual StatusTimeLine StatusTimeLine { get; set; }
         public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
 
         public string Name { get; set; }

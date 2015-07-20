@@ -28,7 +28,7 @@ namespace sln.Models
         public string SreetTo{ get; set; }
 
         [Display(Name = "מספר כתובת יעד ")]
-        public string NumTם { get; set; }
+        public string NumTo { get; set; }
 
         [Display(Name = "סטאטוס")]
         public Guid StatusId { get; set; }
@@ -39,7 +39,23 @@ namespace sln.Models
         [Display(Name = "עיר יעד")]
         public Guid CityTo { get; set; }
 
+        [Display(Name = "חישוב היעד")]
+        public Guid DistanceId { get; set; }
+
+        [Display(Name = "תאריך יצירה ")]
+        public string CreatedOn { get; set; }
+
+        [Display(Name = "נוצר ע''י ")]
+        public string CreatedBY { get; set; }
+
+        [Display(Name = "חישוב היעד")]
+        public string DistanceName { get; set; }
 
 
+        [Display(Name = "עיר מקור")]
+        public string CityFormName { get; set; }
+
+        [Display(Name = "עיר יעד")]
+        public string CityToName { get; set; }
     }
 }
