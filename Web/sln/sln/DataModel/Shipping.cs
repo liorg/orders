@@ -70,10 +70,12 @@ namespace sln.DataModel
             set;
         }
 
-        public City CityFrom { get; set; }
+        public virtual City CityFrom { get; set; }
+         [ForeignKey("CityFrom")]
         public Guid? CityFrom_CityId { get; set; }
 
-        public City CityTo { get; set; }
+        public virtual City CityTo { get; set; }
+         [ForeignKey("CityTo")]
         public Guid? CityTo_CityId { get; set; }
 
         public string AddressFrom { get; set; }

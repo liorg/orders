@@ -196,6 +196,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CustomPasswordValidator.cs" />
+    <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\LayoutInjecterAttribute.cs" />
     <Compile Include="Migrations\201507201243058_sss.cs" />
     <Compile Include="Migrations\201507201243058_sss.Designer.cs">
@@ -208,6 +209,14 @@
     <Compile Include="Migrations\201507201536374_sssdc.cs" />
     <Compile Include="Migrations\201507201536374_sssdc.Designer.cs">
       <DependentUpon>201507201536374_sssdc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507201614537_city.cs" />
+    <Compile Include="Migrations\201507201614537_city.Designer.cs">
+      <DependentUpon>201507201614537_city.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507201616498_cityadd.cs" />
+    <Compile Include="Migrations\201507201616498_cityadd.Designer.cs">
+      <DependentUpon>201507201616498_cityadd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,6 +332,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507201536374_sssdc.resx">
       <DependentUpon>201507201536374_sssdc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201614537_city.resx">
+      <DependentUpon>201507201614537_city.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201616498_cityadd.resx">
+      <DependentUpon>201507201616498_cityadd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

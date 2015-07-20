@@ -123,3 +123,5 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.pdb
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.sss.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.sssd.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.sssdc.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.city.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.cityadd.resources
