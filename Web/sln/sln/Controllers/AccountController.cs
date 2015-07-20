@@ -184,7 +184,8 @@ namespace sln.Controllers
                     if (user != null)
                     {
                         await SignInAsync(user, model.RememberMe, org);
-                        return RedirectToLocal(returnUrl);
+                        //return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index","S");
                     }
                     else
                     {
