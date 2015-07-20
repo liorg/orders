@@ -76,12 +76,14 @@
     </div>
 </div>
 <div class="form-group">
+    @if(Request.IsAuthenticated && User.IsInRole("Admin"))
+{
     @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
           <div class="col-md-10">
               @Html.DropDownListFor(m => m.OrgId ,(SelectList)ViewBag.Orgs);
           </div>
+    }
 </div>
-
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <input type="submit" class="btn btn-default" value="הרשמה" />

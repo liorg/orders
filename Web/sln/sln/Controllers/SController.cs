@@ -72,6 +72,7 @@ namespace sln.Controllers
                 List<Distance> distances = new List<Distance>();
                 var city = context.City.ToList();
                 var model = new ShippingVm();
+                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
                 if (!User.IsInRole("Admin"))
                 {
@@ -82,9 +83,11 @@ namespace sln.Controllers
                         if (claim.Type == ClaimTypes.GroupSid)
                         {
                             orgId = Guid.Parse(claim.Value);
+
                             break;
                         }
                     }
+                    model.OrgId = orgId;
                     distances = context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
                 }
                 else

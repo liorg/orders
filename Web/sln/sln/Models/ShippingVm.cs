@@ -57,5 +57,9 @@ namespace sln.Models
 
         [Display(Name = "עיר יעד")]
         public string CityToName { get; set; }
+
+        [Required]
+        [Display(Name = "ארגון")]
+        public Guid OrgId { get; set; }
     }
 }
