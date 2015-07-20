@@ -17,16 +17,22 @@ namespace sln.DataModel
             TimeLines = new HashSet<TimeLine>();
         }
         public ICollection<TimeLine> TimeLines { get; set; }
+
+        [ForeignKey("Shipping_ShippingId")]
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]
         public Guid ShippingId { get; set; }
 
+        public Guid? Distance_DistanceId { get; set; }
         public Distance Distance { get; set; }
 
         public StatusShipping StatusShipping { get; set; }
+        public Guid? StatusShipping_StatusShippingId { get; set; }
+        
 
         public Organization Organization { get; set; }
+        public Guid? Organization_OrgId { get; set; }
 
         public string Name { get; set; }
 
@@ -63,7 +69,10 @@ namespace sln.DataModel
         }
 
         public City CityFrom { get; set; }
+        public Guid? CityFrom_CityId { get; set; }
+        
         public City CityTo { get; set; }
+        public Guid? CityTo_CityId { get; set; }
 
         public string AddressFrom { get; set; }
         public string AddressTo { get; set; }

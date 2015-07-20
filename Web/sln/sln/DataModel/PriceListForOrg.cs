@@ -17,7 +17,8 @@ namespace sln.DataModel
         }
 
         public Organization Organizations { get; set; }
-
+        public Guid? Organizations_OrgId { get; set; }
+        
         [Key]
         public Guid PriceListForOrgId { get; set; }
 

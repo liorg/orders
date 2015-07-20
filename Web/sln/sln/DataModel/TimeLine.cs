@@ -22,6 +22,7 @@ namespace sln.DataModel
         public Guid TimeLineId { get; set; }
 
         public StatusTimeLine StatusTimeLine { get; set; }
+        public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
 
         public string Name { get; set; }
 

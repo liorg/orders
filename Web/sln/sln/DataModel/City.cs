@@ -13,12 +13,13 @@ namespace sln.DataModel
     {
         public City()
         {
-            //ShippingsFrom = new HashSet<Shipping>();
-            //ShippingsTo = new HashSet<Shipping>();
+         //   ShippingsFrom = new HashSet<Shipping>();
+          //  ShippingsTo = new HashSet<Shipping>();
 
         }
-
+        //[ForeignKey("CityFrom_CityId")]
         //public ICollection<Shipping> ShippingsFrom { get; set; }
+        //[ForeignKey("CityTo_CityId")]
         //public ICollection<Shipping> ShippingsTo { get; set; }
 
         [Key]

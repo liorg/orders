@@ -16,6 +16,7 @@ namespace sln.DataModel
             Shippings = new HashSet<Shipping>();
         }
 
+        [ForeignKey("StatusShipping_StatusShippingId")]
         public ICollection<Shipping> Shippings { get; set; }
         
         [Key]

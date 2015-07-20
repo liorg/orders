@@ -17,6 +17,7 @@ namespace sln.DataModel
         }
 
         PriceList PriceList { get; set; }
+        public Guid? PriceList_PriceListId  { get; set; }
 
         [Key]
         public Guid DiscountId { get; set; }
@@ -24,6 +25,7 @@ namespace sln.DataModel
         public decimal Present { get; set; }
 
         public Distance Distance { get; set; }
+        public Guid? Distance_DistanceId { get; set; }
 
         public int? MinQuantityOneWay { get; set; }
 
@@ -63,6 +65,5 @@ namespace sln.DataModel
             set;
         }
 
-       
     }
 }

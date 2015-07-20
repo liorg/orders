@@ -17,6 +17,8 @@ namespace sln.DataModel
         }
         
         public Shipping Shipping { get; set; }
+        public Guid? Shipping_ShippingId { get; set; }
+
 
         [Key]
         public Guid ShippingItemId { get; set; }

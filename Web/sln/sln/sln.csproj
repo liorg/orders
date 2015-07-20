@@ -224,6 +224,14 @@
     <Compile Include="Migrations\201507200957492_fg3.Designer.cs">
       <DependentUpon>201507200957492_fg3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507201225030_fghazu.cs" />
+    <Compile Include="Migrations\201507201225030_fghazu.Designer.cs">
+      <DependentUpon>201507201225030_fghazu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507201243058_sss.cs" />
+    <Compile Include="Migrations\201507201243058_sss.Designer.cs">
+      <DependentUpon>201507201243058_sss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -347,6 +355,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507200957492_fg3.resx">
       <DependentUpon>201507200957492_fg3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201225030_fghazu.resx">
+      <DependentUpon>201507201225030_fghazu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201243058_sss.resx">
+      <DependentUpon>201507201243058_sss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

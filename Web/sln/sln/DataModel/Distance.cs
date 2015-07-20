@@ -20,9 +20,14 @@ namespace sln.DataModel
         }
         
         public ICollection<Organization> Organizations { get; set; }
-      
+
+        [ForeignKey("Distance_DistanceId")]
         public ICollection<PriceList> PriceLists { get; set; }
+
+        [ForeignKey("Distance_DistanceId")]
         public ICollection<Shipping> Shippings { get; set; }
+
+        // many to many
         public ICollection<Discount> Discounts { get; set; }
 
         [Key]

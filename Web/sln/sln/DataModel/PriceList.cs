@@ -16,13 +16,17 @@ namespace sln.DataModel
             Discounts = new HashSet<Discount>();
            
         }
+        [ForeignKey("PriceList_PriceListId")]
         public ICollection<Discount> Discounts { get; set; }
 
         Product Product { get; set; }
-
+        public Guid? Product_ProductId { get; set; }
+        
         public Distance Distance { get; set; }
-
+        public Guid? Distance_DistanceId { get; set; }
+        
         public Organization Organizations { get; set; }
+        public Guid? Organizations_OrgId { get; set; }
 
         [Key]
         public Guid PriceListId { get; set; }

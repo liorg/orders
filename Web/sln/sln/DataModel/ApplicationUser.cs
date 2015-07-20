@@ -10,10 +10,6 @@ namespace sln.DataModel
 {
     public class ApplicationUser : IdentityUser
     {
-        //public ApplicationUser()
-        //{
-        //  //  Organization = new Organization();
-        //}
         [Required]
         public string FirstName { get; set; }
 

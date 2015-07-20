@@ -127,3 +127,6 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.in
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.PRICEUPDATE.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.fg.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.fg3.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.csprojResolveAssemblyReference.cache
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.fghazu.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.sss.resources
