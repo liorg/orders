@@ -173,6 +173,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\SController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
@@ -196,46 +197,23 @@
     </Compile>
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\LayoutInjecterAttribute.cs" />
-    <Compile Include="Migrations\201507200726486_useradd5.cs" />
-    <Compile Include="Migrations\201507200726486_useradd5.Designer.cs">
-      <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200734206_init.cs" />
-    <Compile Include="Migrations\201507200734206_init.Designer.cs">
-      <DependentUpon>201507200734206_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200737161_init2.cs" />
-    <Compile Include="Migrations\201507200737161_init2.Designer.cs">
-      <DependentUpon>201507200737161_init2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200738374_init3.cs" />
-    <Compile Include="Migrations\201507200738374_init3.Designer.cs">
-      <DependentUpon>201507200738374_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200749143_PRICE-UPDATE.cs" />
-    <Compile Include="Migrations\201507200749143_PRICE-UPDATE.Designer.cs">
-      <DependentUpon>201507200749143_PRICE-UPDATE.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200954423_fg.cs" />
-    <Compile Include="Migrations\201507200954423_fg.Designer.cs">
-      <DependentUpon>201507200954423_fg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200957492_fg3.cs" />
-    <Compile Include="Migrations\201507200957492_fg3.Designer.cs">
-      <DependentUpon>201507200957492_fg3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507201225030_fghazu.cs" />
-    <Compile Include="Migrations\201507201225030_fghazu.Designer.cs">
-      <DependentUpon>201507201225030_fghazu.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507201243058_sss.cs" />
     <Compile Include="Migrations\201507201243058_sss.Designer.cs">
       <DependentUpon>201507201243058_sss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507201532352_sssd.cs" />
+    <Compile Include="Migrations\201507201532352_sssd.Designer.cs">
+      <DependentUpon>201507201532352_sssd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507201536374_sssdc.cs" />
+    <Compile Include="Migrations\201507201536374_sssdc.Designer.cs">
+      <DependentUpon>201507201536374_sssdc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\ShippingVm.cs" />
     <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
     <Compile Include="Models\UserManagement\LoginViewModel.cs" />
     <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
@@ -323,6 +301,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\UserRoles.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\s\Index.cshtml" />
+    <Content Include="Views\s\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,32 +315,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507200726486_useradd5.resx">
-      <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200734206_init.resx">
-      <DependentUpon>201507200734206_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200737161_init2.resx">
-      <DependentUpon>201507200737161_init2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200738374_init3.resx">
-      <DependentUpon>201507200738374_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200749143_PRICE-UPDATE.resx">
-      <DependentUpon>201507200749143_PRICE-UPDATE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200954423_fg.resx">
-      <DependentUpon>201507200954423_fg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200957492_fg3.resx">
-      <DependentUpon>201507200957492_fg3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507201225030_fghazu.resx">
-      <DependentUpon>201507201225030_fghazu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507201243058_sss.resx">
       <DependentUpon>201507201243058_sss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201532352_sssd.resx">
+      <DependentUpon>201507201532352_sssd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507201536374_sssdc.resx">
+      <DependentUpon>201507201536374_sssdc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,7 @@ namespace sln.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init2 : DbMigration
+    public partial class sssd : DbMigration
     {
         public override void Up()
         {

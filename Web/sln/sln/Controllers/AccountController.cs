@@ -26,6 +26,7 @@ namespace sln.Controllers
         {
 
         }
+
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
@@ -347,10 +348,6 @@ namespace sln.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        //
-
-
 
         protected override void Dispose(bool disposing)
         {

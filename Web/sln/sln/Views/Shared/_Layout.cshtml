@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/admin")
 
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
@@ -15,8 +16,7 @@
             padding-top: 70px;
         }
     </style>
-    <link href="Content/css/sb-admin-2.css" rel="stylesheet" />
-    <link href="Content/css/timeline.css" rel="stylesheet" />
+
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -41,7 +41,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
+                        <a href="/s/create"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
                     </li>
                     @Html.Partial("_LoginPartial")
                 </ul>
@@ -64,6 +64,9 @@
 
 
     <div class="container">
+@if(Request.IsAuthenticated)
+
+{
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">
@@ -74,7 +77,7 @@
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">חדש</div>
-                                <div>צור משלוח חדש</div>
+                                <div>  @Html.ActionLink("צור משלוח חדש", "Create") </div>
                             </div>
                         </div>
                     </div>
@@ -154,6 +157,7 @@
                 </div>
             </div>
         </div>
+}
         @RenderBody()
         <hr />
         <footer>

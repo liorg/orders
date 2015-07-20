@@ -7,13 +7,13 @@ namespace sln.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class init2 : IMigrationMetadata
+    public sealed partial class sssdc : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(sssdc));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507200737161_init2"; }
+            get { return "201507201536374_sssdc"; }
         }
         
         string IMigrationMetadata.Source

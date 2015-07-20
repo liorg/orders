@@ -26,6 +26,10 @@ namespace sln
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap-rtl.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/admin").Include(
+                     "~/Content/css/sb-admin-2.css",
+                     "~/Content/css/timeline.css"));
         }
     }
 }

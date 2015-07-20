@@ -22,21 +22,22 @@ namespace sln.Models
         }
 
         [Required]
-        [Display(Name = "User Id")]
+        [Display(Name = "מזהה")]
         public string UserId { get; set; }
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name = "שם פרטי")]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name = "שם משפחה")]
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "דואל")]
         public string Email { get; set; }
     }
 }
