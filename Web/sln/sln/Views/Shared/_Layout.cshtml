@@ -65,7 +65,6 @@
 
     <div class="container">
 @if(Request.IsAuthenticated)
-
 {
         <div class="row">
             <div class="col-lg-3 col-md-6">
@@ -77,13 +76,13 @@
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">חדש</div>
-                                <div>  @Html.ActionLink("צור משלוח חדש", "Create") </div>
+                                <div> משלוח חדש</div>
                             </div>
                         </div>
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-right"><a href="/s/create">צור משלוח חדש</a> </span>
                             <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>
@@ -105,7 +104,7 @@
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-right"><a href="/s">פרטים נוספים</a></span>
                             <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>
