@@ -1,6 +1,6 @@
 ﻿@model sln.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "רישום משתמש חדש";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -51,21 +51,26 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
 </div>
-<div class="form-group">  <div class="col-md-2">תפקידים</div>
+<div class="form-group">
+    <div class="col-md-2 control-label">תפקידים</div>
     <div class="col-md-2">
-        @Html.CheckBoxFor(m => m.IsAdmin)
-                            @Html.LabelFor(m => m.IsAdmin)
+        @Html.CheckBoxFor(m => m.IsOrgMangager)
+                            @Html.LabelFor(m => m.IsOrgMangager)
     </div>
-    <div class="col-md-2">
-        @Html.CheckBoxFor(m => m.IsRunner)
+    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+     <div class="col-md-2">
+         @Html.CheckBoxFor(m => m.IsRunner)
                             @Html.LabelFor(m => m.IsRunner)
-    </div>
+     </div>
+    }
+   
     <div class="col-md-2">
         @Html.CheckBoxFor(m => m.IsCreateOrder)
                             @Html.LabelFor(m => m.IsCreateOrder)
     </div>
     <div class="col-md-2">
-        @Html.CheckBoxFor(m => m.IsRunner)
+        @Html.CheckBoxFor(m => m.IsAcceptOrder)
                             @Html.LabelFor(m => m.IsAcceptOrder)
     </div>
 </div>

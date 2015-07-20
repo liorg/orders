@@ -243,27 +243,21 @@ namespace sln.Controllers
 
                     IdentityManager manager = new IdentityManager();
                     if (model.IsAdmin)
-                    {
-                        var isOk = manager.AddUserToRole(UserManager,user.Id, "Admin");
-                    }
+                        manager.AddUserToRole(UserManager,user.Id, "Admin");
+                    
                     if (model.IsCreateOrder)
-                    {
-                        manager.AddUserToRole(UserManager, user.Id, "User");
-                    }
+                      manager.AddUserToRole(UserManager, user.Id, "User");
+                    
                     if (model.IsOrgMangager)
-                    {
-                        manager.AddUserToRole(UserManager, user.Id, "OrgManager");
-                    }
+                      manager.AddUserToRole(UserManager, user.Id, "OrgManager");
+                    
                     if (model.IsRunner)
-                    {
-                        manager.AddUserToRole(UserManager, user.Id, "Runner");
-                    }
+                      manager.AddUserToRole(UserManager, user.Id, "Runner");
+                    
                     if (model.IsAcceptOrder)
-                    {
-                        manager.AddUserToRole(UserManager, user.Id, "Accept");
-                    }
+                      manager.AddUserToRole(UserManager, user.Id, "Accept");
+                    
                    
-
                     if (result.Succeeded)
                     {
                         await SignInAsync(user, isPersistent: false,org: org);
