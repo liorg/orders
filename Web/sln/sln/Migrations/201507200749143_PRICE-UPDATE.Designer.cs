@@ -7,13 +7,13 @@ namespace sln.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class timeline : IMigrationMetadata
+    public sealed partial class PRICEUPDATE : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(timeline));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PRICEUPDATE));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507191500005_timeline"; }
+            get { return "201507200749143_PRICE-UPDATE"; }
         }
         
         string IMigrationMetadata.Source

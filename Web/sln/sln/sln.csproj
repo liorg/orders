@@ -196,81 +196,25 @@
     </Compile>
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\LayoutInjecterAttribute.cs" />
-    <Compile Include="Migrations\201507121757103_init.cs" />
-    <Compile Include="Migrations\201507121757103_init.Designer.cs">
-      <DependentUpon>201507121757103_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507182232497_domain.cs" />
-    <Compile Include="Migrations\201507182232497_domain.Designer.cs">
-      <DependentUpon>201507182232497_domain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507182250176_d.cs" />
-    <Compile Include="Migrations\201507182250176_d.Designer.cs">
-      <DependentUpon>201507182250176_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507182255580_distance.cs" />
-    <Compile Include="Migrations\201507182255580_distance.Designer.cs">
-      <DependentUpon>201507182255580_distance.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507182258403_distance_many_to_many.cs" />
-    <Compile Include="Migrations\201507182258403_distance_many_to_many.Designer.cs">
-      <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507190604480_prices.cs" />
-    <Compile Include="Migrations\201507190604480_prices.Designer.cs">
-      <DependentUpon>201507190604480_prices.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507190605501_prices2.cs" />
-    <Compile Include="Migrations\201507190605501_prices2.Designer.cs">
-      <DependentUpon>201507190605501_prices2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507190935269_zzz.cs" />
-    <Compile Include="Migrations\201507190935269_zzz.Designer.cs">
-      <DependentUpon>201507190935269_zzz.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507191451394_ss.cs" />
-    <Compile Include="Migrations\201507191451394_ss.Designer.cs">
-      <DependentUpon>201507191451394_ss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507191452405_ssד.cs" />
-    <Compile Include="Migrations\201507191452405_ssד.Designer.cs">
-      <DependentUpon>201507191452405_ssד.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507191455207_city3.cs" />
-    <Compile Include="Migrations\201507191455207_city3.Designer.cs">
-      <DependentUpon>201507191455207_city3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507191500005_timeline.cs" />
-    <Compile Include="Migrations\201507191500005_timeline.Designer.cs">
-      <DependentUpon>201507191500005_timeline.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200721147_PriceList.cs" />
-    <Compile Include="Migrations\201507200721147_PriceList.Designer.cs">
-      <DependentUpon>201507200721147_PriceList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200722277_us.cs" />
-    <Compile Include="Migrations\201507200722277_us.Designer.cs">
-      <DependentUpon>201507200722277_us.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200723009_use.cs" />
-    <Compile Include="Migrations\201507200723009_use.Designer.cs">
-      <DependentUpon>201507200723009_use.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200724343_userre1.cs" />
-    <Compile Include="Migrations\201507200724343_userre1.Designer.cs">
-      <DependentUpon>201507200724343_userre1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200725121_useradd.cs" />
-    <Compile Include="Migrations\201507200725121_useradd.Designer.cs">
-      <DependentUpon>201507200725121_useradd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507200726073_useradd3.cs" />
-    <Compile Include="Migrations\201507200726073_useradd3.Designer.cs">
-      <DependentUpon>201507200726073_useradd3.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507200726486_useradd5.cs" />
     <Compile Include="Migrations\201507200726486_useradd5.Designer.cs">
       <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200734206_init.cs" />
+    <Compile Include="Migrations\201507200734206_init.Designer.cs">
+      <DependentUpon>201507200734206_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200737161_init2.cs" />
+    <Compile Include="Migrations\201507200737161_init2.Designer.cs">
+      <DependentUpon>201507200737161_init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200738374_init3.cs" />
+    <Compile Include="Migrations\201507200738374_init3.Designer.cs">
+      <DependentUpon>201507200738374_init3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507200749143_PRICE-UPDATE.cs" />
+    <Compile Include="Migrations\201507200749143_PRICE-UPDATE.Designer.cs">
+      <DependentUpon>201507200749143_PRICE-UPDATE.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -375,62 +319,20 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507121757103_init.resx">
-      <DependentUpon>201507121757103_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507182232497_domain.resx">
-      <DependentUpon>201507182232497_domain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507182250176_d.resx">
-      <DependentUpon>201507182250176_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507182255580_distance.resx">
-      <DependentUpon>201507182255580_distance.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507182258403_distance_many_to_many.resx">
-      <DependentUpon>201507182258403_distance_many_to_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507190604480_prices.resx">
-      <DependentUpon>201507190604480_prices.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507190605501_prices2.resx">
-      <DependentUpon>201507190605501_prices2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507190935269_zzz.resx">
-      <DependentUpon>201507190935269_zzz.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507191451394_ss.resx">
-      <DependentUpon>201507191451394_ss.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507191452405_ssד.resx">
-      <DependentUpon>201507191452405_ssד.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507191455207_city3.resx">
-      <DependentUpon>201507191455207_city3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507191500005_timeline.resx">
-      <DependentUpon>201507191500005_timeline.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200721147_PriceList.resx">
-      <DependentUpon>201507200721147_PriceList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200722277_us.resx">
-      <DependentUpon>201507200722277_us.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200723009_use.resx">
-      <DependentUpon>201507200723009_use.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200724343_userre1.resx">
-      <DependentUpon>201507200724343_userre1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200725121_useradd.resx">
-      <DependentUpon>201507200725121_useradd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507200726073_useradd3.resx">
-      <DependentUpon>201507200726073_useradd3.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507200726486_useradd5.resx">
       <DependentUpon>201507200726486_useradd5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200734206_init.resx">
+      <DependentUpon>201507200734206_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200737161_init2.resx">
+      <DependentUpon>201507200737161_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200738374_init3.resx">
+      <DependentUpon>201507200738374_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507200749143_PRICE-UPDATE.resx">
+      <DependentUpon>201507200749143_PRICE-UPDATE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

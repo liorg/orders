@@ -71,6 +71,13 @@ namespace sln.DataModel
         public string AddressNumFrom { get; set; }
         public string AddressNumTo { get; set; }
 
+        [Column(TypeName = "Money")]
+        public decimal Price { get; set; }
+
+        public decimal TimeWait { get; set; }
+
+        [Column(TypeName = "Money")]
+        public decimal EstimatedPrice { get; set; }
 
     }
 }

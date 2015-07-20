@@ -19,7 +19,7 @@ namespace sln.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
-         //   AddUserAndRoles();
+           AddUserAndRoles();
             //var manager = new UserManager<ApplicationUser>(
             //      new UserStore<ApplicationUser>(
             //          new ApplicationDbContext()));
@@ -68,26 +68,27 @@ namespace sln.Migrations
 
             var newUser = new ApplicationUser()
             {
-                UserName = "jatten",
-                FirstName = "John",
-                LastName = "Atten",
-                Email = "jatten@typecastexception.com"
+                UserName = "r",
+                FirstName = "עבדיאן",
+                LastName = "רן",
+                Email = "r@rw.com",
+                IsActive=true
             };
 
             // Be careful here - you  will need to use a password which will 
             // be valid under the password rules for the application, 
             // or the process will abort:
-            success = idManager.CreateUser(newUser, "Password1");
+            success = idManager.CreateUser(newUser, "Aa123456");
             if (!success) return success;
 
             success = idManager.AddUserToRole(newUser.Id, "Admin");
             if (!success) return success;
 
-            success = idManager.AddUserToRole(newUser.Id, "CanEdit");
-            if (!success) return success;
+            //success = idManager.AddUserToRole(newUser.Id, "CanEdit");
+            //if (!success) return success;
 
-            success = idManager.AddUserToRole(newUser.Id, "User");
-            if (!success) return success;
+            //success = idManager.AddUserToRole(newUser.Id, "User");
+            //if (!success) return success;
 
             return success;
         }
