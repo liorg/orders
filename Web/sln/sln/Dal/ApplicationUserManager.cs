@@ -15,6 +15,7 @@ namespace sln.Dal
           public ApplicationUserManager(): base(new UserStore<ApplicationUser>(new ApplicationDbContext()))
           {
               PasswordValidator = new CustomPasswordValidator(1);
+             
           }
   }
 }

@@ -40,6 +40,22 @@ namespace sln.Models
         [Display(Name = "ארגון")]
         public Guid OrgId { get; set; }
 
+       
+        [Display(Name = "תפקיד מנהל מערכת")]
+        public bool IsAdmin { get; set; }
+
+        [Display(Name = "תפקיד מנהל ארגוני")]
+        public bool IsOrgMangager { get; set; }
+
+        [Display(Name = "תפקיד שליח")]
+        public bool IsRunner{ get; set; }
+
+        [Display(Name = "תפקיד יוצר הזמנה")]
+        public bool IsCreateOrder { get; set; }
+
+        [Display(Name = "תפקיד מאשר הזמנה")]
+        public bool IsAcceptOrder { get; set; }
+
         // Return a pre-poulated instance of AppliationUser:
         public ApplicationUser GetUser()
         {

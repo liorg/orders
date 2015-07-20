@@ -39,10 +39,20 @@ namespace sln.Dal
         {
             var um = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
+            
             var idResult = um.AddToRole(userId, roleName);
             return idResult.Succeeded;
         }
+        public bool AddUserToRole(UserManager<ApplicationUser> um, string userId, string roleName)
+        {
+            //var um = new UserManager<ApplicationUser>(
+            //    new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
+
+            var idResult = um.AddToRole(userId, roleName);
+            return idResult.Succeeded;
+        }
         public void ClearUserRoles(string userId)
         {
             var um = new UserManager<ApplicationUser>(

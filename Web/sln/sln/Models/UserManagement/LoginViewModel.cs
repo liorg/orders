@@ -17,20 +17,13 @@ namespace sln.Models
         [Display(Name = "סיסמא")]
         public string Password { get; set; }
 
+        [Required]
+        [Display(Name = "ארגון")]
+        public Guid OrgId { get; set; }
+
         [Display(Name = "זכור אותי?")]
         public bool RememberMe { get; set; }
 
-        //[Required]
-        //[Display(Name = "שם פרטי")]
-        //public string FirstName { get; set; }
-
-        //[Required]
-        //[Display(Name = "שם משפחה")]
-        //public string LastName { get; set; }
-
-        //[Required]
-        //[Display(Name = "דוא''ל")]
-        //public string Email { get; set; }
 
     }
 }

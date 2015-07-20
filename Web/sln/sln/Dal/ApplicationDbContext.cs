@@ -15,7 +15,7 @@ namespace sln.Dal
             : base("DefaultConnection")
         {
         }
-
+       
         public DbSet<Organization> Organization { get; set; }
         public DbSet<Distance> Distance { get; set; }
         public DbSet<PriceList> PriceList { get; set; }

@@ -20,11 +20,7 @@ namespace sln.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //public AccountController()
-        //    : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        //{
-        //   // PasswordValidator = new CustomPasswordValidator(10);
-        //}
+
         public AccountController()
             : this(new ApplicationUserManager())
         {
@@ -33,20 +29,23 @@ namespace sln.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
         //  [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var Db = new ApplicationDbContext();
-            var users = Db.Users;
-            var model = new List<EditUserViewModel>();
-            foreach (var user in users)
+            using (var Db = new ApplicationDbContext())
             {
-                var u = new EditUserViewModel(user);
-                model.Add(u);
+                var users = Db.Users;
+                var model = new List<EditUserViewModel>();
+                foreach (var user in users)
+                {
+                    var u = new EditUserViewModel(user);
+                    model.Add(u);
+                }
+                return View(model);
             }
-            return View(model);
         }
 
         // [Authorize(Roles = "Admin")]
@@ -150,6 +149,11 @@ namespace sln.Controllers
         [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Login(string returnUrl)
         {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
+
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -164,18 +168,29 @@ namespace sln.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                using (ApplicationDbContext context = new ApplicationDbContext())
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    var orgs = await context.Organization.ToListAsync();
+                    ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
+                    var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
+                    var userName = model.UserName;
+                    if (org.Name != "www")
+                    {
+                        userName = model.UserName + "@" + org.Domain;
+                    }
+                    var user = await UserManager.FindAsync(userName, model.Password);
+                    if (user != null)
+                    {
+                        await SignInAsync(user, model.RememberMe, org);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                    }
                 }
             }
-
+            
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -202,32 +217,66 @@ namespace sln.Controllers
         [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                var org = new Organization();
-                
-                // from the ViewModel data:
-                var user = new ApplicationUser()
+                var orgs = await db.Organization.ToListAsync();
+                ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
+                var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
+                var userName = model.UserName;
+                if (org.Name != "www")
                 {
-                    UserName = model.UserName,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    IsActive = true,
-                    Organization_OrgId = model.OrgId
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    userName = model.UserName + "@" + org.Domain;
                 }
-                else
+                if (ModelState.IsValid)
                 {
-                    AddErrors(result);
+                    var user = new ApplicationUser()
+                    {
+                        UserName = userName,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        IsActive = true,
+                        Organization_OrgId = model.OrgId
+                    };
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    IdentityManager manager = new IdentityManager();
+                    if (model.IsAdmin)
+                    {
+                        var isOk = manager.AddUserToRole(UserManager,user.Id, "Admin");
+                    }
+                    if (model.IsCreateOrder)
+                    {
+                        manager.AddUserToRole(UserManager, user.Id, "User");
+                    }
+                    if (model.IsOrgMangager)
+                    {
+                        manager.AddUserToRole(UserManager, user.Id, "OrgManager");
+                    }
+                    if (model.IsRunner)
+                    {
+                        manager.AddUserToRole(UserManager, user.Id, "Runner");
+                    }
+                    if (model.IsAcceptOrder)
+                    {
+                        manager.AddUserToRole(UserManager, user.Id, "Accept");
+                    }
+                   
+
+                    if (result.Succeeded)
+                    {
+                        await SignInAsync(user, isPersistent: false,org: org);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
                 }
+
+                return View(model);
             }
-            return View(model);
         }
 
         public ActionResult Manage(ManageMessageId? message)
@@ -330,10 +379,12 @@ namespace sln.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent,Organization org)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            //identity.AddClaim(new Claim(ClaimTypes.or, user.Country));
+
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
