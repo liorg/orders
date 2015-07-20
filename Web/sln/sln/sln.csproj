@@ -238,6 +238,8 @@
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\timeline.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\c.png" />
+    <Content Include="Content\img\c32.png" />
     <Content Include="Content\img\delivery.png" />
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
@@ -257,6 +259,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\carousel-rtl.js" />
