@@ -15,7 +15,8 @@
             padding-top: 70px;
         }
     </style>
-    
+    <link href="Content/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="Content/css/timeline.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,8 +29,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><img src="../Content/img/c32.png" /> <span>רן שליחויות</span></a>
-              
+                <a class="navbar-brand" href="/">
+                    <img src="../Content/img/c32.png" />
+                    <span>רן שליחויות</span></a>
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -38,9 +41,9 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio"><span class="glyphicon glyphicon-plus"> </span> צור משלוח חדש </a>
+                        <a href="#portfolio"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
                     </li>
-                     @Html.Partial("_LoginPartial")
+                    @Html.Partial("_LoginPartial")
                 </ul>
                 @*<div class="col-sm-3 col-md-3">
                     <form class="navbar-form" role="search">
@@ -51,13 +54,106 @@
                             </div>
                         </div>
                     </form>
-                </div>*@
+                </div>
+                *@
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+
     <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div class="huge">חדש</div>
+                                <div>צור משלוח חדש</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div class="huge">12</div>
+                                <div>משלוחים חדשים</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-shopping-cart fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div class="huge">124</div>
+                                <div>משלוחים שמחכים לאישור!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-left">
+                                <div class="huge">13</div>
+                                <div>משלוחים שלא אושרו!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-right">הצג פרטים</span>
+                            <span class="pull-left"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
         @RenderBody()
         <hr />
         <footer>
