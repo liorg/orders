@@ -56,8 +56,6 @@ namespace sln.Controllers
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
 
-
-
                     model.Add(u);
 
                 }

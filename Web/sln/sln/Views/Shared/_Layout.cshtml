@@ -43,9 +43,23 @@
                     <li class="page-scroll">
                         <a href="/s/create"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Account/">ניהול משתמשים</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תצוגות<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">משלוחים שלי</a></li>
+                            <li><a href="#">דוח מתחילת החודש</a></li>
+                            <li><a href="#">משלוחים חדשים</a></li>
+                        </ul>
+                    </li>
                     @Html.Partial("_LoginPartial")
                 </ul>
-                @*<div class="col-sm-3 col-md-3">
+                <div class="col-sm-3 col-md-3">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q">
@@ -55,7 +69,7 @@
                         </div>
                     </form>
                 </div>
-                *@
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -64,7 +78,7 @@
 
 
     <div class="container">
-@if(Request.IsAuthenticated)
+        @if(Request.IsAuthenticated)
 {
         <div class="row hidden-xs hidden-sm">
             <div class="col-lg-3 col-md-6">
@@ -76,7 +90,7 @@
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div class="huge">חדש</div>
-                                <div> משלוח חדש</div>
+                                <div>משלוח חדש</div>
                             </div>
                         </div>
                     </div>
@@ -156,12 +170,14 @@
                 </div>
             </div>
         </div>
-}
+        }
         @RenderBody()
         <hr />
-     @*   <footer>
+        @*  
+        <footer>
             <p>&copy; @DateTime.Now.Year רן שליחויות</p>
-        </footer>*@
+        </footer>
+        *@
     </div>
 
     @RenderSection("scripts", required: false)

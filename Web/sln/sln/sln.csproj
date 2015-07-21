@@ -286,6 +286,7 @@
     <Content Include="Test\f.html" />
     <Content Include="Test\m.html" />
     <Content Include="Test\h.html" />
+    <Content Include="Test\ping.html" />
     <Content Include="Test\sr.html" />
     <Content Include="Test\s.html" />
     <Content Include="Test\t1.html" />
@@ -312,9 +313,9 @@
     <Content Include="Views\Shared\Homepage.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\UserRoles.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\s\Index.cshtml" />
     <Content Include="Views\s\Create.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
