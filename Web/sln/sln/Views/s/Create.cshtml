@@ -10,7 +10,26 @@
 {
     @Html.AntiForgeryToken()
     
-<hr />
+ <div class="stepwizard">
+     <div class="stepwizard-row setup-panel">
+         <div class="stepwizard-step">
+             <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+             <p>יצירת הזמנה</p>
+         </div>
+         <div class="stepwizard-step">
+             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+             <p>הוסף פרטי לקוח</p>
+         </div>
+         <div class="stepwizard-step">
+             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+             <p>שלח הזמנה</p>
+         </div>
+         <div class="stepwizard-step">
+             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+             <p>קבלת הזמנה</p>
+         </div>
+     </div>
+ </div>
 @Html.ValidationSummary()
    
 <div class="form-group">

@@ -21,19 +21,31 @@ namespace sln.Controllers
     public class AccountController : Controller
     {
 
+        //public AccountController()
+        //    : this(new ApplicationUserManager())
+        //{
+
+        //}
+        public ApplicationDbContext DBContext;
+
         public AccountController()
-            : this(new ApplicationUserManager())
+            : this(null)
         {
 
         }
-
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<ApplicationUser> userManager = null)
         {
+            DBContext = new ApplicationDbContext();
+
+            if (userManager == null)
+                userManager = new ApplicationUserManager(DBContext);
+
+
             UserManager = userManager;
             UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
-       //  [Authorize(Roles = HelperAutorize.RoleAdmin)]
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Index()
         {
             using (var context = new ApplicationDbContext())
@@ -49,13 +61,16 @@ namespace sln.Controllers
             }
         }
 
-        // [Authorize(Roles = "Admin")]
-        public ActionResult Edit(string id, ManageMessageId? Message = null)
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
+        //public ActionResult Edit(string id, ManageMessageId? Message = null)
+        public async Task<ActionResult> Edit(string id, ManageMessageId? Message = null)
         {
             // var Db = new ApplicationDbContext();
-            using (var context = new ApplicationDbContext())
+            //  using (var context = new ApplicationDbContext())
             {
-                var user = context.Users.First(u => u.Id == id);
+                var context = DBContext;
+                var user = await context.Users.FirstAsync(u => u.Id == id);
+                //var user = context.Users.First(u => u.Id == id);
                 var model = new EditUserViewModel(user);
                 if (user.Roles != null && user.Roles.Any())
                 {
@@ -86,17 +101,20 @@ namespace sln.Controllers
         [HttpPost]
         // [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public async Task<ActionResult> Edit(EditUserViewModel model)
         {
-        //    if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
-                using (var context = new ApplicationDbContext())
+                // using (var context = new ApplicationDbContext())
                 {
-                  //  var context = new ApplicationDbContext();
-                  //  UserManager.FindById(
-                    var user = context.Users.Find(model.UserId.ToString());
+                    var id = model.UserId.ToString();
+                    var context = DBContext;
+                    //  var context = new ApplicationDbContext();
+                    //  UserManager.FindById(
+                   // var user = context.Users.Find(model.UserId.ToString());
                     //var user = await UserManager.FindByIdAsync(model.UserId.ToString());
-                  //  var user = await context.Users.FirstAsync(u => u.Id == model.UserId.ToString());
+                      var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
@@ -251,11 +269,14 @@ namespace sln.Controllers
         // GET: /Account/Register
         //  [AllowAnonymous]
         // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
-        [Authorize]
+        // [Authorize]
+
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Register()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            //using (ApplicationDbContext db = new ApplicationDbContext())
             {
+                var db = DBContext;
                 ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
 
             }
@@ -268,10 +289,14 @@ namespace sln.Controllers
         //   [AllowAnonymous]
         [ValidateAntiForgeryToken]
         // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
+
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            using (var context = new ApplicationDbContext())
+            //using (var context = new ApplicationDbContext())
             {
+                var context = DBContext;
+                // var context =UserManager
                 if (!User.IsInRole("Admin"))
                 {
                     Guid orgId = Guid.Empty;
@@ -331,8 +356,8 @@ namespace sln.Controllers
 
                     if (result.Succeeded)
                     {
-                        await SignInAsync(user, isPersistent: false, org: org);
-                        return RedirectToAction("Index", "Home");
+                       // await SignInAsync(user, isPersistent: false, org: org);
+                        return RedirectToAction("Index", "Account");
                     }
                     else
                     {
@@ -420,11 +445,26 @@ namespace sln.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && UserManager != null)
+            //if (disposing && UserManager != null)
+            //{
+            //    UserManager.Dispose();
+            //    UserManager = null;  
+            //}
+
+            if (disposing)
             {
-                UserManager.Dispose();
-                UserManager = null;
+                if (UserManager != null)
+                {
+                    UserManager.Dispose();
+                    UserManager = null;
+                }
+                if (DBContext != null)
+                {
+                    DBContext.Dispose();
+                    DBContext = null;
+                }
             }
+
             base.Dispose(disposing);
         }
 
