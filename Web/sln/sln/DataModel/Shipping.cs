@@ -18,17 +18,18 @@ namespace sln.DataModel
         }
         public ICollection<TimeLine> TimeLines { get; set; }
 
-        [ForeignKey("Shipping_ShippingId")]
+       
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]
         public Guid ShippingId { get; set; }
 
+
+         [ForeignKey("Distance")]
         public Guid? Distance_DistanceId { get; set; }
         public virtual Distance Distance { get; set; }
 
         public virtual StatusShipping StatusShipping { get; set; }
-
         [ForeignKey("StatusShipping")]
         public Guid? StatusShipping_StatusShippingId { get; set; }
 
@@ -63,6 +64,8 @@ namespace sln.DataModel
             get;
             set;
         }
+
+        public Guid? OwnerId { get; set; }
 
         public bool IsActive
         {

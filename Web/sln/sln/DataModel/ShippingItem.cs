@@ -13,10 +13,11 @@ namespace sln.DataModel
     {
         public ShippingItem()
         {
-           
+
         }
 
         public virtual Shipping Shipping { get; set; }
+        [ForeignKey("Shipping")]
         public Guid? Shipping_ShippingId { get; set; }
 
 
@@ -54,6 +55,6 @@ namespace sln.DataModel
             get;
             set;
         }
-       
+
     }
 }

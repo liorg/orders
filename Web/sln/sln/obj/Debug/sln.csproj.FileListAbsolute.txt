@@ -126,3 +126,4 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.ss
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.city.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.cityadd.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.csprojResolveAssemblyReference.cache
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.pricee1.resources

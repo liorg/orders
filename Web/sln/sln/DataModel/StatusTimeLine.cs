@@ -15,8 +15,7 @@ namespace sln.DataModel
         {
             TimeLines = new HashSet<TimeLine>();
         }
-        [ForeignKey("StatusTimeLine_StatusTimeLineId")]
-        public ICollection<TimeLine> TimeLines { get; set; }
+         public ICollection<TimeLine> TimeLines { get; set; }
         
         [Key]
         public Guid StatusTimeLineId { get; set; }

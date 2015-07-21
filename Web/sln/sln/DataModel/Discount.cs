@@ -13,21 +13,27 @@ namespace sln.DataModel
     {
         public Discount()
         {
-       
+
         }
 
         PriceList PriceList { get; set; }
-        public Guid? PriceList_PriceListId  { get; set; }
+        public Guid? PriceList_PriceListId { get; set; }
 
         [Key]
         public Guid DiscountId { get; set; }
 
         public decimal Present { get; set; }
 
-        public Distance Distance { get; set; }
+        public virtual Distance Distance { get; set; }
+        [ForeignKey("Distance")]
         public Guid? Distance_DistanceId { get; set; }
 
         public int? MinQuantityOneWay { get; set; }
+
+        public decimal? MinTimeWait { get; set; }
+
+        [Column(TypeName = "Money")]
+        public decimal? DecreasePriceFixed { get; set; } // when is populate decrease price
 
         public string Name { get; set; }
 

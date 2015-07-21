@@ -13,7 +13,7 @@ namespace sln.DataModel
     {
         public TimeLine()
         {
-            
+
         }
 
         public virtual Shipping Shipping { get; set; }
@@ -22,6 +22,7 @@ namespace sln.DataModel
         public Guid TimeLineId { get; set; }
 
         public virtual StatusTimeLine StatusTimeLine { get; set; }
+        [ForeignKey("StatusTimeLine")]
         public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
 
         public string Name { get; set; }

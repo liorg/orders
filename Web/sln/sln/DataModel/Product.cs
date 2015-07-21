@@ -15,7 +15,7 @@ namespace sln.DataModel
         {
             PriceLists = new HashSet<PriceList>();
         }
-        [ForeignKey("Product_ProductId")]
+        
         public ICollection<PriceList> PriceLists { get; set; }
 
         [Key]
@@ -54,6 +54,8 @@ namespace sln.DataModel
             get;
             set;
         }
+
+        public bool IsCalculatingShippingInclusive { get; set; }
 
 
     }

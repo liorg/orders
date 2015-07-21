@@ -12,7 +12,7 @@ namespace sln.DataModel
     {
         public Organization()
         {
-            PriceListsForOrg = new HashSet<PriceListForOrg>();
+            //PriceListsForOrg = new HashSet<PriceListForOrg>();
             Users = new HashSet<ApplicationUser>();
             Distances = new HashSet<Distance>();
             PriceLists = new HashSet<PriceList>();
@@ -22,17 +22,17 @@ namespace sln.DataModel
         // many to many
         public ICollection<Distance> Distances { get; set; }
 
-        [ForeignKey("Organizations_OrgId")]
-        public ICollection<PriceListForOrg> PriceListsForOrg { get; set; }
+        //[ForeignKey("Organizations_OrgId")]
+        //public ICollection<PriceListForOrg> PriceListsForOrg { get; set; }
 
-        [ForeignKey("Organization_OrgId")]
+       [ForeignKey("Organization_OrgId")]
         public ICollection<ApplicationUser> Users { get; set; }
 
-        [ForeignKey("Organizations_OrgId")]
+        
         public ICollection<PriceList> PriceLists { get; set; }
    
 
-        [ForeignKey("Organization_OrgId")]
+       // [ForeignKey("Organization_OrgId")]
         public ICollection<Shipping> Shippings { get; set; }
 
         [Key]
