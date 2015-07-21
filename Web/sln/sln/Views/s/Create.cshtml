@@ -18,20 +18,28 @@
          </div>
          <div class="stepwizard-step">
              <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-             <p>הוסף פרטי לקוח</p>
+             <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
              <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-             <p>שלח הזמנה</p>
+             <p>אשר הזמנה</p>
          </div>
-         <div class="stepwizard-step">
+         @*<div class="stepwizard-step">
              <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-             <p>קבלת הזמנה</p>
+             <p>קבלת הזמנה </p>
          </div>
+         *@
      </div>
  </div>
 @Html.ValidationSummary()
-   
+
+@Html.HiddenFor(m => m.Number); 
+ <div class="form-group">
+     @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Number)
+            </div>
+ </div>
 <div class="form-group">
     @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">

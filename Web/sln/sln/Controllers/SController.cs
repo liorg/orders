@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace sln.Controllers
 {
@@ -18,7 +19,7 @@ namespace sln.Controllers
     public class SController : Controller
     {
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -39,8 +40,7 @@ namespace sln.Controllers
 
                     }
                 }
-                shippings = shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToList();
-
+                shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
@@ -63,16 +63,36 @@ namespace sln.Controllers
             }
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             using (var context = new ApplicationDbContext())
             {
                 List<Distance> distances = new List<Distance>();
                 var city = context.City.ToList();
+                long increa = 0;
                 var model = new ShippingVm();
+                var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber).FirstOrDefaultAsync();
+                if (counter != null)
+                {
+                    increa = counter.LastNumber;
+                    increa++;
+                    counter.LastNumber = increa;
+                    context.Entry<XbzCounter>(counter).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    counter = new XbzCounter();
+                    counter.XbzCounterId = Guid.NewGuid();
+                    counter.IsActive = true;
+                    counter.LastNumber = increa++;
+                    context.Entry<XbzCounter>(counter).State = EntityState.Added;
+                    await context.SaveChangesAsync();
+                }
+                model.Number = String.Format("Run-{0}", increa); 
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
-                if (!User.IsInRole("Admin"))
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
@@ -86,16 +106,13 @@ namespace sln.Controllers
                         }
                     }
                     model.OrgId = orgId;
-                    distances = context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
+                    distances =await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 }
                 else
                 {
-                    distances = context.Distance.ToList();
+                    distances =await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
-
-
-
                 return View(model);
             }
         }

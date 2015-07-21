@@ -23,7 +23,6 @@ namespace sln.Models
         [Display(Name = "מספר כתובת מקור ")]
         public string NumFrom { get; set; }
 
-
         [Display(Name = "כתובת יעד ")]
         public string SreetTo{ get; set; }
 
@@ -51,7 +50,6 @@ namespace sln.Models
         [Display(Name = "חישוב היעד")]
         public string DistanceName { get; set; }
 
-
         [Display(Name = "עיר מקור")]
         public string CityFormName { get; set; }
 
@@ -61,5 +59,8 @@ namespace sln.Models
         [Required]
         [Display(Name = "ארגון")]
         public Guid OrgId { get; set; }
+
+        [Display(Name = "מספר  הזמנה ")]
+        public string Number { get; set; }
     }
 }

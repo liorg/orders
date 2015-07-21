@@ -28,5 +28,6 @@ namespace sln.Dal
         public DbSet<TimeLine> TimeLine { get; set; }
         public DbSet<StatusTimeLine> StatusTimeLine { get; set; }
         public DbSet<City> City { get; set; }
+        public DbSet<XbzCounter> XbzCounter { get; set; }
     }
 }

@@ -180,6 +180,7 @@
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\XbzCounter.cs" />
     <Compile Include="DataModel\PriceListForOrg.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
@@ -221,6 +222,18 @@
     <Compile Include="Migrations\201507212040021_pricee1.cs" />
     <Compile Include="Migrations\201507212040021_pricee1.Designer.cs">
       <DependentUpon>201507212040021_pricee1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507212048378_lastnumber.cs" />
+    <Compile Include="Migrations\201507212048378_lastnumber.Designer.cs">
+      <DependentUpon>201507212048378_lastnumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507212050009_lastnumber3.cs" />
+    <Compile Include="Migrations\201507212050009_lastnumber3.Designer.cs">
+      <DependentUpon>201507212050009_lastnumber3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507212051128_lastnumber4.cs" />
+    <Compile Include="Migrations\201507212051128_lastnumber4.Designer.cs">
+      <DependentUpon>201507212051128_lastnumber4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -349,6 +362,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507212040021_pricee1.resx">
       <DependentUpon>201507212040021_pricee1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507212048378_lastnumber.resx">
+      <DependentUpon>201507212048378_lastnumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507212050009_lastnumber3.resx">
+      <DependentUpon>201507212050009_lastnumber3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507212051128_lastnumber4.resx">
+      <DependentUpon>201507212051128_lastnumber4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
