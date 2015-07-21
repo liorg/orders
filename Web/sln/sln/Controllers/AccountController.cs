@@ -33,7 +33,7 @@ namespace sln.Controllers
             UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
-        //  [Authorize(Roles = "Admin")]
+       //  [Authorize(Roles = HelperAutorize.RoleAdmin)]
         public ActionResult Index()
         {
             using (var context = new ApplicationDbContext())
