@@ -4,7 +4,7 @@
     ViewBag.Title = "משלוח קיים";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title</h2>
+<h2>מספר משלוח @ViewBag.OrderNumber  </h2>
 
 @using (Html.BeginForm())
 {
@@ -17,7 +17,7 @@
              <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
-             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+            <a href="@Url.Action("Index","ShipItem",new { id= @Html.DisplayFor(model => model.Id) })" type="button" class="btn btn-default btn-circle">2</a>
              <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
@@ -42,13 +42,13 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.StatusId)
 
-    <div class="form-group">
+    @*<div class="row">
         @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
             <div class="col-md-6">
                 @Html.DisplayFor(model => model.Number)
             </div>
 
-    </div>
+    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })

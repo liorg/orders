@@ -1,10 +1,10 @@
 ﻿@model sln.Models.ShippingItemVm
 
 @{
-    ViewBag.Title = "פריט חדש";
+    ViewBag.Title = "פריט קיים";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2> פריט חדש עבור הזמנה @ViewBag.OrderNumber  </h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Create", "ShipItem", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -35,6 +35,12 @@
 
 @Html.HiddenFor(m => m.ShipId); 
 
+ <div class="form-group">
+     @Html.LabelFor(model => model.OrderNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.OrderNumber)
+            </div>
+ </div>
 <div class="form-group">
     @Html.LabelFor(m => m.ProductId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -67,7 +73,7 @@
 </div>*@
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" class="btn btn-default" value="צור פריט חדש" />
+        <input type="submit" class="btn btn-default" value="עדכן פריט חדש" />
     </div>
 </div>
 }

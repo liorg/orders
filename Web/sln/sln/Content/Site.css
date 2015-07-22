@@ -228,3 +228,9 @@ section.success {
     line-height: 1.428571429;
     border-radius: 15px;
 }
+/*http://bootsnipp.com/snippets/featured/buttons-minus-and-plus-in-input*/
+.center{
+width: 150px;
+  margin: 40px auto;
+  
+}

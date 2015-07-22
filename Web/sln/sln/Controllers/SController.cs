@@ -89,6 +89,8 @@ namespace sln.Controllers
                 }
                 model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5, '0'));
                 model.FastSearch = increa;
+                ViewBag.OrderNumber = model.Name;
+
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
 
                 ViewBag.City = new SelectList(city, "CityId", "Name");
@@ -195,7 +197,8 @@ namespace sln.Controllers
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var model = new ShippingVm();
-
+                model.Number = shipping.Name;
+                ViewBag.OrderNumber = shipping.Name;
                 model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
                 model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
@@ -270,7 +273,6 @@ namespace sln.Controllers
                     shipping.Organization_OrgId = shippingVm.OrgId;
 
                 shipping.FastSearchNumber = shippingVm.FastSearch;
-                shipping.Name = shippingVm.Number;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userid;
