@@ -26,7 +26,7 @@ namespace sln.Controllers
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.Name == "3" && s.CreatedOn > from).AsQueryable();
-                if (!User.IsInRole("Admin"))
+                if (!User.IsInRole(HelperAutorize.RoleAdmin))
                 {
 
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
@@ -69,7 +69,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 List<Distance> distances = new List<Distance>();
-                var city = context.City.ToList();
+                var city = await context.City.ToListAsync();
                 long increa = 0;
                 var model = new ShippingVm();
                 var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber).FirstOrDefaultAsync();
@@ -90,7 +90,7 @@ namespace sln.Controllers
                     context.Entry<XbzCounter>(counter).State = EntityState.Added;
                     await context.SaveChangesAsync();
                 }
-                model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5,'0'));
+                model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5, '0'));
                 model.FastSearch = increa;
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
 
@@ -109,16 +109,17 @@ namespace sln.Controllers
                         }
                     }
                     model.OrgId = orgId;
-                    distances =await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 }
                 else
                 {
-                    distances =await context.Distance.ToListAsync();
+                    distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Create(ShippingVm shippingVm)
         {
@@ -142,11 +143,11 @@ namespace sln.Controllers
 
                     }
                 }
-               
+
                 shipping.ShippingId = Guid.NewGuid();
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
-               // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
+                // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.CreatedOn = DateTime.Now;
@@ -162,7 +163,7 @@ namespace sln.Controllers
                 shipping.AddressTo = shippingVm.SreetTo;
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
-                
+
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
 
                 context.Shipping.Add(shipping);
@@ -171,6 +172,111 @@ namespace sln.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+
+        public async Task<ActionResult> Edit(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid shipId = Guid.Parse(id);
+                var shipping = await context.Shipping.FindAsync(shipId);
+                List<Distance> distances = new List<Distance>();
+                var city = await context.City.ToListAsync();
+                var model = new ShippingVm();
+
+                model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
+                model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+                model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+                model.FastSearch=shipping.FastSearchNumber;
+                model.Id=shipping.ShippingId;
+                model.Number=shipping.Name;
+                model.NumFrom=shipping.AddressNumFrom;
+                model.NumTo=shipping.AddressNumTo;
+                model.OrgId=shipping.Organization_OrgId.GetValueOrDefault();
+                model.SreetFrom=shipping.AddressFrom;
+                model.SreetTo=shipping.AddressTo;
+                model.Status=shipping.StatusShipping!=null ?shipping.StatusShipping.Name:"";
+                
+
+                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+                ViewBag.City = new SelectList(city, "CityId", "Name");
+
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                {
+                    Guid orgId = Guid.Empty;
+                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
+                    foreach (var claim in claimsIdentity.Claims)
+                    {
+                        if (claim.Type == ClaimTypes.GroupSid)
+                        {
+                            orgId = Guid.Parse(claim.Value);
+
+                            break;
+                        }
+                    }
+                    model.OrgId = orgId;
+                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                }
+                else
+                {
+                    distances = await context.Distance.ToListAsync();
+                }
+                ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(ShippingVm shippingVm)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var shipping = await context.Shipping.FindAsync(shippingVm.Id);
+                ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                Guid userid = Guid.Empty;
+                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                foreach (var claim in claimsIdentity.Claims)
+                {
+                    if (claim.Type == ClaimTypes.GroupSid)
+                    {
+                        shipping.Organization_OrgId = Guid.Parse(claim.Value);
+
+                    }
+                    if (claim.Type == ClaimTypes.NameIdentifier)
+                    {
+                        userid = Guid.Parse(claim.Value);
+
+                    }
+                }
+
+                shipping.FastSearchNumber = shippingVm.FastSearch;
+                shipping.Name = shippingVm.Number;
+                // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
+
+                shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+                shipping.CreatedOn = DateTime.Now;
+                shipping.CreatedBy = userid;
+                shipping.ModifiedOn = DateTime.Now;
+                shipping.ModifiedBy = userid;
+               // shipping.OwnerId = userid;
+                shipping.IsActive = true;
+
+                shipping.CityFrom_CityId = shippingVm.CityForm;
+                shipping.AddressFrom = shippingVm.SreetFrom;
+                shipping.CityFrom_CityId = shippingVm.CityForm;
+                shipping.AddressTo = shippingVm.SreetTo;
+                shipping.AddressNumTo = shippingVm.NumTo;
+                shipping.AddressNumFrom = shippingVm.NumFrom;
+
+                shipping.Distance_DistanceId = shippingVm.DistanceId;
+
+                context.Shipping.Add(shipping);
+
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+        }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -178,5 +284,6 @@ namespace sln.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+      
     }
 }

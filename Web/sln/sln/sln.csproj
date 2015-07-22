@@ -200,6 +200,7 @@
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\LayoutInjecterAttribute.cs" />
+    <Compile Include="Helper\StatusShippingConst.cs" />
     <Compile Include="Migrations\201507201243058_sss.cs" />
     <Compile Include="Migrations\201507201243058_sss.Designer.cs">
       <DependentUpon>201507201243058_sss.cs</DependentUpon>
@@ -350,6 +351,7 @@
     <Content Include="Views\s\Index.cshtml" />
     <Content Include="Views\s\Create.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\s\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
