@@ -18,7 +18,6 @@ namespace sln.Controllers
     [Authorize]
     public class SController : Controller
     {
-
         public async Task<ActionResult> Index()
         {
             using (var context = new ApplicationDbContext())
@@ -55,8 +54,6 @@ namespace sln.Controllers
                     u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-
-
                     model.Add(u);
 
                 }
@@ -133,21 +130,16 @@ namespace sln.Controllers
                 foreach (var claim in claimsIdentity.Claims)
                 {
                     if (claim.Type == ClaimTypes.GroupSid)
-                    {
                         shipping.Organization_OrgId = Guid.Parse(claim.Value);
 
-                    }
                     if (claim.Type == ClaimTypes.NameIdentifier)
-                    {
                         userid = Guid.Parse(claim.Value);
 
-                    }
                 }
 
                 shipping.ShippingId = Guid.NewGuid();
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
-                // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 var currentDate = DateTime.Now;
@@ -168,15 +160,14 @@ namespace sln.Controllers
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 var shipItem = new ShippingItem()
                     {
-                        Name="זמן המתנה",
+                        Name = "זמן המתנה",
                         CreatedBy = userid,
                         CreatedOn = currentDate,
                         ModifiedBy = userid,
                         ModifiedOn = currentDate,
                         ShippingItemId = Guid.NewGuid(),
-                        IsActive = true
-                        
-
+                        IsActive = true,
+                        Quantity = 0
                     };
                 shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
                 shipping.ShippingItems.Add(shipItem);
@@ -185,7 +176,7 @@ namespace sln.Controllers
 
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString() });
             }
         }
 

@@ -60,5 +60,7 @@ namespace sln.DataModel
             set;
         }
 
+        public double Quantity { get; set; }
+
     }
 }

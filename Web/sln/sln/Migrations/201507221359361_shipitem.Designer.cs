@@ -7,13 +7,13 @@ namespace sln.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class fastsearch : IMigrationMetadata
+    public sealed partial class shipitem : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fastsearch));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(shipitem));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507220943262_fastsearch"; }
+            get { return "201507221359361_shipitem"; }
         }
         
         string IMigrationMetadata.Source
