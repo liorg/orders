@@ -56,6 +56,7 @@ namespace sln.Controllers
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
 
+
                     model.Add(u);
 
                 }
@@ -89,8 +90,10 @@ namespace sln.Controllers
                     context.Entry<XbzCounter>(counter).State = EntityState.Added;
                     await context.SaveChangesAsync();
                 }
-                model.Number = String.Format("Run-{0}", increa); 
+                model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5,'0'));
+                model.FastSearch = increa;
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+
                 ViewBag.City = new SelectList(city, "CityId", "Name");
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
@@ -139,9 +142,11 @@ namespace sln.Controllers
 
                     }
                 }
-
+               
                 shipping.ShippingId = Guid.NewGuid();
-                shipping.Name = "הזמנה בתאריך" + " " + DateTime.Today.ToString("dd/MM/yyyy");
+                shipping.FastSearchNumber = shippingVm.FastSearch;
+                shipping.Name = shippingVm.Number;
+               // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.CreatedOn = DateTime.Now;

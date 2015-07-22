@@ -95,5 +95,9 @@ namespace sln.DataModel
         [Column(TypeName = "Money")]
         public decimal EstimatedPrice { get; set; }
 
+        public long FastSearchNumber { get; set; }
+
+       // public int FastSearch { get; set; }
+
     }
 }

@@ -62,5 +62,9 @@ namespace sln.Models
 
         [Display(Name = "מספר  הזמנה ")]
         public string Number { get; set; }
+
+
+        [Display(Name = "לחיפוש מהיר מספר  הזמנה ")]
+        public long FastSearch { get; set; }
     }
 }

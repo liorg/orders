@@ -180,6 +180,7 @@
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\XbzCounter.cs" />
     <Compile Include="DataModel\PriceListForOrg.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
@@ -238,6 +239,18 @@
     <Compile Include="Migrations\201507220525104_lastnddd.cs" />
     <Compile Include="Migrations\201507220525104_lastnddd.Designer.cs">
       <DependentUpon>201507220525104_lastnddd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507220943262_fastsearch.cs" />
+    <Compile Include="Migrations\201507220943262_fastsearch.Designer.cs">
+      <DependentUpon>201507220943262_fastsearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507220945102_fastsearch2.cs" />
+    <Compile Include="Migrations\201507220945102_fastsearch2.Designer.cs">
+      <DependentUpon>201507220945102_fastsearch2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507220950376_lead.cs" />
+    <Compile Include="Migrations\201507220950376_lead.Designer.cs">
+      <DependentUpon>201507220950376_lead.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -378,6 +391,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507220525104_lastnddd.resx">
       <DependentUpon>201507220525104_lastnddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220943262_fastsearch.resx">
+      <DependentUpon>201507220943262_fastsearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220945102_fastsearch2.resx">
+      <DependentUpon>201507220945102_fastsearch2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220950376_lead.resx">
+      <DependentUpon>201507220950376_lead.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
