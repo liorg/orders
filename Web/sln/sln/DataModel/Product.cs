@@ -20,7 +20,8 @@ namespace sln.DataModel
         public ICollection<PriceList> PriceLists { get; set; }
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
-
+        // many to many
+        public ICollection<Organization> Organizations { get; set; }
         [Key]
         public Guid ProductId { get; set; }
 

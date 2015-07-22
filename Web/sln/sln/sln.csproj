@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201507221359361_shipitem.Designer.cs">
       <DependentUpon>201507221359361_shipitem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507221457374_prudctOrgManyToMany.cs" />
+    <Compile Include="Migrations\201507221457374_prudctOrgManyToMany.Designer.cs">
+      <DependentUpon>201507221457374_prudctOrgManyToMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
@@ -335,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507221359361_shipitem.resx">
       <DependentUpon>201507221359361_shipitem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221457374_prudctOrgManyToMany.resx">
+      <DependentUpon>201507221457374_prudctOrgManyToMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

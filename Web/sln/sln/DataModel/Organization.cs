@@ -28,7 +28,9 @@ namespace sln.DataModel
        [ForeignKey("Organization_OrgId")]
         public ICollection<ApplicationUser> Users { get; set; }
 
-        
+       // many to many
+       public ICollection<Product> Products { get; set; }
+
         public ICollection<PriceList> PriceLists { get; set; }
    
 
