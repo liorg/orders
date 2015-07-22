@@ -7,9 +7,9 @@
 <div class="row">
 <div class="stepwizard">
      <div class="stepwizard-row setup-panel">
-         <div class="stepwizard-step">
-             <a href="#step-1" type="button" class="btn btn-default btn-circle">1</a>
-             <p>יצירת הזמנה</p>
+        <div class="stepwizard-step">
+             <a href="@Url.Action("Edit","S",new { id=ViewBag.ShipId })" type="button" class="btn btn-default btn-circle">1</a>
+             <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
              <a href="#step-2" type="button" class="btn  btn-primary  btn-circle" disabled="disabled">2</a>
@@ -57,7 +57,7 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) 
+            @Html.ActionLink("Edit", "ערוך פריט", new { id = item.Id }) 
         </td>
     </tr>
 }

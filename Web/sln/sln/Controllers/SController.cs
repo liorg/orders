@@ -122,20 +122,26 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                shippingVm.StatusId = Guid.Parse(Helper.Const.New);
+                shippingVm.StatusId = Guid.Parse(Helper.Status.New);
                 var shipping = new Shipping();
+                var orgid = Guid.Empty;
                 ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                 Guid userid = Guid.Empty;
                 ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
                 foreach (var claim in claimsIdentity.Claims)
                 {
                     if (claim.Type == ClaimTypes.GroupSid)
-                        shipping.Organization_OrgId = Guid.Parse(claim.Value);
+                        orgid = Guid.Parse(claim.Value);
 
                     if (claim.Type == ClaimTypes.NameIdentifier)
                         userid = Guid.Parse(claim.Value);
-
+                    ;
                 }
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                    shipping.Organization_OrgId = orgid;
+                else
+                    shipping.Organization_OrgId = shippingVm.OrgId;
+
 
                 shipping.ShippingId = Guid.NewGuid();
                 shipping.FastSearchNumber = shippingVm.FastSearch;
@@ -203,6 +209,7 @@ namespace sln.Controllers
                 model.SreetTo = shipping.AddressTo;
                 model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
@@ -220,11 +227,13 @@ namespace sln.Controllers
                             break;
                         }
                     }
-                    model.OrgId = orgId;
+                    //model.OrgId = orgId;
                     distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 }
                 else
                 {
+
+                    
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
@@ -239,13 +248,14 @@ namespace sln.Controllers
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
                 ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                Guid userid = Guid.Empty;
+                Guid userid = Guid.Empty; var orgId = Guid.NewGuid();
                 ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
                 foreach (var claim in claimsIdentity.Claims)
                 {
                     if (claim.Type == ClaimTypes.GroupSid)
                     {
-                        shipping.Organization_OrgId = Guid.Parse(claim.Value);
+                        orgId = Guid.Parse(claim.Value);
+
 
                     }
                     if (claim.Type == ClaimTypes.NameIdentifier)
@@ -254,6 +264,11 @@ namespace sln.Controllers
 
                     }
                 }
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                    shipping.Organization_OrgId = orgId;
+                else
+                    shipping.Organization_OrgId = shippingVm.OrgId;
+
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;

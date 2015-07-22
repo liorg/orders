@@ -54,61 +54,40 @@ namespace sln.Controllers
                 var products = await context.Product.Where(s => s.Organizations.Any(e => ship.Organization_OrgId.HasValue && e.OrgId == ship.Organization_OrgId.Value)).ToListAsync();
                 model.OrderNumber = ship.Name;
                 ViewBag.Products = new SelectList(products, "ProductId", "Name");
-
+                ViewBag.ShipId = id;
                 return View(model);
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ShippingVm shippingVm)
+        public async Task<ActionResult> Create(ShippingItemVm shippingItemVm)
         {
             using (var context = new ApplicationDbContext())
             {
-                shippingVm.StatusId = Guid.Parse("00000000-0000-0000-0000-000000000017");
-                var shipping = new Shipping();
-                ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                Guid userid = Guid.Empty;
+                var shippingItem = new ShippingItem();
+                 Guid userid = Guid.Empty;
+
                 ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.GroupSid)
-                    {
-                        shipping.Organization_OrgId = Guid.Parse(claim.Value);
+                 foreach (var claim in claimsIdentity.Claims)
+                 {
+                     if (claim.Type == ClaimTypes.NameIdentifier)
+                         userid = Guid.Parse(claim.Value);
 
-                    }
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                    {
-                        userid = Guid.Parse(claim.Value);
+                 }
 
-                    }
-                }
-
-                shipping.ShippingId = Guid.NewGuid();
-                shipping.FastSearchNumber = shippingVm.FastSearch;
-                shipping.Name = shippingVm.Number;
-                // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
-
-                shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-                shipping.CreatedOn = DateTime.Now;
-                shipping.CreatedBy = userid;
-                shipping.ModifiedOn = DateTime.Now;
-                shipping.ModifiedBy = userid;
-                shipping.OwnerId = userid;
-                shipping.IsActive = true;
-
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressTo = shippingVm.SreetTo;
-                shipping.AddressNumTo = shippingVm.NumTo;
-                shipping.AddressNumFrom = shippingVm.NumFrom;
-
-                shipping.Distance_DistanceId = shippingVm.DistanceId;
-
-                context.Shipping.Add(shipping);
+                shippingItem.ShippingItemId = Guid.NewGuid();
+                shippingItem.Shipping_ShippingId = shippingItemVm.ShipId;
+                shippingItem.Quantity = shippingItemVm.Total;
+                shippingItem.Product_ProductId = shippingItemVm.ProductId;
+                shippingItem.CreatedOn = DateTime.Now;
+                shippingItem.CreatedBy = userid;
+                shippingItem.ModifiedOn = DateTime.Now;
+                shippingItem.ModifiedBy = userid;
+                shippingItem.IsActive = true;
+                context.ShippingItem.Add(shippingItem);
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = shippingItemVm.ShipId.ToString() });
             }
         }
 

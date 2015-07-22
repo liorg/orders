@@ -37,10 +37,10 @@
 
     @Html.ValidationSummary()
 
-    @Html.HiddenFor(m => m.Number); 
-    @Html.HiddenFor(m => m.FastSearch); 
-    @Html.HiddenFor(m => m.Id); 
-    @Html.HiddenFor(m => m.StatusId);
+    @Html.HiddenFor(m => m.Number)
+    @Html.HiddenFor(m => m.FastSearch)
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.StatusId)
 
     <div class="form-group">
         @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
@@ -119,8 +119,9 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-8">
             <input type="submit" class="btn btn-default" value="ערוך משלוח" />
-            @Html.ActionLink("הבא", "Index", "ShipItem",new { id =@Html.DisplayFor(m => m.Id)}, new { @class = "btn btn-success" }) 
+            <span class="pull-left"> @Html.ActionLink("הבא", "Index", "ShipItem",new { id =@Html.DisplayFor(m => m.Id)}, new { @class = "btn btn-success" }) </span>
         </div>
+
     </div>
 </div>
 }
