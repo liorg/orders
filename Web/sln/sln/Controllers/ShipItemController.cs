@@ -18,6 +18,36 @@ namespace sln.Controllers
     [Authorize]
     public class ShipItemController : Controller
     {
+        public async Task<ActionResult> Remove(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                ViewBag.ShipId = id;
+                Guid userid = Guid.Empty;
+
+                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                foreach (var claim in claimsIdentity.Claims)
+                {
+                    if (claim.Type == ClaimTypes.NameIdentifier)
+                        userid = Guid.Parse(claim.Value);
+
+                }
+                Guid shipId = Guid.Parse(id);
+                var shipItem = await context.ShippingItem.FindAsync(shipId);
+                if (shipItem != null)
+                {
+                    shipItem.IsActive = false;
+                    shipItem.ModifiedOn = DateTime.Now;
+                    shipItem.ModifiedBy = userid;
+                }
+
+                context.Entry<ShippingItem>(shipItem).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return View("Index", new { id = shipItem.Shipping_ShippingId.ToString() });
+            }
+        }
+
 
         public async Task<ActionResult> Index(string id)
         {

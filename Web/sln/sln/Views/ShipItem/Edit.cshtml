@@ -44,7 +44,7 @@
 <div class="form-group">
     @Html.LabelFor(m => m.ProductId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
-              @Html.DropDownListFor(m => m.ProductId ,(SelectList)ViewBag.Products);
+              @Html.DropDownListFor(m => m.ProductId ,(SelectList)ViewBag.Products, new { @class = "form-control"});
           </div>
 </div>
 

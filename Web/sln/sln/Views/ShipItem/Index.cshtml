@@ -41,7 +41,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Total)
         </th>
-      
+      <th></th><th></th>
     </tr>
 @if( !Model.Any() )
 {
@@ -59,9 +59,10 @@
         </td>
         
         <td>
-
-    
-            @Html.ActionLink("ערוך פריט", "Edit", new { id = item.Id },new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("ערוך פריט", "Edit", new { id = item.Id },new { @class = "btn btn-default" }) 
+        </td>
+ <td>
+            @Html.ActionLink("הסר פריט", "Remove", new { id = item.Id },new { @class = "btn btn-danger" }) 
         </td>
     </tr>
 }
