@@ -148,6 +148,7 @@ namespace sln.Controllers
                 shipping.CreatedBy = userid;
                 shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userid;
+                shipping.OwnerId = userid;
                 shipping.IsActive = true;
 
                 shipping.CityFrom_CityId = shippingVm.CityForm;
@@ -156,10 +157,11 @@ namespace sln.Controllers
                 shipping.AddressTo = shippingVm.SreetTo;
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
-
+                
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
 
                 context.Shipping.Add(shipping);
+
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

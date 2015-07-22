@@ -21,9 +21,10 @@ namespace sln.DataModel
         [Key]
         public Guid TimeLineId { get; set; }
 
-        public virtual StatusTimeLine StatusTimeLine { get; set; }
-        [ForeignKey("StatusTimeLine")]
-        public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
+        public int Status { get; set; }
+        //public virtual StatusTimeLine StatusTimeLine { get; set; }
+        //[ForeignKey("StatusTimeLine")]
+        //public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
 
         public string Name { get; set; }
 

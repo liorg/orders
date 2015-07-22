@@ -235,6 +235,10 @@
     <Compile Include="Migrations\201507212051128_lastnumber4.Designer.cs">
       <DependentUpon>201507212051128_lastnumber4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507220525104_lastnddd.cs" />
+    <Compile Include="Migrations\201507220525104_lastnddd.Designer.cs">
+      <DependentUpon>201507220525104_lastnddd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -371,6 +375,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507212051128_lastnumber4.resx">
       <DependentUpon>201507212051128_lastnumber4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220525104_lastnddd.resx">
+      <DependentUpon>201507220525104_lastnddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
