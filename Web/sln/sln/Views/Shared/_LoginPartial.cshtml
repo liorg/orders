@@ -13,7 +13,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="#"> @Html.ActionLink("ערוך ", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</a></li>
                <li class="page-scroll"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-<li class="page-scroll"><a href="/s">כניסה</a></li>
+<li class="page-scroll"><a href="/s">כניסה ללקוחות</a></li>
 
                 </ul>
               </li>
@@ -25,6 +25,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
     @*<li class="page-scroll">@Html.ActionLink("צור משתמש חדש", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
-    <li class="page-scroll">@Html.ActionLink("כניסה למערכת ניהול", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <li class="page-scroll">@Html.ActionLink("כניסה", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

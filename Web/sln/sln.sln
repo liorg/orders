@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sln", "sln\sln.csproj", "{9C18C3B7-5463-4F3B-A929-F4402DDEE822}"
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Michal.Project", "sln\Michal.Project.csproj", "{9C18C3B7-5463-4F3B-A929-F4402DDEE822}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sln.Tests", "sln.Tests\sln.Tests.csproj", "{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}"
 EndProject

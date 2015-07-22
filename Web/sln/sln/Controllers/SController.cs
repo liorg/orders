@@ -302,5 +302,62 @@ namespace sln.Controllers
             }
         }
 
+
+        public async Task<ActionResult> Show(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid shipId = Guid.Parse(id);
+                var shipping = await context.Shipping.FindAsync(shipId);
+                List<Distance> distances = new List<Distance>();
+                var city = await context.City.ToListAsync();
+                var model = new ShippingVm();
+                model.Number = shipping.Name;
+                ViewBag.OrderNumber = shipping.Name;
+                model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
+                model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+                model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+                model.FastSearch = shipping.FastSearchNumber;
+                model.Id = shipping.ShippingId;
+                model.Number = shipping.Desc;
+                model.NumFrom = shipping.AddressNumFrom;
+                model.NumTo = shipping.AddressNumTo;
+                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                model.SreetFrom = shipping.AddressFrom;
+                model.SreetTo = shipping.AddressTo;
+                model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+
+                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+                ViewBag.City = new SelectList(city, "CityId", "Name");
+
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                {
+                    Guid orgId = Guid.Empty;
+                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
+                    foreach (var claim in claimsIdentity.Claims)
+                    {
+                        if (claim.Type == ClaimTypes.GroupSid)
+                        {
+                            orgId = Guid.Parse(claim.Value);
+
+                            break;
+                        }
+                    }
+                    //model.OrgId = orgId;
+                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                }
+                else
+                {
+
+
+                    distances = await context.Distance.ToListAsync();
+                }
+                ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
+                return View(model);
+            }
+        }
+
     }
 }
