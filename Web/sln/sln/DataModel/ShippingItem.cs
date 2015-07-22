@@ -16,6 +16,10 @@ namespace sln.DataModel
 
         }
 
+        public virtual Product Product { get; set; }
+        [ForeignKey("Product")]
+        public Guid? Product_ProductId { get; set; }
+
         public virtual Shipping Shipping { get; set; }
         [ForeignKey("Shipping")]
         public Guid? Shipping_ShippingId { get; set; }

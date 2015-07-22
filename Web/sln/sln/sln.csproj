@@ -173,6 +173,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ShipItemController.cs" />
     <Compile Include="Controllers\SController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Dal\ApplicationDbContext.cs" />
@@ -200,7 +201,7 @@
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\LayoutInjecterAttribute.cs" />
-    <Compile Include="Helper\StatusShippingConst.cs" />
+    <Compile Include="Helper\Const.cs" />
     <Compile Include="Migrations\201507201243058_sss.cs" />
     <Compile Include="Migrations\201507201243058_sss.Designer.cs">
       <DependentUpon>201507201243058_sss.cs</DependentUpon>
@@ -252,6 +253,10 @@
     <Compile Include="Migrations\201507220950376_lead.cs" />
     <Compile Include="Migrations\201507220950376_lead.Designer.cs">
       <DependentUpon>201507220950376_lead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507221332593_product.cs" />
+    <Compile Include="Migrations\201507221332593_product.Designer.cs">
+      <DependentUpon>201507221332593_product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -352,6 +357,7 @@
     <Content Include="Views\s\Create.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\s\Edit.cshtml" />
+    <Content Include="Views\ShipItem\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507220950376_lead.resx">
       <DependentUpon>201507220950376_lead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221332593_product.resx">
+      <DependentUpon>201507221332593_product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

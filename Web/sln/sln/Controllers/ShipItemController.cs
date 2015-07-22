@@ -16,7 +16,7 @@ using System.Data.Entity;
 namespace sln.Controllers
 {
     [Authorize]
-    public class SController : Controller
+    public class ShipItemController : Controller
     {
 
         public async Task<ActionResult> Index()
@@ -125,7 +125,7 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                shippingVm.StatusId = Guid.Parse(Helper.Const.New);
+                shippingVm.StatusId = Guid.Parse("00000000-0000-0000-0000-000000000017");
                 var shipping = new Shipping();
                 ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                 Guid userid = Guid.Empty;
@@ -150,39 +150,23 @@ namespace sln.Controllers
                 // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-                var currentDate = DateTime.Now;
-                shipping.CreatedOn = currentDate;
+                shipping.CreatedOn = DateTime.Now;
                 shipping.CreatedBy = userid;
-                shipping.ModifiedOn = currentDate;
+                shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userid;
                 shipping.OwnerId = userid;
                 shipping.IsActive = true;
 
                 shipping.CityFrom_CityId = shippingVm.CityForm;
                 shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityTo_CityId = shippingVm.CityTo;
+                shipping.CityFrom_CityId = shippingVm.CityForm;
                 shipping.AddressTo = shippingVm.SreetTo;
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
-                var shipItem = new ShippingItem()
-                    {
-                        Name="זמן המתנה",
-                        CreatedBy = userid,
-                        CreatedOn = currentDate,
-                        ModifiedBy = userid,
-                        ModifiedOn = currentDate,
-                        ShippingItemId = Guid.NewGuid(),
-                        IsActive = true
-                        
-
-                    };
-                shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
-                shipping.ShippingItems.Add(shipItem);
 
                 context.Shipping.Add(shipping);
-
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -202,15 +186,15 @@ namespace sln.Controllers
                 model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
                 model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
-                model.FastSearch = shipping.FastSearchNumber;
-                model.Id = shipping.ShippingId;
-                model.Number = shipping.Desc;
-                model.NumFrom = shipping.AddressNumFrom;
-                model.NumTo = shipping.AddressNumTo;
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-                model.SreetFrom = shipping.AddressFrom;
-                model.SreetTo = shipping.AddressTo;
-                model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                model.FastSearch=shipping.FastSearchNumber;
+                model.Id=shipping.ShippingId;
+                model.Number=shipping.Desc;
+                model.NumFrom=shipping.AddressNumFrom;
+                model.NumTo=shipping.AddressNumTo;
+                model.OrgId=shipping.Organization_OrgId.GetValueOrDefault();
+                model.SreetFrom=shipping.AddressFrom;
+                model.SreetTo=shipping.AddressTo;
+                model.Status=shipping.StatusShipping!=null ?shipping.StatusShipping.Desc:"";
                 model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
 
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
@@ -263,16 +247,19 @@ namespace sln.Controllers
 
                     }
                 }
+
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+                shipping.CreatedOn = DateTime.Now;
+                shipping.CreatedBy = userid;
                 shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userid;
                 shipping.IsActive = true;
 
                 shipping.CityFrom_CityId = shippingVm.CityForm;
                 shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityTo_CityId = shippingVm.CityTo;
+                shipping.CityFrom_CityId = shippingVm.CityForm;
                 shipping.AddressTo = shippingVm.SreetTo;
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
@@ -293,6 +280,6 @@ namespace sln.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
+      
     }
 }
