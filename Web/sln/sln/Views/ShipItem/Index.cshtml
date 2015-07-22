@@ -1,4 +1,4 @@
-﻿@model IEnumerable<sln.Models.ShippingItemVm>
+﻿@model IEnumerable<sln.models.shippingitemvm>
 
 @{
     ViewBag.Title = "Index";
@@ -57,7 +57,8 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "ערוך פריט", new { id = item.Id }) 
+   <a alt="הבא" class="btn btn-success btn-lg" href="@Url.Action("Edit",new { id=item.Id })"><i class="fa fa-pencil-square-o  pull-right"></i> ערוך פריט</i></a>
+           
         </td>
     </tr>
 }

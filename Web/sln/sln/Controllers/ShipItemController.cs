@@ -25,7 +25,7 @@ namespace sln.Controllers
             {
                 ViewBag.ShipId = id;
                 Guid shipId = Guid.Parse(id);
-                var shippingItems = await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId).ToListAsync();
+                var shippingItems = await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product!=null && s.Product.IsCalculatingShippingInclusive==false).ToListAsync();
 
                 var model = new List<ShippingItemVm>();
                 foreach (var shipItem in shippingItems)
