@@ -319,6 +319,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\s\Edit.cshtml" />
     <Content Include="Views\ShipItem\Index.cshtml" />
+    <Content Include="Views\ShipItem\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

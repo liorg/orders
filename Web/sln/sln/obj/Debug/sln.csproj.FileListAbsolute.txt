@@ -124,3 +124,4 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.le
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.csprojResolveAssemblyReference.cache
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.product.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.shipitem.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.prudctOrgManyToMany.resources

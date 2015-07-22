@@ -33,7 +33,7 @@ namespace sln.Controllers
 
                     var u = new ShippingItemVm();
                     u.Id = shipItem.ShippingItemId;
-                    u.ProductName = shipItem.Product != null?shipItem.Product.Name:"";
+                    u.ProductName = shipItem.Product != null ? shipItem.Product.Name : "";
                     //u.Total=shipItem.
                     u.Name = shipItem.Name;
                     u.Total = Convert.ToInt32(shipItem.Quantity);
@@ -48,8 +48,12 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var model = new ShippingItemVm();
+                model.ShipId = Guid.Parse(id);
 
-                model.ShipId= Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(model.ShipId);
+                var products = await context.Product.Where(s => s.Organizations.Any(e => ship.Organization_OrgId.HasValue && e.OrgId == ship.Organization_OrgId.Value)).ToListAsync();
+                model.OrderNumber = ship.Name;
+                ViewBag.Products = new SelectList(products, "ProductId", "Name");
 
                 return View(model);
             }
