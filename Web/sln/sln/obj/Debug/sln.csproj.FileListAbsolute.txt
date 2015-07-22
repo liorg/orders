@@ -125,7 +125,6 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.ss
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.sssdc.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.city.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.cityadd.resources
-C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.csprojResolveAssemblyReference.cache
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.pricee1.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.lastnumber.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.lastnumber3.resources
@@ -134,3 +133,4 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.la
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.fastsearch.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.fastsearch2.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.Migrations.lead.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\sln.csprojResolveAssemblyReference.cache

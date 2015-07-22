@@ -48,7 +48,7 @@ namespace sln.Controllers
 
                     var u = new ShippingVm();
                     u.Id = ship.ShippingId;
-                    u.Status = ship.StatusShipping.Name;
+                    u.Status = ship.StatusShipping.Desc;
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
                     u.CreatedBy = created != null ? created.FirstName + " " + created.LastName : "";
@@ -173,7 +173,6 @@ namespace sln.Controllers
             }
         }
 
-
         public async Task<ActionResult> Edit(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -189,14 +188,14 @@ namespace sln.Controllers
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
                 model.FastSearch=shipping.FastSearchNumber;
                 model.Id=shipping.ShippingId;
-                model.Number=shipping.Name;
+                model.Number=shipping.Desc;
                 model.NumFrom=shipping.AddressNumFrom;
                 model.NumTo=shipping.AddressNumTo;
                 model.OrgId=shipping.Organization_OrgId.GetValueOrDefault();
                 model.SreetFrom=shipping.AddressFrom;
                 model.SreetTo=shipping.AddressTo;
-                model.Status=shipping.StatusShipping!=null ?shipping.StatusShipping.Name:"";
-                
+                model.Status=shipping.StatusShipping!=null ?shipping.StatusShipping.Desc:"";
+                model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
 
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
@@ -251,14 +250,11 @@ namespace sln.Controllers
 
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
-                // shipping.Name = " משלוח " + " " + DateTime.Today.ToString("dd/MM/yyyy") + " " + shippingVm.Number;
-
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.CreatedOn = DateTime.Now;
                 shipping.CreatedBy = userid;
                 shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userid;
-               // shipping.OwnerId = userid;
                 shipping.IsActive = true;
 
                 shipping.CityFrom_CityId = shippingVm.CityForm;
@@ -269,8 +265,8 @@ namespace sln.Controllers
                 shipping.AddressNumFrom = shippingVm.NumFrom;
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
-
-                context.Shipping.Add(shipping);
+                context.Entry<Shipping>(shipping).State = EntityState.Modified;
+                //context. (shipping);
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
