@@ -18,6 +18,7 @@ namespace sln.Controllers
     [Authorize]
     public class ShipItemController : Controller
     {
+
         public async Task<ActionResult> Remove(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -47,7 +48,6 @@ namespace sln.Controllers
                 return View("Index", new { id = shipItem.Shipping_ShippingId.ToString() });
             }
         }
-
 
         public async Task<ActionResult> Index(string id)
         {
@@ -126,99 +126,47 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.FindAsync(shipId);
-                List<Distance> distances = new List<Distance>();
-                var city = await context.City.ToListAsync();
-                var model = new ShippingVm();
+                var model = new ShippingItemVm();
+                model.ShipId = Guid.Parse(id);
 
-                model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
-                model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
-                model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
-                model.FastSearch = shipping.FastSearchNumber;
-                model.Id = shipping.ShippingId;
-                model.Number = shipping.Desc;
-                model.NumFrom = shipping.AddressNumFrom;
-                model.NumTo = shipping.AddressNumTo;
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-                model.SreetFrom = shipping.AddressFrom;
-                model.SreetTo = shipping.AddressTo;
-                model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
-                model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
-
-                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
-                ViewBag.City = new SelectList(city, "CityId", "Name");
-
-                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                {
-                    Guid orgId = Guid.Empty;
-                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-                    foreach (var claim in claimsIdentity.Claims)
-                    {
-                        if (claim.Type == ClaimTypes.GroupSid)
-                        {
-                            orgId = Guid.Parse(claim.Value);
-
-                            break;
-                        }
-                    }
-                    model.OrgId = orgId;
-                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
-                }
-                else
-                {
-                    distances = await context.Distance.ToListAsync();
-                }
-                ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
-                return View(model);
+                var shipItem = await context.ShippingItem.FindAsync(model.ShipId);
+                if (shipItem == null || shipItem.Shipping==null)
+                    throw new ArgumentNullException("shipItem");
+               var ship= shipItem.Shipping;
+               var org = ship.Organization_OrgId;
+               var products = await context.Product.Where(s => s.Organizations.Any(e => org.HasValue && e.OrgId == org.Value)).ToListAsync();
+               model.OrderNumber = ship.Name;
+                    ViewBag.Products = new SelectList(products, "ProductId", "Name");
+                    ViewBag.ShipId = ship.ShippingId;
+                    ViewBag.OrderNumber = model.OrderNumber;
+                    return View(model);
+                
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ShippingVm shippingVm)
+        public async Task<ActionResult> Edit(ShippingItemVm shippingItemVm)
         {
             using (var context = new ApplicationDbContext())
             {
-                var shipping = await context.Shipping.FindAsync(shippingVm.Id);
-                ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                 Guid userid = Guid.Empty;
+                var shippingItem = await context.ShippingItem.FindAsync(shippingItemVm.Id);
+                
                 ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
                 foreach (var claim in claimsIdentity.Claims)
                 {
-                    if (claim.Type == ClaimTypes.GroupSid)
-                    {
-                        shipping.Organization_OrgId = Guid.Parse(claim.Value);
-
-                    }
                     if (claim.Type == ClaimTypes.NameIdentifier)
-                    {
                         userid = Guid.Parse(claim.Value);
-
-                    }
                 }
 
-                shipping.FastSearchNumber = shippingVm.FastSearch;
-                shipping.Name = shippingVm.Number;
-                shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-                shipping.CreatedOn = DateTime.Now;
-                shipping.CreatedBy = userid;
-                shipping.ModifiedOn = DateTime.Now;
-                shipping.ModifiedBy = userid;
-                shipping.IsActive = true;
-
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressTo = shippingVm.SreetTo;
-                shipping.AddressNumTo = shippingVm.NumTo;
-                shipping.AddressNumFrom = shippingVm.NumFrom;
-
-                shipping.Distance_DistanceId = shippingVm.DistanceId;
-                context.Entry<Shipping>(shipping).State = EntityState.Modified;
-                //context. (shipping);
+                shippingItem.Shipping_ShippingId = shippingItemVm.ShipId;
+                shippingItem.Quantity = shippingItemVm.Total;
+                
+                shippingItem.ModifiedOn = DateTime.Now;
+                shippingItem.ModifiedBy = userid;
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = shippingItemVm.ShipId.ToString() });
             }
         }
 
