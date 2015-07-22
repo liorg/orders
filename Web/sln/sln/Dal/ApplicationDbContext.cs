@@ -26,7 +26,6 @@ namespace sln.Dal
         public DbSet<PriceCalc> PriceCalc { get; set; }
         public DbSet<StatusShipping> StatusShipping { get; set; }
         public DbSet<TimeLine> TimeLine { get; set; }
-        //public DbSet<StatusTimeLine> StatusTimeLine { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<XbzCounter> XbzCounter { get; set; }
         public DbSet<Lead> Lead { get; set; }

@@ -43,16 +43,16 @@
     @Html.HiddenFor(m => m.StatusId);
 
     <div class="form-group">
-     @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
                 @Html.DisplayFor(model => model.Number)
             </div>
 
- </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
                 @Html.DisplayFor(model => model.Status)
             </div>
     </div>
@@ -108,8 +108,8 @@
 
     <div class="form-group">
         @if(Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
+        {   
+         @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
           <div class="col-md-10">
               @Html.DropDownListFor(m => m.OrgId ,(SelectList)ViewBag.Orgs);
           </div>
@@ -117,8 +117,9 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2 col-md-8">
             <input type="submit" class="btn btn-default" value="ערוך משלוח" />
+            @Html.ActionLink("הבא", "Index", "ShipItem",new { id =@Html.DisplayFor(m => m.Id)}, new { @class = "btn btn-success" }) 
         </div>
     </div>
 </div>

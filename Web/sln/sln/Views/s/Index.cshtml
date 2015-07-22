@@ -7,21 +7,11 @@
 <div class="row">
 <table class="table table-striped table-hover">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DistanceName)
-        </th>
- <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-      <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
+        <th> @Html.DisplayNameFor(model => model.Name)</th>
+        <th> @Html.DisplayNameFor(model => model.DistanceName)</th>
+        <th> @Html.DisplayNameFor(model => model.Status)</th>
+        <th> @Html.DisplayNameFor(model => model.CreatedBy)</th>
+        <th> @Html.DisplayNameFor(model => model.CreatedOn)</th>
         <th> @Html.DisplayNameFor(model => model.CityToName)</th>
         <th> @Html.DisplayNameFor(model => model.CityFormName)</th>
      
@@ -38,22 +28,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DistanceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-      <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-         <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        <td> @Html.DisplayFor(modelItem => item.CityToName)</td>
-        <td> @Html.DisplayFor(modelItem => item.CityFormName)</td>
+        <td>  @Html.DisplayFor(modelItem => item.DistanceName)</td>
+        <td>  @Html.DisplayFor(modelItem => item.Status)</td>
+        <td>  @Html.DisplayFor(modelItem => item.CreatedBy)</td>
+        <td>  @Html.DisplayFor(modelItem => item.CreatedOn) </td>
+        <td>  @Html.DisplayFor(modelItem => item.CityToName)</td>
+        <td>  @Html.DisplayFor(modelItem => item.CityFormName)</td>
     </tr>
 }
 
 </table>
-
