@@ -290,6 +290,7 @@
     <Content Include="Test\m.html" />
     <Content Include="Test\h.html" />
     <Content Include="Test\ping.html" />
+    <Content Include="Test\r.html" />
     <Content Include="Test\sr.html" />
     <Content Include="Test\s.html" />
     <Content Include="Test\t1.html" />
