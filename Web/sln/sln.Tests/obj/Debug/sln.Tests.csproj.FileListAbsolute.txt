@@ -53,7 +53,6 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\sln.Tests.d
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\sln.Tests.pdb
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Newtonsoft.Json.dll
-C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\sln.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Helpers.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Mvc.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Razor.dll
@@ -74,7 +73,6 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Microsoft.O
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Http.WebHost.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Net.Http.Formatting.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.dll
-C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\sln.pdb
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Helpers.xml
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\System.Web.Mvc.xml
@@ -98,3 +96,5 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Microsoft.O
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\obj\Debug\sln.Tests.csprojResolveAssemblyReference.cache
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\obj\Debug\sln.Tests.dll
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\obj\Debug\sln.Tests.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Michal.Project.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln.Tests\bin\Debug\Michal.Project.pdb

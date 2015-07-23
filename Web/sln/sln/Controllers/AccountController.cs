@@ -33,6 +33,7 @@ namespace sln.Controllers
         {
 
         }
+
         public AccountController(UserManager<ApplicationUser> userManager = null)
         {
             DBContext = new ApplicationDbContext();
