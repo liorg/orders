@@ -19,6 +19,7 @@ namespace sln.Models
             this.FirstName = user.FirstName;
             this.LastName = user.LastName;
             this.Email = user.Email;
+            this.IsActive = user.IsActive;
             this.OrgId = user.Organization_OrgId.HasValue ? user.Organization_OrgId.Value : Guid.Empty;
         }
 
@@ -59,5 +60,9 @@ namespace sln.Models
 
         [Display(Name = "תפקיד מאשר הזמנה")]
         public bool IsAcceptOrder { get; set; }
+
+
+        [Display(Name = "משתמש פעיל?")]
+        public bool IsActive { get; set; }
     }
 }

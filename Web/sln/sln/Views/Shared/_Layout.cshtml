@@ -13,6 +13,9 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/admin")
     @Styles.Render("~/Content/admin")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+  
 
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
@@ -185,5 +188,13 @@
     </div>
 
     @RenderSection("scripts", required: false)
+<script>
+  
+    $.ready(function () {
+        debugger;
+        alert(1);
+    });
+
+</script>
 </body>
 </html>
