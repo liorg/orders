@@ -190,10 +190,15 @@
     @RenderSection("scripts", required: false)
 <script>
   
-    $.ready(function () {
-        debugger;
-        alert(1);
+    $(document).ready(function () {
+        //debugger;
+        // alert(3);
+         $('.switch').bootstrapSwitch();
+        // Handler for .ready() called.
+
     });
+
+
 
 </script>
 </body>

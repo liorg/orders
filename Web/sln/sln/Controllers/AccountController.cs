@@ -120,17 +120,16 @@ namespace sln.Controllers
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
                     user.Email = model.Email;
-
+                    user.IsActive = model.IsActive;
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
                     await context.SaveChangesAsync();
                     if (user.Roles != null && user.Roles.Any())
                     {
-                        foreach (var role in user.Roles)
-                        {
-                            if (role.Role != null)
-                                await UserManager.RemoveFromRoleAsync(model.UserId, role.Role.Name);
+                        var cloneRules = new List<string>();
+                        user.Roles.Where(rw=>rw.Role!=null && !String.IsNullOrEmpty(rw.Role.Name)).ToList().ForEach(rr=>cloneRules.Add(rr.Role.Name));
 
-                        }
+                        foreach (var role in cloneRules)
+                           await UserManager.RemoveFromRoleAsync(model.UserId, role);
                     }
 
                     if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id, "Admin");
