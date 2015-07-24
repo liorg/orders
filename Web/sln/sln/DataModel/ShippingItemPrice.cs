@@ -8,29 +8,18 @@ using System.Web;
 
 namespace sln.DataModel
 {
-
-    public class ShippingItem : IModifieder
+    public class ShippingItemPrice : IModifieder
     {
-        public ShippingItem()
-        {
-            ShippingItemPrices = new HashSet<ShippingItemPrice>();
 
-        }
-        public ICollection<ShippingItemPrice> ShippingItemPrices { get; set; }
-
-        public virtual Product Product { get; set; }
-        [ForeignKey("Product")]
-        public Guid? Product_ProductId { get; set; }
-
-        public virtual Shipping Shipping { get; set; }
-        [ForeignKey("Shipping")]
-        public Guid? Shipping_ShippingId { get; set; }
-
+        public virtual ShippingItem ShippingItem { get; set; }
+        [ForeignKey("ShippingItem")]
+        public Guid? ShippingItem_ShippingItemId { get; set; }
 
         [Key]
-        public Guid ShippingItemId { get; set; }
+        public Guid ShippingItemPriceId { get; set; }
 
-        public string Name { get; set; }
+        [Column(TypeName = "Money")]
+        public decimal Price { get; set; }
 
         public DateTime? CreatedOn
         {
@@ -62,7 +51,6 @@ namespace sln.DataModel
             set;
         }
 
-        public double Quantity { get; set; }
-
+        
     }
 }

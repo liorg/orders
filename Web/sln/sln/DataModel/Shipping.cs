@@ -18,7 +18,7 @@ namespace sln.DataModel
         }
         public ICollection<TimeLine> TimeLines { get; set; }
 
-       
+      //  [ForeignKey("Shipping_ShippingId")]
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]

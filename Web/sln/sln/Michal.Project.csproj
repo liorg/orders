@@ -182,7 +182,8 @@
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\Lead.cs" />
-    <Compile Include="DataModel\XbzCounter.cs" />
+    <Compile Include="DataModel\ShippingItemPrice.cs" />
+    <Compile Include="fonts\XbzCounter.cs" />
     <Compile Include="DataModel\PriceListForOrg.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
@@ -221,6 +222,10 @@
     <Compile Include="Migrations\201507240334209_timeline.cs" />
     <Compile Include="Migrations\201507240334209_timeline.Designer.cs">
       <DependentUpon>201507240334209_timeline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507241314510_shipp.cs" />
+    <Compile Include="Migrations\201507241314510_shipp.Designer.cs">
+      <DependentUpon>201507241314510_shipp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,6 +298,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Test\h - Copy %282%29.html" />
     <Content Include="Test\f.html" />
+    <Content Include="Test\tl2.html" />
     <Content Include="Test\m.html" />
     <Content Include="Test\h.html" />
     <Content Include="Test\ping.html" />
@@ -358,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507240334209_timeline.resx">
       <DependentUpon>201507240334209_timeline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507241314510_shipp.resx">
+      <DependentUpon>201507241314510_shipp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

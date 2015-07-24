@@ -322,29 +322,31 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.FindAsync(shipId);
-                if(shipping.ShippingItems==null || shipping.ShippingItems.Count==0)
+                var shipping = await context.Shipping.Include(ic=>ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+               
+                if(shipping.ShippingItems==null || shipping.ShippingItems.Count<=1)
                       return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
 
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
-                var model = new ShippingVm();
-                model.Number = shipping.Name;
+                var orderModel = new OrderView();
+                orderModel.ShippingVm = new ShippingVm();
+                orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
-                model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
-                model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
-                model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
-                model.FastSearch = shipping.FastSearchNumber;
-                model.Id = shipping.ShippingId;
-                model.Number = shipping.Desc;
-                model.NumFrom = shipping.AddressNumFrom;
-                model.NumTo = shipping.AddressNumTo;
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-                model.SreetFrom = shipping.AddressFrom;
-                model.SreetTo = shipping.AddressTo;
-                model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
-                model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                orderModel.ShippingVm.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
+                orderModel.ShippingVm.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+                orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+                orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
+                orderModel.ShippingVm.Id = shipping.ShippingId;
+                orderModel.ShippingVm.Number = shipping.Desc;
+                orderModel.ShippingVm.NumFrom = shipping.AddressNumFrom;
+                orderModel.ShippingVm.NumTo = shipping.AddressNumTo;
+                orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                orderModel.ShippingVm.SreetFrom = shipping.AddressFrom;
+                orderModel.ShippingVm.SreetTo = shipping.AddressTo;
+                orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
@@ -370,7 +372,7 @@ namespace sln.Controllers
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
-                return View(model);
+                return View(orderModel);
             }
         }
 
