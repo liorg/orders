@@ -4,27 +4,22 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2> פריטי משלוח </h2>
+<h3>מספר משלוח @ViewBag.OrderNumber  </h3>
 <div class="row">
-<div class="stepwizard">
+ <div class="stepwizard">
      <div class="stepwizard-row setup-panel">
-        <div class="stepwizard-step">
-             <a href="@Url.Action("Edit","S",new { id=ViewBag.ShipId })" type="button" class="btn btn-default btn-circle">1</a>
+          <div class="stepwizard-step">
+             <a href="@Url.Action("Edit","S",new { id=@ViewBag.ShipId })" type="button" class="btn btn-default btn-circle">1</a>
              <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
-             <a href="#step-2" type="button" class="btn  btn-primary  btn-circle" disabled="disabled">2</a>
+            <a href="#" type="button" class="btn btn-primary btn-circle">2</a>
              <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
              <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
              <p>אשר הזמנה</p>
          </div>
-         @*<div class="stepwizard-step">
-             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-             <p>קבלת הזמנה </p>
-         </div>
-         *@
      </div>
  </div>
 </div>
@@ -66,7 +61,7 @@
             @Html.ActionLink("ערוך פריט", "Edit", new { id = item.Id },new { @class = "btn btn-default" }) 
         </td>
  <td>
-            @Html.ActionLink("הסר פריט", "Remove", new { id = item.Id },new { @class = "btn btn-danger" }) 
+            @Html.ActionLink("הסר פריט", "Remove", new { id = item.Id,order= ViewBag.OrderNumber},new { @class = "btn btn-danger" }) 
         </td>
     </tr>
 }

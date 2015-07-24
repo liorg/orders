@@ -10,25 +10,21 @@
 {
     @Html.AntiForgeryToken()
     
- <div class="stepwizard">
+
+       <div class="stepwizard">
      <div class="stepwizard-row setup-panel">
-         <div class="stepwizard-step">
+          <div class="stepwizard-step">
              <a href="@Url.Action("Edit","S",new { id=ViewBag.ShipId })" type="button" class="btn btn-default btn-circle">1</a>
              <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
-             <a href="#step-2" type="button" class="btn btn-primary btn-circle" disabled="disabled">2</a>
+            <a href="@Url.Action("Index","ShipItem",new { id= ViewBag.ShipId,order=@ViewBag.OrderNumber })" type="button" class="btn btn-primary btn-circle">2</a>
              <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
              <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
              <p>אשר הזמנה</p>
          </div>
-         @*<div class="stepwizard-step">
-             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-             <p>קבלת הזמנה </p>
-         </div>
-         *@
      </div>
  </div>
 

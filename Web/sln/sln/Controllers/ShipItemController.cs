@@ -19,7 +19,7 @@ namespace sln.Controllers
     public class ShipItemController : Controller
     {
 
-        public async Task<ActionResult> Remove(string id)
+        public async Task<ActionResult> Remove(string id,string order)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -45,15 +45,16 @@ namespace sln.Controllers
                 context.Entry<ShippingItem>(shipItem).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
-                return View("Index", new { id = shipItem.Shipping_ShippingId.ToString() });
+                return View("Index", new { id = ViewBag.ShipId, order =order });
             }
         }
 
-        public async Task<ActionResult> Index(string id)
+        public async Task<ActionResult> Index(string id,string order)
         {
             using (var context = new ApplicationDbContext())
             {
                 ViewBag.ShipId = id;
+                ViewBag.OrderNumber = order;
                 Guid shipId = Guid.Parse(id);
                 var shippingItems = await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product != null && s.Product.IsCalculatingShippingInclusive == false).ToListAsync();
 
@@ -117,7 +118,7 @@ namespace sln.Controllers
                 context.ShippingItem.Add(shippingItem);
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = shippingItemVm.ShipId.ToString() });
+                return RedirectToAction("Index", new { id = shippingItemVm.ShipId.ToString(),order=shippingItemVm.OrderNumber });
             }
         }
 
@@ -170,7 +171,7 @@ namespace sln.Controllers
 
                 context.Entry<ShippingItem>(shippingItem).State = EntityState.Modified;
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = shippingItem.Shipping_ShippingId.Value.ToString() });
+                return RedirectToAction("Index", new { id = shippingItem.Shipping_ShippingId.Value.ToString(), order = shippingItemVm.OrderNumber });
             }
         }
 

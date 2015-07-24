@@ -4,8 +4,7 @@
     ViewBag.Title = "משלוח קיים";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>מספר משלוח @ViewBag.OrderNumber  </h2>
-
+<h3>מספר משלוח @ViewBag.OrderNumber  </h3>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,7 +16,7 @@
              <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
-            <a href="@Url.Action("Index","ShipItem",new { id= @Html.DisplayFor(model => model.Id) })" type="button" class="btn btn-default btn-circle">2</a>
+            <a href="@Url.Action("Index","ShipItem",new { id= @Html.DisplayFor(model => model.Id),order=@ViewBag.OrderNumber })" type="button" class="btn btn-default btn-circle">2</a>
              <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
@@ -119,7 +118,7 @@
         <div class="col-md-offset-2 col-md-8">
             <input type="submit" class="btn btn-primary btn-lg" value="ערוך משלוח" />
             <span class="pull-left"> 
-                <a alt="הבא" class="btn btn-success btn-lg" href="@Url.Action("Index","ShipItem",new { id=@Html.DisplayFor(m => m.Id) })"><i class="fa fa-motorcycle pull-right"></i> הבא <i class="fa fa-angle-double-left pull-left"></i></a>
+                <a alt="הבא" class="btn btn-success btn-lg" href="@Url.Action("Index","ShipItem",new { id=@Html.DisplayFor(m => m.Id),order=@ViewBag.OrderNumber })"><i class="fa fa-motorcycle pull-right"></i> הבא <i class="fa fa-angle-double-left pull-left"></i></a>
             </span>
         </div>
     </div>

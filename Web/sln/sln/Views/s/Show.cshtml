@@ -17,7 +17,7 @@
              <p>ערוך הזמנה</p>
          </div>
          <div class="stepwizard-step">
-            <a href="@Url.Action("Index","ShipItem",new { id= @Html.DisplayFor(model => model.Id) })" type="button" class="btn btn-default btn-circle">2</a>
+            <a href="@Url.Action("Index","ShipItem",new { id= @Html.DisplayFor(model => model.Id),order=@ViewBag.OrderNumber })" type="button" class="btn btn-default btn-circle">2</a>
              <p>הוסף פריטי משלוח</p>
          </div>
          <div class="stepwizard-step">
