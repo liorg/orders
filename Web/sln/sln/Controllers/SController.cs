@@ -325,6 +325,7 @@ namespace sln.Controllers
                 var shipping = await context.Shipping.FindAsync(shipId);
                 if(shipping.ShippingItems==null || shipping.ShippingItems.Count==0)
                       return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
+
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var model = new ShippingVm();

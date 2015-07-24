@@ -224,10 +224,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\ShippingVm.cs" />
+    <Compile Include="Models\TimeLineVm.cs" />
     <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
     <Compile Include="Models\UserManagement\LoginViewModel.cs" />
     <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
