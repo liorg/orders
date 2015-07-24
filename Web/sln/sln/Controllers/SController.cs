@@ -180,11 +180,25 @@ namespace sln.Controllers
                 shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
                 shipping.ShippingItems.Add(shipItem);
 
+                TimeLine tl = new TimeLine
+                {
+                    Name = "הזמנה חדשה",
+                    Desc = "הזמנה חדשה שנוצרה" + shipping +"בתאריך "+currentDate.ToLongTimeString(),
+                    CreatedBy = userid,
+                    CreatedOn = currentDate,
+                    ModifiedBy = userid,
+                    ModifiedOn = currentDate,
+                    TimeLineId = Guid.NewGuid(),
+                    IsActive = true,
+                    Status = TimeStatus.New
+                };
+               
+
                 context.Shipping.Add(shipping);
 
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString() });
+                return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number ,message="שים לב יש להוסיף פריטי משלוח"});
             }
         }
 
@@ -309,6 +323,8 @@ namespace sln.Controllers
             {
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.FindAsync(shipId);
+                if(shipping.ShippingItems==null || shipping.ShippingItems.Count==0)
+                      return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var model = new ShippingVm();
@@ -350,8 +366,6 @@ namespace sln.Controllers
                 }
                 else
                 {
-
-
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");

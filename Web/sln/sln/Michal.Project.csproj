@@ -329,6 +329,7 @@
     <Content Include="Views\ShipItem\Create.cshtml" />
     <Content Include="Views\ShipItem\Edit.cshtml" />
     <Content Include="Views\s\Show.cshtml" />
+    <Content Include="Views\Shared\_TimeLinePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

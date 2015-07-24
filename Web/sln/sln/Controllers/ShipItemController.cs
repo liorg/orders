@@ -19,11 +19,11 @@ namespace sln.Controllers
     public class ShipItemController : Controller
     {
 
-        public async Task<ActionResult> Remove(string id,string order)
+        public async Task<ActionResult> RemoveItem(string id,string order)
         {
             using (var context = new ApplicationDbContext())
             {
-                ViewBag.ShipId = id;
+                
                 Guid userid = Guid.Empty;
 
                 ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
@@ -33,23 +33,26 @@ namespace sln.Controllers
                         userid = Guid.Parse(claim.Value);
 
                 }
-                Guid shipId = Guid.Parse(id);
-                var shipItem = await context.ShippingItem.FindAsync(shipId);
+                Guid shipItemId = Guid.Parse(id); Guid shipId = Guid.Empty;
+                var shipItem = await context.ShippingItem.FindAsync(shipItemId);
                 if (shipItem != null)
                 {
-                    shipItem.IsActive = false;
-                    shipItem.ModifiedOn = DateTime.Now;
-                    shipItem.ModifiedBy = userid;
+                    //shipItem.IsActive = false;
+                    //shipItem.ModifiedOn = DateTime.Now;
+                    //shipItem.ModifiedBy = userid;
+                   shipId = shipItem.Shipping_ShippingId.Value;
+               
                 }
-
-                context.Entry<ShippingItem>(shipItem).State = EntityState.Modified;
+                
+               // ViewBag.ShipId = id.ToString();
+                context.Entry<ShippingItem>(shipItem).State = EntityState.Deleted;
                 await context.SaveChangesAsync();
 
-                return View("Index", new { id = ViewBag.ShipId, order =order });
+                return RedirectToAction("Index", new { id = shipId.ToString(), order = order });
             }
         }
 
-        public async Task<ActionResult> Index(string id,string order)
+        public async Task<ActionResult> Index(string id, string order, string message)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -57,7 +60,7 @@ namespace sln.Controllers
                 ViewBag.OrderNumber = order;
                 Guid shipId = Guid.Parse(id);
                 var shippingItems = await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product != null && s.Product.IsCalculatingShippingInclusive == false).ToListAsync();
-
+                ViewBag.Message = String.IsNullOrEmpty( message)?"":message;
                 var model = new List<ShippingItemVm>();
                 foreach (var shipItem in shippingItems)
                 {

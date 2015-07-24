@@ -24,6 +24,17 @@
  </div>
 </div>
 
+@if(ViewBag.Message!="")
+{
+<div class="row">
+
+<div class="alert alert-warning">
+ <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  @ViewBag.Message
+</div>
+  </div>
+}
+
 <div class="row">
 <p>
  <a class="btn btn-success btn-lg" href="@Url.Action("Create",new { id= ViewBag.ShipId  })">
@@ -61,7 +72,7 @@
             @Html.ActionLink("ערוך פריט", "Edit", new { id = item.Id },new { @class = "btn btn-default" }) 
         </td>
  <td>
-            @Html.ActionLink("הסר פריט", "Remove", new { id = item.Id,order= ViewBag.OrderNumber},new { @class = "btn btn-danger" }) 
+            @Html.ActionLink("הסר פריט", "RemoveItem", new { id = item.Id,order= @ViewBag.OrderNumber},new { @class = "btn btn-danger" }) 
         </td>
     </tr>
 }
@@ -75,7 +86,7 @@
  <div class="form-group">
         <div class=" col-md-12">
             <span class="pull-left"> 
-                <a alt="הבא" class="btn btn-success btn-lg" href="@Url.Action("Show","S",new { id=ViewBag.ShipId })"><i class="fa fa-motorcycle pull-right"></i> הבא <i class="fa fa-angle-double-left pull-left"></i></a>
+                <a alt="קבלת אישור" class="btn btn-primary btn-lg" href="@Url.Action("Show","S",new { id=ViewBag.ShipId })"><i class="fa fa-motorcycle pull-right"></i> קבלת אישור <i class="fa fa-angle-double-left pull-left"></i></a>
             </span>
 <span class="pull-right"> 
                 <a alt="קודם" class="btn btn-success btn-lg" href="@Url.Action("Edit","S",new { id=ViewBag.ShipId })"> אחורה <i class="fa fa-angle-double-right pull-right"></i></a>
