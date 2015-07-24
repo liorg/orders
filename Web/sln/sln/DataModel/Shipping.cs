@@ -97,6 +97,12 @@ namespace sln.DataModel
 
         public long FastSearchNumber { get; set; }
 
+        public Guid? ApprovalRequest { get; set; }
+
+        public Guid? ApprovalShip { get; set; }
+
+
+
        // public int FastSearch { get; set; }
 
     }

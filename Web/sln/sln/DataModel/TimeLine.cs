@@ -62,5 +62,10 @@ namespace sln.DataModel
             set;
         }
 
+        public Guid? ApprovalRequest { get; set; }
+
+        public Guid? ApprovalShip { get; set; }
+
+        public Guid? OwnerShip { get; set; }
     }
 }

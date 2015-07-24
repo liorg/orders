@@ -4,7 +4,48 @@ http://bootsnipp.com/snippets/featured/form-wizard-and-validation
 http://bootsnipp.com/snippets/featured/single-column-timeline-collapsed
 
 http://bootsnipp.com/snippets/featured/dropdown-userlist-plus-administration
-
+http://bootsnipp.com/snippets/featured/google-style-login
 
 http://www.codeproject.com/Articles/682113/Extending-Identity-Accounts-and-Implementing-Rol
 http://typecastexception.com/post/2013/10/27/Configuring-Db-Connection-and-Code-First-Migration-for-Identity-Accounts-in-ASPNET-MVC-5-and-Visual-Studio-2013.aspx
+
+
+public static MvcHtmlString IsDisabled(this MvcHtmlString htmlString, bool disabled)
+{
+    string rawstring = htmlString.ToString();
+    if (disabled)
+    {
+        rawstring = rawstring.Insert(rawstring.Length - 2, "disabled=\"disabled\"");
+    }
+    return new MvcHtmlString(rawstring);
+}
+
+public static MvcHtmlString IsReadonly(this MvcHtmlString htmlString, bool @readonly)
+{
+    string rawstring = htmlString.ToString();
+    if (@readonly)
+    {
+        rawstring = rawstring.Insert(rawstring.Length - 2, "readonly=\"readonly\"");
+    }
+    return new MvcHtmlString(rawstring);
+}
+
+
+@Html.TextBoxFor(model => model.Name, new { @class= "someclass"}).IsDisabled(Model.ExpireDate == null)
+
+
+http://www.codeproject.com/Tips/670129/Enable-Disable-controls-on-a-web-page-using-MVC-Ra
+
+
+public static bool IsAdmin(this WebViewPage page)
+{
+    return page.User.IsInRole(@"Domain\ProjectAdmins");
+}
+Usage:
+
+@if (this.IsAdmin())
+{
+    <p>
+        @Html.ActionLink("Create New Version", "Create")
+    </p>
+}
