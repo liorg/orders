@@ -6,6 +6,21 @@ using System.Web;
 
 namespace sln.Models
 {
+    public class ViewType
+    {
+        public int Val { get; set; }
+        public string Name { get; set; }
+        
+    }
+
+    public class ViewOrder<T> 
+    {
+        public T Model { get; set; }
+        public List<ViewType> ViewTypes { get; set; }
+        
+    }
+   
+
     public class ShippingItemVm
     {
         [Display(Name = "מזהה")]

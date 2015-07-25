@@ -179,6 +179,7 @@
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
+    <Compile Include="Dal\MemeryCacheDataService.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\Lead.cs" />
@@ -232,11 +233,8 @@
       <DependentUpon>201507252052369_ss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\ShippingVm.cs" />
     <Compile Include="Models\TimeLineVm.cs" />
     <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
@@ -342,6 +340,7 @@
     <Content Include="Views\ShipItem\Edit.cshtml" />
     <Content Include="Views\s\Show.cshtml" />
     <Content Include="Views\Shared\_TimeLinePartial.cshtml" />
+    <Content Include="Views\s\_viewLists.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

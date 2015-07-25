@@ -18,10 +18,14 @@ namespace sln.Controllers
     [Authorize]
     public class SController : Controller
     {
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? viewType,int? currentPage)
         {
             using (var context = new ApplicationDbContext())
             {
+                MemeryCacheDataService cache = new MemeryCacheDataService(context);
+                var di=cache.GetView();
+                if (viewType.HasValue)
+                    ViewBag.ViewName = di.ContainsKey(viewType.Value) ? di[viewType.Value] : "בחר...";
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.Name == "3" && s.CreatedOn > from).AsQueryable();
@@ -41,6 +45,7 @@ namespace sln.Controllers
                 }
                 shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
                 var model = new List<ShippingVm>();
+               // ViewOrder<IEnumerable<ShippingVm>> viewOrder = new ViewOrder<IEnumerable<ShippingVm>>(); 
                 foreach (var ship in shippings)
                 {
                     var created = context.Users.Find(ship.CreatedBy.ToString());
@@ -57,6 +62,9 @@ namespace sln.Controllers
                     model.Add(u);
 
                 }
+                //viewOrder.Model = model;
+                //viewOrder.ViewTypes = new List<Models.ViewType>();
+
                 return View(model);
             }
         }
