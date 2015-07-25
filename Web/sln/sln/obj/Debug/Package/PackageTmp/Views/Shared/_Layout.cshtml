@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 
     @Styles.Render("~/Content/css")
 
@@ -13,9 +13,9 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/admin")
     @Styles.Render("~/Content/admin")
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
-  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+
 
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
@@ -48,7 +48,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="/s/create"><span class="glyphicon glyphicon-plus"></span> צור משלוח חדש </a>
+                        <a href="/s/create"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
@@ -85,26 +85,37 @@
 
 
     <div class="container">
-<div class="well carousel-search hidden-sm">
-   <div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">בחר  <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">California</a></li>
-                <li><a href="#">New York</a></li>
-                <li><a href="#">Massachusetts</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Quebec</a>
-                </li><li><a href="#">Ontario</a>
-                </li><li><a href="#">British Columbia</a>
-                </li>
-            </ul>
+        <div class="well carousel-search hidden-sm">
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">בחר  <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">California</a></li>
+                    <li><a href="#">New York</a></li>
+                    <li><a href="#">Massachusetts</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Quebec</a>
+                    </li>
+                    <li><a href="#">Ontario</a>
+                    </li>
+                    <li><a href="#">British Columbia</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" id="btnSearch" class="btn btn-primary">Search</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" id="btnSearch" class="btn btn-default">Add</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li><a href="http://bootsnipp.com/fullscreen/a6WQy" target="_blank"><span class="glyphicon glyphicon-fullscreen"></span>View Full Screen</a></li>
+                </ul>
+            </div>
         </div>
- <div class="btn-group">
-            <button type="button" id="btnSearch" class="btn btn-primary">Search</button>
-        </div>
- <div class="btn-group">
-            <button type="button" id="btnSearch" class="btn btn-default">Add</button>
-        </div>
-</div>
         @RenderBody()
         <hr />
         @*  
@@ -113,20 +124,20 @@
         </footer>
         *@
     </div>
-</div>
+    </div>
     @RenderSection("scripts", required: false)
-<script>
-  
-    $(document).ready(function () {
-        //debugger;
-        // alert(3);
-         $('.switch').bootstrapSwitch();
-        // Handler for .ready() called.
+    <script>
 
-    });
+        $(document).ready(function () {
+            //debugger;
+            // alert(3);
+            $('.switch').bootstrapSwitch();
+            // Handler for .ready() called.
+
+        });
 
 
 
-</script>
+    </script>
 </body>
 </html>

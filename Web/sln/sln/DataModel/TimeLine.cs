@@ -22,9 +22,10 @@ namespace sln.DataModel
         public Guid TimeLineId { get; set; }
 
         public int Status { get; set; }
-        //public virtual StatusTimeLine StatusTimeLine { get; set; }
-        //[ForeignKey("StatusTimeLine")]
-        //public Guid? StatusTimeLine_StatusTimeLineId { get; set; }
+
+        public virtual StatusShipping StatusShipping { get; set; }
+        [ForeignKey("StatusShipping")]
+        public Guid? StatusShipping_StatusShippingId { get; set; }
 
         public string Name { get; set; }
 

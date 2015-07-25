@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201507241314510_shipp.Designer.cs">
       <DependentUpon>201507241314510_shipp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507252052369_ss.cs" />
+    <Compile Include="Migrations\201507252052369_ss.Designer.cs">
+      <DependentUpon>201507252052369_ss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\OrderView.cs" />
@@ -367,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507241314510_shipp.resx">
       <DependentUpon>201507241314510_shipp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507252052369_ss.resx">
+      <DependentUpon>201507252052369_ss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
