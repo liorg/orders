@@ -1,7 +1,6 @@
 ﻿@model  IEnumerable<sln.Models.TimeLineVm>
 
  <ul class="timeline">
-    
 @foreach (var timeline in Model){
                         <li ><div class="timeline-badge @timeline.Circle"><i class="fa @timeline.Icon fa-lg "></i></div>
                              <div class="timeline-panel">
@@ -10,5 +9,4 @@
                              </div>
                         </li>
             }
-      
     </ul>

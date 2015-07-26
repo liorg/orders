@@ -18,6 +18,29 @@ namespace sln.Controllers
     [Authorize]
     public class SController : Controller
     {
+        public async Task<ActionResult> RemoveItem(string id, string order)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+                if (ship != null)
+                {
+                    ship.IsActive = false;
+                    ship.ModifiedOn = DateTime.Now;
+                    ship.ModifiedBy = user.UserId;
+
+                }
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+        }
+
         public async Task<ActionResult> Index(int? viewType,int? currentPage)
         {
             using (var context = new ApplicationDbContext())
@@ -330,7 +353,7 @@ namespace sln.Controllers
                 orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
                 orderModel.Status.Message = Notification.MessageConfirm;
-
+                orderModel.Status.ShipId = shipping.ShippingId;
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
@@ -406,7 +429,7 @@ namespace sln.Controllers
                 orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
                 orderModel.Status.Message = Notification.MessageConfirm;
-
+                orderModel.Status.ShipId = shipping.ShippingId;
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;

@@ -26,6 +26,7 @@
 </tr>
 }
 @foreach (var item in Model) {
+    
     <tr onclick="location.href = '@(Url.Action("Edit", "S", new { id = item.Id }))'">
   
         <td>  @Html.DisplayFor(modelItem => item.Name) </td>
