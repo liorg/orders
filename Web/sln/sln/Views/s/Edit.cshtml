@@ -4,6 +4,8 @@
     ViewBag.Title = "משלוח קיים";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@Html.Partial("_viewLists")
 <h3>מספר משלוח @ViewBag.OrderNumber  </h3>
 @using (Html.BeginForm())
 {

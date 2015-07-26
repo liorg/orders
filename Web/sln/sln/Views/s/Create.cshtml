@@ -3,7 +3,8 @@
 @{
     ViewBag.Title = "משלוח חדש";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+} 
+@Html.Partial("_viewLists")
 <h2> משלוח חדש  @ViewBag.OrderNumber  </h2>
 
 @using (Html.BeginForm("Create", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

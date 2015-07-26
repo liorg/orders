@@ -1,0 +1,57 @@
+﻿@model sln.Models.OrderView
+<h5>xxxx @ViewBag.OrderNumber  </h5>
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputOrderTrackingID" class="col-sm-2 control-label">מספר משלוח</label>
+                    <div class="col-sm-10">
+                        <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.ShippingVm.Number, new { @class = "form-control" })
+          </div>    
+                    </div>
+                </div>
+            </div>
+
+            <h4>סטאטוס משלוח הזמנה</h4>
+
+            <ul class="list-group">
+ <li class="list-group-item">
+                    <span class="label label-success">@Model.ShippingVm.Status</span>
+                    <span class="prefix  pull-right">סטאטוס:</span>
+                </li>
+                <li class="list-group-item">
+    
+                    <span class="label label-success">@Model.ShippingVm.CreatedOn</span>
+                    <span class="prefix pull-right">תאריך יצירה:</span>
+                </li>
+                <li class="list-group-item">
+
+                    <span class="label label-success">@Model.ShippingVm.ModifiedOn</span>
+                    <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="label label-success">@Model.ShippingVm.From</span>
+                    <span class="prefix  pull-right">מ:</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="label label-success">@Model.ShippingVm.To</span>
+                    <span class="prefix  pull-right">אל:</span>
+                </li>
+               @* <li class="list-group-item">You can find out latest status of your order with the following link:</li>
+                <li class="list-group-item"><a href="//tracking/link/goes/here">//tracking/link/goes/here</a></li>
+           *@
+ </ul>
+
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+ @Html.Partial("_TimeLinePartial")
+</div>

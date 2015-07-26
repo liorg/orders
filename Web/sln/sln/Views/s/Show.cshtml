@@ -4,8 +4,8 @@
     ViewBag.Title = "בדיקה קיים";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.Partial("_viewLists")
 <h2>אישור משלוח @ViewBag.OrderNumber  </h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -27,7 +27,7 @@
         
      </div>
  </div>
-                    @Html.Partial("_TimeLinePartial")
+                    @Html.Partial("_ShippingView")
 <div class="form-horizontal">
    
 

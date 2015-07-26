@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using sln.Helper;
+using System.Web;
 using System.Web.Mvc;
 
 namespace sln
@@ -8,6 +9,7 @@ namespace sln
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new UserProfileActionFilter());
         }
     }
 }

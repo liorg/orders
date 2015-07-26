@@ -23,15 +23,12 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 MemeryCacheDataService cache = new MemeryCacheDataService(context);
-                var di=cache.GetView();
-                if (viewType.HasValue)
-                    ViewBag.ViewName = di.ContainsKey(viewType.Value) ? di[viewType.Value] : "בחר...";
+              
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.Name == "3" && s.CreatedOn > from).AsQueryable();
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                 {
-
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
                     foreach (var claim in claimsIdentity.Claims)
                     {
@@ -198,7 +195,8 @@ namespace sln.Controllers
                     ModifiedOn = currentDate,
                     TimeLineId = Guid.NewGuid(),
                     IsActive = true,
-                    Status = TimeStatus.New
+                    Status = TimeStatus.New,
+                    StatusShipping_StatusShippingId = shippingVm.StatusId
                 };
                
 
@@ -355,9 +353,13 @@ namespace sln.Controllers
                 orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-
+                orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
+                orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
+
+                orderModel.ShippingVm.CityFormName=shipping.CityFrom!=null ?shipping.CityFrom.Name:"";
+                orderModel.ShippingVm.CityToName=shipping.CityTo!=null ?shipping.CityTo.Name:"";
 
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {

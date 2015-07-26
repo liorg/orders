@@ -24,7 +24,7 @@ namespace sln.Models
         public string NumFrom { get; set; }
 
         [Display(Name = "כתובת יעד ")]
-        public string SreetTo{ get; set; }
+        public string SreetTo { get; set; }
 
         [Display(Name = "מספר כתובת יעד ")]
         public string NumTo { get; set; }
@@ -66,5 +66,24 @@ namespace sln.Models
 
         [Display(Name = "לחיפוש מהיר מספר  הזמנה ")]
         public long FastSearch { get; set; }
+
+        [Display(Name = "תאריך עדכון ")]
+        public string ModifiedOn { get; set; }
+
+        public string From
+        {
+            get
+            {
+                return SreetFrom + " " + NumFrom + " " + CityFormName;
+            }
+        }
+
+        public string To
+        {
+            get
+            {
+                return SreetTo + " " + NumTo + " " + CityToName;
+            }
+        }
     }
 }

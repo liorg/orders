@@ -1,17 +1,13 @@
 ﻿ <div class="well carousel-search hidden-sm">
+
             <div class="btn-group">
                 <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">בחר  <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">California</a></li>
-                    <li><a href="#">New York</a></li>
-                    <li><a href="#">Massachusetts</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Quebec</a>
-                    </li>
-                    <li><a href="#">Ontario</a>
-                    </li>
-                    <li><a href="#">British Columbia</a>
-                    </li>
+                @foreach (var view in ViewBag.Views)
+                    {
+                        <li><a href="#">@view.StatusDesc</a></li>
+                        <li class="divider"></li>
+                    }
                 </ul>
             </div>
             <div class="btn-group">
