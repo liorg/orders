@@ -6,6 +6,18 @@ using System.Web.Mvc;
 
 namespace sln.Helper
 {
+    public class UserProfilePictureActionFilter : ActionFilterAttribute
+    {
+
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            filterContext.Controller.ViewBag.IsAuthenticated = filterContext.RequestContext.HttpContext.Request.IsAuthenticated;// MembershipService.IsAuthenticated;
+            filterContext.Controller.ViewBag.IsAdmin = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+           // filterContext.Controller.ViewBag.OrgId = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+
+        }
+
+    }
     //public class LayoutInjecterAttribute : ActionFilterAttribute
     //{
     //    private readonly string _masterName;
