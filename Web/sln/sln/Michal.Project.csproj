@@ -173,6 +173,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ShipItemController.cs" />
     <Compile Include="Controllers\SController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
+    <Compile Include="Models\UserManagement\UserContext.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -345,6 +347,7 @@
     <Content Include="Views\Shared\_viewLists.cshtml" />
     <Content Include="Views\Shared\_ShippingView.cshtml" />
     <Content Include="Views\Shared\_StatusConfirm.cshtml" />
+    <Content Include="Views\s\ShipView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

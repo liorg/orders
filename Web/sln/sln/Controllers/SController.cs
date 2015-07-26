@@ -271,31 +271,28 @@ namespace sln.Controllers
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
                 ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                Guid userid = Guid.Empty; var orgId = Guid.NewGuid();
-                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.GroupSid)
-                    {
-                        orgId = Guid.Parse(claim.Value);
+                //Guid userid = Guid.Empty; var orgId = Guid.Empty;
+                UserContext userContext = new UserContext(AuthenticationManager);
 
+                //ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                //foreach (var claim in claimsIdentity.Claims)
+                //{
+                //    if (claim.Type == ClaimTypes.GroupSid)
+                //      orgId = Guid.Parse(claim.Value);
 
-                    }
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                    {
-                        userid = Guid.Parse(claim.Value);
+                //    if (claim.Type == ClaimTypes.NameIdentifier)
+                //      userid = Guid.Parse(claim.Value);
 
-                    }
-                }
+                //}
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                    shipping.Organization_OrgId = orgId;
+                    shipping.Organization_OrgId = userContext.OrgId;
                 else
                     shipping.Organization_OrgId = shippingVm.OrgId;
 
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.ModifiedOn = DateTime.Now;
-                shipping.ModifiedBy = userid;
+                shipping.ModifiedBy = userContext.UserId;
                 shipping.IsActive = true;
 
                 shipping.CityFrom_CityId = shippingVm.CityForm;
@@ -322,7 +319,6 @@ namespace sln.Controllers
             }
         }
 
-
         public async Task<ActionResult> Show(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -332,7 +328,7 @@ namespace sln.Controllers
                
                 if(shipping.ShippingItems==null || shipping.ShippingItems.Count<=1)
                       return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
-
+                
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var orderModel = new OrderView();
@@ -395,6 +391,82 @@ namespace sln.Controllers
                 }
 
                 orderModel.TimeLineVms=timeLineVms;
+                return View(orderModel);
+            }
+        }
+
+        public async Task<ActionResult> ShipView(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid shipId = Guid.Parse(id);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
+                    return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
+
+                List<Distance> distances = new List<Distance>();
+                var city = await context.City.ToListAsync();
+                var orderModel = new OrderView();
+
+                orderModel.Status = new StatusVm();
+                orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
+                orderModel.Status.Message = Notification.MessageConfirm;
+
+                orderModel.ShippingVm = new ShippingVm();
+                orderModel.ShippingVm.Number = shipping.Name;
+                ViewBag.OrderNumber = shipping.Name;
+                orderModel.ShippingVm.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
+                orderModel.ShippingVm.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+                orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+                orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
+                orderModel.ShippingVm.Id = shipping.ShippingId;
+                orderModel.ShippingVm.Number = shipping.Desc;
+                orderModel.ShippingVm.NumFrom = shipping.AddressNumFrom;
+                orderModel.ShippingVm.NumTo = shipping.AddressNumTo;
+                orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                orderModel.ShippingVm.SreetFrom = shipping.AddressFrom;
+                orderModel.ShippingVm.SreetTo = shipping.AddressTo;
+                orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
+                orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
+                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+                ViewBag.City = new SelectList(city, "CityId", "Name");
+
+                orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
+                orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
+
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                {
+                    Guid orgId = Guid.Empty;
+                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
+                    foreach (var claim in claimsIdentity.Claims)
+                    {
+                        if (claim.Type == ClaimTypes.GroupSid)
+                        {
+                            orgId = Guid.Parse(claim.Value);
+                            break;
+                        }
+                    }
+                    //model.OrgId = orgId;
+                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                }
+                else
+                {
+                    distances = await context.Distance.ToListAsync();
+                }
+                ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
+                var timeLineVms = new List<TimeLineVm>();
+                foreach (var timeline in shipping.TimeLines)
+                {
+                    timeLineVms.Add(new TimeLineVm { TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+                }
+
+                orderModel.TimeLineVms = timeLineVms;
                 return View(orderModel);
             }
         }
