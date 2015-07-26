@@ -328,7 +328,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic=>ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic=>ic.ShippingItems).Include(tl=>tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                
                 if(shipping.ShippingItems==null || shipping.ShippingItems.Count<=1)
                       return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
@@ -370,7 +370,6 @@ namespace sln.Controllers
                         if (claim.Type == ClaimTypes.GroupSid)
                         {
                             orgId = Guid.Parse(claim.Value);
-
                             break;
                         }
                     }
@@ -382,6 +381,9 @@ namespace sln.Controllers
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
+                orderModel.TimeLineVms = new List<TimeLineVm>();
+
+
                 return View(orderModel);
             }
         }

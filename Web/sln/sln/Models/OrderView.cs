@@ -9,7 +9,7 @@ namespace sln.Models
     {
         public  ShippingVm  ShippingVm { get; set; }
         public List<ShippingItemVm> ShippingItems { get; set; }
-        public List<TimeLineVm> TimeLineVms { get; set; }
+        public IEnumerable<TimeLineVm> TimeLineVms { get; set; }
 
     }
 }
