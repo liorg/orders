@@ -158,7 +158,7 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                shippingVm.StatusId = Guid.Parse(Helper.Status.New);
+                shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
                 var shipping = new Shipping();
                 UserContext userContext = new UserContext(AuthenticationManager);
                 
