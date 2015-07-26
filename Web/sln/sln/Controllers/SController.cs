@@ -189,7 +189,7 @@ namespace sln.Controllers
                 TimeLine tl = new TimeLine
                 {
                     Name = "הזמנה חדשה",
-                    Desc = "הזמנה חדשה שנוצרה" + shipping +"בתאריך "+currentDate.ToLongTimeString(),
+                    Desc = "הזמנה חדשה שנוצרה" + shipping.Name +"בתאריך "+currentDate.ToLongTimeString(),
                     CreatedBy = userid,
                     CreatedOn = currentDate,
                     ModifiedBy = userid,
