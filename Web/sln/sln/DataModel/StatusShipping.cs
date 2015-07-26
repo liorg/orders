@@ -54,5 +54,7 @@ namespace sln.DataModel
             get;
             set;
         }
+
+        public int OrderDirection { get; set; }
     }
 }

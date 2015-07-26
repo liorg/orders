@@ -131,25 +131,26 @@ namespace sln.Controllers
             {
                 shippingVm.StatusId = Guid.Parse(Helper.Status.New);
                 var shipping = new Shipping();
-                var orgid = Guid.Empty;
-                ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                Guid userid = Guid.Empty;
-                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.GroupSid)
-                        orgid = Guid.Parse(claim.Value);
+                UserContext userContext = new UserContext(AuthenticationManager);
+                //var orgid = Guid.Empty;
+                //ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                //Guid userid = Guid.Empty;
+                //ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                //foreach (var claim in claimsIdentity.Claims)
+                //{
+                //    if (claim.Type == ClaimTypes.GroupSid)
+                //        orgid = Guid.Parse(claim.Value);
 
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                        userid = Guid.Parse(claim.Value);
-                    ;
-                }
+                //    if (claim.Type == ClaimTypes.NameIdentifier)
+                //        userid = Guid.Parse(claim.Value);
+                //    ;
+                //}
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                    shipping.Organization_OrgId = orgid;
+                    shipping.Organization_OrgId = userContext.OrgId;
                 else
                     shipping.Organization_OrgId = shippingVm.OrgId;
 
-
+                var userid = userContext.UserId;
                 shipping.ShippingId = Guid.NewGuid();
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
@@ -198,11 +199,8 @@ namespace sln.Controllers
                     Status = TimeStatus.New,
                     StatusShipping_StatusShippingId = shippingVm.StatusId
                 };
-               
-
+                shipping.TimeLines.Add(tl);
                 context.Shipping.Add(shipping);
-
-
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number ,message="שים לב יש להוסיף פריטי משלוח"});
             }
@@ -387,7 +385,7 @@ namespace sln.Controllers
                 var timeLineVms = new List<TimeLineVm>();
                 foreach (var timeline in shipping.TimeLines)
                 {
-                    timeLineVms.Add(new TimeLineVm { TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+                    timeLineVms.Add(new TimeLineVm {Title=timeline.Name,CreatedOn=timeline.CreatedOn.GetValueOrDefault(),  TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
                 }
 
                 orderModel.TimeLineVms=timeLineVms;
@@ -461,9 +459,9 @@ namespace sln.Controllers
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 var timeLineVms = new List<TimeLineVm>();
-                foreach (var timeline in shipping.TimeLines)
+                foreach (var timeline in shipping.TimeLines.OrderBy(t=>t.CreatedOn))
                 {
-                    timeLineVms.Add(new TimeLineVm { TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+                    timeLineVms.Add(new TimeLineVm { Title=timeline.Name, TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status,CreatedOn=timeline.CreatedOn.GetValueOrDefault() });
                 }
 
                 orderModel.TimeLineVms = timeLineVms;

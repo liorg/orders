@@ -17,6 +17,8 @@ namespace sln.DataModel
         }
 
         public virtual Shipping Shipping { get; set; }
+        [ForeignKey("Shipping")]
+        public Guid? Shipping_ShippingId { get; set; }
 
         [Key]
         public Guid TimeLineId { get; set; }
