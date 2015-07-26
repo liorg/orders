@@ -22,8 +22,14 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                
                 MemeryCacheDataService cache = new MemeryCacheDataService(context);
-              
+                if (viewType.HasValue)
+                {
+                    var view=cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
+                    if (view != null)
+                       ViewBag.Selected = view.StatusDesc;
+                }
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.Name == "3" && s.CreatedOn > from).AsQueryable();
@@ -132,19 +138,7 @@ namespace sln.Controllers
                 shippingVm.StatusId = Guid.Parse(Helper.Status.New);
                 var shipping = new Shipping();
                 UserContext userContext = new UserContext(AuthenticationManager);
-                //var orgid = Guid.Empty;
-                //ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                //Guid userid = Guid.Empty;
-                //ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                //foreach (var claim in claimsIdentity.Claims)
-                //{
-                //    if (claim.Type == ClaimTypes.GroupSid)
-                //        orgid = Guid.Parse(claim.Value);
-
-                //    if (claim.Type == ClaimTypes.NameIdentifier)
-                //        userid = Guid.Parse(claim.Value);
-                //    ;
-                //}
+                
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                     shipping.Organization_OrgId = userContext.OrgId;
                 else

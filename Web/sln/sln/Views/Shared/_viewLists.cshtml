@@ -1,7 +1,7 @@
 ﻿<div class="well carousel-search hidden-sm">
 
     <div class="btn-group">
-        <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">בחר תצוגה אישית ...  <span class="caret"></span></a>
+        <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected!=null?ViewBag.Selected:ViewBag.Label)<span class="caret"></span></a>
         <ul class="dropdown-menu">
             @foreach (var view in ViewBag.Views){
                         <li><a href="@Url.Action("Index","S",new { viewType=@view.StatusId})">@view.StatusDesc</a></li>

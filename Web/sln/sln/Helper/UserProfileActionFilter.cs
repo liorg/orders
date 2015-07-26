@@ -29,6 +29,7 @@ namespace sln.Helper
             MemeryCacheDataService views = new MemeryCacheDataService();
             filterContext.Controller.ViewBag.Views = views.GetView().ToList();
             filterContext.Controller.ViewBag.UserProfiler=userProfiler;
+            filterContext.Controller.ViewBag.Label = " בחר תצוגה אישית ... ";
         }
 
     }
