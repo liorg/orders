@@ -1,5 +1,4 @@
 ﻿@model sln.Models.OrderView
-<h5>xxxx @ViewBag.OrderNumber  </h5>
 <div class="row">
     <div class="col-md-12">
         <div class="well">
@@ -9,7 +8,7 @@
                     <label for="inputOrderTrackingID" class="col-sm-2 control-label">מספר משלוח</label>
                     <div class="col-sm-10">
                         <div class="col-md-6">
-                            @Html.TextBoxFor(model => model.ShippingVm.Number, new { @class = "form-control" })
+                           @Html.TextBox("txtTitle", (string)ViewBag.OrderNumber)
                         </div>
                     </div>
                 </div>
