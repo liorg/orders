@@ -1,4 +1,5 @@
 ﻿using sln.Dal;
+using sln.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,22 @@ namespace sln.Helper
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            filterContext.Controller.ViewBag.IsAdmin = false;
+            var userProfiler = new UserProfiler();
             filterContext.Controller.ViewBag.IsAuthenticated = filterContext.RequestContext.HttpContext.Request.IsAuthenticated;// MembershipService.IsAuthenticated;
 
             if (filterContext.RequestContext.HttpContext.Request.IsAuthenticated)
             {
-                filterContext.Controller.ViewBag.IsAdmin = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+                userProfiler.IsAdmin = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+                userProfiler.AllowConfirm = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleOrgManager) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAccept);
+
+                userProfiler.AllowAccept = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+                userProfiler.AllowSender = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleRunner);
+
             }
 
             MemeryCacheDataService views = new MemeryCacheDataService();
             filterContext.Controller.ViewBag.Views = views.GetView().ToList();
-
+            filterContext.Controller.ViewBag.UserProfiler=userProfiler;
         }
 
     }

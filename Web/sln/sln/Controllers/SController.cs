@@ -336,6 +336,13 @@ namespace sln.Controllers
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var orderModel = new OrderView();
+
+                orderModel.Status = new StatusVm();
+                orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+                orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+                orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
+                orderModel.Status.Message = Notification.MessageConfirm;
+
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
@@ -381,9 +388,13 @@ namespace sln.Controllers
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
-                orderModel.TimeLineVms = new List<TimeLineVm>();
+                var timeLineVms = new List<TimeLineVm>();
+                foreach (var timeline in shipping.TimeLines)
+                {
+                    timeLineVms.Add(new TimeLineVm { TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+                }
 
-
+                orderModel.TimeLineVms=timeLineVms;
                 return View(orderModel);
             }
         }

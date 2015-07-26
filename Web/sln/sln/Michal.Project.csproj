@@ -236,12 +236,14 @@
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
     <Compile Include="Models\ShippingVm.cs" />
+    <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Models\TimeLineVm.cs" />
     <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
     <Compile Include="Models\UserManagement\LoginViewModel.cs" />
     <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
+    <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -340,8 +342,9 @@
     <Content Include="Views\ShipItem\Edit.cshtml" />
     <Content Include="Views\s\Show.cshtml" />
     <Content Include="Views\Shared\_TimeLinePartial.cshtml" />
-    <Content Include="Views\s\_viewLists.cshtml" />
+    <Content Include="Views\Shared\_viewLists.cshtml" />
     <Content Include="Views\Shared\_ShippingView.cshtml" />
+    <Content Include="Views\Shared\_StatusConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
