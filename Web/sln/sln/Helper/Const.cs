@@ -14,6 +14,7 @@ namespace sln.Helper
     {
         public const string Draft = "00000000-0000-0000-0000-000000000017";//1
         public const string ApporvallRequest = "00000000-0000-0000-0000-000000000016";//2
+        public const string Cancel = "00000000-0000-0000-0000-000000000018";//3
     }
 
     public class ProductType

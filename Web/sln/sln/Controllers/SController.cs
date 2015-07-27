@@ -47,6 +47,7 @@ namespace sln.Controllers
             {
 
                 MemeryCacheDataService cache = new MemeryCacheDataService(context);
+                int order =viewType.HasValue?viewType.Value: Helper.TimeStatus.New;
                 if (viewType.HasValue)
                 {
                     var view = cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
@@ -55,7 +56,7 @@ namespace sln.Controllers
                 }
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.Name == "3" && s.CreatedOn > from).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection ==order && s.CreatedOn > from).AsQueryable();
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                 {
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;

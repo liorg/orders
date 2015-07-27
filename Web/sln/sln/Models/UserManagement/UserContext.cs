@@ -36,7 +36,7 @@ namespace sln.Models
         {
             get
             {
-                return _fullname;
+                return _empId;
             }
         }
         Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId;
