@@ -41,17 +41,17 @@ namespace sln.Controllers
             }
         }
 
-        public async Task<ActionResult> Index(int? viewType,int? currentPage)
+        public async Task<ActionResult> Index(int? viewType, int? currentPage)
         {
             using (var context = new ApplicationDbContext())
             {
-                
+
                 MemeryCacheDataService cache = new MemeryCacheDataService(context);
                 if (viewType.HasValue)
                 {
-                    var view=cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
+                    var view = cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
                     if (view != null)
-                       ViewBag.Selected = view.StatusDesc;
+                        ViewBag.Selected = view.StatusDesc;
                 }
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
@@ -71,7 +71,7 @@ namespace sln.Controllers
                 }
                 shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
                 var model = new List<ShippingVm>();
-               // ViewOrder<IEnumerable<ShippingVm>> viewOrder = new ViewOrder<IEnumerable<ShippingVm>>(); 
+                // ViewOrder<IEnumerable<ShippingVm>> viewOrder = new ViewOrder<IEnumerable<ShippingVm>>(); 
                 foreach (var ship in shippings)
                 {
                     var created = context.Users.Find(ship.CreatedBy.ToString());
@@ -161,7 +161,7 @@ namespace sln.Controllers
                 shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
                 var shipping = new Shipping();
                 UserContext userContext = new UserContext(AuthenticationManager);
-                
+
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                     shipping.Organization_OrgId = userContext.OrgId;
                 else
@@ -173,6 +173,7 @@ namespace sln.Controllers
                 shipping.Name = shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+                
                 var currentDate = DateTime.Now;
                 shipping.CreatedOn = currentDate;
                 shipping.CreatedBy = userid;
@@ -180,7 +181,8 @@ namespace sln.Controllers
                 shipping.ModifiedBy = userid;
                 shipping.OwnerId = userid;
                 shipping.IsActive = true;
-
+                shipping.NotifyType = Notification.Warning; //Notification.Error;//Notification.Warning;
+                shipping.NotifyText= Notification.MessageConfirm;
                 shipping.CityFrom_CityId = shippingVm.CityForm;
                 shipping.AddressFrom = shippingVm.SreetFrom;
                 shipping.CityTo_CityId = shippingVm.CityTo;
@@ -205,8 +207,8 @@ namespace sln.Controllers
 
                 TimeLine tl = new TimeLine
                 {
-                    Name = "הזמנה חדשה" + "של " + userContext.FullName+" ("+ userContext.EmpId+")",
-                    Desc = "הזמנה חדשה שנוצרה" +" "+ shipping.Name+" " +"בתאריך "+currentDate.ToLongTimeString(),
+                    Name = "הזמנה חדשה" + "של " + userContext.FullName + " (" + userContext.EmpId + ")",
+                    Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToLongTimeString(),
                     CreatedBy = userid,
                     CreatedOn = currentDate,
                     ModifiedBy = userid,
@@ -219,7 +221,7 @@ namespace sln.Controllers
                 shipping.TimeLines.Add(tl);
                 context.Shipping.Add(shipping);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number ,message="שים לב יש להוסיף פריטי משלוח"});
+                return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
             }
         }
 
@@ -248,7 +250,14 @@ namespace sln.Controllers
                 model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-
+                if (shipping.StatusShipping_StatusShippingId.HasValue)
+                {
+                    if (shipping.StatusShipping_StatusShippingId.Value ==Guid.Parse( Helper.Status.Draft))
+                    {
+                        shipping.NotifyType = Notification.Warning;
+                        shipping.NotifyText = Notification.MessageConfirm;
+                    }
+                }
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
 
@@ -271,7 +280,7 @@ namespace sln.Controllers
                 else
                 {
 
-                    
+
                     distances = await context.Distance.ToListAsync();
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
@@ -285,20 +294,8 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
-               // ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                //Guid userid = Guid.Empty; var orgId = Guid.Empty;
                 UserContext userContext = new UserContext(AuthenticationManager);
 
-                //ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                //foreach (var claim in claimsIdentity.Claims)
-                //{
-                //    if (claim.Type == ClaimTypes.GroupSid)
-                //      orgId = Guid.Parse(claim.Value);
-
-                //    if (claim.Type == ClaimTypes.NameIdentifier)
-                //      userid = Guid.Parse(claim.Value);
-
-                //}
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                     shipping.Organization_OrgId = userContext.OrgId;
                 else
@@ -339,11 +336,11 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic=>ic.ShippingItems).Include(tl=>tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
-               
-                if(shipping.ShippingItems==null || shipping.ShippingItems.Count<=1)
-                      return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(),order=shipping.Name,message="יש לבחור פריטים  למשלוח" });
-                
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
+                    return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
+
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var orderModel = new OrderView();
@@ -351,8 +348,8 @@ namespace sln.Controllers
                 orderModel.Status = new StatusVm();
                 orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
-                orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
-                orderModel.Status.Message = Notification.MessageConfirm;
+                orderModel.Status.MessageType = shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
+                orderModel.Status.Message = shipping.NotifyText;
                 orderModel.Status.ShipId = shipping.ShippingId;
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
@@ -376,8 +373,8 @@ namespace sln.Controllers
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
 
-                orderModel.ShippingVm.CityFormName=shipping.CityFrom!=null ?shipping.CityFrom.Name:"";
-                orderModel.ShippingVm.CityToName=shipping.CityTo!=null ?shipping.CityTo.Name:"";
+                orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
+                orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
 
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
@@ -402,10 +399,10 @@ namespace sln.Controllers
                 var timeLineVms = new List<TimeLineVm>();
                 foreach (var timeline in shipping.TimeLines)
                 {
-                    timeLineVms.Add(new TimeLineVm {Title=timeline.Name,CreatedOn=timeline.CreatedOn.GetValueOrDefault(),  TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+                    timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
                 }
 
-                orderModel.TimeLineVms=timeLineVms;
+                orderModel.TimeLineVms = timeLineVms;
                 return View(orderModel);
             }
         }
@@ -476,9 +473,9 @@ namespace sln.Controllers
                 }
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 var timeLineVms = new List<TimeLineVm>();
-                foreach (var timeline in shipping.TimeLines.OrderBy(t=>t.CreatedOn))
+                foreach (var timeline in shipping.TimeLines.OrderBy(t => t.CreatedOn))
                 {
-                    timeLineVms.Add(new TimeLineVm { Title=timeline.Name, TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status,CreatedOn=timeline.CreatedOn.GetValueOrDefault() });
+                    timeLineVms.Add(new TimeLineVm { Title = timeline.Name, TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status, CreatedOn = timeline.CreatedOn.GetValueOrDefault() });
                 }
 
                 orderModel.TimeLineVms = timeLineVms;
