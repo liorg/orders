@@ -1,4 +1,4 @@
-﻿@model sln.Models.ShippingVm
+﻿@model ShippingVm
 
 @{
     ViewBag.Title = "משלוח קיים";
@@ -42,69 +42,61 @@
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.StatusId)
 
-    @*<div class="row">
-        @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.DisplayFor(model => model.Number)
-            </div>
-
-    </div>*@
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.DisplayFor(model => model.Status)
-            </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
+<div class="form-group">
+    @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.DistanceId ,(SelectList)ViewBag.Distance, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.DistanceId)
           </div>
-    </div>
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
-          </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
+<div class="form-group">
+    @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.SreetFrom, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.SreetFrom)
           </div>
-    </div>
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
+<div class="form-group">
+    @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumFrom)
+          </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.CityForm ,(SelectList)ViewBag.City, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.CityForm)
           </div>
-    </div>
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
-          </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
+<div class="form-group">
+    @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.SreetTo, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.SreetTo)
           </div>
-    </div>
+</div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
+<div class="form-group">
+    @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumTo)
+          </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.CityTo ,(SelectList)ViewBag.City, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.CityTo)
           </div>
-    </div>
+</div>
 
     <div class="form-group">
         @if(Request.IsAuthenticated && User.IsInRole("Admin"))

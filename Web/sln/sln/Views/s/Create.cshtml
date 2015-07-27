@@ -35,6 +35,7 @@
                 @Model.Number
             </div>
  </div>
+
 <div class="form-group">
     @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -42,13 +43,7 @@
               @Html.ValidationMessageFor(m => m.DistanceId)
           </div>
 </div>
-<div class="form-group">
-    @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.NumFrom)
-          </div>
-</div>
+
 <div class="form-group">
     @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -56,6 +51,15 @@
               @Html.ValidationMessageFor(m => m.SreetFrom)
           </div>
 </div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumFrom)
+          </div>
+</div>
+
 <div class="form-group">
     @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -63,13 +67,7 @@
               @Html.ValidationMessageFor(m => m.CityForm)
           </div>
 </div>
-<div class="form-group">
-    @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.NumTo)
-          </div>
-</div>
+
 <div class="form-group">
     @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -77,6 +75,15 @@
               @Html.ValidationMessageFor(m => m.SreetTo)
           </div>
 </div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumTo)
+          </div>
+</div>
+
 <div class="form-group">
     @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
@@ -84,7 +91,6 @@
               @Html.ValidationMessageFor(m => m.CityTo)
           </div>
 </div>
-
 
 <div class="form-group">
     @if(Request.IsAuthenticated && User.IsInRole("Admin"))

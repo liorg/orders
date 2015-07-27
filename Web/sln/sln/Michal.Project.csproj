@@ -205,34 +205,6 @@
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\UserProfileActionFilter.cs" />
     <Compile Include="Helper\Const.cs" />
-    <Compile Include="Migrations\201507220950376_lead.cs" />
-    <Compile Include="Migrations\201507220950376_lead.Designer.cs">
-      <DependentUpon>201507220950376_lead.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507221332593_product.cs" />
-    <Compile Include="Migrations\201507221332593_product.Designer.cs">
-      <DependentUpon>201507221332593_product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507221359361_shipitem.cs" />
-    <Compile Include="Migrations\201507221359361_shipitem.Designer.cs">
-      <DependentUpon>201507221359361_shipitem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507221457374_prudctOrgManyToMany.cs" />
-    <Compile Include="Migrations\201507221457374_prudctOrgManyToMany.Designer.cs">
-      <DependentUpon>201507221457374_prudctOrgManyToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507240334209_timeline.cs" />
-    <Compile Include="Migrations\201507240334209_timeline.Designer.cs">
-      <DependentUpon>201507240334209_timeline.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507241314510_shipp.cs" />
-    <Compile Include="Migrations\201507241314510_shipp.Designer.cs">
-      <DependentUpon>201507241314510_shipp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507252052369_ss.cs" />
-    <Compile Include="Migrations\201507252052369_ss.Designer.cs">
-      <DependentUpon>201507252052369_ss.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507261856018_ss1.cs" />
     <Compile Include="Migrations\201507261856018_ss1.Designer.cs">
       <DependentUpon>201507261856018_ss1.cs</DependentUpon>
@@ -368,27 +340,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507220950376_lead.resx">
-      <DependentUpon>201507220950376_lead.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221332593_product.resx">
-      <DependentUpon>201507221332593_product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221359361_shipitem.resx">
-      <DependentUpon>201507221359361_shipitem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221457374_prudctOrgManyToMany.resx">
-      <DependentUpon>201507221457374_prudctOrgManyToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507240334209_timeline.resx">
-      <DependentUpon>201507240334209_timeline.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507241314510_shipp.resx">
-      <DependentUpon>201507241314510_shipp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507252052369_ss.resx">
-      <DependentUpon>201507252052369_ss.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507261856018_ss1.resx">
       <DependentUpon>201507261856018_ss1.cs</DependentUpon>
     </EmbeddedResource>

@@ -9,6 +9,19 @@ namespace sln.Dal
     {
         public int StatusId { get; set; }
         public string StatusDesc { get; set; }
+
+        public bool IsDefaultAdmin { get; set; }
+        public bool IsDefaultOrgManager { get; set; }
+        public bool IsDefaultAccept { get; set; }
+        public bool IsDefaultUser { get; set; }
+        public bool IsDefaultRunner{ get; set; }
+
+        public bool IsVisbleForAdmin { get; set; }
+        public bool IsVisbleForOrgManager { get; set; }
+        public bool IsVisbleForAccept { get; set; }
+        public bool IsVisbleForUser { get; set; }
+        public bool IsVisbleForRunner { get; set; }
+
     }
     public class MemeryCacheDataService
     {
@@ -33,7 +46,7 @@ namespace sln.Dal
                     if (_viewItems == null)
                     {
                         _viewItems = new List<ViewItem>();
-                        _viewItems.Add(new ViewItem { StatusId = 1, StatusDesc = "משלוחים טויטה - היום" });
+                        _viewItems.Add(new ViewItem { StatusId = 1, StatusDesc = "משלוחים טויטה - היום",IsDefaultUser=true});
                         _viewItems.Add(new ViewItem { StatusId = 2, StatusDesc = "משלוחים שהוזמנו" });
                     }
                 }
