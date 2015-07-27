@@ -33,6 +33,8 @@ namespace sln.Models
                 {
                     case 1:
                         return "fa-pencil";
+                    case 2:
+                        return "fa-rocket";
                     default:
                         return "fa-rocket";
 
