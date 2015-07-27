@@ -208,8 +208,8 @@ namespace sln.Controllers
 
                 TimeLine tl = new TimeLine
                 {
-                    Name = "הזמנה חדשה" + "של " + userContext.FullName + " (" + userContext.EmpId + ")",
-                    Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToLongTimeString(),
+                    Name = "הזמנה חדשה" + "של " + userContext.FullName + " מספר עובד - " + userContext.EmpId + "",
+                    Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
                     CreatedBy = userid,
                     CreatedOn = currentDate,
                     ModifiedBy = userid,

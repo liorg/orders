@@ -42,7 +42,7 @@ namespace sln.Controllers
                     TimeLine tl = new TimeLine
                     {
                         Name = "הזמנה אושרה" + "של " + user.FullName + " (" + user.EmpId + ")",
-                        Desc =  "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToLongTimeString(),
+                        Desc = "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
                         CreatedBy = userid,
                         CreatedOn = currentDate,
                         ModifiedBy = userid,
