@@ -24,11 +24,24 @@ namespace sln.Models
             }
         }
 
-        //IAuthenticationManager _authenticationManager;
-        Guid _orgId, _userid = Guid.Empty;
+        public string FullName
+        {
+            get
+            {
+                return _fullname;
+            }
+        }
+
+        public string EmpId
+        {
+            get
+            {
+                return _fullname;
+            }
+        }
+        Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId;
         public UserContext(IAuthenticationManager authenticationManager )
         {
-            //_authenticationManager = authenticationManager;
             ClaimsIdentity claimsIdentity = authenticationManager.User.Identity as ClaimsIdentity;
             foreach (var claim in claimsIdentity.Claims)
             {
@@ -37,7 +50,10 @@ namespace sln.Models
 
                 if (claim.Type == ClaimTypes.NameIdentifier)
                     _userid = Guid.Parse(claim.Value);
-
+                if (claim.Type == ClaimTypes.Surname)
+                    _fullname = claim.Value;
+                if (claim.Type == ClaimTypes.SerialNumber)
+                    _empId = claim.Value;
             }
 
         }

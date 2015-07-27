@@ -237,6 +237,10 @@
     <Compile Include="Migrations\201507261856018_ss1.Designer.cs">
       <DependentUpon>201507261856018_ss1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507270354061_empid.cs" />
+    <Compile Include="Migrations\201507270354061_empid.Designer.cs">
+      <DependentUpon>201507270354061_empid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
@@ -387,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507261856018_ss1.resx">
       <DependentUpon>201507261856018_ss1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507270354061_empid.resx">
+      <DependentUpon>201507270354061_empid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

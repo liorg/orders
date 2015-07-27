@@ -20,9 +20,12 @@ namespace sln.Models
             this.LastName = user.LastName;
             this.Email = user.Email;
             this.IsActive = user.IsActive;
+            this.EmpId = user.EmpId;
             this.OrgId = user.Organization_OrgId.HasValue ? user.Organization_OrgId.Value : Guid.Empty;
+            
         }
-
+        [Display(Name = "מספר עובד")]
+        public string EmpId { get; set; }
        // [Required]
         [Display(Name = "מזהה")]
         public string UserId { get; set; }

@@ -285,7 +285,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
-                ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+               // ClaimsIdentity id = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                 //Guid userid = Guid.Empty; var orgId = Guid.Empty;
                 UserContext userContext = new UserContext(AuthenticationManager);
 

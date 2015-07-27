@@ -33,6 +33,8 @@ namespace sln.DataModel
         public string Department { get; set; }
 
         public string Subdivision { get; set; }
+
+        public string EmpId { get; set; }
         
     }
 }

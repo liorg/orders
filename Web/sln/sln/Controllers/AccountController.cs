@@ -121,6 +121,7 @@ namespace sln.Controllers
                     user.LastName = model.LastName;
                     user.Email = model.Email;
                     user.IsActive = model.IsActive;
+                    user.EmpId = model.EmpId;
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
                     await context.SaveChangesAsync();
                     if (user.Roles != null && user.Roles.Any())
@@ -297,7 +298,7 @@ namespace sln.Controllers
             {
                 var context = DBContext;
                 // var context =UserManager
-                if (!User.IsInRole("Admin"))
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
@@ -330,6 +331,7 @@ namespace sln.Controllers
                         LastName = model.LastName,
                         Email = model.Email,
                         IsActive = true,
+                        EmpId=model.EmpId,
                         Organization_OrgId = model.OrgId
                     };
 
@@ -486,6 +488,8 @@ namespace sln.Controllers
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.SerialNumber, user.EmpId));
+            identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName+" "+ user.LastName));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }

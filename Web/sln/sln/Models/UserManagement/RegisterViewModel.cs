@@ -9,6 +9,10 @@ namespace sln.Models
 {
     public class RegisterViewModel
     {
+        [Display(Name = "מספר עובד")]
+        public string EmpId { get; set; }
+
+
         [Required]
         [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
