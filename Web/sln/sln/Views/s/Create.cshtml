@@ -1,4 +1,4 @@
-﻿@model sln.Models.ShippingVm
+﻿@model ShippingVm
 
 @{
     ViewBag.Title = "משלוח חדש";
@@ -9,8 +9,6 @@
 
 @using (Html.BeginForm("Create", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.AntiForgeryToken()
-    
  <div class="stepwizard">
      <div class="stepwizard-row setup-panel">
          <div class="stepwizard-step">
@@ -25,14 +23,8 @@
              <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
              <p>אשר הזמנה</p>
          </div>
-         @*<div class="stepwizard-step">
-             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-             <p>קבלת הזמנה </p>
-         </div>
-         *@
      </div>
  </div>
-@Html.ValidationSummary()
 
 @Html.HiddenFor(m => m.Number)
 @Html.HiddenFor(m => m.FastSearch)
@@ -40,49 +32,56 @@
  <div class="form-group">
      @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DisplayFor(model => model.Number)
+                @Model.Number
             </div>
  </div>
 <div class="form-group">
     @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.DistanceId ,(SelectList)ViewBag.Distance, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.DistanceId)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumFrom)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.SreetFrom, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.SreetFrom)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.CityForm ,(SelectList)ViewBag.City, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.CityForm)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.NumTo)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.SreetTo, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.SreetTo)
           </div>
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.DropDownListFor(m => m.CityTo ,(SelectList)ViewBag.City, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.CityTo)
           </div>
 </div>
 

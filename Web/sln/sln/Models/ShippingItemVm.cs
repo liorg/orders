@@ -38,6 +38,9 @@ namespace sln.Models
         [Display(Name = "מוצר")]
         public Guid ProductId { get; set; }
 
+        [Required(ErrorMessage="ערך כמות חובה")]
+        [Range(1, 1000,
+        ErrorMessage = "הערך כמות  {0} חייב להיות בן {1} ו {2}.")]
         [Display(Name = "כמות")]
         public int Total { get; set; }
 

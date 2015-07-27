@@ -1,4 +1,4 @@
-﻿@model sln.Models.ShippingItemVm
+﻿@model ShippingItemVm
 
 @{
     ViewBag.Title = "פריט קיים";
@@ -52,6 +52,7 @@
     @Html.LabelFor(m => m.Total, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">
               @Html.TextBoxFor(m => m.Total, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Total)
           </div>
 </div>
  

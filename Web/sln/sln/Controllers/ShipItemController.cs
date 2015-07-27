@@ -100,14 +100,15 @@ namespace sln.Controllers
             {
                 var shippingItem = new ShippingItem();
                 Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                userid = user.UserId;
+                ////ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                ////foreach (var claim in claimsIdentity.Claims)
+                ////{
+                ////    if (claim.Type == ClaimTypes.NameIdentifier)
+                ////        userid = Guid.Parse(claim.Value);
 
-                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                        userid = Guid.Parse(claim.Value);
-
-                }
+                ////}
 
                 shippingItem.ShippingItemId = Guid.NewGuid();
                 shippingItem.Shipping_ShippingId = shippingItemVm.ShipId;

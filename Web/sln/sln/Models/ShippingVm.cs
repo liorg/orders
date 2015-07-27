@@ -17,15 +17,19 @@ namespace sln.Models
         [Display(Name = "סטאטוס")]
         public string Status { get; set; }
 
+        [Required(ErrorMessage = "כתובת מקור חובה")]
         [Display(Name = "כתובת מקור")]
         public string SreetFrom { get; set; }
 
         [Display(Name = "מספר כתובת מקור ")]
+        [Required(ErrorMessage = "מספר כתובת מקור חובה")]
         public string NumFrom { get; set; }
 
+        [Required(ErrorMessage = "כתובת יעד חובה")]
         [Display(Name = "כתובת יעד ")]
         public string SreetTo { get; set; }
 
+        [Required(ErrorMessage = "מספר כתובת יעד חובה")]
         [Display(Name = "מספר כתובת יעד ")]
         public string NumTo { get; set; }
 
