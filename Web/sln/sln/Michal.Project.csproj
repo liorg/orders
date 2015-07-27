@@ -333,6 +333,7 @@
     <Content Include="Views\Shared\_ShippingView.cshtml" />
     <Content Include="Views\s\ShipView.cshtml" />
     <Content Include="Views\Shared\_StatusConfirm.cshtml" />
+    <Content Include="Views\Shared\_viewListsHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
