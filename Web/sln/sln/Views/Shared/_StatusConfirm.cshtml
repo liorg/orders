@@ -1,0 +1,33 @@
+﻿@model sln.Models.StatusVm
+
+@if(Model.Message!="")
+{
+<div class="row">
+
+<div class="alert @(Model.MessageType == 2 ? "alert-danger" : "alert-warning") ">
+ <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+ @Model.Message
+</div>
+  </div>
+}
+@if(ViewBag.userProfiler.AllowConfirm){
+<div class="row">
+    <div class="col-md-12">
+        <div class="well well-lg"><div class="btn-group">
+   <a class="btn btn-lg btn-success" href="#">
+  <i class="fa fa-paper-plane fa-2x pull-right"></i> שלח </a>
+
+         </div>
+            <div class="btn-group">
+   <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
+  <i class="fa fa-pencil fa-2x pull-right"></i> ערוך </a></div>
+<div class="btn-group">
+<a class="btn btn-lg btn-danger" href="#">
+  <i class="fa  fa-times fa-2x pull-right"></i> ביטול הזמנה </a>
+</div>
+         </div>
+      </div>
+    </div>
+
+
+}
