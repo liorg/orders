@@ -488,8 +488,8 @@ namespace sln.Controllers
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
-            identity.AddClaim(new Claim(ClaimTypes.SerialNumber, user.EmpId));
-            identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName+" "+ user.LastName));
+            //identity.AddClaim(new Claim(ClaimTypes.SerialNumber, user.EmpId));
+           // identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName+" "+ user.LastName));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
