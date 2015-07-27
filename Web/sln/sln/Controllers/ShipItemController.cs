@@ -82,6 +82,7 @@ namespace sln.Controllers
             {
                 var model = new ShippingItemVm();
                 model.ShipId = Guid.Parse(id);
+                model.Total = 1;
 
                 var ship = await context.Shipping.FindAsync(model.ShipId);
                 var products = await context.Product.Where(s => s.Organizations.Any(e => ship.Organization_OrgId.HasValue && e.OrgId == ship.Organization_OrgId.Value)).ToListAsync();
@@ -99,6 +100,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var shippingItem = new ShippingItem();
+                
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 userid = user.UserId;
