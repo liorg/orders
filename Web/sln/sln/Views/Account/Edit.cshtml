@@ -1,4 +1,4 @@
-﻿@model sln.Models.EditUserViewModel
+﻿@model EditUserViewModel
 
 @{
     ViewBag.Title = "ערוך משתמש";
@@ -11,8 +11,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-     @Html.HiddenFor(model => Model.UserId); 
-
+     @Html.HiddenFor(model => Model.UserId)
+     @Html.HiddenFor(model => model.IsAdmin)
     <div class="form-horizontal">
         <h4>פרטים</h4>
         <hr />

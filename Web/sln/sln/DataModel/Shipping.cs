@@ -101,9 +101,8 @@ namespace sln.DataModel
 
         public Guid? ApprovalShip { get; set; }
 
+        public int NotifyType { get; set; }
 
-
-       // public int FastSearch { get; set; }
-
+        public string NotifyText { get; set; }
     }
 }

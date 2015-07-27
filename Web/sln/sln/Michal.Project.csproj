@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201507270354061_empid.Designer.cs">
       <DependentUpon>201507270354061_empid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507271218270_c.cs" />
+    <Compile Include="Migrations\201507271218270_c.Designer.cs">
+      <DependentUpon>201507271218270_c.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Models\UserProfiler.cs" />
@@ -258,6 +262,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\button.js" />
@@ -345,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507270354061_empid.resx">
       <DependentUpon>201507270354061_empid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507271218270_c.resx">
+      <DependentUpon>201507271218270_c.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

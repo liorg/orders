@@ -79,15 +79,15 @@ namespace sln.Controllers
                     {
                         if (item.Role != null)
                         {
-                            if (item.Role.Name == "Admin")
+                            if (item.Role.Name == Helper.HelperAutorize.RoleAdmin)
                                 model.IsAdmin = true;
-                            if (item.Role.Name == "User")
+                            if (item.Role.Name == Helper.HelperAutorize.RoleUser)
                                 model.IsCreateOrder = true;
-                            if (item.Role.Name == "Runner")
+                            if (item.Role.Name ==  Helper.HelperAutorize.RoleRunner)
                                 model.IsRunner = true;
-                            if (item.Role.Name == "OrgManager")
+                            if (item.Role.Name ==  Helper.HelperAutorize.RoleOrgManager)
                                 model.IsOrgMangager = true;
-                            if (item.Role.Name == "Accept")
+                            if (item.Role.Name == Helper.HelperAutorize.RoleAccept)
                                 model.IsAcceptOrder = true;
                         }
                     }
