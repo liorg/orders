@@ -1,33 +1,74 @@
-﻿@model sln.Models.StatusVm
+﻿@model StatusVm
 
-@if(Model.Message!="")
+@if (Model.Message != "")
 {
-<div class="row">
+    <div class="row">
 
-<div class="alert @(Model.MessageType == 2 ? "alert-danger" : "alert-warning") ">
- <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
- @Model.Message
-</div>
-  </div>
-}
-@if(ViewBag.userProfiler.AllowConfirm){
-<div class="row">
-    <div class="col-md-12">
-        <div class="well well-lg"><div class="btn-group">
-   <a class="btn btn-lg btn-success" href="@Url.Action("ApprovalRequest", "Status", new { id = Model.ShipId })">
-  <i class="fa fa-paper-plane fa-2x pull-right"></i> שלח </a>
-
-         </div>
-            <div class="btn-group">
-   <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
-  <i class="fa fa-pencil fa-2x pull-right"></i> ערוך </a></div>
-<div class="btn-group">
-<a class="btn btn-lg btn-danger" href="#">
-  <i class="fa  fa-times fa-2x pull-right"></i> ביטול הזמנה </a>
-</div>
-         </div>
-      </div>
+        <div class="alert @(Model.MessageType == 2 ? "alert-danger" : "alert-warning") ">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @Model.Message
+        </div>
     </div>
+}
+@switch (Model.StatusId.ToString())
+{
+    case sln.Helper.Status.Draft:
+        if (ViewBag.userProfiler.AllowConfirm)
+        {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-lg">
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-success" href="@Url.Action("ApprovalRequest", "Status", new { id = Model.ShipId })">
+                        <i class="fa fa-paper-plane fa-2x pull-right"></i>שלח </a>
 
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
+                        <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-danger" href="#">
+                        <i class="fa  fa-times fa-2x pull-right"></i>ביטול הזמנה </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        }
+        break;
+    case sln.Helper.Status.ApporvallRequest:
+        if (ViewBag.userProfiler.AllowAccept)
+        {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-lg">
+                <div class="btn-group open">
+                    <a class="btn btn-lg btn-primary" href="#"><i class="fa fa-user fa-fw fa-2x"></i>User</a>
+                    <a class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="fa fa-caret-down fa-2x"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fa fa-pencil fa-fw"></i>Edit</a></li>
+                        <li><a href="#"><i class="fa fa-trash-o fa-fw"></i>Delete</a></li>
+                        <li><a href="#"><i class="fa fa-ban fa-fw"></i>Ban</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="i"></i>Make admin</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
+                        <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-danger" href="#">
+                        <i class="fa  fa-times fa-2x pull-right"></i>ביטול הזמנה </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        }
+        break;
+    default:
+    <div></div>
+        break;
 
 }

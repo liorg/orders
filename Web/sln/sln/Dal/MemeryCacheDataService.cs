@@ -28,15 +28,14 @@ namespace sln.Dal
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
        // static Dictionary<int, string> _views;
-        public MemeryCacheDataService(ApplicationDbContext context)
-        {
-
-        }
-
+      
         public MemeryCacheDataService()
         {
 
         }
+
+        
+
         public List<ViewItem> GetView()
         {
             if (_viewItems == null)
@@ -53,22 +52,12 @@ namespace sln.Dal
             }
             return _viewItems;
         }
-        //public Dictionary<int, string> GetView()
-        //{
-        //    if (_views == null)
-        //    {
-        //        lock (lockObj)
-        //        {
-        //            if (_views == null)
-        //            {
-        //                _views = new Dictionary<int, string>();
-        //                _views.Add(1, "תצוגה משלוחים חדשים שלי- טויטה ");
-        //                _views.Add(2, "משלוחים ממתין לאישור מנהל");
-        //                _views.Add(3, "משלוחים ממתין לאישור רן שליחיות");
-        //            }
-        //        }
-        //    }
-        //    return _views;
-        //}
+
+        public List<string> GetRunners(ApplicationDbContext context)
+        {
+           return (from r in context.Users
+                           where r.IsActive == true && r.Roles.Any(ro => ro.Role != null && ro.Role.Name == Helper.HelperAutorize.RoleRunner)
+                           select r.FirstName + " " + r.LastName).ToList();
+        }
     }
 }

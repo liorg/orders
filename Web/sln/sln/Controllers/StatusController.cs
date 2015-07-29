@@ -49,7 +49,7 @@ namespace sln.Controllers
                         ModifiedOn = currentDate,
                         TimeLineId = Guid.NewGuid(),
                         IsActive = true,
-                        Status = TimeStatus.New,
+                        Status = TimeStatus.ApporvallRequest,
                         StatusShipping_StatusShippingId = approval
                     };
                     ship.TimeLines.Add(tl);
@@ -60,6 +60,47 @@ namespace sln.Controllers
                 return RedirectToAction("Index","S");
             }
         }
+
+        public async Task<ActionResult> ConfirmRequest(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+                Guid approval = Guid.Parse(Helper.Status.Confirm);
+                var currentDate = DateTime.Now;
+                if (ship != null)
+                {
+                    ship.ApprovalRequest = user.UserId;
+                    ship.ModifiedOn = currentDate;
+                    ship.ModifiedBy = user.UserId;
+                    ship.StatusShipping_StatusShippingId = approval;
+
+                    TimeLine tl = new TimeLine
+                    {
+                        Name = "הזמנה אושרה ע'' חברת השליחות" + "של " + user.FullName + " (" + user.EmpId + ")",
+                        Desc = "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
+                        CreatedBy = userid,
+                        CreatedOn = currentDate,
+                        ModifiedBy = userid,
+                        ModifiedOn = currentDate,
+                        TimeLineId = Guid.NewGuid(),
+                        IsActive = true,
+                        Status = TimeStatus.ApporvallRequest,
+                        StatusShipping_StatusShippingId = approval
+                    };
+                    ship.TimeLines.Add(tl);
+                }
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "S");
+            }
+        }
+
 
         private IAuthenticationManager AuthenticationManager
         {

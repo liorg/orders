@@ -17,10 +17,12 @@ namespace sln.Models
         {
             get
             {
+                if (Status == 1)
+                    return "default";
                 if (Status == 2)
-                  return "danger";
-                if (Status == 3)
                     return "success";
+                if (Status == 3)
+                    return "danger";
                 return "default";
             }
         }
@@ -34,7 +36,7 @@ namespace sln.Models
                     case 1:
                         return "fa-pencil";
                     case 2:
-                        return "fa-rocket";
+                        return "fa-paper-plane";
                     default:
                         return "fa-rocket";
 

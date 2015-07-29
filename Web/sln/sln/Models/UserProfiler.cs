@@ -10,7 +10,6 @@ namespace sln.Models
         public bool AllowConfirm { get; set; }  // allow confirm account manager
         public bool AllowAccept { get; set; }// accept and send to delivery
         public bool AllowSender { get; set; } // running 
-
         public bool IsAdmin { get; set; }
     }
 }

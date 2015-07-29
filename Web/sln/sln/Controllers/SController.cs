@@ -46,7 +46,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
 
-                MemeryCacheDataService cache = new MemeryCacheDataService(context);
+                MemeryCacheDataService cache = new MemeryCacheDataService();
                 int order =viewType.HasValue?viewType.Value: Helper.TimeStatus.New;
                 if (viewType.HasValue)
                 {
@@ -336,6 +336,7 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
@@ -352,6 +353,7 @@ namespace sln.Controllers
                 orderModel.Status.MessageType = shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
                 orderModel.Status.Message = shipping.NotifyText;
                 orderModel.Status.ShipId = shipping.ShippingId;
+                orderModel.Status.Runners = cacheProvider.GetRunners(context);
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
@@ -412,12 +414,13 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
-
+              
                 List<Distance> distances = new List<Distance>();
                 var city = await context.City.ToListAsync();
                 var orderModel = new OrderView();
@@ -428,6 +431,7 @@ namespace sln.Controllers
                 orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
                 orderModel.Status.Message = Notification.MessageConfirm;
                 orderModel.Status.ShipId = shipping.ShippingId;
+                orderModel.Status.Runners = cacheProvider.GetRunners(context);
                 orderModel.ShippingVm = new ShippingVm();
                 orderModel.ShippingVm.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
