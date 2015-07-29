@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using sln;
 using sln.Controllers;
-
 namespace sln.Tests.Controllers
 {
     [TestClass]
