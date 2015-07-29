@@ -9,7 +9,18 @@ http://bootsnipp.com/snippets/featured/google-style-login
 http://www.codeproject.com/Articles/682113/Extending-Identity-Accounts-and-Implementing-Rol
 http://typecastexception.com/post/2013/10/27/Configuring-Db-Connection-and-Code-First-Migration-for-Identity-Accounts-in-ASPNET-MVC-5-and-Visual-Studio-2013.aspx
 
+http://nicolasgallagher.com/pure-css-folded-corner-effect/demo/
+http://jsfiddle.net/EnVnW/
+http://callmenick.com/post/css-folded-corner-effect
+http://callmenick.com/_development/css-folding-corner
 
+
+http://jsfiddle.net/shpoont/3cA4x/
+http://css-tricks.com/examples/TriangleBreadcrumbs/
+http://cssnerd.com/2011/11/30/the-best-pure-css3-ios-style-arrow-back-button/
+http://writings.orangegnome.com/writes/ios-style-back-button-in-css/
+http://cssnerd.com/2013/03/09/ios-6-arrow-button-pure-css-html/
+http://vxjs.org/CSS3/UI/Back_Next_Buttons.html
 public static MvcHtmlString IsDisabled(this MvcHtmlString htmlString, bool disabled)
 {
     string rawstring = htmlString.ToString();
