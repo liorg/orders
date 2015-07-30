@@ -220,6 +220,7 @@
       <DependentUpon>201507271218270_c.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />

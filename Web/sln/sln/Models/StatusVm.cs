@@ -13,6 +13,6 @@ namespace sln.Models
         public string Message { get; set; }
         public Guid ShipId { get; set; }
 
-        public List<string> Runners { get; set; }
+        public List<Runner> Runners { get; set; }
     }
 }

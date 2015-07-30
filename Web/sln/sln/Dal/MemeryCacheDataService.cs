@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sln.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -53,11 +54,17 @@ namespace sln.Dal
             return _viewItems;
         }
 
-        public List<string> GetRunners(ApplicationDbContext context)
+        public List<Runner> GetRunners(ApplicationDbContext context)
         {
-           return (from r in context.Users
-                           where r.IsActive == true && r.Roles.Any(ro => ro.Role != null && ro.Role.Name == Helper.HelperAutorize.RoleRunner)
-                           select r.FirstName + " " + r.LastName).ToList();
+            return (from r in context.Users
+                    where r.IsActive == true && r.Roles.Any(ro => ro.Role != null && ro.Role.Name == Helper.HelperAutorize.RoleRunner)
+                    select new Runner
+                    {
+                        Id = r.Id,
+                        FirstName = r.FirstName,
+                        Lastname = r.LastName
+                    }
+                            ).ToList();
         }
     }
 }
