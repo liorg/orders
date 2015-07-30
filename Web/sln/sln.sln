@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Michal.Project", "sln\Michal.Project.csproj", "{9C18C3B7-5463-4F3B-A929-F4402DDEE822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sln.Tests", "sln.Tests\sln.Tests.csproj", "{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOSHOP", "PHOTOSHOP", "{D0B77621-3F5F-4626-995C-B435A2A50F23}"
 	ProjectSection(SolutionItems) = preProject
 		PHOTOSHOP\run2.psd = PHOTOSHOP\run2.psd
@@ -27,10 +25,6 @@ Global
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E96BF7F-C4DF-4B8C-A7BB-18197C0F8FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

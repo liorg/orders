@@ -61,7 +61,7 @@ namespace sln.Controllers
             }
         }
 
-        public async Task<ActionResult> ConfirmRequest(string id)
+        public async Task<ActionResult> ConfirmRequest(string id,string assignTo)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -71,6 +71,7 @@ namespace sln.Controllers
                 Guid shipId = Guid.Parse(id);
                 var ship = await context.Shipping.FindAsync(shipId);
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
+
                 var currentDate = DateTime.Now;
                 if (ship != null)
                 {
@@ -78,7 +79,15 @@ namespace sln.Controllers
                     ship.ModifiedOn = currentDate;
                     ship.ModifiedBy = user.UserId;
                     ship.StatusShipping_StatusShippingId = approval;
-
+                    ship.ApprovalShip = userid;
+                    if (String.IsNullOrEmpty(assignTo))
+                    {
+                        ship.GrantRunner = Guid.Parse(assignTo);
+                    }
+                    else
+                    {
+                        ship.GrantRunner = userid;
+                    }
                     TimeLine tl = new TimeLine
                     {
                         Name = "הזמנה אושרה ע'' חברת השליחות" + "של " + user.FullName + " (" + user.EmpId + ")",

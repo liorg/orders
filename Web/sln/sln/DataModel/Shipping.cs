@@ -101,6 +101,10 @@ namespace sln.DataModel
 
         public Guid? ApprovalShip { get; set; }
 
+        public Guid? GrantRunner { get; set; }
+
+        public Guid? Runner { get; set; }
+
         public int NotifyType { get; set; }
 
         public string NotifyText { get; set; }

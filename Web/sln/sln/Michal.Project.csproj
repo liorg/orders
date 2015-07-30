@@ -219,6 +219,10 @@
     <Compile Include="Migrations\201507271218270_c.Designer.cs">
       <DependentUpon>201507271218270_c.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507300705217_grant.cs" />
+    <Compile Include="Migrations\201507300705217_grant.Designer.cs">
+      <DependentUpon>201507300705217_grant.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
@@ -357,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507271218270_c.resx">
       <DependentUpon>201507271218270_c.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507300705217_grant.resx">
+      <DependentUpon>201507300705217_grant.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
