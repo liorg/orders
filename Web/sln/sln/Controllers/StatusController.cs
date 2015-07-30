@@ -16,6 +16,7 @@ namespace sln.Controllers
 {
     public class StatusController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
@@ -165,11 +166,49 @@ namespace sln.Controllers
             }
         }
 
-        private IAuthenticationManager AuthenticationManager
+        public async Task<ActionResult> Accept(string id)
         {
-            get
+            using (var context = new ApplicationDbContext())
             {
-                return HttpContext.GetOwinContext().Authentication;
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+                Guid approval = Guid.Parse(Helper.Status.AcceptByRunner);
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+               
+                var currentDate = DateTime.Now;
+                if (ship != null)
+                {
+                    var title = "הזמנה  התקבלה " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
+                    var text = title + System.Environment.NewLine + " " + " מספר הזמנה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm") ;
+                    ship.ApprovalRequest = user.UserId;
+                    ship.ModifiedOn = currentDate;
+                    ship.ModifiedBy = user.UserId;
+                    ship.StatusShipping_StatusShippingId = approval;
+                    ship.ApprovalShip = userid;
+                    ship.NotifyText = text;
+                    ship.NotifyType = Helper.Notification.Info;
+
+                    TimeLine tl = new TimeLine
+                    {
+                        Name = title,
+                        Desc = text,
+                        CreatedBy = userid,
+                        CreatedOn = currentDate,
+                        ModifiedBy = userid,
+                        ModifiedOn = currentDate,
+                        TimeLineId = Guid.NewGuid(),
+                        IsActive = true,
+                        Status = TimeStatus.AcceptByRunner,
+                        StatusShipping_StatusShippingId = approval
+                    };
+                    ship.TimeLines.Add(tl);
+                }
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "S");
             }
         }
 
@@ -215,5 +254,12 @@ namespace sln.Controllers
             }
         }
 
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
     }
 }

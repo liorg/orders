@@ -19,7 +19,7 @@ namespace sln.Models
             {
                 if (Status == Helper.TimeStatus.New)
                     return "default";
-                if (Status == Helper.TimeStatus.ApporvallRequest)
+                if (Status == Helper.TimeStatus.ApporvallRequest || Status == Helper.TimeStatus.AcceptByRunner)
                     return "success";
                 if (Status == Helper.TimeStatus.CancelByAdmin || Status==Helper.TimeStatus.Cancel)
                     return "danger";
@@ -45,6 +45,8 @@ namespace sln.Models
                         return "fa-thumbs-o-down";
                     case Helper.TimeStatus.Cancel:
                         return "fa-times";
+                    case Helper.TimeStatus.AcceptByRunner:
+                        return "fa-gift";
                         
                     default:
                         return "fa-rocket";

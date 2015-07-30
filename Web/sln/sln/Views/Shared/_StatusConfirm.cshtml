@@ -69,6 +69,30 @@
     </div>
         }
         break;
+        case sln.Helper.Status.Confirm:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-lg">
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
+                        <i class="fa fa-gift fa-2x pull-right"></i> קבלת המשלוח </a>
+
+                </div> 
+                @if (ViewBag.userProfiler.IsAdmin)
+                {
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
+                        <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
+                </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+        }
+        break;
     default:
     <div></div>
         break;

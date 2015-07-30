@@ -12,6 +12,7 @@ namespace sln.Helper
         public const int Cancel = 3;
         public const int Confirm = 4;
         public const int CancelByAdmin = 5;
+        public const int AcceptByRunner = 6;
     }
     public class Status
     {
@@ -20,6 +21,7 @@ namespace sln.Helper
         public const string Cancel = "00000000-0000-0000-0000-000000000018";//3
         public const string Confirm = "00000000-0000-0000-0000-000000000024";//4
         public const string CancelByAdmin = "00000000-0000-0000-0000-000000000023";//5
+        public const string AcceptByRunner = "00000000-0000-0000-0000-000000000019";//6
     }
 
     public class ProductType
