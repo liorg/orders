@@ -77,11 +77,15 @@ namespace sln.Controllers
                 var currentDate = DateTime.Now;
                 if (ship != null)
                 {
+                    var title = "הזמנה אושרה ע'' חברת השליחות" + " ע''י " + user.FullName + " (" + user.EmpId + ")";
+                    var text = title +System.Environment.NewLine+" " + "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
                     ship.ApprovalRequest = user.UserId;
                     ship.ModifiedOn = currentDate;
                     ship.ModifiedBy = user.UserId;
                     ship.StatusShipping_StatusShippingId = approval;
                     ship.ApprovalShip = userid;
+                    ship.NotifyText = text;
+                    ship.NotifyType = Helper.Notification.Info;
                     if (String.IsNullOrEmpty(assignTo))
                     {
                         ship.GrantRunner = Guid.Parse(assignTo);
@@ -95,8 +99,8 @@ namespace sln.Controllers
                     }
                     TimeLine tl = new TimeLine
                     {
-                        Name = "הזמנה אושרה ע'' חברת השליחות" + "של " + user.FullName + " (" + user.EmpId + ")",
-                        Desc = "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm") +" והועברה לשליח"+ " "+grantToText,
+                        Name = title,
+                        Desc = text,
                         CreatedBy = userid,
                         CreatedOn = currentDate,
                         ModifiedBy = userid,

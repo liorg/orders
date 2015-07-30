@@ -32,6 +32,8 @@ namespace sln.Controllers
                     ship.IsActive = false;
                     ship.ModifiedOn = DateTime.Now;
                     ship.ModifiedBy = user.UserId;
+                    ship.NotifyType = Helper.Notification.Error;
+                    ship.NotifyText = "הזמנה בוטלה ע''י" + " "+user.FullName;
 
                 }
                 context.Entry<Shipping>(ship).State = EntityState.Modified;

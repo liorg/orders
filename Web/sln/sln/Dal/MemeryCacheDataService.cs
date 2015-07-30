@@ -1,4 +1,5 @@
-﻿using sln.Models;
+﻿using sln.Helper;
+using sln.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,8 +47,11 @@ namespace sln.Dal
                     if (_viewItems == null)
                     {
                         _viewItems = new List<ViewItem>();
-                        _viewItems.Add(new ViewItem { StatusId = 1, StatusDesc = "משלוחים טויטה - היום",IsDefaultUser=true});
-                        _viewItems.Add(new ViewItem { StatusId = 2, StatusDesc = "משלוחים שהוזמנו" });
+                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום",IsDefaultUser=true});
+                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו",IsDefaultUser=true,IsVisbleForAdmin=true,IsDefaultAdmin=true });
+                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים" ,IsVisbleForAdmin=true});
+                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" });
+
                     }
                 }
             }
