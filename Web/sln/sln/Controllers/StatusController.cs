@@ -85,7 +85,6 @@ namespace sln.Controllers
                     ship.StatusShipping_StatusShippingId = approval;
                     ship.NotifyText = text;
                     ship.NotifyType = Helper.Notification.Info;
-
                     TimeLine tl = new TimeLine
                     {
                         Name = "הזמנה אושרה" + "של " + user.FullName + " (" + user.EmpId + ")",
@@ -186,7 +185,7 @@ namespace sln.Controllers
                     ship.ModifiedOn = currentDate;
                     ship.ModifiedBy = user.UserId;
                     ship.StatusShipping_StatusShippingId = approval;
-                    ship.ApprovalShip = userid;
+                    ship.Runner = userid;
                     ship.NotifyText = text;
                     ship.NotifyType = Helper.Notification.Info;
 

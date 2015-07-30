@@ -51,7 +51,7 @@ namespace sln.Dal
                         _viewItems.Add(new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו",IsDefaultUser=true,IsVisbleForAdmin=true,IsDefaultAdmin=true });
                         _viewItems.Add(new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים" ,IsVisbleForAdmin=true});
                         _viewItems.Add(new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" });
-
+                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח" });
                     }
                 }
             }
