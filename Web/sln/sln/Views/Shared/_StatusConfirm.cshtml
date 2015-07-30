@@ -28,7 +28,7 @@
                         <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
                 </div>
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="#">
+                    <a class="btn btn-lg btn-danger" href="@(Url.Action("RemoveItem", "Status", new { id = Model.ShipId }))">
                         <i class="fa  fa-times fa-2x pull-right"></i>ביטול הזמנה </a>
                 </div>
             </div>
@@ -51,15 +51,13 @@
                         {
                             <li><a href="@Url.Action("ConfirmRequest","Status",new { id=Model.ShipId, assignTo=runner.Id})"><i class="fa fa-hand-o-left fa-fw"></i>@runner.FullName</a></li> 
                         }
-                       
-
                         <li class="divider"></li>
                         <li><a href="@Url.Action("ConfirmRequest","Status",new { id=Model.ShipId})"><i class="fa fa-repeat fa-fw"></i>העבר אליי</a></li>
                     </ul>
                 </div>
 
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="#">
+                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest","Status",new { id=Model.ShipId})">
                        לא אושר הזמנה <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i> </a>
                 </div>
                 <div class="btn-group">

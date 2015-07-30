@@ -41,6 +41,11 @@ namespace sln.Models
                         return "fa-paper-plane";
                     case Helper.TimeStatus.Confirm:
                         return "fa-thumbs-o-up";
+                    case Helper.TimeStatus.CancelByAdmin:
+                        return "fa-thumbs-o-down";
+                    case Helper.TimeStatus.Cancel:
+                        return "fa-times";
+                        
                     default:
                         return "fa-rocket";
 

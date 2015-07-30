@@ -18,31 +18,7 @@ namespace sln.Controllers
     [Authorize]
     public class SController : Controller
     {
-        public async Task<ActionResult> RemoveItem(string id, string order)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-
-                Guid userid = Guid.Empty;
-                UserContext user = new UserContext(AuthenticationManager);
-                Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
-                if (ship != null)
-                {
-                    ship.IsActive = false;
-                    ship.ModifiedOn = DateTime.Now;
-                    ship.ModifiedBy = user.UserId;
-                    ship.NotifyType = Helper.Notification.Error;
-                    ship.NotifyText = "הזמנה בוטלה ע''י" + " "+user.FullName;
-
-                }
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
-                await context.SaveChangesAsync();
-
-                return RedirectToAction("Index");
-            }
-        }
-
+        
         public async Task<ActionResult> Index(int? viewType, int? currentPage)
         {
             using (var context = new ApplicationDbContext())
