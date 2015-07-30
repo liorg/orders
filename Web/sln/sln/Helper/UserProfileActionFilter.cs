@@ -22,8 +22,9 @@ namespace sln.Helper
                 userProfiler.AllowConfirm = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleOrgManager) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAccept);
 
                 userProfiler.AllowAccept = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
-                userProfiler.AllowSender = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleRunner);
+                userProfiler.AllowRunner = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleRunner);
 
+               
             }
 
             MemeryCacheDataService views = new MemeryCacheDataService();

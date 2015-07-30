@@ -73,7 +73,7 @@ namespace sln.Controllers
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 var grantToText = "";
-                if (String.IsNullOrEmpty(assignTo))
+                if (!String.IsNullOrEmpty(assignTo))
                 {
                     ship.GrantRunner = Guid.Parse(assignTo);
                     grantToText = cache.GetRunners(context).Where(run => run.Id == assignTo).Select(run2 => run2.FullName).FirstOrDefault();
@@ -107,7 +107,7 @@ namespace sln.Controllers
                         ModifiedOn = currentDate,
                         TimeLineId = Guid.NewGuid(),
                         IsActive = true,
-                        Status = TimeStatus.ApporvallRequest,
+                        Status = TimeStatus.Confirm,
                         StatusShipping_StatusShippingId = approval
                     };
                     ship.TimeLines.Add(tl);
