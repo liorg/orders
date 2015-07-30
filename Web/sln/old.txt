@@ -22,10 +22,12 @@
 1.4 accept by rnner
 1.5 timer ok
 1.6 end
-
+1.7 shurtcut
 2. edit add fields for admin
 3. paging
 4. search
+
 5. price
 5.1 price item fixed
 5.2 update price for any changed
+

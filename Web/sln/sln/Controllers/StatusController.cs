@@ -72,8 +72,18 @@ namespace sln.Controllers
                 var ship = await context.Shipping.FindAsync(shipId);
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-
                 var grantToText = "";
+                if (String.IsNullOrEmpty(assignTo))
+                {
+                    ship.GrantRunner = Guid.Parse(assignTo);
+                    grantToText = cache.GetRunners(context).Where(run => run.Id == assignTo).Select(run2 => run2.FullName).FirstOrDefault();
+
+                }
+                else
+                {
+                    ship.GrantRunner = userid;
+                    grantToText = user.FullName;
+                }
                 var currentDate = DateTime.Now;
                 if (ship != null)
                 {
@@ -86,17 +96,7 @@ namespace sln.Controllers
                     ship.ApprovalShip = userid;
                     ship.NotifyText = text;
                     ship.NotifyType = Helper.Notification.Info;
-                    if (String.IsNullOrEmpty(assignTo))
-                    {
-                        ship.GrantRunner = Guid.Parse(assignTo);
-                        grantToText = cache.GetRunners(context).Where(run => run.Id == assignTo).Select(run2=>run2.FullName).FirstOrDefault(); 
-
-                    }
-                    else
-                    {
-                        ship.GrantRunner = userid;
-                        grantToText = user.FullName;
-                    }
+        
                     TimeLine tl = new TimeLine
                     {
                         Name = title,

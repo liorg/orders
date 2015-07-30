@@ -430,8 +430,8 @@ namespace sln.Controllers
                 orderModel.Status = new StatusVm();
                 orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
-                orderModel.Status.MessageType = Notification.Warning; //Notification.Error;//Notification.Warning;
-                orderModel.Status.Message = Notification.MessageConfirm;
+                orderModel.Status.MessageType = shipping.NotifyType;//Notification.Warning; //Notification.Error;//Notification.Warning;
+                orderModel.Status.Message = shipping.NotifyText; //Notification.MessageConfirm;
                 orderModel.Status.ShipId = shipping.ShippingId;
                 orderModel.Status.Runners = cacheProvider.GetRunners(context);
                 orderModel.ShippingVm = new ShippingVm();
