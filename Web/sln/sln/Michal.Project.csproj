@@ -172,6 +172,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
+    <Compile Include="Models\UserManagement\IRole.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />

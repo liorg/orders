@@ -1,4 +1,5 @@
 ﻿using sln.DataModel;
+using sln.Models.UserManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace sln.Models
 {
-    public class EditUserViewModel
+    public class EditUserViewModel : IRole
     {
         public EditUserViewModel() { }
 

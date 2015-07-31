@@ -14,18 +14,13 @@ using sln.Dal;
 using sln.DataModel;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
+using sln.Bll;
 
 namespace sln.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-
-        //public AccountController()
-        //    : this(new ApplicationUserManager())
-        //{
-
-        //}
         public ApplicationDbContext DBContext;
 
         public AccountController()
@@ -63,7 +58,6 @@ namespace sln.Controllers
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
-        //public ActionResult Edit(string id, ManageMessageId? Message = null)
         public async Task<ActionResult> Edit(string id, ManageMessageId? Message = null)
         {
             // var Db = new ApplicationDbContext();
@@ -100,21 +94,18 @@ namespace sln.Controllers
 
 
         [HttpPost]
-        // [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public async Task<ActionResult> Edit(EditUserViewModel model)
         {
             //if (ModelState.IsValid)
             {
-                // using (var context = new ApplicationDbContext())
+               
                 {
                     var id = model.UserId.ToString();
+                    var viewLogic = new ViewLogic();
+                    var resultView = viewLogic.GetViewPropByRole(model);
                     var context = DBContext;
-                    //  var context = new ApplicationDbContext();
-                    //  UserManager.FindById(
-                   // var user = context.Users.Find(model.UserId.ToString());
-                    //var user = await UserManager.FindByIdAsync(model.UserId.ToString());
                       var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
                     user.FirstName = model.FirstName;
@@ -123,6 +114,8 @@ namespace sln.Controllers
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                    user.DefaultView = resultView.Item1;
+                    user.ViewAll = resultView.Item2;
                     await context.SaveChangesAsync();
                     if (user.Roles != null && user.Roles.Any())
                     {
@@ -212,10 +205,8 @@ namespace sln.Controllers
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
-        //
         // GET: /Account/Login
         [AllowAnonymous]
-        //[LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         public ActionResult Login(string returnUrl)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -232,7 +223,6 @@ namespace sln.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Authorize]
-        // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -266,12 +256,7 @@ namespace sln.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/Register
-        //  [AllowAnonymous]
-        // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
-        // [Authorize]
-
+        
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Register()
         {
@@ -284,20 +269,17 @@ namespace sln.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
-        //   [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        // [LayoutInjecterAttribute("~/Views/Shared/_Layout.cshtml")]
-
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             //using (var context = new ApplicationDbContext())
             {
                 var context = DBContext;
-                // var context =UserManager
+                var viewLogic = new ViewLogic();
+                var resultView = viewLogic.GetViewPropByRole(model);
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
@@ -319,9 +301,8 @@ namespace sln.Controllers
                 var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
                 var userName = model.UserName;
                 if (org.Name != "www")
-                {
-                    userName = model.UserName + "@" + org.Domain;
-                }
+                   userName = model.UserName + "@" + org.Domain;
+                
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser()
@@ -334,37 +315,26 @@ namespace sln.Controllers
                         EmpId=model.EmpId,
                         Organization_OrgId = model.OrgId
                     };
+                    user.DefaultView = resultView.Item1;
+                    user.ViewAll = resultView.Item2;
 
                     var result = await UserManager.CreateAsync(user, model.Password);
 
-                    //   IdentityManager manager = new IdentityManager();
-                    if (model.IsAdmin)
-                        await UserManager.AddToRoleAsync(user.Id, "Admin");
-                    // manager.AddUserToRole(UserManager,user.Id, "Admin");
-
-                    if (model.IsCreateOrder)
-                        await UserManager.AddToRoleAsync(user.Id, "User");
-                    //  manager.AddUserToRole(UserManager, user.Id, "User");
-
-                    if (model.IsOrgMangager) await UserManager.AddToRoleAsync(user.Id, "OrgManager");
-                    // manager.AddUserToRole(UserManager, user.Id, "OrgManager");
-
-                    if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, "Runner");
-                    // manager.AddUserToRole(UserManager, user.Id, "Runner");
-
-                    if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, "Accept");
-                    // manager.AddUserToRole(UserManager, user.Id, "Accept");
-
-
+                    if (model.IsAdmin)   await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAdmin);
+                    
+                    if (model.IsCreateOrder)   await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleUser);
+                    
+                    if (model.IsOrgMangager) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleOrgManager);
+                   
+                    if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleRunner);
+                    
+                    if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAccept);
+                    
                     if (result.Succeeded)
-                    {
-                       // await SignInAsync(user, isPersistent: false, org: org);
-                        return RedirectToAction("Index", "Account");
-                    }
+                       return RedirectToAction("Index", "Account");
                     else
-                    {
-                        AddErrors(result);
-                    }
+                      AddErrors(result);
+                    
                 }
 
                 return View(model);
@@ -384,7 +354,6 @@ namespace sln.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -435,7 +404,6 @@ namespace sln.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -447,12 +415,6 @@ namespace sln.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing && UserManager != null)
-            //{
-            //    UserManager.Dispose();
-            //    UserManager = null;  
-            //}
-
             if (disposing)
             {
                 if (UserManager != null)
@@ -490,6 +452,9 @@ namespace sln.Controllers
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.SerialNumber, user.EmpId));
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName+" "+ user.LastName));
+
+            identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
@@ -562,6 +527,6 @@ namespace sln.Controllers
         }
         #endregion
 
-        public CustomPasswordValidator PasswordValidator { get; set; }
+       // public CustomPasswordValidator PasswordValidator { get; set; }
     }
 }
