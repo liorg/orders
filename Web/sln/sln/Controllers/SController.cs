@@ -19,7 +19,7 @@ namespace sln.Controllers
     public class SController : Controller
     {
         
-        public async Task<ActionResult> Index(int? viewType, int? currentPage)
+        public async Task<ActionResult> Index(int? viewType,bool? viewAll, int? currentPage)
         {
             using (var context = new ApplicationDbContext())
             {

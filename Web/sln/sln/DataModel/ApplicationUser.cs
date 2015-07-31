@@ -35,6 +35,9 @@ namespace sln.DataModel
         public string Subdivision { get; set; }
 
         public string EmpId { get; set; }
-        
+
+        public int DefaultView { get; set; }
+
+        public bool ViewAll { get; set; }
     }
 }

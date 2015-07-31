@@ -21,6 +21,10 @@ http://cssnerd.com/2011/11/30/the-best-pure-css3-ios-style-arrow-back-button/
 http://writings.orangegnome.com/writes/ios-style-back-button-in-css/
 http://cssnerd.com/2013/03/09/ios-6-arrow-button-pure-css-html/
 http://vxjs.org/CSS3/UI/Back_Next_Buttons.html
+
+http://www.encodedna.com/2012/11/javascript-digital-clock.htm
+
+
 public static MvcHtmlString IsDisabled(this MvcHtmlString htmlString, bool disabled)
 {
     string rawstring = htmlString.ToString();

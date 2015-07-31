@@ -105,6 +105,8 @@ namespace sln.DataModel
 
         public Guid? Runner { get; set; }
 
+        public Guid? BroughtShipping { get; set; }
+
         public int NotifyType { get; set; }
 
         public string NotifyText { get; set; }
