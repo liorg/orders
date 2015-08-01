@@ -9,29 +9,23 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class Distance : IModifieder
+    public class ShipType : IModifieder
     {
-        public Distance()
+        public ShipType()
         {
-           Organizations = new HashSet<Organization>();
            Shippings = new HashSet<Shipping>();
            PriceLists = new HashSet<PriceList>();
            Discounts = new HashSet<Discount>();
         }
-        // many to many
-        public ICollection<Organization> Organizations { get; set; }
-
         
         public ICollection<PriceList> PriceLists { get; set; }
-
        
         public ICollection<Shipping> Shippings { get; set; }
 
-      
         public ICollection<Discount> Discounts { get; set; }
 
         [Key]
-        public Guid DistanceId { get; set; }
+        public Guid ShipTypeId { get; set; }
 
         public string Name { get; set; }
 

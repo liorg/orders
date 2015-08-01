@@ -18,14 +18,17 @@ namespace sln.DataModel
         }
         public ICollection<TimeLine> TimeLines { get; set; }
 
-      //  [ForeignKey("Shipping_ShippingId")]
+        //  [ForeignKey("Shipping_ShippingId")]
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         [Key]
         public Guid ShippingId { get; set; }
 
+        public virtual ShipType ShipType { get; set; }
+        [ForeignKey("ShipType")]
+        public Guid? ShipType_ShipTypeId { get; set; }
 
-         [ForeignKey("Distance")]
+        [ForeignKey("Distance")]
         public Guid? Distance_DistanceId { get; set; }
         public virtual Distance Distance { get; set; }
 
@@ -74,11 +77,11 @@ namespace sln.DataModel
         }
 
         public virtual City CityFrom { get; set; }
-         [ForeignKey("CityFrom")]
+        [ForeignKey("CityFrom")]
         public Guid? CityFrom_CityId { get; set; }
 
         public virtual City CityTo { get; set; }
-         [ForeignKey("CityTo")]
+        [ForeignKey("CityTo")]
         public Guid? CityTo_CityId { get; set; }
 
         public string AddressFrom { get; set; }

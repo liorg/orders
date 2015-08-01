@@ -14,8 +14,8 @@ namespace sln.DataModel
         public PriceList()
         {
             Discounts = new HashSet<Discount>();
-
         }
+
         [ForeignKey("PriceList_PriceListId")]
         public ICollection<Discount> Discounts { get; set; }
 
@@ -23,6 +23,9 @@ namespace sln.DataModel
         [ForeignKey("Product")]
         public Guid? Product_ProductId { get; set; }
 
+        public virtual ShipType ShipType { get; set; }
+        [ForeignKey("ShipType")]
+        public Guid? ShipType_ShipTypeId { get; set; }
 
         public virtual Distance Distance { get; set; }
         [ForeignKey("Distance")]

@@ -186,6 +186,7 @@
     <Compile Include="Dal\MemeryCacheDataService.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\ShipType.cs" />
     <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\ShippingItemPrice.cs" />
     <Compile Include="fonts\XbzCounter.cs" />
@@ -236,6 +237,10 @@
     <Compile Include="Migrations\201508011814497_ssss.cs" />
     <Compile Include="Migrations\201508011814497_ssss.Designer.cs">
       <DependentUpon>201508011814497_ssss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508012231196_shiptype.cs" />
+    <Compile Include="Migrations\201508012231196_shiptype.Designer.cs">
+      <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -388,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508011814497_ssss.resx">
       <DependentUpon>201508011814497_ssss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508012231196_shiptype.resx">
+      <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
