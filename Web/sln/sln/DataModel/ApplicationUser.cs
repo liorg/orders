@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using sln.Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace sln.DataModel
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IViewerUser
     {
         [Required]
         public string FirstName { get; set; }

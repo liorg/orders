@@ -6,13 +6,15 @@ using System.Web;
 namespace sln.Helper
 {
 
+    public static class General
+    {
+        public const string OrgWWW = "www";
+    }
     public static class CustomClaimTypes
     {
 
         public const string DefaultView = "http://r.co.il/claims/DefaultView";
         public const string ShowAllView = "http://r.co.il/claims/ShowAllView";
-
-
     }
     public class TimeStatus
     {

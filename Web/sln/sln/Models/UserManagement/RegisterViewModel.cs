@@ -1,5 +1,5 @@
-﻿using sln.DataModel;
-using sln.Models.UserManagement;
+﻿using sln.Contract;
+using sln.DataModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

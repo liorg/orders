@@ -174,6 +174,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\IModifieder.cs" />
+    <Compile Include="Contract\IRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ShipItemController.cs" />
@@ -227,6 +228,14 @@
     <Compile Include="Migrations\201507310618367_grantg.cs" />
     <Compile Include="Migrations\201507310618367_grantg.Designer.cs">
       <DependentUpon>201507310618367_grantg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508011812541_sss.cs" />
+    <Compile Include="Migrations\201508011812541_sss.Designer.cs">
+      <DependentUpon>201508011812541_sss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508011814497_ssss.cs" />
+    <Compile Include="Migrations\201508011814497_ssss.Designer.cs">
+      <DependentUpon>201508011814497_ssss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -373,6 +382,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507310618367_grantg.resx">
       <DependentUpon>201507310618367_grantg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508011812541_sss.resx">
+      <DependentUpon>201508011812541_sss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508011814497_ssss.resx">
+      <DependentUpon>201508011814497_ssss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

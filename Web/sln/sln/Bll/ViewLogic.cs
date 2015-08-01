@@ -1,5 +1,5 @@
-﻿using sln.Helper;
-using sln.Models.UserManagement;
+﻿using sln.Contract;
+using sln.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +9,35 @@ namespace sln.Bll
 {
     public class ViewLogic
     {
-        public Tuple<int, bool> GetViewPropByRole(IRole roles)
+        public void SetViewerUserByRole(IRole source,IViewerUser target)
         {
             bool showAll = true;
             int defaultView = TimeStatus.New;
-            if (roles.IsCreateOrder)
+            if (source.IsCreateOrder)
                 showAll = false;
-            if (roles.IsAcceptOrder){
+            if (source.IsAcceptOrder)
+            {
                 showAll = true;
                 defaultView = TimeStatus.ApporvallRequest;
             }
-            if (roles.IsOrgMangager)
+            if (source.IsOrgMangager)
             {
                 showAll = true;
                 defaultView = TimeStatus.AcceptByRunner;
             }
-            if (roles.IsRunner)
+            if (source.IsRunner)
             {
                 showAll = false;
                 defaultView = TimeStatus.AcceptByRunner;
             }
-            if (roles.IsAdmin)
+            if (source.IsAdmin)
             {
                 showAll = true;
                 defaultView = TimeStatus.AcceptByRunner;
             }
+            target.DefaultView = defaultView;
+            target.ViewAll = showAll;
 
-            return new Tuple<int, bool>(defaultView, showAll); ;
 
         }
     }

@@ -104,7 +104,7 @@ namespace sln.Controllers
                 {
                     var id = model.UserId.ToString();
                     var viewLogic = new ViewLogic();
-                    var resultView = viewLogic.GetViewPropByRole(model);
+          
                     var context = DBContext;
                       var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
@@ -114,8 +114,9 @@ namespace sln.Controllers
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                    user.DefaultView = resultView.Item1;
-                    user.ViewAll = resultView.Item2;
+
+                    viewLogic.SetViewerUserByRole(model, user);
+
                     await context.SaveChangesAsync();
                     if (user.Roles != null && user.Roles.Any())
                     {
@@ -234,7 +235,7 @@ namespace sln.Controllers
                     ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                     var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
                     var userName = model.UserName;
-                    if (org.Name != "www")
+                    if (org.Name != General.OrgWWW)
                     {
                         userName = model.UserName + "@" + org.Domain;
                     }
@@ -279,7 +280,7 @@ namespace sln.Controllers
             {
                 var context = DBContext;
                 var viewLogic = new ViewLogic();
-                var resultView = viewLogic.GetViewPropByRole(model);
+             
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
@@ -300,7 +301,7 @@ namespace sln.Controllers
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
                 var userName = model.UserName;
-                if (org.Name != "www")
+                if (org.Name != General.OrgWWW)
                    userName = model.UserName + "@" + org.Domain;
                 
                 if (ModelState.IsValid)
@@ -315,8 +316,8 @@ namespace sln.Controllers
                         EmpId=model.EmpId,
                         Organization_OrgId = model.OrgId
                     };
-                    user.DefaultView = resultView.Item1;
-                    user.ViewAll = resultView.Item2;
+                    viewLogic.SetViewerUserByRole(model, user);
+
 
                     var result = await UserManager.CreateAsync(user, model.Password);
 
