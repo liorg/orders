@@ -190,7 +190,6 @@
     <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\ShippingItemPrice.cs" />
     <Compile Include="fonts\XbzCounter.cs" />
-    <Compile Include="DataModel\PriceListForOrg.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
     <Compile Include="DataModel\StatusShipping.cs" />
@@ -241,6 +240,10 @@
     <Compile Include="Migrations\201508012231196_shiptype.cs" />
     <Compile Include="Migrations\201508012231196_shiptype.Designer.cs">
       <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508012242032_price.cs" />
+    <Compile Include="Migrations\201508012242032_price.Designer.cs">
+      <DependentUpon>201508012242032_price.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -396,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508012231196_shiptype.resx">
       <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508012242032_price.resx">
+      <DependentUpon>201508012242032_price.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,22 +22,31 @@ namespace sln.DataModel
         [Key]
         public Guid DiscountId { get; set; }
 
-        public decimal Present { get; set; }
+       // public decimal Present { get; set; }
 
         public virtual Distance Distance { get; set; }
         [ForeignKey("Distance")]
         public Guid? Distance_DistanceId { get; set; }
 
-        public int? MinQuantityOneWay { get; set; }
+        //public int? MinQuantityOneWay { get; set; }
 
-        public decimal? MinTimeWait { get; set; }
+       // public decimal? MinTimeWait { get; set; }
 
-        [Column(TypeName = "Money")]
-        public decimal? DecreasePriceFixed { get; set; } // when is populate decrease price
+        public int QuantityType { get; set; }
+        public int? MinQuantity{ get; set; }
+        public int? MaxQuantity { get; set; }
+
+        public decimal PriceValue { get; set; }// by the type of PriceValueType
+        public int PriceValueType { get; set; } // 1= precent,2=fixed price,3=Credit(זיכוי)
+
+        
+
+        //[Column(TypeName = "Money")]
+        //public decimal? DecreasePriceFixed { get; set; } // when is populate decrease price
 
         public string Name { get; set; }
 
-        public decimal Precent { get; set; }
+        //public decimal Precent { get; set; }
 
         public string Desc { get; set; }
 

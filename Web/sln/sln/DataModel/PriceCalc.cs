@@ -20,13 +20,15 @@ namespace sln.DataModel
 
         public int Order { get; set; }
 
-        public int Total { get; set; }
+        public int Total { get; set; } // total of all shipitem
 
-        public int TotalPerPruduct { get; set; }
+       // public int TotalPerPruduct { get; set; }
+
+        public int TotalPerProduct { get; set; }
 
         public int IncrementalItem { get; set; }
 
-        public int IncrementalPerPruduct { get; set; }
+        public int IncrementalPerProduct { get; set; }
 
         public Guid ShippingId { get; set; }
 
@@ -39,9 +41,12 @@ namespace sln.DataModel
         public Guid DiscountId { get; set; }
 
         [Column(TypeName = "Money")]
+        public decimal PriceCap { get; set; }
+
+        [Column(TypeName = "Money")]
         public decimal Price { get; set; }
 
-        public decimal? Present { get; set; }
+        //public decimal? Present { get; set; }
 
         public string Name { get; set; }
 
