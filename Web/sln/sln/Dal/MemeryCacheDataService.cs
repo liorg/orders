@@ -106,7 +106,8 @@ namespace sln.Dal
             if (lists == null)
             {
                 lists = (from r in context.Users
-                         where r.IsActive == true && r.Roles.Any(ro => ro.Role != null && ro.Role.Name == Helper.HelperAutorize.RoleRunner)
+                         where r.IsActive == true && r.Roles.Any(ro => ro.Role != null &&
+                             (ro.Role.Name == Helper.HelperAutorize.RoleRunner || ro.Role.Name==Helper.HelperAutorize.RoleAdmin))
                          select new Runner
                          {
                              Id = r.Id,

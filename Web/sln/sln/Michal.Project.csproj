@@ -252,9 +252,10 @@
       <DependentUpon>201508020412258_comment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
-    <Compile Include="Models\UserManagement\IRole.cs" />
+    <Compile Include="Contract\IUserContext.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\ViewListsRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
