@@ -1,20 +1,37 @@
-﻿<div class="well carousel-search hidden-sm">
-    <div class="btn-group">
-        <a class=" btn btn-success"  href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
+﻿@using (Html.BeginForm("Index", "S", FormMethod.Post, new { @id = "viewSelected", @name = "viewSelected" }))
+{
+   
+    <input type="hidden" value="@ViewBag.StatusId" id="viewType" name="viewType" />
+    <input type="hidden" value="@ViewBag.ShowAll" id="viewAll" name="viewAll" />
+    <div class="well carousel-search hidden-sm">
+        <div class="btn-group">
+            <a class=" btn btn-success"  href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
+
+        </div>
+
+        <div class="btn-group">
+
+            <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var view in ViewBag.Views)
+                {
+@*<li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })">@view.StatusDesc</a></li>*@
+                    <li onclick="$('#viewType').val(@view.StatusId); $('#viewSelected').submit()">@view.StatusDesc</li>
+    
+                    
+                }
+                <li class="divider"></li>
+                <li><a href="#">כל הזמנות</a></li>
+                <li><a href="#">דו''ח חודשי</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="chkAll" name="ss" checked="@ViewBag.ShowAll" />הצג הכל
+                </label>
+            </div>
+        </div>
     </div>
-    <div class="btn-group">
-
-        <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            @foreach (var view in ViewBag.Views)
-            {
-                <li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })">@view.StatusDesc</a></li>
-            }
-            <li class="divider"></li>
-            <li><a href="#">כל הזמנות</a></li>
-            <li><a href="#">דו''ח חודשי</a></li>
-        </ul>
-    </div>
-
-
-</div>
+}
