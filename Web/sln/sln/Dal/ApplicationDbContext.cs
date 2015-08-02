@@ -30,5 +30,6 @@ namespace sln.Dal
         public DbSet<XbzCounter> XbzCounter { get; set; }
         public DbSet<Lead> Lead { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<ShipType> ShipType { get; set; }
     }
 }

@@ -43,7 +43,13 @@
               @Html.ValidationMessageFor(m => m.DistanceId)
           </div>
 </div>
-
+<div class="form-group">
+    @Html.LabelFor(m => m.ShipTypeId, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.DropDownListFor(m => m.ShipTypeId ,(SelectList)ViewBag.ShipTypes, new { @class = "form-control"})
+              @Html.ValidationMessageFor(m => m.ShipTypeId)
+          </div>
+</div>
 <div class="form-group">
     @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
           <div class="col-md-6">

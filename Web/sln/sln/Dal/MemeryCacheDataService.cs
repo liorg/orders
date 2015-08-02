@@ -31,7 +31,6 @@ namespace sln.Dal
     {
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
-        // static Dictionary<int, string> _views;
 
         public MemeryCacheDataService()
         {
@@ -116,6 +115,20 @@ namespace sln.Dal
                          }
                               ).ToList();
                 cacheMemoryProvider.Set("Runner", lists);
+            }
+            return lists;
+
+        }
+
+        public List<ShipType> GetShipType(ApplicationDbContext context)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<ShipType> lists = null;
+            cacheMemoryProvider.Get("ShipType", out lists);
+            if (lists == null)
+            {
+                lists = context.ShipType.ToList();
+                cacheMemoryProvider.Set("ShipType", lists);
             }
             return lists;
 

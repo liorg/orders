@@ -57,6 +57,5 @@ namespace sln.Models
         public Guid ShipId { get; set; }
 
 
-
     }
 }
