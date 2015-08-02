@@ -29,5 +29,6 @@ namespace sln.Dal
         public DbSet<City> City { get; set; }
         public DbSet<XbzCounter> XbzCounter { get; set; }
         public DbSet<Lead> Lead { get; set; }
+        public DbSet<Comment> Comment { get; set; }
     }
 }

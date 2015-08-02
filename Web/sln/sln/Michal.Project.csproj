@@ -186,6 +186,7 @@
     <Compile Include="Dal\MemeryCacheDataService.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\ShipType.cs" />
     <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\ShippingItemPrice.cs" />
@@ -244,6 +245,10 @@
     <Compile Include="Migrations\201508012242032_price.cs" />
     <Compile Include="Migrations\201508012242032_price.Designer.cs">
       <DependentUpon>201508012242032_price.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508020412258_comment.cs" />
+    <Compile Include="Migrations\201508020412258_comment.Designer.cs">
+      <DependentUpon>201508020412258_comment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -402,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508012242032_price.resx">
       <DependentUpon>201508012242032_price.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508020412258_comment.resx">
+      <DependentUpon>201508020412258_comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

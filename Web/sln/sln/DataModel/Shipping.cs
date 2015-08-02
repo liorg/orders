@@ -15,11 +15,14 @@ namespace sln.DataModel
         {
             ShippingItems = new HashSet<ShippingItem>();
             TimeLines = new HashSet<TimeLine>();
+            Comments = new HashSet<Comment>();
         }
         public ICollection<TimeLine> TimeLines { get; set; }
 
         //  [ForeignKey("Shipping_ShippingId")]
         public ICollection<ShippingItem> ShippingItems { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
 
         [Key]
         public Guid ShippingId { get; set; }
@@ -108,10 +111,14 @@ namespace sln.DataModel
 
         public Guid? Runner { get; set; }
 
-        public Guid? BroughtShipping { get; set; }
+        public Guid? BroughtShippingSender { get; set; }
+
+        public Guid? BroughtShipmentCustomer { get; set; }
 
         public int NotifyType { get; set; }
 
         public string NotifyText { get; set; }
+
+
     }
 }
