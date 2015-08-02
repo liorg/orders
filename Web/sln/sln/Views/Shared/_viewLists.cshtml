@@ -1,9 +1,13 @@
-﻿<div class="well carousel-search hidden-sm">
+﻿@using (Html.BeginForm("Index","S"))
+{
+<div class="well carousel-search hidden-sm">
     <div class="btn-group">
         <a class=" btn btn-success"  href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
+      
     </div>
     <div class="btn-group">
-
+<input type="checkbox" name="MyValues" value="@ViewBag.ShowAll" />
+ 
         <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
         <ul class="dropdown-menu">
             @foreach (var view in ViewBag.Views)
@@ -15,6 +19,5 @@
             <li><a href="#">דו''ח חודשי</a></li>
         </ul>
     </div>
-
-
 </div>
+}

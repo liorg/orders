@@ -24,15 +24,17 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-
+                UserContext user=new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-                int order = viewType.HasValue ? viewType.Value : Helper.TimeStatus.New;
+                int order = viewType.HasValue ? viewType.Value : user.DefaultView;
                 if (viewType.HasValue)
                 {
                     var view = cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
                     if (view != null)
                         ViewBag.Selected = view.StatusDesc;
+                    
                 }
+                ViewBag.ShowAll = user.ShowAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();
@@ -53,14 +55,14 @@ namespace sln.Controllers
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
-                    var created = context.Users.Find(ship.CreatedBy.ToString());
+                   // var created = context.Users.Find(ship.CreatedBy.ToString());
 
                     var u = new ShippingVm();
                     u.Id = ship.ShippingId;
                     u.Status = ship.StatusShipping.Desc;
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.CreatedBy = created != null ? created.FirstName + " " + created.LastName : "";
+                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
                     u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";

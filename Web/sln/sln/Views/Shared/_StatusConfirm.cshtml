@@ -50,8 +50,8 @@
                         @foreach (var runner in Model.Runners)
                         {
                             <li><a href="@Url.Action("ConfirmRequest","Status",new { id=Model.ShipId, assignTo=runner.Id})"><i class="fa fa-hand-o-left fa-fw"></i>@runner.FullName</a></li> 
-                        }
                         <li class="divider"></li>
+                         }
                         <li><a href="@Url.Action("ConfirmRequest","Status",new { id=Model.ShipId})"><i class="fa fa-repeat fa-fw"></i>העבר אליי</a></li>
                     </ul>
                 </div>

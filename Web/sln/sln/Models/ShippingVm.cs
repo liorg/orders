@@ -74,6 +74,8 @@ namespace sln.Models
         [Display(Name = "תאריך עדכון ")]
         public string ModifiedOn { get; set; }
 
+        [Display(Name = "סוג משלוח")]
+        public string ShipTypeIdName { get; set; }
 
         [Display(Name = "סוג משלוח")]
         public Guid ShipTypeId { get; set; }

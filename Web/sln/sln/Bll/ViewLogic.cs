@@ -50,7 +50,7 @@ namespace sln.Bll
 
         }
 
-        public async Task<ViewListsResponse>  Get(ViewListsRequest request)
+        public async Task<ViewListsResponse> Get(ViewListsRequest request)
         {
             ViewListsResponse response = new ViewListsResponse();
             var orgId=Guid.Empty;
