@@ -34,7 +34,7 @@ namespace sln.Controllers
                         ViewBag.Selected = view.StatusDesc;
                     
                 }
-                ViewBag.ShowAll = user.ShowAll;
+                ViewBag.ShowAll = true;// user.ShowAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();

@@ -6,8 +6,12 @@
       
     </div>
     <div class="btn-group">
-<input type="checkbox" name="MyValues" value="@ViewBag.ShowAll" />
- 
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="MyValues" checked="@ViewBag.ShowAll" />Check me out
+    </label>
+  </div>
         <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
         <ul class="dropdown-menu">
             @foreach (var view in ViewBag.Views)
