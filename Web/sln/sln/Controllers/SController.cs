@@ -67,9 +67,6 @@ namespace sln.Controllers
                     model.Add(u);
 
                 }
-                //viewOrder.Model = model;
-                //viewOrder.ViewTypes = new List<Models.ViewType>();
-
                 return View(model);
             }
         }
@@ -79,7 +76,10 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 List<Distance> distances = new List<Distance>();
-                var city = await context.City.ToListAsync();
+
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                var city = cache.GetCities(context); // await context.City.ToListAsync();
                 long increa = 0;
                 var model = new ShippingVm();
                 var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber).FirstOrDefaultAsync();
@@ -103,8 +103,8 @@ namespace sln.Controllers
                 model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5, '0'));
                 model.FastSearch = increa;
                 ViewBag.OrderNumber = model.Name;
-
-                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+                var orgs = cache.GetOrgs(context);
+                ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
 
                 ViewBag.City = new SelectList(city, "CityId", "Name");
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
@@ -121,7 +121,8 @@ namespace sln.Controllers
                         }
                     }
                     model.OrgId = orgId;
-                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+
+                    distances = cache.GetDistancesPerOrg(context, orgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 }
                 else
                 {
@@ -208,10 +209,12 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                MemeryCacheDataService cache = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.FindAsync(shipId);
                 List<Distance> distances = new List<Distance>();
-                var city = await context.City.ToListAsync();
+                var city = cache.GetCities(context);
+                var orgs = cache.GetOrgs(context);
                 var model = new ShippingVm();
                 model.Number = shipping.Name;
                 ViewBag.OrderNumber = shipping.Name;
@@ -237,7 +240,7 @@ namespace sln.Controllers
                         shipping.NotifyText = Notification.MessageConfirm;
                     }
                 }
-                ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
+                ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
 
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
@@ -253,8 +256,7 @@ namespace sln.Controllers
                             break;
                         }
                     }
-                    //model.OrgId = orgId;
-                    distances = await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                    distances = cache.GetDistancesPerOrg(context, orgId);
                 }
                 else
                 {
@@ -295,8 +297,7 @@ namespace sln.Controllers
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
-                //context. (shipping);
-
+               
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

@@ -176,6 +176,7 @@
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ShipItemController.cs" />
     <Compile Include="Controllers\SController.cs" />
@@ -369,6 +370,7 @@
     <Content Include="Views\s\ShipView.cshtml" />
     <Content Include="Views\Shared\_StatusConfirm.cshtml" />
     <Content Include="Views\Shared\_viewListsHeader.cshtml" />
+    <Content Include="Views\Cache\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

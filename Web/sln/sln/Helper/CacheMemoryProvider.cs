@@ -11,11 +11,24 @@ namespace Kipodeal.Helper.Cache
 {
     public class CacheMemoryProvider 
     {
-        int DefaultCacheHours;
+        int DefaultCacheHours=24;
         public CacheMemoryProvider()
         {
 
         }
+
+        const string cache = "~/cache.txt";
+
+        public void Refresh(string s)
+        {
+            string cachedFilePath = HttpContext.Current.Server.MapPath(cache);
+            using (var data = System.IO.File.AppendText(cachedFilePath))
+            {
+                data.Write(s);
+            }
+
+        }
+
         public bool Get<T>(string key, out T value)
         {
             ObjectCache cache = MemoryCache.Default;
@@ -56,7 +69,7 @@ namespace Kipodeal.Helper.Cache
             policy.AbsoluteExpiration = DateTimeOffset.Now.AddHours(durationHours);
 
             List<string> filePaths = new List<string>();
-            string cachedFilePath = HttpContext.Current.Server.MapPath("cache"); //  rootPathDependency + "/" + ConstantVariables.DefaultCahceFile;
+            string cachedFilePath = HttpContext.Current.Server.MapPath(cache); //  rootPathDependency + "/" + ConstantVariables.DefaultCahceFile;
             var uCache = new Uri(cachedFilePath);
 
             filePaths.Add(uCache.LocalPath);
