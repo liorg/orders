@@ -1,5 +1,6 @@
 ﻿using sln.Contract;
 using sln.Helper;
+using sln.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,5 +41,10 @@ namespace sln.Bll
 
 
         }
+
+        //public IEnumerable<ShippingVm> Get()
+        //{
+
+        //}
     }
 }
