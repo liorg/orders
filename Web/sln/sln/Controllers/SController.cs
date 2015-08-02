@@ -19,59 +19,7 @@ namespace sln.Controllers
     [Authorize]
     public class SController : Controller
     {
-        public async Task<ActionResult> IndexOld(int? viewType, bool? viewAll, int? currentPage)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                UserContext user = new UserContext(AuthenticationManager);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
-                int order = viewType.HasValue ? viewType.Value : user.DefaultView;
-                if (viewType.HasValue)
-                {
-                    var view = cache.GetView().Where(g => g.StatusId == viewType.Value).FirstOrDefault();
-                    if (view != null)
-                        ViewBag.Selected = view.StatusDesc;
-
-                }
-                ViewBag.ShowAll = true;// user.ShowAll;
-                List<Shipping> shippings = new List<Shipping>();
-                var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();
-                if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                {
-                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-                    foreach (var claim in claimsIdentity.Claims)
-                    {
-                        if (claim.Type == ClaimTypes.GroupSid)
-                        {
-                            orgId = Guid.Parse(claim.Value);
-                            break;
-                        }
-
-                    }
-                }
-                shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
-                var model = new List<ShippingVm>();
-                foreach (var ship in shippings)
-                {
-                    // var created = context.Users.Find(ship.CreatedBy.ToString());
-
-                    var u = new ShippingVm();
-                    u.Id = ship.ShippingId;
-                    u.Status = ship.StatusShipping.Desc;
-                    u.Name = ship.Name;
-                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                    u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
-                    u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
-                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                    model.Add(u);
-
-                }
-                return View(model);
-            }
-        }
-
+    
         public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage)
         {
             using (var context = new ApplicationDbContext())
