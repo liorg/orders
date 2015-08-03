@@ -267,6 +267,7 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\ViewItem.cs" />
     <Compile Include="Models\ViewListsRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

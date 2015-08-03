@@ -9,23 +9,7 @@ using System.Web;
 
 namespace sln.Dal
 {
-    public class ViewItem
-    {
-        public int StatusId { get; set; }
-        public string StatusDesc { get; set; }
 
-        public bool IsDefaultAdmin { get; set; }
-        public bool IsDefaultOrgManager { get; set; }
-        public bool IsDefaultAccept { get; set; }
-        public bool IsDefaultUser { get; set; }
-        public bool IsDefaultRunner { get; set; }
-
-        public bool IsVisbleForAdmin { get; set; }
-        public bool IsVisbleForOrgManager { get; set; }
-        public bool IsVisbleForAccept { get; set; }
-        public bool IsVisbleForUser { get; set; }
-        public bool IsVisbleForRunner { get; set; }
-    }
 
     public class MemeryCacheDataService
     {
@@ -86,10 +70,32 @@ namespace sln.Dal
                     if (_viewItems == null)
                     {
                         _viewItems = new List<ViewItem>();
-                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום", IsDefaultUser = true });
-                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו", IsDefaultUser = true, IsVisbleForAdmin = true, IsDefaultAdmin = true });
-                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים", IsVisbleForAdmin = true });
-                        _viewItems.Add(new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" });
+                        var viewItem = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
+                     //   viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
+                        viewItem.GetOnlyMyRecords = (ship, user) => ship.OwnerId != null && ship.OwnerId.Value == user.UserId;
+                        _viewItems.Add(viewItem);
+                        
+                        viewItem = new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו" };
+                        //viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
+                        viewItem.GetOnlyMyRecords = (ship, user) => ship.ApprovalRequest != null && ship.ApprovalRequest.Value == user.UserId;
+                        _viewItems.Add(viewItem);
+                        
+                         viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים"  };
+                       // viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
+                        viewItem.GetOnlyMyRecords = (ship, user) => ship.ApprovalShip != null && ship.ApprovalShip.Value == user.UserId;
+                        _viewItems.Add(viewItem);
+
+                        viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" };
+                       // viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
+                        viewItem.GetOnlyMyRecords = (ship, user) => ship.ApprovalShip != null && ship.ApprovalShip.Value == user.UserId;
+                        _viewItems.Add(viewItem);
+
+                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח" };
+                        //viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
+                        viewItem.GetOnlyMyRecords = (ship, user) => ship.BroughtShipmentCustomer != null && ship.BroughtShipmentCustomer.Value == user.UserId;
+                        _viewItems.Add(viewItem);
+                        //_viewItems.Add(new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים" });
+                       // _viewItems.Add(new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" });
                         _viewItems.Add(new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח" });
                     }
                 }
@@ -106,7 +112,7 @@ namespace sln.Dal
             {
                 lists = (from r in context.Users
                          where r.IsActive == true && r.Roles.Any(ro => ro.Role != null &&
-                             (ro.Role.Name == Helper.HelperAutorize.RoleRunner || ro.Role.Name==Helper.HelperAutorize.RoleAdmin))
+                             (ro.Role.Name == Helper.HelperAutorize.RoleRunner || ro.Role.Name == Helper.HelperAutorize.RoleAdmin))
                          select new Runner
                          {
                              Id = r.Id,
