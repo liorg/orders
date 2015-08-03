@@ -12,7 +12,7 @@ namespace sln.Models
 
         public Func<sln.DataModel.Shipping, sln.Contract.IUserContext, bool> GetOnlyMyRecords { get; set; }
 
-        public Func<sln.Contract.IUserContext, bool> GetDefaultView { get; set; }
+        //public Func<sln.Contract.IUserContext, bool> GetDefaultView { get; set; }
 
         //public bool IsDefaultAdmin { get; set; }
         //public bool IsDefaultOrgManager { get; set; }

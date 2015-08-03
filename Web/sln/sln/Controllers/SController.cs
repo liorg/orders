@@ -24,7 +24,7 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                UserContext user=new UserContext(AuthenticationManager);
+                var user=new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 int order = viewType.HasValue ? viewType.Value : user.DefaultView;
                // if (viewType.HasValue)
@@ -35,12 +35,17 @@ namespace sln.Controllers
                         ViewBag.Selected = view.StatusDesc;
                         ViewBag.StatusId = view.StatusId;
                     }
+                    else
+                    {
+                        
+                    }
                     
                 //}
-                ViewBag.ShowAll = viewAll == null ? user.ShowAll : viewAll.Value;
+                var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
+                ViewBag.ShowAll = showAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                 {
                     ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
