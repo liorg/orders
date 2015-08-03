@@ -37,7 +37,7 @@ namespace sln.Controllers
                     }
                     else
                     {
-                        
+                     //   view=new ViewItem{StatusId=tu
                     }
                     
                 //}
