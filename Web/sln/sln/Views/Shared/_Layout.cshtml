@@ -48,7 +48,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="@Url.Action("Create","S")"><span class="glyphicon glyphicon-plus"></span> צור משלוח חדש </a>
+                        <a href="@Url.Action("Create", "S")"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
@@ -60,8 +60,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תצוגות<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                             @Html.Partial("_viewListsHeader")
-                           @* <li><a href="#">משלוחים שלי</a></li>
+                            @Html.Partial("_viewListsHeader")
+                            @* <li><a href="#">משלוחים שלי</a></li>
                             <li><a href="#">דוח מתחילת החודש</a></li>
                             <li><a href="#">משלוחים חדשים</a></li>*@
                         </ul>
@@ -87,7 +87,7 @@
 
 
     <div class="container">
-         @RenderBody()
+        @RenderBody()
         <hr />
         @*  
         <footer>
@@ -101,18 +101,30 @@
 
         $(document).ready(function () {
             //debugger;
-            // alert(3);
             $('.switch').bootstrapSwitch();
             $('#chkAll').click(function () {
-             
-                alert($('#chkAll').checked());
-
+                alert(3);
+                //alert($('#chkAll').checked);
+                var f= $("#chkAll").prop('checked');
+                var viewType= $('#viewType').val();
+                $('#viewAll').val(f);
+                changeView(viewType,f);
             })
             
             // Handler for .ready() called.
 
         });
-
+        function changeViewType(viewType) {
+            $('#viewType').val(viewType);
+            var viewAll= $('#viewAll').val();
+            changeView(viewType, viewAll);
+            // window.location.replace=
+        }
+        function changeView( viewType, viewAll, page) {
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll;
+            alert(viewUrl);
+            window.location.href = viewUrl;
+        }
 
 
     </script>

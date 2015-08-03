@@ -31,8 +31,10 @@ namespace sln.Controllers
                 //{
                     var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
                     if (view != null)
+                    {
                         ViewBag.Selected = view.StatusDesc;
-                    ViewBag.StatusId = view.StatusId;
+                        ViewBag.StatusId = view.StatusId;
+                    }
                     
                 //}
                 ViewBag.ShowAll = viewAll == null ? user.ShowAll : viewAll.Value;
