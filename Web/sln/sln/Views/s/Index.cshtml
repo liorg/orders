@@ -28,7 +28,6 @@
 @foreach (var item in Model) {
     
     <tr onclick="location.href = '@(Url.Action("ShipView", "S", new { id = item.Id }))'">
-  
         <td>  @Html.DisplayFor(modelItem => item.Name) </td>
         <td>  @Html.DisplayFor(modelItem => item.DistanceName)</td>
         <td>  @Html.DisplayFor(modelItem => item.Status)</td>
@@ -38,13 +37,7 @@
         <td>  @Html.DisplayFor(modelItem => item.CityFormName)</td>
     </tr>
 }
-
 </table>
 </div>
-<div class="row">
- <ul class="pager">
-    <li><a href="#">הקודם</a></li>
-    <li><a href="#">הבא</a></li>
-  </ul>
-</div>
+@Html.Partial("_pager")
 </div>

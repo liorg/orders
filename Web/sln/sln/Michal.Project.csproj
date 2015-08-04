@@ -380,6 +380,7 @@
     <Content Include="Views\Shared\_StatusConfirm.cshtml" />
     <Content Include="Views\Shared\_viewListsHeader.cshtml" />
     <Content Include="Views\Cache\Index.cshtml" />
+    <Content Include="Views\Shared\_pager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -103,24 +103,25 @@
             //debugger;
             $('.switch').bootstrapSwitch();
             $('#chkAll').click(function () {
-               var f= $("#chkAll").prop('checked');
-                var viewType= $('#viewType').val();
-                $('#viewAll').val(f);
-                changeView(viewType,f);
+                var showAll = $("#chkAll").prop('checked');
+                var viewType = $('#viewType').val();
+                var currentPage = $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+                $('#viewAll').val(showAll);
+                changeView(viewType, fmcurrentPage);
             })
-            
-            // Handler for .ready() called.
-
         });
         function changeViewType(viewType) {
+            //debugger;
             $('#viewType').val(viewType);
-            var viewAll= $('#viewAll').val();
-            changeView(viewType, viewAll);
+            var viewAll = $('#viewAll').val();
+            var currentPage = $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+            alert(currentPage);
+            changeView(viewType, viewAll, currentPage);
             // window.location.replace=
         }
-        function changeView( viewType, viewAll, page) {
+        function changeView(viewType, viewAll, page) {
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll;
-         //   alert(viewUrl);
+            //   alert(viewUrl);
             window.location.href = viewUrl;
         }
 

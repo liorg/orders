@@ -8,6 +8,8 @@ namespace sln.Helper
 
     public static class General
     {
+
+        public const int MaxRecordsPerPage = 3;
         public const string OrgWWW = "www";
     }
     public static class CustomClaimTypes

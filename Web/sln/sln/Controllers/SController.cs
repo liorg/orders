@@ -41,20 +41,26 @@ namespace sln.Controllers
                     view.FieldShowMy = "OwnerId";
                 }
 
-                
+
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 ViewBag.ShowAll = showAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from &&  s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty )).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
-                   shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
-                 
+                    shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
+
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                     orgId = user.OrgId;
 
-                shippings = await shippingsQuery.ToListAsync();
+                int page = currentPage.HasValue ? currentPage.Value : 1;
+                var total = await shippingsQuery.CountAsync();
+                ViewBag.Total = total;
+                ViewBag.CurrentPage = page;
+                var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+                ViewBag.MoreRecord = hasMoreRecord;
+                shippings = await shippingsQuery.Take(page * Helper.General.MaxRecordsPerPage).ToListAsync();
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
