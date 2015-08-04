@@ -103,9 +103,7 @@
             //debugger;
             $('.switch').bootstrapSwitch();
             $('#chkAll').click(function () {
-                alert(3);
-                //alert($('#chkAll').checked);
-                var f= $("#chkAll").prop('checked');
+               var f= $("#chkAll").prop('checked');
                 var viewType= $('#viewType').val();
                 $('#viewAll').val(f);
                 changeView(viewType,f);
@@ -122,7 +120,7 @@
         }
         function changeView( viewType, viewAll, page) {
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll;
-            alert(viewUrl);
+         //   alert(viewUrl);
             window.location.href = viewUrl;
         }
 

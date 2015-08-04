@@ -13,57 +13,51 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using sln.Bll;
-
+using System.Linq.Expressions;
 namespace sln.Controllers
 {
     [Authorize]
     public class SController : Controller
     {
-    
+
         public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage)
         {
             using (var context = new ApplicationDbContext())
             {
-                var user=new UserContext(AuthenticationManager);
+                var user = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 int order = viewType.HasValue ? viewType.Value : user.DefaultView;
-               // if (viewType.HasValue)
+                // if (viewType.HasValue)
                 //{
-                    var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
-                    if (view != null)
-                    {
-                        ViewBag.Selected = view.StatusDesc;
-                        ViewBag.StatusId = view.StatusId;
-                    }
-                    else
-                    {
-                     //   view=new ViewItem{StatusId=tu
-                    }
-                    
-                //}
+                var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
+                if (view != null)
+                {
+                    ViewBag.Selected = view.StatusDesc;
+                    ViewBag.StatusId = view.StatusId;
+                }
+                else
+                {
+                    view = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
+                    view.FieldShowMy = "OwnerId";
+                }
+
+                
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 ViewBag.ShowAll = showAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();
-                if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                {
-                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-                    foreach (var claim in claimsIdentity.Claims)
-                    {
-                        if (claim.Type == ClaimTypes.GroupSid)
-                        {
-                            orgId = Guid.Parse(claim.Value);
-                            break;
-                        }
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
-                    }
-                }
+                if (!showAll)
+                   shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
+                
+                if (!User.IsInRole(HelperAutorize.RoleAdmin))
+                    orgId = user.OrgId;
+
                 shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
-                   // var created = context.Users.Find(ship.CreatedBy.ToString());
 
                     var u = new ShippingVm();
                     u.Id = ship.ShippingId;
@@ -226,7 +220,7 @@ namespace sln.Controllers
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.FindAsync(shipId);
-                
+
                 List<Distance> distances = new List<Distance>();
                 var city = cache.GetCities(context);
                 var shiptypes = cache.GetShipType(context);

@@ -26,7 +26,7 @@ namespace sln.Bll
                 showAll = false;
             if (source.IsAcceptOrder)
             {
-                showAll = true;
+                showAll = false;
                 defaultView = TimeStatus.ApporvallRequest;
             }
             if (source.IsOrgMangager)
@@ -41,8 +41,8 @@ namespace sln.Bll
             }
             if (source.IsAdmin)
             {
-                showAll = true;
-                defaultView = TimeStatus.AcceptByRunner;
+                showAll = false;
+                defaultView = TimeStatus.Confirm;
             }
             target.DefaultView = defaultView;
             target.ViewAll = showAll;
