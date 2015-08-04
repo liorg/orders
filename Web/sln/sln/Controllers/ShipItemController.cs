@@ -24,15 +24,16 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 
-                Guid userid = Guid.Empty;
+               
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid userid = user.UserId;
+                //ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
+                //foreach (var claim in claimsIdentity.Claims)
+                //{
+                //    if (claim.Type == ClaimTypes.NameIdentifier)
+                //        userid = Guid.Parse(claim.Value);
 
-                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                        userid = Guid.Parse(claim.Value);
-
-                }
+                //}
                 Guid shipItemId = Guid.Parse(id); Guid shipId = Guid.Empty;
                 var shipItem = await context.ShippingItem.FindAsync(shipItemId);
                 if (shipItem != null)

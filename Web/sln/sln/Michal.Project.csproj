@@ -174,11 +174,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\StatusOldController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ShipItemController.cs" />
     <Compile Include="Controllers\SController.cs" />
@@ -262,6 +264,7 @@
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
+    <Compile Include="Models\Status\StatusRequestBase.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
