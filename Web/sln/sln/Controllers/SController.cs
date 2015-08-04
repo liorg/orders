@@ -43,7 +43,7 @@ namespace sln.Controllers
 
 
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
-                ViewBag.ShowAll = showAll;
+                ViewBag.ShowAll = showAll.ToString();
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
@@ -60,7 +60,7 @@ namespace sln.Controllers
                 ViewBag.CurrentPage = page;
                 var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
                 ViewBag.MoreRecord = hasMoreRecord;
-                shippings = await shippingsQuery.Take(page * Helper.General.MaxRecordsPerPage).ToListAsync();
+                shippings = await shippingsQuery.OrderByDescending(ord => ord.ModifiedOn).Skip((page-1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {

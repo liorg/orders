@@ -105,7 +105,7 @@
             $('#chkAll').click(function () {
                 var showAll = $("#chkAll").prop('checked');
                 var viewType = $('#viewType').val();
-                var currentPage = $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+                var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
                 $('#viewAll').val(showAll);
                 changeView(viewType, fmcurrentPage);
             })
@@ -114,14 +114,36 @@
             //debugger;
             $('#viewType').val(viewType);
             var viewAll = $('#viewAll').val();
-            var currentPage = $('#currentPage').val() == null ? 1 : $('#currentPage').val();
-            alert(currentPage);
+            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
             changeView(viewType, viewAll, currentPage);
             // window.location.replace=
         }
+        function nextPage() {
+            debugger;
+            if ($('#currentPage').val() == null) {
+                return;
+            }
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) + 1;
+            changePage(page);
+        }
+        function prevPage() {
+            debugger;
+            if ($('#currentPage').val() == null) {
+                return;
+            }
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) - 1;
+            changePage(page);
+        }
+        function changePage(page) {
+            var viewAll = $('#viewAll').val();
+            var viewType = $('#viewType').val();
+            changeView(viewType, viewAll, page);
+
+        }
         function changeView(viewType, viewAll, page) {
-            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll;
-            //   alert(viewUrl);
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage="+page;
             window.location.href = viewUrl;
         }
 

@@ -1,17 +1,23 @@
-﻿<input type="hidden" value="@ViewBag.CurrentPage" id="currentPage" name="currentPage" />
+﻿<input type="text" value="@ViewBag.CurrentPage" id="currentPage" name="currentPage" />
 
 <div class="row">
-    <ul class="pager">
-        <li><a href="#">הקודם</a></li>
-        <li><a href="#">הבא</a></li>
+    <ul class="pager"><li></li>
+@if(ViewBag.CurrentPage>1)
+{
+        <li><a href="#"  onclick="javascript:prevPage()">הקודם</a></li>
+}
+@if(ViewBag.MoreRecord==true)
+{
+      <li><a href="#"  onclick="javascript:nextPage()">הבא</a></li> 
+}
+        
 
     </ul>
 </div>
 <div class="row">
 
     <div class="text-center">
-        <p>סהכ רשומות</p>
-        <span class="badge">@ViewBag.Total</span>
+        <span class="badge">@ViewBag.Total סה''כ רשומות</span>
 
     </div>
 </div>
