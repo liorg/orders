@@ -46,7 +46,7 @@ namespace sln.Controllers
                 ViewBag.ShowAll = showAll;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from &&  s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty )).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
                    shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
@@ -54,7 +54,7 @@ namespace sln.Controllers
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                     orgId = user.OrgId;
 
-                shippings = await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
+                shippings = await shippingsQuery.ToListAsync();
                 var model = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {

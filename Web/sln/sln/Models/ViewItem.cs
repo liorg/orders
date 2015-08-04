@@ -28,11 +28,6 @@ namespace sln.Models
         
         //public Func<sln.Contract.IUserContext, bool> GetDefaultView { get; set; }
 
-        //public bool IsDefaultAdmin { get; set; }
-        //public bool IsDefaultOrgManager { get; set; }
-        //public bool IsDefaultAccept { get; set; }
-        //public bool IsDefaultUser { get; set; }
-        //public bool IsDefaultRunner { get; set; }
 
         //public bool IsVisbleForAdmin { get; set; }
         //public bool IsVisbleForOrgManager { get; set; }
