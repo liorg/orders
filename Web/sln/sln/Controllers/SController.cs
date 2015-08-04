@@ -50,7 +50,7 @@ namespace sln.Controllers
 
                 if (!showAll)
                    shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
-                
+                 
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                     orgId = user.OrgId;
 
