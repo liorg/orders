@@ -15,6 +15,7 @@
     @Styles.Render("~/Content/admin")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
 
 
     <style>
@@ -103,11 +104,11 @@
             //debugger;
             $('.switch').bootstrapSwitch();
             $('#chkAll').click(function () {
-                var showAll = $("#chkAll").prop('checked');
+                var viewAll = $("#chkAll").prop('checked');
                 var viewType = $('#viewType').val();
                 var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
-                $('#viewAll').val(showAll);
-                changeView(viewType, fmcurrentPage);
+                $('#viewAll').val(viewAll);
+                changeView(viewType, viewAll, currentPage);
             })
         });
         function changeViewType(viewType) {
@@ -143,8 +144,24 @@
 
         }
         function changeView(viewType, viewAll, page) {
-            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage="+page;
-            window.location.href = viewUrl;
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            $.blockUI({
+                message: "נא המתו מעבד את הבקשה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                $.unblockUI();
+                window.location.href = viewUrl;
+            }
+            , 1000);
         }
 
 
