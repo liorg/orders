@@ -84,6 +84,8 @@ namespace sln.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
+                request.AssignTo = assignTo;
+
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request, func);
 
@@ -142,37 +144,13 @@ namespace sln.Controllers
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
                 var ship = await context.Shipping.FindAsync(shipId);
-                Guid approval = Guid.Parse(Helper.Status.AcceptByRunner);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
-               
-                var currentDate = DateTime.Now;
-                if (ship != null)
-                {
-                    var title = "הזמנה  התקבלה " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
-                    var text = title + System.Environment.NewLine + " " + " מספר הזמנה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm") ;
-                    ship.ApprovalRequest = user.UserId;
-                    ship.ModifiedOn = currentDate;
-                    ship.ModifiedBy = user.UserId;
-                    ship.StatusShipping_StatusShippingId = approval;
-                    ship.Runner = userid;
-                    ship.NotifyText = text;
-                    ship.NotifyType = Helper.Notification.Info;
 
-                    TimeLine tl = new TimeLine
-                    {
-                        Name = title,
-                        Desc = text,
-                        CreatedBy = userid,
-                        CreatedOn = currentDate,
-                        ModifiedBy = userid,
-                        ModifiedOn = currentDate,
-                        TimeLineId = Guid.NewGuid(),
-                        IsActive = true,
-                        Status = TimeStatus.AcceptByRunner,
-                        StatusShipping_StatusShippingId = approval
-                    };
-                    ship.TimeLines.Add(tl);
-                }
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.Accept(request);
+
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
@@ -189,32 +167,13 @@ namespace sln.Controllers
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
                 var ship = await context.Shipping.FindAsync(shipId);
-                Guid approval = Guid.Parse(Helper.Status.CancelByAdmin);
-                var currentDate = DateTime.Now;
-                var text = "הזמנה לא מאושרת" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
-                if (ship != null)
-                {
-                    ship.ApprovalRequest = user.UserId;
-                    ship.ModifiedOn = currentDate;
-                    ship.ModifiedBy = user.UserId;
-                    ship.StatusShipping_StatusShippingId = approval;
-                    ship.NotifyText = text;
-                    ship.NotifyType = Helper.Notification.Error;
-                    TimeLine tl = new TimeLine
-                    {
-                        Name = "הזמנה לא מאושרת" + "של " + user.FullName + " (" + user.EmpId + ")",
-                        Desc = text,
-                        CreatedBy = userid,
-                        CreatedOn = currentDate,
-                        ModifiedBy = userid,
-                        ModifiedOn = currentDate,
-                        TimeLineId = Guid.NewGuid(),
-                        IsActive = true,
-                        Status = TimeStatus.CancelByAdmin,
-                        StatusShipping_StatusShippingId = approval
-                    };
-                    ship.TimeLines.Add(tl);
-                }
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.Accept(request);
+
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
