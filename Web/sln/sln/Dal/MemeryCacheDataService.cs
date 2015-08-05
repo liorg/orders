@@ -97,7 +97,7 @@ namespace sln.Dal
                         viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח" };
                         //viewItem.GetDefaultView = dv => dv.DefaultView == viewItem.StatusId;
                        // viewItem.GetOnlyMyRecords = (ship, user) => ship.BroughtShipmentCustomer != null && ship.BroughtShipmentCustomer.Value == user.UserId;
-                        viewItem.FieldShowMy = "AcceptByRunner";
+                        viewItem.FieldShowMy = "BroughtShipmentCustomer";
                         _viewItems.Add(viewItem);
                         //_viewItems.Add(new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים" });
                        // _viewItems.Add(new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" });

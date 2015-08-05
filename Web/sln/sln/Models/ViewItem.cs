@@ -23,11 +23,7 @@ namespace sln.Models
             Expression<Func<Shipping, bool>> showOnlyMyRecord = Expression.Lambda<Func<Shipping, bool>>(andExpression, shExp);
             return showOnlyMyRecord;
         }
-        //public Func<sln.DataModel.Shipping, sln.Contract.IUserContext, bool> GetOnlyMyRecords { get; set; }
-        //public Func<sln.DataModel.Shipping, sln.Contract.IUserContext, bool> GetOnlyMyRecords { get; set; }
-        
-        //public Func<sln.Contract.IUserContext, bool> GetDefaultView { get; set; }
-
+     
 
         //public bool IsVisbleForAdmin { get; set; }
         //public bool IsVisbleForOrgManager { get; set; }
