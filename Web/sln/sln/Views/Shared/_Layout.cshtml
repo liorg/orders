@@ -101,7 +101,6 @@
     <script>
 
         $(document).ready(function () {
-            //debugger;
             $('.switch').bootstrapSwitch();
             $('#chkAll').click(function () {
                 var viewAll = $("#chkAll").prop('checked');
@@ -112,8 +111,7 @@
             })
         });
         function changeViewType(viewType) {
-            //debugger;
-            $('#viewType').val(viewType);
+             $('#viewType').val(viewType);
             var viewAll = $('#viewAll').val();
             var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
             changeView(viewType, viewAll, currentPage);
@@ -143,6 +141,25 @@
             changeView(viewType, viewAll, page);
 
         }
+        function clickToOrder(url) {
+            $.blockUI({
+                message: "נא המתו מעבד את הבקשה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                $.unblockUI();
+                window.location.href = url;
+            }
+            , 500);
+        }
         function changeView(viewType, viewAll, page) {
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
             $.blockUI({
@@ -161,7 +178,7 @@
                 $.unblockUI();
                 window.location.href = viewUrl;
             }
-            , 1000);
+            , 600);
         }
 
 

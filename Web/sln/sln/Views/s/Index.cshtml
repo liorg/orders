@@ -27,7 +27,7 @@
 }
 @foreach (var item in Model) {
     
-    <tr onclick="location.href = '@(Url.Action("ShipView", "S", new { id = item.Id }))'">
+    <tr style="cursor: pointer;" onclick="javascript:clickToOrder('@(Url.Action("ShipView", "S", new { id = item.Id }))')">
         <td>  @Html.DisplayFor(modelItem => item.Name) </td>
         <td>  @Html.DisplayFor(modelItem => item.DistanceName)</td>
         <td>  @Html.DisplayFor(modelItem => item.Status)</td>
