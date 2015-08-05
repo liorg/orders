@@ -27,12 +27,17 @@ namespace sln
                       "~/Scripts/bootstrap-rtl.js",
                       "~/Scripts/respond.js"));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //          "~/Content/css/bootstrap-rtl.css",
+            //          "~/Content/site.css",
+            //          "~/Content/style.css"
+            //          ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap-rtl.css",
                       "~/Content/site.css",
                       "~/Content/style.css"
                       ));
-
             bundles.Add(new StyleBundle("~/Content/admin").Include(
                      "~/Content/css/sb-admin-2.css",
                      "~/Content/css/timeline.css"));
