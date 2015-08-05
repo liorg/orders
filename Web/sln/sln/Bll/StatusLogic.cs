@@ -20,6 +20,8 @@ namespace sln.Bll
             request.Status = TimeStatus.Cancel;
             request.NotifyType = Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.Cancel);
+
+            request.Ship.CancelByUser = request.UserContext.UserId;
             ChangeStatus(request);
         }
 
@@ -99,7 +101,7 @@ namespace sln.Bll
             request.NotifyType = Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.CancelByAdmin);
 
-            request.Ship.ApprovalShip = request.UserContext.UserId;
+            request.Ship.CancelByAdmin = request.UserContext.UserId;
             ChangeStatus(request);
         }
 

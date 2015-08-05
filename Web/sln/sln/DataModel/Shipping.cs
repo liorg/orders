@@ -96,6 +96,9 @@ namespace sln.DataModel
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }
 
+        [Column(TypeName = "Money")]
+        public decimal ActualPrice { get; set; }
+
         public decimal TimeWait { get; set; }
 
         [Column(TypeName = "Money")]
@@ -114,6 +117,14 @@ namespace sln.DataModel
         public Guid? BroughtShippingSender { get; set; }
 
         public Guid? BroughtShipmentCustomer { get; set; }
+
+        public Guid? CancelByUser { get; set; }
+       
+        public Guid? CancelByAdmin { get; set; }
+
+        public Guid? ArrivedShippingSender { get; set; }
+
+        public Guid? ClosedShippment { get; set; }
 
         public int NotifyType { get; set; }
 

@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201508040427323_dddd.Designer.cs">
       <DependentUpon>201508040427323_dddd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508050713206_dff.cs" />
+    <Compile Include="Migrations\201508050713206_dff.Designer.cs">
+      <DependentUpon>201508050713206_dff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -428,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508040427323_dddd.resx">
       <DependentUpon>201508040427323_dddd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508050713206_dff.resx">
+      <DependentUpon>201508050713206_dff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
