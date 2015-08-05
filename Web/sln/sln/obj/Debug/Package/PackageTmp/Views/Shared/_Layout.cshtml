@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 
     @Styles.Render("~/Content/css")
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
@@ -82,8 +81,6 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
-
     <div class="container">
         @RenderBody()
         <hr />
@@ -108,8 +105,8 @@
             })
 
             $('#chkCheckin').click(function () {
-               // alert(4);
-               $.blockUI({ message: $('#questionIsArrived'), css: { width: '400px' } });
+                // alert(4);
+                $.blockUI({ message: $('#questionIsArrived'), css: { width: '400px' } });
             })
 
             $('#btnCheckin').click(function () {
@@ -200,12 +197,6 @@
         }
 
     </script>
-    <div id="questionIsArrived" style="display:none; cursor: default"> 
-     
-        <h5><i class="fa fa-question-circle"></i>  הגעת ליעד</h5> 
-         <a  id="btnCheckin" class="btn  btn-success" href="#"><i class="fa  fa-check-square-o"></i> כן </a>
-         <a  id="btnCheckout" class="btn  btn-danger" href="#"><i class="fa  fa-meh-o"></i> לא </a>
-   
-</div>
+   @Html.Partial("_questionIsArrived")
 </body>
 </html>

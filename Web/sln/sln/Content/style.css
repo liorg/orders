@@ -186,7 +186,7 @@ input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
   line-height: 60px;
 }
 input.cmn-toggle-yes-no + label:before {
-  background-color: #dddddd;
+  background-color: rgb(153, 153, 153);/* #dddddd;*/
   content: attr(data-off);
   -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;

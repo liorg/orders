@@ -391,6 +391,7 @@
     <Content Include="Views\Cache\Index.cshtml" />
     <Content Include="Views\Shared\_pager.cshtml" />
     <Content Include="Views\Shared\_editOrder.cshtml" />
+    <Content Include="Views\Shared\_questionIsArrived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
