@@ -15,7 +15,7 @@
     @Styles.Render("~/Content/admin")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
 
 
     <style>
@@ -49,7 +49,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
+                        <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
@@ -108,7 +108,7 @@
             })
         });
         function changeViewType(viewType) {
-             $('#viewType').val(viewType);
+            $('#viewType').val(viewType);
             var viewAll = $('#viewAll').val();
             var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
             changeView(viewType, viewAll, currentPage);
@@ -152,7 +152,7 @@
                 }
             });
             setTimeout(function () {
-              //  $.unblockUI();
+                //  $.unblockUI();
                 window.location.href = url;
             }
             , 500);
@@ -172,7 +172,7 @@
                 }
             });
             setTimeout(function () {
-               // $.unblockUI();
+                // $.unblockUI();
                 window.location.href = viewUrl;
             }
             , 600);
@@ -180,5 +180,7 @@
 
 
     </script>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
 </body>
 </html>
