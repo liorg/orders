@@ -49,7 +49,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="@Url.Action("Create", "S")"><span class="glyphicon glyphicon-plus"></span>צור משלוח חדש </a>
+                        <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
@@ -62,9 +62,6 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תצוגות<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             @Html.Partial("_viewListsHeader")
-                            @* <li><a href="#">משלוחים שלי</a></li>
-                            <li><a href="#">דוח מתחילת החודש</a></li>
-                            <li><a href="#">משלוחים חדשים</a></li>*@
                         </ul>
                     </li>
                     @Html.Partial("_LoginPartial")
