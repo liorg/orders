@@ -390,6 +390,7 @@
     <Content Include="Views\Shared\_viewListsHeader.cshtml" />
     <Content Include="Views\Cache\Index.cshtml" />
     <Content Include="Views\Shared\_pager.cshtml" />
+    <Content Include="Views\Shared\_editOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

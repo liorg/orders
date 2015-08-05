@@ -180,7 +180,7 @@ input.cmn-toggle-yes-no + label:before, input.cmn-toggle-yes-no + label:after {
   bottom: 0;
   right: 0;
   color: #fff;
-  font-family: "Roboto Slab", serif;
+  
   font-size: 20px;
   text-align: center;
   line-height: 60px;

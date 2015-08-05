@@ -106,7 +106,23 @@
                 $('#viewAll').val(viewAll);
                 changeView(viewType, viewAll, currentPage);
             })
+
+            $('#chkCheckin').click(function () {
+               // alert(4);
+               $.blockUI({ message: $('#questionIsArrived'), css: { width: '400px' } });
+            })
+
+            $('#btnCheckin').click(function () {
+                alert(2);
+
+            })
+            $('#btnCheckout').click(function () {
+                $.unblockUI();
+                $("#chkCheckin").prop("checked", false);
+                return false;
+            })
         });
+
         function changeViewType(viewType) {
             $('#viewType').val(viewType);
             var viewAll = $('#viewAll').val();
@@ -114,6 +130,7 @@
             changeView(viewType, viewAll, currentPage);
             // window.location.replace=
         }
+
         function nextPage() {
             debugger;
             if ($('#currentPage').val() == null) {
@@ -123,6 +140,7 @@
             page = parseInt(currentPage) + 1;
             changePage(page);
         }
+
         function prevPage() {
             debugger;
             if ($('#currentPage').val() == null) {
@@ -132,12 +150,14 @@
             page = parseInt(currentPage) - 1;
             changePage(page);
         }
+
         function changePage(page) {
             var viewAll = $('#viewAll').val();
             var viewType = $('#viewType').val();
             changeView(viewType, viewAll, page);
 
         }
+
         function clickToOrder(url) {
             $.blockUI({
                 message: "נא המתו מעבד את הבקשה...",
@@ -157,10 +177,11 @@
             }
             , 500);
         }
+
         function changeView(viewType, viewAll, page) {
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
             $.blockUI({
-                message: "נא המתו מעבד את הבקשה...",
+                message: "נא המתן מעבד את הבקשה...",
                 css: {
                     border: 'none',
                     padding: '15px',
@@ -178,9 +199,13 @@
             , 600);
         }
 
-
     </script>
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+    <div id="questionIsArrived" style="display:none; cursor: default"> 
+     
+        <h5><i class="fa fa-question-circle"></i>  הגעת ליעד</h5> 
+         <a  id="btnCheckin" class="btn  btn-success" href="#"><i class="fa  fa-check-square-o"></i> כן </a>
+         <a  id="btnCheckout" class="btn  btn-danger" href="#"><i class="fa  fa-meh-o"></i> לא </a>
+   
+</div>
 </body>
 </html>

@@ -59,10 +59,7 @@
                 <div class="btn-group">
                     <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })">לא אושר הזמנה <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
                 </div>
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
-                        <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
-                </div>
+                @Html.Partial("_editOrder")
             </div>
         </div>
     </div>
@@ -79,14 +76,7 @@
                         <i class="fa fa-gift fa-2x pull-right"></i>קבלת המשלוח </a>
 
                 </div>
-                @if (ViewBag.userProfiler.IsAdmin)
-                {
-                    <div class="btn-group">
-                        <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
-                            <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
-                    </div>
-                }
-
+                 @Html.Partial("_editOrder")
             </div>
         </div>
     </div>
@@ -101,18 +91,11 @@
             <div class="well well-lg">
                 <div class="btn-group">
                     <div class="switch">
-                        <input id="cmn-toggle-7" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
-                        <label for="cmn-toggle-7" data-on="הגעתי ליעד" data-off="לא הגעתי"></label>
+                        <input id="chkCheckin" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+                        <label for="chkCheckin" data-on="הגעתי ליעד" data-off="לא הגעתי"><i class="fa fa-map-marker fa-fw fa-2x"></i></label>
                     </div>
                 </div>
-                @if (ViewBag.userProfiler.IsAdmin)
-                {
-                    <div class="btn-group pull-left">
-                        <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
-                            <i class="fa fa-pencil fa-2x pull-right"></i> </a>
-                    </div>
-                }
-
+                @Html.Partial("_editOrder")
             </div>
         </div>
     </div>
