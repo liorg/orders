@@ -106,7 +106,10 @@
 
             $('#chkCheckin').click(function () {
                 // alert(4);
-                $.blockUI({ message: $('#questionIsArrived'), css: { width: '400px' } });
+                $.blockUI({
+                    centerX: false,
+                    centerY: false, message: $('#questionIsArrived'), css: { width: '200px' }
+                });
             })
 
             $('#btnCheckin').click(function () {
