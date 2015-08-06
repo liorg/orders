@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<sln.Models.ShippingVm>
 
 @{
-    ViewBag.Title = "הזמנות חדשות-טיוטות";
+    //ViewBag.Title = "הזמנות חדשות-טיוטות";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_viewLists")
 <div class="row">
-    <h3>@ViewBag.Title </h3>
+    <h5> <b class="centered">@ViewBag.Title</b> </h5>
     @Html.Partial("_pagerDays")
 </div>
 <div class="row">

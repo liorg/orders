@@ -88,6 +88,7 @@ namespace sln.Controllers
                 ViewBag.FromDay = from.ToString("yyyy-MM-dd");
                 ViewBag.ToDay = to.ToString("yyyy-MM-dd");
                 ViewBag.IsToday = isToday;
+                ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
                 return View(model);
             }
         }

@@ -44,7 +44,7 @@
         <div class="col-md-12">
             <div class="well well-lg">
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" href="#"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i>אושר</a>
+                    <a class="btn btn-lg btn-primary" href="#"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i><span class="hidden-phone">אושר</span></a>
                     <a class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                         <span class="fa fa-caret-down fa-2x"></span></a>
                     <ul class="dropdown-menu">
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })">לא אושר הזמנה <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
+                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })"> <span class="hidden-phone">לא אושר הזמנה</span>  <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
                 </div>
                 @Html.Partial("_editOrder")
             </div>
@@ -74,7 +74,7 @@
             <div class="well well-lg">
                 <div class="btn-group">
                     <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
-                        <i class="fa fa-envelope-o fa-2x pull-right"></i>קבלת המשלוח </a>
+                        <i class="fa fa-envelope-o fa-2x pull-right"></i> <span class="hidden-phone">קבלת המשלוח</span>  </a>
 
                 </div>
                 @Html.Partial("_editOrder")
@@ -109,10 +109,10 @@
         <div class="col-md-12">
             <div class="well well-lg">
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#okModel" href="#"><i class="fa fa-gift fa-fw fa-2x"></i>התקבל</a>
+                    <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#okModel" href="#"><i class="fa fa-gift fa-fw fa-2x"></i><span class="hidden-phone">התקבל</span> </a>
                 </div>
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger"  data-toggle="modal" data-target="#noOkModel" href="#" href="#">לא התקבל <i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
+                    <a class="btn btn-lg btn-danger"  data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">לא התקבל</span><i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
                 </div>
                 @Html.Partial("_editOrder")
             </div>
