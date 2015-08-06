@@ -130,6 +130,9 @@ namespace sln.DataModel
 
         public string NotifyText { get; set; }
 
+        public string Recipient { get; set; }
+
+
 
     }
 }

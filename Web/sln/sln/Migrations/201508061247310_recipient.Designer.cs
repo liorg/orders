@@ -6,14 +6,14 @@ namespace sln.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class c : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class recipient : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(c));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(recipient));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507271218270_c"; }
+            get { return "201508061247310_recipient"; }
         }
         
         string IMigrationMetadata.Source

@@ -215,53 +215,13 @@
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\UserProfileActionFilter.cs" />
-    <Compile Include="Migrations\201507261856018_ss1.cs" />
-    <Compile Include="Migrations\201507261856018_ss1.Designer.cs">
-      <DependentUpon>201507261856018_ss1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507270354061_empid.cs" />
-    <Compile Include="Migrations\201507270354061_empid.Designer.cs">
-      <DependentUpon>201507270354061_empid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507271218270_c.cs" />
-    <Compile Include="Migrations\201507271218270_c.Designer.cs">
-      <DependentUpon>201507271218270_c.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507300705217_grant.cs" />
-    <Compile Include="Migrations\201507300705217_grant.Designer.cs">
-      <DependentUpon>201507300705217_grant.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507310618367_grantg.cs" />
-    <Compile Include="Migrations\201507310618367_grantg.Designer.cs">
-      <DependentUpon>201507310618367_grantg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508011812541_sss.cs" />
-    <Compile Include="Migrations\201508011812541_sss.Designer.cs">
-      <DependentUpon>201508011812541_sss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508011814497_ssss.cs" />
-    <Compile Include="Migrations\201508011814497_ssss.Designer.cs">
-      <DependentUpon>201508011814497_ssss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508012231196_shiptype.cs" />
-    <Compile Include="Migrations\201508012231196_shiptype.Designer.cs">
-      <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508012242032_price.cs" />
-    <Compile Include="Migrations\201508012242032_price.Designer.cs">
-      <DependentUpon>201508012242032_price.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508020412258_comment.cs" />
-    <Compile Include="Migrations\201508020412258_comment.Designer.cs">
-      <DependentUpon>201508020412258_comment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508040427323_dddd.cs" />
-    <Compile Include="Migrations\201508040427323_dddd.Designer.cs">
-      <DependentUpon>201508040427323_dddd.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201508050713206_dff.cs" />
     <Compile Include="Migrations\201508050713206_dff.Designer.cs">
       <DependentUpon>201508050713206_dff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508061247310_recipient.cs" />
+    <Compile Include="Migrations\201508061247310_recipient.Designer.cs">
+      <DependentUpon>201508061247310_recipient.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderRequest.cs" />
@@ -405,41 +365,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507261856018_ss1.resx">
-      <DependentUpon>201507261856018_ss1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507270354061_empid.resx">
-      <DependentUpon>201507270354061_empid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507271218270_c.resx">
-      <DependentUpon>201507271218270_c.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507300705217_grant.resx">
-      <DependentUpon>201507300705217_grant.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507310618367_grantg.resx">
-      <DependentUpon>201507310618367_grantg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508011812541_sss.resx">
-      <DependentUpon>201508011812541_sss.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508011814497_ssss.resx">
-      <DependentUpon>201508011814497_ssss.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508012231196_shiptype.resx">
-      <DependentUpon>201508012231196_shiptype.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508012242032_price.resx">
-      <DependentUpon>201508012242032_price.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508020412258_comment.resx">
-      <DependentUpon>201508020412258_comment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508040427323_dddd.resx">
-      <DependentUpon>201508040427323_dddd.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508050713206_dff.resx">
       <DependentUpon>201508050713206_dff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508061247310_recipient.resx">
+      <DependentUpon>201508061247310_recipient.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

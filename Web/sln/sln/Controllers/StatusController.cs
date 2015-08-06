@@ -210,5 +210,49 @@ namespace sln.Controllers
                 return RedirectToAction("ShipView", "S", new  { id = id });
             }
         }
+
+        public async Task<ActionResult> TakeOk(string id,string recipient,string desc)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.Take(request, desc, recipient);
+
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "S");
+            }
+        }
+
+        public async Task<ActionResult> NoTake(string id, string desc)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.Arrived(request);
+
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "S");
+            }
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace sln.Bll
             StatusRequest request = new StatusRequest(requestBase);
             var user=request.UserContext;
             var ship = request.Ship;
-            var title = "המשלוח  התקבלה " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
+            var title = "המשלוח  נמצא " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
             var text = title + System.Environment.NewLine + " " + " מספר המשלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
             
             request.Title = title;
@@ -123,6 +123,44 @@ namespace sln.Bll
             request.Ship.ArrivedShippingSender = request.UserContext.UserId;
             ChangeStatus(request);
         }
+
+        public void Take(StatusRequestBase requestBase,string desc,string  recipient)
+        {
+            var request = new StatusRequest(requestBase);
+            var user = request.UserContext;
+            var ship = request.Ship;
+            var title = "המשלוח  התקבל  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = title + desc;
+
+            ship.Recipient = recipient;
+
+            request.Title = title;
+            request.Desc = text;
+            request.NotifyType = Notification.Success;
+            request.Status = TimeStatus.AcceptByClient;
+            request.StatusShipping = Guid.Parse(Helper.Status.AcceptByClient);
+
+            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            ChangeStatus(request);
+        }
+        public void NoTake(StatusRequestBase requestBase, string desc)
+        {
+            var request = new StatusRequest(requestBase);
+            var user = request.UserContext;
+            var ship = request.Ship;
+            var title = "המשלוח  לא   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = title + desc;
+
+            request.Title = title;
+            request.Desc = text;
+            request.NotifyType = Notification.Error;
+            request.Status = TimeStatus.NoAcceptByClient;
+            request.StatusShipping = Guid.Parse(Helper.Status.NoAcceptByClient);
+           
+            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            ChangeStatus(request);
+        }
+
 
         void ChangeStatus(StatusRequest request)
         {
