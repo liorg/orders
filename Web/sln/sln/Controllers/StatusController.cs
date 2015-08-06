@@ -188,5 +188,27 @@ namespace sln.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+        public async Task<ActionResult> Arrived(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.FindAsync(shipId);
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.Arrived(request);
+
+                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("ShipView", "S", new  { id = id });
+            }
+        }
     }
 }

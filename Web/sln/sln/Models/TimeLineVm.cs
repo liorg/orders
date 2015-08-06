@@ -21,9 +21,9 @@ namespace sln.Models
                     return "default";
                 if (Status == Helper.TimeStatus.ApporvallRequest || Status == Helper.TimeStatus.AcceptByRunner)
                     return "success";
-                if (Status == Helper.TimeStatus.CancelByAdmin || Status==Helper.TimeStatus.Cancel)
+                if (Status == Helper.TimeStatus.CancelByAdmin || Status == Helper.TimeStatus.Cancel || Status == Helper.TimeStatus.NoAcceptByClient || Status == Helper.TimeStatus.PrevStep)
                     return "danger";
-                if (Status == Helper.TimeStatus.Confirm)
+                if (Status == Helper.TimeStatus.Confirm || Status == Helper.TimeStatus.Arrived || Status == Helper.TimeStatus.Close || Status == Helper.TimeStatus.ChangePrice)
                     return "info";
                 return "default";
             }
@@ -46,8 +46,13 @@ namespace sln.Models
                     case Helper.TimeStatus.Cancel:
                         return "fa-times";
                     case Helper.TimeStatus.AcceptByRunner:
-                        return "fa-gift";
-                        
+                        return "fa-road";
+                    case Helper.TimeStatus.Arrived:
+                        return "fa-map-marker";
+                    case Helper.TimeStatus.NoAcceptByClient:
+                        return "fa-hand-rock-o";
+                    case Helper.TimeStatus.AcceptByClient:
+                        return "fa-gift";  
                     default:
                         return "fa-rocket";
 

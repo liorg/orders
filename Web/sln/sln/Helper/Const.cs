@@ -26,6 +26,12 @@ namespace sln.Helper
         public const int Confirm = 4;
         public const int CancelByAdmin = 5;
         public const int AcceptByRunner = 6;
+        public const int Arrived = 7;
+        public const int AcceptByClient = 8;
+        public const int NoAcceptByClient = 9;
+        public const int Close = 10;
+        public const int PrevStep = 11;
+        public const int ChangePrice = 12;
     }
     public class Status
     {
@@ -35,6 +41,11 @@ namespace sln.Helper
         public const string Confirm = "00000000-0000-0000-0000-000000000024";//4
         public const string CancelByAdmin = "00000000-0000-0000-0000-000000000023";//5
         public const string AcceptByRunner = "00000000-0000-0000-0000-000000000019";//6
+        public const string Arrived = "00000000-0000-0000-0000-000000000025";//7
+        public const string AcceptByClient = "00000000-0000-0000-0000-000000000020";//8
+        public const string NoAcceptByClient = "00000000-0000-0000-0000-000000000022";//9
+        public const string Close = "00000000-0000-0000-0000-000000000021";//10
+
     }
 
     public class ProductType

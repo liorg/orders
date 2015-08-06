@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
@@ -110,7 +110,9 @@
             })
 
             $('#btnCheckin').click(function () {
-                alert(2);
+                var shipId = $('#hdShipId').val();
+                var changeStatus = "/status/Arrived?id=" + shipId;
+                window.location.href = changeStatus;
 
             })
             $('#btnCheckout').click(function () {

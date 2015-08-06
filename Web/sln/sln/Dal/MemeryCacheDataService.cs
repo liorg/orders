@@ -74,20 +74,24 @@ namespace sln.Dal
                         viewItem.FieldShowMy = "OwnerId";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו - היום" };
                         viewItem.FieldShowMy = "ApprovalRequest";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים - היום" };
                         viewItem.FieldShowMy = "ApprovalShip";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים - היום" };
                         viewItem.FieldShowMy = "CancelByAdmin";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח - היום" };
                         viewItem.FieldShowMy = "BroughtShipmentCustomer";
+                        _viewItems.Add(viewItem);
+
+                        viewItem = new ViewItem { StatusId = TimeStatus.Arrived, StatusDesc = "משלוחים שהגיעו ליעד אבל לא התקבלו עדיין  - היום" };
+                        viewItem.FieldShowMy = "ArrivedShippingSender";
                         _viewItems.Add(viewItem);
                     }
                 }

@@ -10,6 +10,7 @@
         </div>
     </div>
 }
+<input type="hidden" value="@Model.ShipId" id="hdShipId" name="hdShipId" />
 @switch (Model.StatusId.ToString())
 {
     case sln.Helper.Status.Draft:
@@ -73,10 +74,10 @@
             <div class="well well-lg">
                 <div class="btn-group">
                     <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
-                        <i class="fa fa-gift fa-2x pull-right"></i>קבלת המשלוח </a>
+                        <i class="fa fa-envelope-o fa-2x pull-right"></i>קבלת המשלוח </a>
 
                 </div>
-                 @Html.Partial("_editOrder")
+                @Html.Partial("_editOrder")
             </div>
         </div>
     </div>
@@ -99,6 +100,24 @@
             </div>
         </div>
     </div>
+        }
+        break;
+    case sln.Helper.Status.Arrived:
+        if (ViewBag.userProfiler.AllowAccept)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well well-lg">
+                        <div class="btn-group">
+                            <a class="btn btn-lg btn-primary" href="#"><i class="fa fa-gift fa-fw fa-2x"></i>התקבל</a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })">לא התקבל <i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
+                        </div>
+                        @Html.Partial("_editOrder")
+                    </div>
+                </div>
+            </div>
         }
         break;
     default:
