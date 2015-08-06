@@ -392,6 +392,7 @@
     <Content Include="Views\Shared\_pager.cshtml" />
     <Content Include="Views\Shared\_editOrder.cshtml" />
     <Content Include="Views\Shared\_questionIsArrived.cshtml" />
+    <Content Include="Views\Shared\_pagerDays.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

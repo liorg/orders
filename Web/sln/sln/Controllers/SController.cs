@@ -20,32 +20,33 @@ namespace sln.Controllers
     public class SController : Controller
     {
 
-        public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage)
+        public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage, string nextDay, string prevDay)
         {
             using (var context = new ApplicationDbContext())
             {
                 var user = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 int order = viewType.HasValue ? viewType.Value : user.DefaultView;
-                // if (viewType.HasValue)
-                //{
                 var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
                 if (view == null)
                 {
-                //    ViewBag.Selected = view.StatusDesc;
-                //    ViewBag.StatusId = view.StatusId;
-                //}
-                //else
-                //{
                     view = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
                     view.FieldShowMy = "OwnerId";
                 }
 
-
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 List<Shipping> shippings = new List<Shipping>();
-                var from = DateTime.Today.AddDays(-1); Guid orgId = Guid.Empty;
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var from = DateTime.Today.AddDays(-1).Date;
+                var to = DateTime.Today.AddDays(1).Date;
+
+                if (!String.IsNullOrEmpty(nextDay))
+                    to = DateTime.ParseExact(nextDay, "yyyy-MM-dd", null);
+
+                if (!String.IsNullOrEmpty(prevDay))
+                    from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
+
+                Guid orgId = Guid.Empty;
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
                     shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
@@ -73,7 +74,10 @@ namespace sln.Controllers
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
                     model.Add(u);
 
-                } 
+                }
+
+                bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
+
                 ViewBag.BShowAll = showAll;
                 ViewBag.ShowAll = showAll.ToString();
                 ViewBag.Total = total;
@@ -81,7 +85,9 @@ namespace sln.Controllers
                 ViewBag.MoreRecord = hasMoreRecord;
                 ViewBag.Selected = view.StatusDesc;
                 ViewBag.StatusId = view.StatusId;
-
+                ViewBag.FromDay = from.ToString("yyyy-MM-dd");
+                ViewBag.ToDay = to.ToString("yyyy-MM-dd");
+                ViewBag.IsToday = isToday;
                 return View(model);
             }
         }

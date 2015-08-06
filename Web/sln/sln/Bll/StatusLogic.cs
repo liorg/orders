@@ -71,7 +71,6 @@ namespace sln.Bll
 
         public void Accept(StatusRequestBase requestBase)
         {
-
             StatusRequest request = new StatusRequest(requestBase);
             var user=request.UserContext;
             var ship = request.Ship;
@@ -124,10 +123,6 @@ namespace sln.Bll
             request.Ship.ArrivedShippingSender = request.UserContext.UserId;
             ChangeStatus(request);
         }
-
-
-
-
 
         void ChangeStatus(StatusRequest request)
         {

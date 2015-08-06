@@ -70,27 +70,27 @@ namespace sln.Dal
                     if (_viewItems == null)
                     {
                         _viewItems = new List<ViewItem>();
-                        var viewItem = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
+                        var viewItem = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה-היום" };
                         viewItem.FieldShowMy = "OwnerId";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו - היום" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.ApporvallRequest, StatusDesc = "משלוחים שהוזמנו-היום" };
                         viewItem.FieldShowMy = "ApprovalRequest";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים - היום" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים-היום" };
                         viewItem.FieldShowMy = "ApprovalShip";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים - היום" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = "משלוחים שבוטלו ע''י חברת השליחים-היום" };
                         viewItem.FieldShowMy = "CancelByAdmin";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח - היום" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח-היום" };
                         viewItem.FieldShowMy = "BroughtShipmentCustomer";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.Arrived, StatusDesc = "משלוחים שהגיעו ליעד אבל לא התקבלו עדיין  - היום" };
+                        viewItem = new ViewItem { StatusId = TimeStatus.Arrived, StatusDesc = "משלוחים שהגיעו ליעד-היום" };
                         viewItem.FieldShowMy = "ArrivedShippingSender";
                         _viewItems.Add(viewItem);
                     }

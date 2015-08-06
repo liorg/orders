@@ -125,6 +125,30 @@
             })
         });
 
+        function changeDay(isNext) {
+            debugger;
+            var viewType = $('#viewType').val();
+            var viewAll = $('#viewAll').val();
+            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+         
+            var toMinus = isNext == true ? 1 : -1;
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            var nextDayDate = new Date(nextDay);
+            var prevDayDate = new Date(prevDay);
+
+             nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
+             prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
+
+             var nextToStr = nextDayDate.toISOString().split('T')[0];
+             var prevToStr = prevDayDate.toISOString().split('T')[0];
+
+            changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+            // window.location.replace=
+        }
+
         function changeViewType(viewType) {
             $('#viewType').val(viewType);
             var viewAll = $('#viewAll').val();
@@ -156,7 +180,11 @@
         function changePage(page) {
             var viewAll = $('#viewAll').val();
             var viewType = $('#viewType').val();
-            changeView(viewType, viewAll, page);
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            changeView(viewType, viewAll, page, prevDay, nextDay);
 
         }
 
@@ -180,8 +208,14 @@
             , 500);
         }
 
-        function changeView(viewType, viewAll, page) {
+        function changeView(viewType, viewAll, page, prevDay, nextDay) {
+            //debugger;
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
             $.blockUI({
                 message: "נא המתן מעבד את הבקשה...",
                 css: {
@@ -202,6 +236,6 @@
         }
 
     </script>
-   @Html.Partial("_questionIsArrived")
+    @Html.Partial("_questionIsArrived")
 </body>
 </html>
