@@ -22,7 +22,9 @@ namespace sln.DataModel
 
         public int Total { get; set; } // total of all shipitem
 
-       // public int TotalPerPruduct { get; set; }
+        public Guid DistanceId { get; set; }
+
+        public Guid ShipType { get; set; }
 
         public int TotalPerProduct { get; set; }
 

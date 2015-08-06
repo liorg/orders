@@ -177,6 +177,7 @@
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\IModifieder.cs" />
+    <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
@@ -223,6 +224,8 @@
     <Compile Include="Migrations\201508061247310_recipient.Designer.cs">
       <DependentUpon>201508061247310_recipient.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508061512068_pricecalc\.cs" />
+    <Compile Include="Migrations\201508061512068_pricecalc\.Designer.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -370,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508061247310_recipient.resx">
       <DependentUpon>201508061247310_recipient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508061512068_pricecalc\.resx">
+      <DependentUpon>.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
