@@ -1,77 +1,60 @@
 ﻿@model sln.Models.OrderView
 
-@Html.Partial("_StatusConfirm", Model.Status)
+@{
+    ViewBag.Title = "בדיקה קיים";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+}
+<h1>מספר משלוח @ViewBag.OrderNumber</h1>
 <div class="row">
-
     <div class="col-md-12">
-        <div class="well">
-
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label for="inputOrderTrackingID" class="col-sm-2 control-label">מספר משלוח</label>
-                    <div class="col-sm-10">
-                        <div class="col-md-6">
-                            @Html.TextBox("txtTitle", (string)ViewBag.OrderNumber)
-                        </div>
-                        <div class="col-md-6">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-9">
         <h4>סטאטוס משלוח הזמנה</h4>
 
         <ul class="list-group">
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.Status</span>
+                <span class="label ">@Model.ShippingVm.Status</span>
                 <span class="prefix  pull-right">סטאטוס:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.CreatedOn</span>
+                <span class="label ">@Model.ShippingVm.CreatedOn</span>
                 <span class="prefix pull-right">תאריך יצירה:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.ModifiedOn</span>
+                <span class="label ">@Model.ShippingVm.ModifiedOn</span>
                 <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.From</span>
+                <span class="label ">@Model.ShippingVm.From</span>
                 <span class="prefix  pull-right">מ:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.NameSource</span>
+                <span class="label ">@Model.ShippingVm.NameSource</span>
                 <span class="prefix pull-right">איש קשר (מקור)</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelSource">@Model.ShippingVm.TelSource</a></span>
+                <span class="label "><a href="tel:+@Model.ShippingVm.TelSource">@Model.ShippingVm.TelSource</a></span>
                 <span class="prefix pull-right">טלפון איש קשר (מקור)</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.To</span>
+                <span class="label ">@Model.ShippingVm.To</span>
                 <span class="prefix  pull-right">אל:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.Recipient</span>
+                <span class="label ">@Model.ShippingVm.Recipient</span>
                 <span class="prefix pull-right">איש קשר (יעד)</span>
             </li>
 
             <li class="list-group-item">
-                <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelTarget">@Model.ShippingVm.TelTarget</a></span>
+                <span class="label "><a href="tel:+@Model.ShippingVm.TelTarget">@Model.ShippingVm.TelTarget</a></span>
                 <span class="prefix pull-right">טלפון איש קשר (יעד)</span>
             </li>
 
 
         </ul>
     </div>
-    <div class="col-md-3">
-        <div class="btn-group">
-            <a class="btn btn-lg btn-info" href="@Url.Action("Print", "S", new { id =  @Model.ShippingVm.Id })"><span class="hidden-phone">הדפס</span><i class="fa  fa-print  fa-2x pull-right"></i></a>
-        </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        
         <img src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|1&chl=@HttpContext.Current.Server.UrlEncode(HttpContext.Current.Request.Url.AbsoluteUri)" />
         <!--http://chart.googleapis.com/chart?chs=100x100&cht=qr&chld=L|1&chl=http%3A%2F%2Fcreate.stephan-brumme.com
             http://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|1&chl=http%3a%2f%2flocalhost%3a4545%2fS%2fShow%2f1d0ecb74-8e90-4a51-884c-e0e18dac52b0
@@ -80,7 +63,9 @@
 
     </div>
 </div>
-
 <div class="row">
-    @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
+    <div class="col-md-12">   
+         <a  href="@Url.Action("ShipView", "S", new { id =  @Model.ShippingVm.Id })">חזרה</a>
+      
+    </div>
 </div>

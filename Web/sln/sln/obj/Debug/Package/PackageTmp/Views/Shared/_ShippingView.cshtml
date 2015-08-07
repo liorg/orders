@@ -70,7 +70,7 @@
     </div>
     <div class="col-md-3">
         <div class="btn-group">
-            <a class="btn btn-lg btn-info" data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">הדפס</span><i class="fa  fa-print  fa-2x pull-right"></i></a>
+            <a class="btn btn-lg btn-info" href="@Url.Action("Print", "S", new { id =  @Model.ShippingVm.Id })"><span class="hidden-phone">הדפס</span><i class="fa  fa-print  fa-2x pull-right"></i></a>
         </div>
         <img src="http://chart.googleapis.com/chart?cht=qr&chs=200x200&chld=L|1&chl=@HttpContext.Current.Server.UrlEncode(HttpContext.Current.Request.Url.AbsoluteUri)" />
         <!--http://chart.googleapis.com/chart?chs=100x100&cht=qr&chld=L|1&chl=http%3A%2F%2Fcreate.stephan-brumme.com

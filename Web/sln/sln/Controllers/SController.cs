@@ -386,5 +386,23 @@ namespace sln.Controllers
             }
         }
 
+        public async Task<ActionResult> Print(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
+                Guid shipId = Guid.Parse(id);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
+                    return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
+
+                ViewLogic view = new ViewLogic();
+                var runners = cacheProvider.GetRunners(context);
+                var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping, Runners = runners });
+                ViewBag.OrderNumber = shipping.Name;
+                return View(orderModel);
+            }
+        }
     }
 }

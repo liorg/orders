@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/admin")
+    @Styles.Render("~/Content/admin")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+
+
+    <style>
+        /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
+        body {
+            padding-top: 70px;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/Content/img/c32.png" />
+                    <span>רן שליחויות</span></a>
+
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        @*  
+        <footer>
+            <p>&copy; @DateTime.Now.Year רן שליחויות</p>
+        </footer>
+        *@
+    </div>
+    </div>
+    @RenderSection("scripts", required: false)
+    <script>
+
+        $(document).ready(function () {
+            $('.switchboot').bootstrapSwitch();
+            $('#chkAll').click(function () {
+                var viewAll = $("#chkAll").prop('checked');
+                var viewType = $('#viewType').val();
+                var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+                $('#viewAll').val(viewAll);
+                changeView(viewType, viewAll, currentPage);
+            })
+
+            $('#chkCheckin').click(function () {
+                // alert(4);
+                $.blockUI({
+                    centerX: false,
+                    centerY: false, message: $('#questionIsArrived'), css: { width: '200px' }
+                });
+            })
+
+            $('#btnCheckin').click(function () {
+                var shipId = $('#hdShipId').val();
+                var changeStatus = "/status/Arrived?id=" + shipId;
+                window.location.href = changeStatus;
+
+            })
+            $('#btnCheckout').click(function () {
+                $.unblockUI();
+                $("#chkCheckin").prop("checked", false);
+                return false;
+            })
+        });
+
+        function changeDay(isNext) {
+            var viewType = $('#viewType').val();
+            var viewAll = $('#viewAll').val();
+            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+         
+            var toMinus = isNext == true ? 1 : -1;
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            var nextDayDate = new Date(nextDay);
+            var prevDayDate = new Date(prevDay);
+
+             nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
+             prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
+
+             var nextToStr = nextDayDate.toISOString().split('T')[0];
+             var prevToStr = prevDayDate.toISOString().split('T')[0];
+
+            changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+            // window.location.replace=
+        }
+
+        function changeViewType(viewType) {
+            $('#viewType').val(viewType);
+            var viewAll = $('#viewAll').val();
+            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+            changeView(viewType, viewAll, currentPage);
+            // window.location.replace=
+        }
+
+        function nextPage() {
+            debugger;
+            if ($('#currentPage').val() == null) {
+                return;
+            }
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) + 1;
+            changePage(page);
+        }
+
+        function prevPage() {
+            debugger;
+            if ($('#currentPage').val() == null) {
+                return;
+            }
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) - 1;
+            changePage(page);
+        }
+
+        function changePage(page) {
+            var viewAll = $('#viewAll').val();
+            var viewType = $('#viewType').val();
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            changeView(viewType, viewAll, page, prevDay, nextDay);
+
+        }
+
+        function clickToOrder(url) {
+            $.blockUI({
+                message: "נא המתו מעבד את הבקשה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                //  $.unblockUI();
+                window.location.href = url;
+            }
+            , 500);
+        }
+
+        function changeView(viewType, viewAll, page, prevDay, nextDay) {
+            //debugger;
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            $.blockUI({
+                message: "נא המתן מעבד את הבקשה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                // $.unblockUI();
+                window.location.href = viewUrl;
+            }
+            , 600);
+        }
+
+    </script>
+    @Html.Partial("_questionIsArrived")
+</body>
+</html>
