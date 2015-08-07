@@ -1,6 +1,13 @@
 ﻿using System;
 namespace sln.Contract
 {
+    public interface IJob
+    {
+         string JobType { get; set; }
+         string JobTitle { get; set; }
+
+    }
+
     public interface IRole
     {
         bool IsAcceptOrder { get; set; }

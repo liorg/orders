@@ -30,6 +30,10 @@ namespace sln.DataModel
         [Key]
         public Guid CommentId { get; set; }
 
+        public string JobType { get; set; }
+
+        public string JobTitle { get; set; }
+
         public string Name { get; set; }
 
         public string Desc { get; set; }

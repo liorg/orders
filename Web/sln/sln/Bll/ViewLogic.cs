@@ -13,12 +13,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Security.Principal;
 
 namespace sln.Bll
 {
+    
     public class ViewLogic
     {
-        public void SetViewerUserByRole(sln.Contract.IRole source,IViewerUser target)
+        public void SetViewerUserByRole(sln.Contract.IRole source, IViewerUser target)
         {
             bool showAll = true;
             int defaultView = TimeStatus.New;
@@ -91,10 +93,10 @@ namespace sln.Bll
 
         public OrderView GetOrder(OrderRequest request)
         {
-          
-             var orderModel = new OrderView();
-             var shipping = request.Shipping;
-             var runners = request.Runners;
+
+            var orderModel = new OrderView();
+            var shipping = request.Shipping;
+            var runners = request.Runners;
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
@@ -131,15 +133,23 @@ namespace sln.Bll
             orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
             orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
 
-            
+
             var timeLineVms = new List<TimeLineVm>();
-            foreach (var timeline in shipping.TimeLines.OrderByDescending(t=>t.CreatedOn))
+            foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
             {
                 timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             }
 
             orderModel.TimeLineVms = timeLineVms;
             return orderModel;
+        }
+
+        public void SetJob(IJob job, IPrincipal user)
+        {
+            if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
+            {
+
+            }
         }
     }
 }

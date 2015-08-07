@@ -183,6 +183,7 @@
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\ShipItemController.cs" />
     <Compile Include="Controllers\SController.cs" />
@@ -234,6 +235,10 @@
     <Compile Include="Migrations\201508070528152_ggggr.cs" />
     <Compile Include="Migrations\201508070528152_ggggr.Designer.cs">
       <DependentUpon>201508070528152_ggggr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508071513072_ggggrd.cs" />
+    <Compile Include="Migrations\201508071513072_ggggrd.Designer.cs">
+      <DependentUpon>201508071513072_ggggrd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrderRequest.cs" />
@@ -409,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508070528152_ggggr.resx">
       <DependentUpon>201508070528152_ggggr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508071513072_ggggrd.resx">
+      <DependentUpon>201508071513072_ggggrd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
