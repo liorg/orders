@@ -25,6 +25,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var user = new UserContext(AuthenticationManager);
+                Guid orgId = Guid.Empty;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 int order = viewType.HasValue ? viewType.Value : user.DefaultView;
                 var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
@@ -34,6 +35,8 @@ namespace sln.Controllers
                     view.FieldShowMy = "OwnerId";
                 }
 
+                if (User.IsInRole(HelperAutorize.RoleAdmin) && User.IsInRole(HelperAutorize.RoleRunner))
+                    orgId = Guid.Empty; //user.OrgId;
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1).Date;
@@ -45,14 +48,13 @@ namespace sln.Controllers
                 if (!String.IsNullOrEmpty(prevDay))
                     from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
 
-                Guid orgId = Guid.Empty;
+              
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
                     shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
 
-                if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                    orgId = user.OrgId;
+                
 
                 int page = currentPage.HasValue ? currentPage.Value : 1;
                 var total = await shippingsQuery.CountAsync();
