@@ -6,7 +6,8 @@ using System.Web;
 namespace sln.Helper
 {
 
-   // public enum JobType {Admin=1,}
+    public enum JobType {Admin=1,Runner=2,Client=3};
+
     public static class General
     {
 
