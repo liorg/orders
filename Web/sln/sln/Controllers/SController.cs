@@ -35,7 +35,7 @@ namespace sln.Controllers
                     view.FieldShowMy = "OwnerId";
                 }
 
-                if (User.IsInRole(HelperAutorize.RoleAdmin) && User.IsInRole(HelperAutorize.RoleRunner))
+                if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
                     orgId = Guid.Empty; //user.OrgId;
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 List<Shipping> shippings = new List<Shipping>();
