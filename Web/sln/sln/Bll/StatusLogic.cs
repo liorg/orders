@@ -107,8 +107,7 @@ namespace sln.Bll
 
         public void Arrived(StatusRequestBase requestBase)
         {
-
-            StatusRequest request = new StatusRequest(requestBase);
+            var request = new StatusRequest(requestBase);
             var user = request.UserContext;
             var ship = request.Ship;
             var title = "המשלוח  הגיע  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";

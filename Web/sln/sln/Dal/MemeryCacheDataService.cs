@@ -79,8 +79,9 @@ namespace sln.Dal
                         _viewItems.Add(viewItem);
 
                         viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים  " };
-                        viewItem.FieldShowMy = "ApprovalShip";
+                        viewItem.FieldShowMy = "GrantRunner";// "ApprovalShip";
                         _viewItems.Add(viewItem);
+
 
                         viewItem = new ViewItem { StatusId = TimeStatus.CancelByAdmin, StatusDesc = " משלוחים שבוטלו ע''י חברת השליחים " };
                         viewItem.FieldShowMy = "CancelByAdmin";

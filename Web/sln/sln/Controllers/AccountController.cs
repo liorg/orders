@@ -46,12 +46,23 @@ namespace sln.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                var userContext = new UserContext(AuthenticationManager);
+                IEnumerable<ApplicationUser> usersData;
                 var users = context.Users;
                 var model = new List<EditUserViewModel>();
+                if (!User.IsInRole(HelperAutorize.RoleAdmin))
+                {
+
+                    usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
+                }
+                else
+                {
+                    usersData = users.ToList();
+                }
                 foreach (var user in users)
                 {
-                    var u = new EditUserViewModel(user);
-                    model.Add(u);
+                    var edit = new EditUserViewModel(user);
+                    model.Add(edit);
                 }
                 return View(model);
             }
@@ -77,9 +88,9 @@ namespace sln.Controllers
                                 model.IsAdmin = true;
                             if (item.Role.Name == Helper.HelperAutorize.RoleUser)
                                 model.IsCreateOrder = true;
-                            if (item.Role.Name ==  Helper.HelperAutorize.RoleRunner)
+                            if (item.Role.Name == Helper.HelperAutorize.RoleRunner)
                                 model.IsRunner = true;
-                            if (item.Role.Name ==  Helper.HelperAutorize.RoleOrgManager)
+                            if (item.Role.Name == Helper.HelperAutorize.RoleOrgManager)
                                 model.IsOrgMangager = true;
                             if (item.Role.Name == Helper.HelperAutorize.RoleAccept)
                                 model.IsAcceptOrder = true;
@@ -100,13 +111,13 @@ namespace sln.Controllers
         {
             //if (ModelState.IsValid)
             {
-               
+
                 {
                     var id = model.UserId.ToString();
                     var viewLogic = new ViewLogic();
-          
+
                     var context = DBContext;
-                      var user = await context.Users.FirstAsync(u => u.Id == id);
+                    var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
                     user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
@@ -122,10 +133,10 @@ namespace sln.Controllers
                     if (user.Roles != null && user.Roles.Any())
                     {
                         var cloneRules = new List<string>();
-                        user.Roles.Where(rw=>rw.Role!=null && !String.IsNullOrEmpty(rw.Role.Name)).ToList().ForEach(rr=>cloneRules.Add(rr.Role.Name));
+                        user.Roles.Where(rw => rw.Role != null && !String.IsNullOrEmpty(rw.Role.Name)).ToList().ForEach(rr => cloneRules.Add(rr.Role.Name));
 
                         foreach (var role in cloneRules)
-                           await UserManager.RemoveFromRoleAsync(model.UserId, role);
+                            await UserManager.RemoveFromRoleAsync(model.UserId, role);
                     }
 
                     if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id, "Admin");
@@ -257,7 +268,7 @@ namespace sln.Controllers
             return View(model);
         }
 
-        
+
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Register()
         {
@@ -280,7 +291,7 @@ namespace sln.Controllers
             {
                 var context = DBContext;
                 var viewLogic = new ViewLogic();
-             
+
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
@@ -302,8 +313,8 @@ namespace sln.Controllers
                 var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
                 var userName = model.UserName;
                 if (org.Name != General.OrgWWW)
-                   userName = model.UserName + "@" + org.Domain;
-                
+                    userName = model.UserName + "@" + org.Domain;
+
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser()
@@ -313,7 +324,7 @@ namespace sln.Controllers
                         LastName = model.LastName,
                         Email = model.Email,
                         IsActive = true,
-                        EmpId=model.EmpId,
+                        EmpId = model.EmpId,
                         Organization_OrgId = model.OrgId,
                         Tel = model.Tel
                     };
@@ -322,21 +333,21 @@ namespace sln.Controllers
 
                     var result = await UserManager.CreateAsync(user, model.Password);
 
-                    if (model.IsAdmin)   await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAdmin);
-                    
-                    if (model.IsCreateOrder)   await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleUser);
-                    
+                    if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAdmin);
+
+                    if (model.IsCreateOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleUser);
+
                     if (model.IsOrgMangager) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleOrgManager);
-                   
+
                     if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleRunner);
-                    
+
                     if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAccept);
-                    
+
                     if (result.Succeeded)
-                       return RedirectToAction("Index", "Account");
+                        return RedirectToAction("Index", "Account");
                     else
-                      AddErrors(result);
-                    
+                        AddErrors(result);
+
                 }
 
                 return View(model);
@@ -452,8 +463,8 @@ namespace sln.Controllers
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
-            identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty( user.EmpId)?"אן מספר עובד": user.EmpId));
-            identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName+" "+ user.LastName));
+            identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
+            identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
 
             identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
@@ -530,6 +541,6 @@ namespace sln.Controllers
         }
         #endregion
 
-       // public CustomPasswordValidator PasswordValidator { get; set; }
+        // public CustomPasswordValidator PasswordValidator { get; set; }
     }
 }
