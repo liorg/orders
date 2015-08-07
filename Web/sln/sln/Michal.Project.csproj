@@ -267,6 +267,19 @@
     <Content Include="Content\img\c.png" />
     <Content Include="Content\img\c32.png" />
     <Content Include="Content\img\delivery.png" />
+    <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\Male-Avatar-Emo-Haircut-icon.png" />
+    <Content Include="Content\img\Male-Avatar-Goatee-Beard-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\Male-Avatar-Mustache-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
@@ -356,7 +369,9 @@
     <Content Include="Views\s\Show.cshtml" />
     <Content Include="Views\Shared\_TimeLinePartial.cshtml" />
     <Content Include="Views\Shared\_viewLists.cshtml" />
-    <Content Include="Views\Shared\_ShippingView.cshtml" />
+    <Content Include="Views\Shared\_ShippingView.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\s\ShipView.cshtml" />
     <Content Include="Views\Shared\_StatusConfirm.cshtml" />
     <Content Include="Views\Shared\_viewListsHeader.cshtml" />
