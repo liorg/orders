@@ -44,16 +44,16 @@ namespace sln.Controllers
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Index()
         {
-            using (var context = new ApplicationDbContext())
-            {
+          //  using (var context = new ApplicationDbContext())
+           // {
                 var userContext = new UserContext(AuthenticationManager);
                 IEnumerable<ApplicationUser> usersData;
-                var users = context.Users;
+                var users = DBContext.Users;
                 var model = new List<EditUserViewModel>();
                 if (!User.IsInRole(HelperAutorize.RoleAdmin))
                 {
 
-                    usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
+                    usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace sln.Controllers
                     model.Add(edit);
                 }
                 return View(model);
-            }
+           // }
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
