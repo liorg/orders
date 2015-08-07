@@ -132,7 +132,7 @@ namespace sln.Bll
             var title = "המשלוח  התקבל  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
             var text = title + desc;
 
-            ship.Recipient = recipient;
+            ship.ActualRecipient = recipient;
 
             request.Title = title;
             request.Desc = text;

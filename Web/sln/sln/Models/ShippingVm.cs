@@ -80,6 +80,29 @@ namespace sln.Models
         [Display(Name = "סוג משלוח")]
         public Guid ShipTypeId { get; set; }
 
+        [Display(Name = "שם איש קשר יעד")]
+        [Required(ErrorMessage = "שם איש קשר חובה")]
+        public string Recipient { get; set; }
+
+      
+        public string ActualRecipient { get; set; }
+
+        [Display(Name = "טלפון של המזמין")]
+
+        public string TelSource { get; set; }
+
+        [Display(Name = "טלפון של המקבל")]
+        [Required(ErrorMessage = "טלפון שדה חובה")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
+        public string TelTarget { get; set; }
+
+        [Display(Name = "שם של המזמין")]
+        public string NameSource { get; set; }
+
+        [Display(Name = "שם המקבל")]
+        [Required(ErrorMessage = "שם המקבל שדה חובה")]
+        public string NameTarget { get; set; }
+
         public string From
         {
             get
@@ -92,7 +115,7 @@ namespace sln.Models
         {
             get
             {
-                return SreetTo + " " + NumTo + " " + CityToName;
+                return NameTarget +" "+SreetTo + " " + NumTo + " " + CityToName;
             }
         }
     }

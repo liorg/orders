@@ -50,44 +50,44 @@ namespace sln.Bll
 
         }
 
-        public async Task<ViewListsResponse> Get(ViewListsRequest request)
-        {
-            ViewListsResponse response = new ViewListsResponse();
-            var orgId=Guid.Empty;
-            int order = request.ViewType.HasValue ? request.ViewType.Value : request.UserContext.DefaultView;
-            if (request.ViewType.HasValue)
-            {
-                var view = request.View.Where(g => g.StatusId == request.ViewType.Value).FirstOrDefault();
-                if (view != null)
-                    response.StatusDesc = view.StatusDesc;
-            }
-            List<Shipping> shippings = new List<Shipping>();
-            var from = DateTime.Today.AddDays(-1);
-            var shippingsQuery = request.shippingsQuery;//context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();
-            if (!request.User.IsInRole(HelperAutorize.RoleAdmin))
-            {
-               orgId=request.UserContext.OrgId; 
-            }
-            shippings =  await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
-            var model = new List<ShippingVm>();
-            foreach (var ship in shippings)
-            {
-                var created = "";//context.Users.Find(ship.CreatedBy.ToString());
+        //public async Task<ViewListsResponse> Get(ViewListsRequest request)
+        //{
+        //    ViewListsResponse response = new ViewListsResponse();
+        //    var orgId=Guid.Empty;
+        //    int order = request.ViewType.HasValue ? request.ViewType.Value : request.UserContext.DefaultView;
+        //    if (request.ViewType.HasValue)
+        //    {
+        //        var view = request.View.Where(g => g.StatusId == request.ViewType.Value).FirstOrDefault();
+        //        if (view != null)
+        //            response.StatusDesc = view.StatusDesc;
+        //    }
+        //    List<Shipping> shippings = new List<Shipping>();
+        //    var from = DateTime.Today.AddDays(-1);
+        //    var shippingsQuery = request.shippingsQuery;//context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && s.CreatedOn > from).AsQueryable();
+        //    if (!request.User.IsInRole(HelperAutorize.RoleAdmin))
+        //    {
+        //       orgId=request.UserContext.OrgId; 
+        //    }
+        //    shippings =  await shippingsQuery.Where(sx => sx.Organization_OrgId.HasValue && (sx.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).ToListAsync();
+        //    var model = new List<ShippingVm>();
+        //    foreach (var ship in shippings)
+        //    {
+        //        var created = "";//context.Users.Find(ship.CreatedBy.ToString());
 
-                var u = new ShippingVm();
-                u.Id = ship.ShippingId;
-                u.Status = ship.StatusShipping.Desc;
-                u.Name = ship.Name;
-                u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-               // u.CreatedBy = created != null ? created.FirstName + " " + created.LastName : "";
-                u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
-                u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
-                u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                model.Add(u);
+        //        var u = new ShippingVm();
+        //        u.Id = ship.ShippingId;
+        //        u.Status = ship.StatusShipping.Desc;
+        //        u.Name = ship.Name;
+        //        u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
+        //       // u.CreatedBy = created != null ? created.FirstName + " " + created.LastName : "";
+        //        u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
+        //        u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
+        //        u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+        //        model.Add(u);
 
-            }
-            return response;
-        }
+        //    }
+        //    return response;
+        //}
 
         public OrderView GetOrder(OrderRequest request)
         {
@@ -120,7 +120,12 @@ namespace sln.Bll
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
             orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
             orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
-           
+
+            orderModel.ShippingVm.TelSource = shipping.TelSource;
+            orderModel.ShippingVm.TelTarget = shipping.TelTarget;
+            orderModel.ShippingVm.NameSource = shipping.NameSource;
+            orderModel.ShippingVm.NameTarget = shipping.NameTarget;
+            orderModel.ShippingVm.Recipient = shipping.Recipient;
 
             orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
             orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";

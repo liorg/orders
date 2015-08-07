@@ -3,118 +3,177 @@
 @{
     ViewBag.Title = "משלוח חדש";
     Layout = "~/Views/Shared/_Layout.cshtml";
-} 
+}
 @Html.Partial("_viewLists")
-<h2> משלוח חדש  @ViewBag.OrderNumber  </h2>
+<h2>משלוח חדש  @ViewBag.OrderNumber  </h2>
 
 @using (Html.BeginForm("Create", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
- <div class="stepwizard">
-     <div class="stepwizard-row setup-panel">
-         <div class="stepwizard-step">
-             <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-             <p>יצירת הזמנה</p>
-         </div>
-         <div class="stepwizard-step">
-             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-             <p>הוסף פריטי משלוח</p>
-         </div>
-         <div class="stepwizard-step">
-             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-             <p>אשר הזמנה</p>
-         </div>
-     </div>
- </div>
-
-@Html.HiddenFor(m => m.Number)
-@Html.HiddenFor(m => m.FastSearch)
-
- <div class="form-group">
-     @Html.LabelFor(model => model.Number, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Model.Number
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                <p>יצירת הזמנה</p>
             </div>
- </div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.DropDownListFor(m => m.DistanceId ,(SelectList)ViewBag.Distance, new { @class = "form-control"})
-              @Html.ValidationMessageFor(m => m.DistanceId)
-          </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.ShipTypeId, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.DropDownListFor(m => m.ShipTypeId ,(SelectList)ViewBag.ShipTypes, new { @class = "form-control"})
-              @Html.ValidationMessageFor(m => m.ShipTypeId)
-          </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.SreetFrom, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.SreetFrom)
-          </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.NumFrom)
-          </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.DropDownListFor(m => m.CityForm ,(SelectList)ViewBag.City, new { @class = "form-control"})
-              @Html.ValidationMessageFor(m => m.CityForm)
-          </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.SreetTo, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.SreetTo)
-          </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
-              @Html.ValidationMessageFor(m => m.NumTo)
-          </div>
-</div>
-
-<div class="form-group">
-    @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.DropDownListFor(m => m.CityTo ,(SelectList)ViewBag.City, new { @class = "form-control"})
-              @Html.ValidationMessageFor(m => m.CityTo)
-          </div>
-</div>
-
-<div class="form-group">
-    @if(Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
-          <div class="col-md-6">
-              @Html.DropDownListFor(m => m.OrgId ,(SelectList)ViewBag.Orgs, new { @class = "form-control"})
-          </div>
-    }
-</div>
-
-
-
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" class="btn btn-success btn-lg" value="צור משלוח" />
+            <div class="stepwizard-step">
+                <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                <p>הוסף פריטי משלוח</p>
+            </div>
+            <div class="stepwizard-step">
+                <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                <p>אשר הזמנה</p>
+            </div>
+        </div>
     </div>
-</div>
+
+    @Html.HiddenFor(m => m.Number)
+    @Html.HiddenFor(m => m.FastSearch)
+
+   
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">ניהול</h3>
+        </div>
+        <div class="panel-body">
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(m => m.OrgId, (SelectList)ViewBag.Orgs, new { @class = "form-control" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">מזהה משלוח</h3>
+        </div>
+        <div class="panel-body">
+                @Html.LabelFor(model => model.Number, new { @class = "col-md-2" })
+                <div class="col-md-10">
+                    @Model.Number
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">שדות חישוב מחיר </h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.DistanceId, (SelectList)ViewBag.Distance, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DistanceId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ShipTypeId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.ShipTypeId, (SelectList)ViewBag.ShipTypes, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ShipTypeId)
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">מקור </h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.SreetFrom, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.SreetFrom, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SreetFrom)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NumFrom, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.NumFrom, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NumFrom)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CityForm, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.CityForm, (SelectList)ViewBag.City, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CityForm)
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">יעד </h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.NameTarget, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.NameTarget, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NameTarget)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.TelTarget, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.TelTarget, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TelTarget)
+                </div>
+            </div>
+             <div class="form-group">
+                @Html.LabelFor(m => m.Recipient, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Recipient, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Recipient)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SreetTo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.SreetTo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SreetTo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NumTo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.NumTo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NumTo)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CityTo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.CityTo, (SelectList)ViewBag.City, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CityTo)
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success btn-lg" value="צור משלוח" />
+        </div>
+    </div>
 }
 
 @section Scripts {

@@ -89,6 +89,7 @@ namespace sln.Controllers
                 ViewBag.ToDay = to.ToString("yyyy-MM-dd");
                 ViewBag.IsToday = isToday;
                 ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
+
                 return View(model);
             }
         }
@@ -98,7 +99,7 @@ namespace sln.Controllers
             using (var context = new ApplicationDbContext())
             {
                 List<Distance> distances = new List<Distance>();
-
+                UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
 
                 var city = cache.GetCities(context); // await context.City.ToListAsync();
@@ -133,20 +134,7 @@ namespace sln.Controllers
                 ViewBag.City = new SelectList(city, "CityId", "Name");
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
-                    Guid orgId = Guid.Empty;
-                    ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
-                    foreach (var claim in claimsIdentity.Claims)
-                    {
-                        if (claim.Type == ClaimTypes.GroupSid)
-                        {
-                            orgId = Guid.Parse(claim.Value);
-
-                            break;
-                        }
-                    }
-                    model.OrgId = orgId;
-
-                    distances = cache.GetDistancesPerOrg(context, orgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                    distances = cache.GetDistancesPerOrg(context, userContext.OrgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 }
                 else
                 {
@@ -194,6 +182,13 @@ namespace sln.Controllers
                 shipping.AddressTo = shippingVm.SreetTo;
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
+
+                shipping.Recipient = shippingVm.Recipient;
+                shipping.TelSource = userContext.Tel;
+                shipping.TelTarget = shippingVm.TelTarget;
+                shipping.NameSource = userContext.FullName;
+                shipping.NameTarget = shippingVm.NameTarget;
+
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 var shipItem = new ShippingItem()
@@ -253,7 +248,7 @@ namespace sln.Controllers
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;
                 model.Id = shipping.ShippingId;
-                model.Number = shipping.Desc;
+              
                 model.NumFrom = shipping.AddressNumFrom;
                 model.NumTo = shipping.AddressNumTo;
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
@@ -262,6 +257,13 @@ namespace sln.Controllers
                 model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+
+                model.Recipient = shipping.Recipient;
+                model.TelSource = shipping.TelSource;
+                model.TelTarget = shipping.TelTarget;
+                model.NameSource = shipping.NameSource;
+                model.NameTarget = shipping.NameTarget;
+
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
                 {
                     if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
@@ -281,11 +283,8 @@ namespace sln.Controllers
                     distances = cache.GetDistancesPerOrg(context, userContext.OrgId);
                 }
                 else
-                {
-
-
-                    distances = await context.Distance.ToListAsync();
-                }
+                   distances = await context.Distance.ToListAsync();
+                
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
             }
@@ -305,6 +304,8 @@ namespace sln.Controllers
                     shipping.Organization_OrgId = shippingVm.OrgId;
 
                 shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
+                shipping.Distance_DistanceId = shippingVm.DistanceId;
+
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.ModifiedOn = DateTime.Now;
@@ -318,7 +319,12 @@ namespace sln.Controllers
                 shipping.AddressNumTo = shippingVm.NumTo;
                 shipping.AddressNumFrom = shippingVm.NumFrom;
 
-                shipping.Distance_DistanceId = shippingVm.DistanceId;
+                shipping.Recipient = shippingVm.Recipient;
+                shipping.TelSource = shippingVm.TelSource;
+                shipping.TelTarget = shippingVm.TelTarget;
+                shipping.NameSource = userContext.FullName;
+                shipping.NameTarget = shipping.NameTarget;
+               
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 
                 await context.SaveChangesAsync();

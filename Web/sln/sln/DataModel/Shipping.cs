@@ -138,7 +138,6 @@ namespace sln.DataModel
 
         public string TelTarget { get; set; }
 
-
         public string NameSource { get; set; }
 
         public string NameTarget { get; set; }
