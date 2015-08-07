@@ -367,6 +367,7 @@
     <Content Include="Views\Shared\_pagerDays.cshtml" />
     <Content Include="Views\s\Print.cshtml" />
     <Content Include="Views\Shared\_SimpleLayout.cshtml" />
+    <Content Include="Views\Shared\_comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
