@@ -59,7 +59,7 @@ namespace sln.Controllers
                 {
                     usersData = users.ToList();
                 }
-                foreach (var user in users)
+                foreach (var user in usersData)
                 {
                     var edit = new EditUserViewModel(user);
                     model.Add(edit);
