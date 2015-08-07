@@ -59,13 +59,23 @@ namespace sln.Models
             }
         }
 
-        Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId;
+        public string Tel
+        {
+            get
+            {
+                return _tel;
+            }
+        }
+        Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId; string _tel;
         bool     _showAll; int _defaultView;
         public UserContext(IAuthenticationManager authenticationManager )
         {
             ClaimsIdentity claimsIdentity = authenticationManager.User.Identity as ClaimsIdentity;
             foreach (var claim in claimsIdentity.Claims)
             {
+                if (claim.Type == CustomClaimTypes.Tel)
+                    _tel =claim.Value;
+
                 if (claim.Type == ClaimTypes.GroupSid)
                     _orgId = Guid.Parse(claim.Value);
 

@@ -19,6 +19,9 @@ namespace sln.DataModel
 
         [Required]
         public string Email { get; set; }
+
+        [Required]
+        public string Tel { get; set; }
        
         public Guid? Organization_OrgId { get; set; }
        
@@ -40,5 +43,7 @@ namespace sln.DataModel
         public int DefaultView { get; set; }
 
         public bool ViewAll { get; set; }
+
+
     }
 }

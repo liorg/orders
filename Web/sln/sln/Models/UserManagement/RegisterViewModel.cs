@@ -14,11 +14,12 @@ namespace sln.Models
         public string EmpId { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "שם משתמש שדה חובה")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "הזן אותיות אנגליות בלבד ללא רווחים")]
         [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "סיסמא שדה חובה")]
         // [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [DataType(DataType.Password)]
         [Display(Name = "סיסמא")]
@@ -29,23 +30,23 @@ namespace sln.Models
         [Compare("Password", ErrorMessage = "הסיסמא חייבת להיות תואמת")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "שם פרטי שדה חובה")]
         [Display(Name = "שם פרטי")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "שם משפחה שדה חובה")]
         [Display(Name = "שם משפחה")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "שם דוא''ל שדה חובה")]
         [Display(Name = "דוא''ל")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = " ארגון שדה חובה")]
         [Display(Name = "ארגון")]
         public Guid OrgId { get; set; }
 
-       
+
         [Display(Name = "תפקיד מנהל מערכת")]
         public bool IsAdmin { get; set; }
 
@@ -53,7 +54,7 @@ namespace sln.Models
         public bool IsOrgMangager { get; set; }
 
         [Display(Name = "תפקיד שליח")]
-        public bool IsRunner{ get; set; }
+        public bool IsRunner { get; set; }
 
         [Display(Name = "תפקיד יוצר הזמנה")]
         public bool IsCreateOrder { get; set; }
@@ -73,6 +74,9 @@ namespace sln.Models
             };
             return user;
         }
-
+        [Required(ErrorMessage = "טלפון שדה חובה")]
+        [Display(Name = "טלפון")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
+        public string Tel { get; set; }
     }
 }

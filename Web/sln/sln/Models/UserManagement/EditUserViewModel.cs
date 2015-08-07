@@ -22,31 +22,32 @@ namespace sln.Models
             this.Email = user.Email;
             this.IsActive = user.IsActive;
             this.EmpId = user.EmpId;
+            this.Tel = user.Tel;
             this.OrgId = user.Organization_OrgId.HasValue ? user.Organization_OrgId.Value : Guid.Empty;
-            
+
         }
         [Display(Name = "מספר עובד")]
         public string EmpId { get; set; }
-       // [Required]
+        // [Required]
         [Display(Name = "מזהה")]
         public string UserId { get; set; }
         [Required]
         [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "שם פרטי שדה חובה")]
         [Display(Name = "שם פרטי")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "שם משפחה שדה חובה")]
         [Display(Name = "שם משפחה")]
         public string LastName { get; set; }
 
-       // [Required]
+        [Required(ErrorMessage = "שם דוא''ל שדה חובה")]
         [Display(Name = "דואל")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = " ארגון שדה חובה")]
         [Display(Name = "ארגון")]
         public Guid OrgId { get; set; }
 
@@ -68,5 +69,10 @@ namespace sln.Models
 
         [Display(Name = "משתמש פעיל?")]
         public bool IsActive { get; set; }
+
+        [Required(ErrorMessage = "טלפון שדה חובה")]
+        [Display(Name = "טלפון")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
+        public string Tel { get; set; }
     }
 }

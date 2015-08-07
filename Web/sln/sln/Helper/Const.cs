@@ -14,9 +14,9 @@ namespace sln.Helper
     }
     public static class CustomClaimTypes
     {
-
-        public const string DefaultView = "http://r.co.il/claims/DefaultView";
         public const string ShowAllView = "http://r.co.il/claims/ShowAllView";
+        public const string DefaultView = "http://r.co.il/claims/DefaultView";
+        public const string Tel = "http://r.co.il/claims/Tel";
     }
     public class TimeStatus
     {

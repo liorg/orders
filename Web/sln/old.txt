@@ -1,3 +1,17 @@
+
+  
+  delete from [kipodeal_db].[dbo].[AspNetUsers]
+  where [Id]!='1bfa6f8e-2e5e-4132-baf9-b573b2c8f823'
+    
+  truncate table [kipodeal_db].[dbo].[ShippingItems]
+  truncate table [kipodeal_db].[dbo].[TimeLines]
+  
+    delete from [kipodeal_db].[dbo].Shippings
+
+
+
+
+
 1. status
    1.1 confirm
    1.2 accept /ran

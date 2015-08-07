@@ -113,6 +113,7 @@ namespace sln.Controllers
                     user.Email = model.Email;
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
+                    user.Tel = model.Tel;
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
                     viewLogic.SetViewerUserByRole(model, user);
@@ -244,11 +245,10 @@ namespace sln.Controllers
                     {
                         await SignInAsync(user, model.RememberMe, org);
                         return RedirectToLocal(returnUrl);
-                        //   return RedirectToAction("Index","S");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Invalid username or password.");
+                        ModelState.AddModelError("", "שם משתמש או סיסמא לא תקינים");
                     }
                 }
             }
@@ -314,7 +314,8 @@ namespace sln.Controllers
                         Email = model.Email,
                         IsActive = true,
                         EmpId=model.EmpId,
-                        Organization_OrgId = model.OrgId
+                        Organization_OrgId = model.OrgId,
+                        Tel = model.Tel
                     };
                     viewLogic.SetViewerUserByRole(model, user);
 
@@ -456,6 +457,7 @@ namespace sln.Controllers
 
             identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.Tel, user.Tel.ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }

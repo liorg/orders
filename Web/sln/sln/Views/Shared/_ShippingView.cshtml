@@ -1,6 +1,6 @@
 ﻿@model sln.Models.OrderView
 
- @Html.Partial("_StatusConfirm",Model.Status)
+@Html.Partial("_StatusConfirm", Model.Status)
 <div class="row">
 
     <div class="col-md-12">
@@ -11,43 +11,56 @@
                     <label for="inputOrderTrackingID" class="col-sm-2 control-label">מספר משלוח</label>
                     <div class="col-sm-10">
                         <div class="col-md-6">
-                           @Html.TextBox("txtTitle", (string)ViewBag.OrderNumber)
+                            @Html.TextBox("txtTitle", (string)ViewBag.OrderNumber)
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="btn-group">
+                                <a class="btn btn-lg btn-info" data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">הדפס</span><i class="fa  fa-print  fa-2x pull-right"></i></a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-
-            <h4>סטאטוס משלוח הזמנה</h4>
-
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="label label-success">@Model.ShippingVm.Status</span>
-                    <span class="prefix  pull-right">סטאטוס:</span>
-                </li>
-                <li class="list-group-item">
-
-                    <span class="label label-success">@Model.ShippingVm.CreatedOn</span>
-                    <span class="prefix pull-right">תאריך יצירה:</span>
-                </li>
-                <li class="list-group-item">
-
-                    <span class="label label-success">@Model.ShippingVm.ModifiedOn</span>
-                    <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
-                </li>
-                <li class="list-group-item">
-                    <span class="label label-success">@Model.ShippingVm.From</span>
-                    <span class="prefix  pull-right">מ:</span>
-                </li>
-                <li class="list-group-item">
-                    <span class="label label-success">@Model.ShippingVm.To</span>
-                    <span class="prefix  pull-right">אל:</span>
-                </li>
-            </ul>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h4>סטאטוס משלוח הזמנה</h4>
 
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="label label-success">@Model.ShippingVm.Status</span>
+                <span class="prefix  pull-right">סטאטוס:</span>
+            </li>
+            <li class="list-group-item">
+
+                <span class="label label-success">@Model.ShippingVm.CreatedOn</span>
+                <span class="prefix pull-right">תאריך יצירה:</span>
+            </li>
+            <li class="list-group-item">
+
+                <span class="label label-success">@Model.ShippingVm.ModifiedOn</span>
+                <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-success">@Model.ShippingVm.From</span>
+                <span class="prefix  pull-right">מ:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-success">@Model.ShippingVm.To</span>
+                <span class="prefix  pull-right">אל:</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <img src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=@HttpContext.Current.Request.Url.AbsoluteUri" />
+
+    </div>
 </div>
 
 <div class="row">
-    @Html.Partial("_TimeLinePartial",Model.TimeLineVms)
+    @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
 </div>

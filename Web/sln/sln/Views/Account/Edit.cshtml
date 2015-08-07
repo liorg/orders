@@ -11,17 +11,17 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-     @Html.HiddenFor(model => Model.UserId)
-     @Html.HiddenFor(model => model.IsAdmin)
+    @Html.HiddenFor(model => Model.UserId)
+    @Html.HiddenFor(model => model.IsAdmin)
     <div class="form-horizontal">
         <h4>פרטים</h4>
         <hr />
         @Html.ValidationSummary(true)
-       
+
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                   @Html.DisplayFor(model => model.UserName)
+                @Html.DisplayFor(model => model.UserName)
             </div>
         </div>
 
@@ -40,7 +40,6 @@
                 @Html.ValidationMessageFor(model => model.LastName)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,50 +47,58 @@
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
         </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.EmpId, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-4">
-                        @Html.TextBoxFor(m => m.EmpId, new { @class = "form-control" })
-                    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tel, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tel)
+                @Html.ValidationMessageFor(model => model.Tel)
             </div>
- <div class="form-group">
-            <div class="col-md-2 control-label">@Html.LabelFor(m => m.IsActive )</div>
- <div class="col-md-4">
-                @Html.CheckBoxFor(m => m.IsActive, new { @class = "switchboot",data_toggle="toggle",data_off = "לא פעיל",data_on="פעיל" })
-                            
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmpId, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.EmpId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EmpId)
             </div>
-</div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 control-label">@Html.LabelFor(m => m.IsActive)</div>
+            <div class="col-md-4">
+                @Html.CheckBoxFor(m => m.IsActive, new { @class = "switchboot", data_toggle = "toggle", data_off = "לא פעיל", data_on = "פעיל" })
+
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-2 control-label"></div>
             <div class="col-md-2">
                 @Html.CheckBoxFor(m => m.IsOrgMangager)
-                            @Html.LabelFor(m => m.IsOrgMangager)
+                @Html.LabelFor(m => m.IsOrgMangager)
             </div>
             @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-{
-     <div class="col-md-2">
-         @Html.CheckBoxFor(m => m.IsRunner)
-                            @Html.LabelFor(m => m.IsRunner)
-     </div>
+            {
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.IsRunner)
+                    @Html.LabelFor(m => m.IsRunner)
+                </div>
             }
-  
-    <div class="col-md-2">
-        @Html.CheckBoxFor(m => m.IsCreateOrder)
-                            @Html.LabelFor(m => m.IsCreateOrder)
-    </div>
+
+            <div class="col-md-2">
+                @Html.CheckBoxFor(m => m.IsCreateOrder)
+                @Html.LabelFor(m => m.IsCreateOrder)
+            </div>
             <div class="col-md-2">
                 @Html.CheckBoxFor(m => m.IsAcceptOrder)
-                            @Html.LabelFor(m => m.IsAcceptOrder)
+                @Html.LabelFor(m => m.IsAcceptOrder)
             </div>
         </div>
 
         <div class="form-group">
-            @if(Request.IsAuthenticated && User.IsInRole("Admin"))
-           {
-           @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
-          <div class="col-md-8">
-              @Html.DropDownListFor(m => m.OrgId ,(SelectList)ViewBag.Orgs, new { @class = "form-control"})
-          </div>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.OrgId, (SelectList)ViewBag.Orgs, new { @class = "form-control" })
+                </div>
             }
         </div>
 
