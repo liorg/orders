@@ -132,7 +132,7 @@ namespace sln.Bll
 
             
             var timeLineVms = new List<TimeLineVm>();
-            foreach (var timeline in shipping.TimeLines.OrderBy(t=>t.CreatedOn))
+            foreach (var timeline in shipping.TimeLines.OrderByDescending(t=>t.CreatedOn))
             {
                 timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             }

@@ -72,6 +72,14 @@ namespace sln.Controllers
                     u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
                     u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+                    u.NumFrom = ship.AddressNumFrom;
+                    u.NumTo = ship.AddressNumTo;
+                    u.SreetFrom = ship.AddressFrom;
+                    u.SreetTo = ship.AddressTo;
+                    u.TelTarget = ship.TelTarget;
+                    u.NameTarget = ship.NameTarget;
+
+
                     model.Add(u);
 
                 }
@@ -259,9 +267,9 @@ namespace sln.Controllers
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
                 model.Recipient = shipping.Recipient;
-                model.TelSource = shipping.TelSource;
+              //  model.TelSource = shipping.TelSource;
                 model.TelTarget = shipping.TelTarget;
-                model.NameSource = shipping.NameSource;
+             //   model.NameSource = shipping.NameSource;
                 model.NameTarget = shipping.NameTarget;
 
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
@@ -320,10 +328,10 @@ namespace sln.Controllers
                 shipping.AddressNumFrom = shippingVm.NumFrom;
 
                 shipping.Recipient = shippingVm.Recipient;
-                shipping.TelSource = shippingVm.TelSource;
+                //shipping.TelSource = shippingVm.TelSource;
                 shipping.TelTarget = shippingVm.TelTarget;
-                shipping.NameSource = userContext.FullName;
-                shipping.NameTarget = shipping.NameTarget;
+            //    shipping.NameSource = userContext.FullName;
+                shipping.NameTarget = shippingVm.NameTarget;
                
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 

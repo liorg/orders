@@ -103,6 +103,7 @@ namespace sln.Models
         [Required(ErrorMessage = "שם המקבל שדה חובה")]
         public string NameTarget { get; set; }
 
+         [Display(Name = "מקור")]
         public string From
         {
             get
@@ -111,6 +112,7 @@ namespace sln.Models
             }
         }
 
+         [Display(Name = "יעד")]
         public string To
         {
             get

@@ -19,8 +19,8 @@
                     <th>@Html.DisplayNameFor(model => model.Status)</th>
                     <th>@Html.DisplayNameFor(model => model.ShipTypeIdName)</th>
                     <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
-                    <th>@Html.DisplayNameFor(model => model.CityToName)</th>
-                    <th>@Html.DisplayNameFor(model => model.CityFormName)</th>
+                    <th>@Html.DisplayNameFor(model => model.From)</th>
+                    <th>@Html.DisplayNameFor(model => model.To)</th>
                 </tr>
                 @if (!Model.Any())
                 {
@@ -38,8 +38,8 @@
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
                         <td>@Html.DisplayFor(modelItem => item.ShipTypeIdName)</td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedOn) </td>
-                        <td>@Html.DisplayFor(modelItem => item.CityToName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CityFormName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.From)</td>
+                        <td>@Html.DisplayFor(modelItem => item.To)</td>
                     </tr>
                 }
             </table>
