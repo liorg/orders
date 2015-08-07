@@ -247,7 +247,7 @@ namespace sln.Controllers
                 request.Ship = ship;
                 request.UserContext = user;
                 StatusLogic statusLogic = new StatusLogic();
-                statusLogic.Arrived(request);
+                statusLogic.NoTake(request, desc);
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
