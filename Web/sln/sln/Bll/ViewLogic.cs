@@ -97,6 +97,7 @@ namespace sln.Bll
              var runners = request.Runners;
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+            orderModel.Status.Recipient = shipping.Recipient;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.Status.MessageType = shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;

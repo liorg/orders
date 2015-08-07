@@ -118,6 +118,8 @@ namespace sln.DataModel
 
         public Guid? BroughtShipmentCustomer { get; set; }
 
+        public Guid? NoBroughtShipmentCustomer { get; set; }
+
         public Guid? CancelByUser { get; set; }
        
         public Guid? CancelByAdmin { get; set; }

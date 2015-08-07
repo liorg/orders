@@ -19,7 +19,7 @@ namespace sln.Models
             {
                 if (Status == Helper.TimeStatus.New)
                     return "default";
-                if (Status == Helper.TimeStatus.ApporvallRequest || Status == Helper.TimeStatus.AcceptByRunner)
+                if (Status == Helper.TimeStatus.ApporvallRequest || Status == Helper.TimeStatus.AcceptByRunner || Status == Helper.TimeStatus.NoAcceptByClient)
                     return "success";
                 if (Status == Helper.TimeStatus.CancelByAdmin || Status == Helper.TimeStatus.Cancel || Status == Helper.TimeStatus.NoAcceptByClient || Status == Helper.TimeStatus.PrevStep)
                     return "danger";

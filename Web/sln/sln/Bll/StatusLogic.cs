@@ -139,8 +139,7 @@ namespace sln.Bll
             request.NotifyType = Notification.Success;
             request.Status = TimeStatus.AcceptByClient;
             request.StatusShipping = Guid.Parse(Helper.Status.AcceptByClient);
-
-            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            request.Ship.BroughtShipmentCustomer = request.UserContext.UserId;
             ChangeStatus(request);
         }
         public void NoTake(StatusRequestBase requestBase, string desc)
@@ -157,7 +156,7 @@ namespace sln.Bll
             request.Status = TimeStatus.NoAcceptByClient;
             request.StatusShipping = Guid.Parse(Helper.Status.NoAcceptByClient);
            
-            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            request.Ship.NoBroughtShipmentCustomer = request.UserContext.UserId;
             ChangeStatus(request);
         }
 

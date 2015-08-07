@@ -12,7 +12,7 @@ namespace sln.Models
         public int MessageType { get; set; }
         public string Message { get; set; }
         public Guid ShipId { get; set; }
-
+        public string Recipient { get; set; }
         public List<Runner> Runners { get; set; }
     }
 }

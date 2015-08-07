@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })"> <span class="hidden-phone">לא אושר הזמנה</span>  <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
+                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })"><span class="hidden-phone">לא אושר הזמנה</span>  <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
                 </div>
                 @Html.Partial("_editOrder")
             </div>
@@ -74,7 +74,7 @@
             <div class="well well-lg">
                 <div class="btn-group">
                     <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
-                        <i class="fa fa-envelope-o fa-2x pull-right"></i> <span class="hidden-phone">קבלת המשלוח</span>  </a>
+                        <i class="fa fa-envelope-o fa-2x pull-right"></i><span class="hidden-phone">קבלת המשלוח</span>  </a>
 
                 </div>
                 @Html.Partial("_editOrder")
@@ -112,7 +112,7 @@
                     <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#okModel" href="#"><i class="fa fa-gift fa-fw fa-2x"></i><span class="hidden-phone">התקבל</span> </a>
                 </div>
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-danger"  data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">לא התקבל</span><i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
+                    <a class="btn btn-lg btn-danger" data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">לא התקבל</span><i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
                 </div>
                 @Html.Partial("_editOrder")
             </div>
@@ -128,58 +128,66 @@
 
 @if (Model.StatusId.ToString() == sln.Helper.Status.Arrived)
 {
+    
     <div class="modal fade" id="okModel" tabindex="-1" role="dialog" aria-labelledby="okModelLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="okModelLabel">המשלוח התקבל אצל הלקוח</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
+            @using (Html.BeginForm("TakeOk", "Status", FormMethod.Post, new { @id = "frmTake", @name = "frmTake" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="okModelLabel">המשלוח התקבל אצל הלקוח</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" value="@Model.ShipId" id="takeOkId" name="takeOkId" />
+
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">שם הלקוח:</label>
-                            <input type="text" class="form-control" id="txtRecipient">
+                            <label for="recipient-name" class="control-label">שם המקבל:</label>
+                            <input type="text" value="@Model.Recipient" class="form-control" id="recipient" name="recipient" />
+
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="control-label">הודעה:</label>
-                            <textarea class="form-control" id="txtMessage"></textarea>
+                            <label for="message-text" class="control-label">טקסט חופשי:</label>
+                            <textarea class="form-control" id="freeText" name="freeText"></textarea>
                         </div>
-                    </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-primary">שלח</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
 
 
     <div class="modal fade" id="noOkModel" tabindex="-1" role="dialog" aria-labelledby="noOkModelLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="noOkModelLabel">המשלוח לא התקבל</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
+            @using (Html.BeginForm("NoTake", "Status", FormMethod.Post, new { @id = "frmNoTake", @name = "frmNoTake" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="noOkModelLabel">המשלוח לא התקבל</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="@Model.ShipId" id="noTakeOkId" name="takeOkId" />
+
+
                         <div class="form-group">
-                            <label for="recipient-name" class="control-label">סיבה:</label>
-                            <input type="text" class="form-control" id="txtReason">
+                            <label for="message-text" class="control-label">סיבה :</label>
+                            <textarea class="form-control" name="desc"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="message-text" class="control-label">סיבה אחרת:</label>
-                            <textarea class="form-control" id="otherReason"></textarea>
-                        </div>
-                    </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-danger">שלח</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
     

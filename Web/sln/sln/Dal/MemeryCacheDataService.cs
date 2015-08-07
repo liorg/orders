@@ -90,8 +90,16 @@ namespace sln.Dal
                         viewItem.FieldShowMy = "BroughtShipmentCustomer";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.Arrived, StatusDesc = "משלוחים שהגיעו ליעד " };
+                        viewItem = new ViewItem { StatusId = TimeStatus.Arrived, StatusDesc = "משלוחים בזמן המתנה " };
                         viewItem.FieldShowMy = "ArrivedShippingSender";
+                        _viewItems.Add(viewItem);
+
+                        viewItem = new ViewItem { StatusId = TimeStatus.NoAcceptByClient, StatusDesc = "משלוחים שלא הגיעו ללקוח " };
+                        viewItem.FieldShowMy = "NoBroughtShipmentCustomer";
+                        _viewItems.Add(viewItem);
+
+                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByClient, StatusDesc = "משלוחים שהגיעו ללקוח " };
+                        viewItem.FieldShowMy = "BroughtShipmentCustomer";
                         _viewItems.Add(viewItem);
                     }
                 }

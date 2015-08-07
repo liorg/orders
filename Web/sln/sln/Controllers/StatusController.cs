@@ -41,7 +41,7 @@ namespace sln.Controllers
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index","s");
+                return RedirectToAction("Index", "s");
             }
         }
 
@@ -79,7 +79,7 @@ namespace sln.Controllers
                 var ship = await context.Shipping.FindAsync(shipId);
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-                Func<string,string> func=(assig=> cache.GetRunners(context).Where(run => run.Id == assig).Select(run2 => run2.FullName).FirstOrDefault());
+                Func<string, string> func = (assig => cache.GetRunners(context).Where(run => run.Id == assig).Select(run2 => run2.FullName).FirstOrDefault());
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -113,7 +113,7 @@ namespace sln.Controllers
                 //    ship.ApprovalShip = userid;
                 //    ship.NotifyText = text;
                 //    ship.NotifyType = Helper.Notification.Info;
-        
+
                 //    TimeLine tl = new TimeLine
                 //    {
                 //        Name = title,
@@ -207,24 +207,25 @@ namespace sln.Controllers
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("ShipView", "S", new  { id = id });
+                return RedirectToAction("ShipView", "S", new { id = id });
             }
         }
 
-        public async Task<ActionResult> TakeOk(string id,string recipient,string desc)
+        [HttpPost]
+        public async Task<ActionResult> TakeOk(string takeOkId, string recipient, string freeText)
         {
             using (var context = new ApplicationDbContext())
             {
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
-                Guid shipId = Guid.Parse(id);
+                Guid shipId = Guid.Parse(takeOkId);
                 var ship = await context.Shipping.FindAsync(shipId);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
                 StatusLogic statusLogic = new StatusLogic();
-                statusLogic.Take(request, desc, recipient);
+                statusLogic.Take(request, freeText, recipient);
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
@@ -232,14 +233,14 @@ namespace sln.Controllers
                 return RedirectToAction("Index", "S");
             }
         }
-
-        public async Task<ActionResult> NoTake(string id, string desc)
+        [HttpPost]
+        public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
         {
             using (var context = new ApplicationDbContext())
             {
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
-                Guid shipId = Guid.Parse(id);
+                Guid shipId = Guid.Parse(noTakeOkId);
                 var ship = await context.Shipping.FindAsync(shipId);
 
                 var request = new StatusRequestBase();
