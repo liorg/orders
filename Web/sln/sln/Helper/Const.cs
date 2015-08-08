@@ -7,11 +7,17 @@ namespace sln.Helper
 {
 
     public enum JobType {Admin=1,Runner=2,Client=3};
+    public static class JobTitle
+    {
+        public const string Admin = "מנהל מערכת";
+        public const string Client = "לקוח";
+        public const string DeliveryBoy = "שליח";
 
+    }
     public static class General
     {
 
-        public const int MaxRecordsPerPage = 3;
+        public const int MaxRecordsPerPage = 10;
         public const string OrgWWW = "www";
     }
     public static class CustomClaimTypes

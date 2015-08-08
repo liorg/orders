@@ -360,7 +360,7 @@ namespace sln.Controllers
             {
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att=>att.AttachmentsShipping).Include(com=>com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
@@ -379,7 +379,7 @@ namespace sln.Controllers
             {
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
@@ -398,7 +398,7 @@ namespace sln.Controllers
             {
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });

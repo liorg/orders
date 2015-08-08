@@ -148,6 +148,7 @@ namespace sln.Bll
         {
             if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
             {
+                job.JobTitle = Helper.JobTitle.Admin;
 
             }
         }

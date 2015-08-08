@@ -33,6 +33,7 @@ namespace sln.Controllers
                 comment.CreatedOn = DateTime.Now;
                 comment.CreatedBy = user.UserId;
                 comment.IsActive = true;
+
                // if(User.IsInRole
                
 
