@@ -11,6 +11,17 @@ namespace sln.DataModel
 {
     public class ApplicationUser : IdentityUser, IViewerUser
     {
+        public ApplicationUser()
+        {
+            FollowsBy = new HashSet<Shipping>();
+        }
+        public ApplicationUser(string userName):base(userName)
+        {
+            FollowsBy = new HashSet<Shipping>();
+        }
+        // many to many
+        public ICollection<Shipping> FollowsBy { get; set; }
+
         [Required]
         public string FirstName { get; set; }
 

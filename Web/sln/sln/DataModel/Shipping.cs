@@ -16,7 +16,13 @@ namespace sln.DataModel
             ShippingItems = new HashSet<ShippingItem>();
             TimeLines = new HashSet<TimeLine>();
             Comments = new HashSet<Comment>();
+            FollowsBy = new HashSet<ApplicationUser>();
+            AttachmentsShipping = new HashSet<AttachmentShipping>();
         }
+
+        // many to many
+        public ICollection<ApplicationUser> FollowsBy { get; set; }
+
         public ICollection<TimeLine> TimeLines { get; set; }
 
         //  [ForeignKey("Shipping_ShippingId")]
@@ -24,6 +30,7 @@ namespace sln.DataModel
 
         public ICollection<Comment> Comments { get; set; }
 
+        public ICollection<AttachmentShipping> AttachmentsShipping { get; set; }
         [Key]
         public Guid ShippingId { get; set; }
 
@@ -82,10 +89,12 @@ namespace sln.DataModel
         public virtual City CityFrom { get; set; }
         [ForeignKey("CityFrom")]
         public Guid? CityFrom_CityId { get; set; }
+        public string CityFromName { get; set; }
 
         public virtual City CityTo { get; set; }
         [ForeignKey("CityTo")]
         public Guid? CityTo_CityId { get; set; }
+        public string CityToName { get; set; }
 
         public string AddressFrom { get; set; }
         public string AddressTo { get; set; }

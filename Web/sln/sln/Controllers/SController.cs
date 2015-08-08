@@ -230,6 +230,10 @@ namespace sln.Controllers
                 };
                 shipping.TimeLines.Add(tl);
                 context.Shipping.Add(shipping);
+
+                FollowLogic followLogic = new FollowLogic();
+                followLogic.AddOwnerFollowBy(shipping, userContext, context.Users);
+
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
             }

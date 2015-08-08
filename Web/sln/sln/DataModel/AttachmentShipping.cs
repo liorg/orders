@@ -9,16 +9,12 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class Comment : IModifieder
+    public class AttachmentShipping : IModifieder
     {
-        public Comment()
+        public AttachmentShipping()
         {
-         //   ShippingsFrom = new HashSet<Shipping>();
-          //  ShippingsTo = new HashSet<Shipping>();
-
         }
-      
-
+ 
         public virtual Shipping Shipping { get; set; }
         [ForeignKey("Shipping")]
         public Guid? Shipping_ShippingId { get; set; }
@@ -27,13 +23,9 @@ namespace sln.DataModel
         [Key]
         public Guid CommentId { get; set; }
 
-        public string JobType { get; set; }
-
-        public string JobTitle { get; set; }
-
         public string Name { get; set; }
 
-        public string Desc { get; set; }
+        public string TypeMime { get; set; }
 
         public DateTime? CreatedOn
         {
