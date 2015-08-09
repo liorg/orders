@@ -51,12 +51,12 @@ namespace sln.Dal
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
             List<Distance> lists = null;
-            cacheMemoryProvider.Get("DistancesPerOrg", out lists);
+            cacheMemoryProvider.Get("DistancesPerOrg_"+orgId.ToString(), out lists);
             if (lists == null)
             {
                 lists = context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
 
-                cacheMemoryProvider.Set("DistancesPerOrg", lists);
+                cacheMemoryProvider.Set("DistancesPerOrg_" + orgId.ToString(), lists);
             }
             return lists;
         }
@@ -78,7 +78,7 @@ namespace sln.Dal
                         viewItem.FieldShowMy = "ApprovalRequest";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו ע''י חברת השליחים  " };
+                        viewItem = new ViewItem { StatusId = TimeStatus.Confirm, StatusDesc = "משלוחים שאושרו והועברו לשליח  " };
                         viewItem.FieldShowMy = "GrantRunner";// "ApprovalShip";
                         _viewItems.Add(viewItem);
 
