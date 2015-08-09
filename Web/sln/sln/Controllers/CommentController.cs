@@ -46,7 +46,8 @@ namespace sln.Controllers
             }
             return RedirectToAction("ShipView", "S", new { id = shipId });
         }
-            private IAuthenticationManager AuthenticationManager
+        
+        private IAuthenticationManager AuthenticationManager
         {
             get
             {
