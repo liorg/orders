@@ -149,8 +149,17 @@ namespace sln.Bll
             if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
             {
                 job.JobTitle = Helper.JobTitle.Admin;
-
+                job.JobType = ((int)Helper.JobType.Admin).ToString();
+                return;
             }
+            if (user.IsInRole(Helper.HelperAutorize.RoleRunner))
+            {
+                job.JobTitle = Helper.JobTitle.DeliveryBoy;
+                job.JobType = ((int)Helper.JobType.Runner).ToString();
+                return;
+            }
+            job.JobTitle = Helper.JobTitle.Client;
+            job.JobType = ((int)Helper.JobType.Client).ToString();
         }
     }
 }

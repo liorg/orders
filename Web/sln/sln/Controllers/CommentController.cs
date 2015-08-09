@@ -23,16 +23,21 @@ namespace sln.Controllers
     public class CommentController : Controller
     {
         [HttpPost]
-        public async Task<ActionResult> AddComment(string commnet,string shipId)
+        public async Task<ActionResult> AddComment(string commnetText,string shipId)
         {
             Comment comment = new Comment();
             using (var context = new ApplicationDbContext())
             {
+                ViewLogic view = new ViewLogic();
                 UserContext user = new UserContext(AuthenticationManager);
                 comment.CommentId = Guid.NewGuid();
                 comment.CreatedOn = DateTime.Now;
                 comment.CreatedBy = user.UserId;
+                comment.ModifiedOn = DateTime.Now;
+                comment.ModifiedBy = user.UserId;
                 comment.IsActive = true;
+                comment.Desc = commnetText;
+                view.SetJob(comment, User);
 
                // if(User.IsInRole
                

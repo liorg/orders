@@ -232,7 +232,7 @@ namespace sln.Controllers
                 context.Shipping.Add(shipping);
 
                 FollowLogic followLogic = new FollowLogic();
-                followLogic.AddOwnerFollowBy(shipping, userContext, context.Users);
+                await followLogic.AddOwnerFollowBy(shipping, userContext, context.Users);
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });

@@ -9,13 +9,11 @@ using System.Web;
 namespace sln.DataModel
 {
 
-    public class Comment : IModifieder
+    public class Comment : IModifieder, IJob
     {
         public Comment()
         {
-         //   ShippingsFrom = new HashSet<Shipping>();
-          //  ShippingsTo = new HashSet<Shipping>();
-
+        
         }
       
 
