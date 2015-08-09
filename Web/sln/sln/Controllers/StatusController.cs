@@ -18,6 +18,13 @@ namespace sln.Controllers
 {
     public class StatusController : Controller
     {
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
         public ActionResult Index()
         {
@@ -53,7 +60,7 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb=>fb.FollowsBy).FirstOrDefaultAsync(s=>s.ShippingId== shipId);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -62,9 +69,12 @@ namespace sln.Controllers
                 statusLogic.ApprovalRequest(request);
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
+
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
 
@@ -76,7 +86,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+               // var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 Func<string, string> func = (assig => cache.GetRunners(context).Where(run => run.Id == assig).Select(run2 => run2.FullName).FirstOrDefault());
@@ -89,50 +101,15 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request, func);
 
-                //var grantToText = "";
-                //if (!String.IsNullOrEmpty(assignTo))
-                //{
-                //    ship.GrantRunner = Guid.Parse(assignTo);
-                //    grantToText = cache.GetRunners(context).Where(run => run.Id == assignTo).Select(run2 => run2.FullName).FirstOrDefault();
-
-                //}
-                //else
-                //{
-                //    ship.GrantRunner = userid;
-                //    grantToText = user.FullName;
-                //}
-                //var currentDate = DateTime.Now;
-                //if (ship != null)
-                //{
-                //    var title = "הזמנה אושרה ע'' חברת השליחות" + " ע''י " + user.FullName + " (" + user.EmpId + ")";
-                //    var text = title +System.Environment.NewLine+" " + "הזמנה אושרה " + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
-                //    ship.ApprovalRequest = user.UserId;
-                //    ship.ModifiedOn = currentDate;
-                //    ship.ModifiedBy = user.UserId;
-                //    ship.StatusShipping_StatusShippingId = approval;
-                //    ship.ApprovalShip = userid;
-                //    ship.NotifyText = text;
-                //    ship.NotifyType = Helper.Notification.Info;
-
-                //    TimeLine tl = new TimeLine
-                //    {
-                //        Name = title,
-                //        Desc = text,
-                //        CreatedBy = userid,
-                //        CreatedOn = currentDate,
-                //        ModifiedBy = userid,
-                //        ModifiedOn = currentDate,
-                //        TimeLineId = Guid.NewGuid(),
-                //        IsActive = true,
-                //        Status = TimeStatus.Confirm,
-                //        StatusShipping_StatusShippingId = approval
-                //    };
-                //    ship.TimeLines.Add(tl);
-                //}
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+                if (!String.IsNullOrEmpty(assignTo))
+                {
+                    await followLogic.AppendOwnerFollowBy(ship, new UserContext{ UserId =Guid.Parse(assignTo) }, context.Users); 
+                }
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
 
@@ -143,7 +120,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+                // var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -151,10 +130,11 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.Accept(request);
 
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
 
@@ -166,7 +146,8 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+                // var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -174,21 +155,15 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.Accept(request);
 
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
+       
         public async Task<ActionResult> Arrived(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -196,7 +171,8 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+                // var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -204,10 +180,11 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.Arrived(request);
 
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("ShipView", "S", new { id = id });
+                return RedirectToAction("Index", "F");
             }
         }
 
@@ -227,10 +204,11 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.Take(request, freeText, recipient);
 
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
         [HttpPost]
@@ -241,7 +219,8 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(noTakeOkId);
-                var ship = await context.Shipping.FindAsync(shipId);
+                // var ship = await context.Shipping.FindAsync(shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -249,10 +228,11 @@ namespace sln.Controllers
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.NoTake(request, desc);
 
-                context.Entry<Shipping>(ship).State = EntityState.Modified;
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "S");
+                return RedirectToAction("Index", "F");
             }
         }
     }

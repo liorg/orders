@@ -132,8 +132,9 @@ namespace sln.Bll
 
             orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
             orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
+            orderModel.IsEyeOnHim = shipping.FollowsBy.Where(fx => fx.Id == request.UserContext.UserId.ToString()).Any();
 
-
+            
             var timeLineVms = new List<TimeLineVm>();
             foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
             {

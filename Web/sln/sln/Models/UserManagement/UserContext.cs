@@ -25,6 +25,10 @@ namespace sln.Models
             {
                 return _userid;
             }
+            set
+            {
+                _userid = value;
+            }
         }
 
         public string FullName
@@ -68,6 +72,9 @@ namespace sln.Models
         }
         Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId; string _tel;
         bool     _showAll; int _defaultView;
+        public UserContext()
+        {
+        }
         public UserContext(IAuthenticationManager authenticationManager )
         {
             ClaimsIdentity claimsIdentity = authenticationManager.User.Identity as ClaimsIdentity;

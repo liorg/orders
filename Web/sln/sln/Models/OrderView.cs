@@ -11,6 +11,7 @@ namespace sln.Models
         public List<ShippingItemVm> ShippingItems { get; set; }
         public IEnumerable<TimeLineVm> TimeLineVms { get; set; }
         public StatusVm Status { get; set; }
+        public bool IsEyeOnHim { get; set; }
 
        
 

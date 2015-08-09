@@ -188,177 +188,219 @@ img {
 .img-circle {
     border-radius: 50%;
 }
-
-
-
-/*.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
+/*http://codepen.io/jcasabona/pen/CDvAt*/
+.circle {
+    border-radius: 50%;
+    margin: 0.15em;
+    font-size: 3em;
 }
-.btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 25px;
+
+.fa-eye-slash {
+    color: #FFFFFF;
+    background: #dd4b39;
+    padding: 0.1em 0.1em;
 }
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
-  padding: 10px 16px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 35px;
-}*/
+
+.fa-eye {
+    color: #FFFFFF;
+    background: #dd4b39;
+    padding: 0.1em 0.1em;
+}
+
+
+.fa-file-image-o {
+    background: #bb0000;
+    color: #FFFFFF;
+    padding: 0.25em 0.25em;
+}
+
+.fa-twitter {
+    background: #4099FF;
+    color: #FFFFFF;
+    padding: 0.05em 0.07em;
+}
+
+.fa-google-plus {
+    color: #FFFFFF;
+    background: #dd4b39;
+    padding: 0.1em 0.1em;
+}
+
+.fa-dribbble {
+    color: #ea4c89;
+}
+
+.fa-pinterest {
+    color: #cb2027;
+}
+
+.fa-facebook {
+    background: #3B5998;
+    color: #FFFFFF;
+    padding: 0.05em 0.3em;
+}
+
+.fa-youtube {
+    background: #bb0000;
+    color: #FFFFFF;
+    padding: 0.25em 0.25em;
+}
+/*http://bootsnipp.com/snippets/featured/circle-button*/
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+    .btn-circle.btn-lg {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+    }
+
+    .btn-circle.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        font-size: 24px;
+        line-height: 1.33;
+        border-radius: 35px;
+    }
+
+
 /*http://bootsnipp.com/snippets/featured/comments-list*/
-    .conversation-wrap
-    {
-        box-shadow: -2px 0 3px #ddd;
-        padding:0;
-        max-height: 400px;
-        overflow: auto;
-    }
-    .conversation
-    {
-        padding:5px;
-        border-bottom:1px solid #ddd;
-        margin:0;
+.conversation-wrap {
+    box-shadow: -2px 0 3px #ddd;
+    padding: 0;
+    max-height: 400px;
+    overflow: auto;
+}
 
-    }
+.conversation {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
 
-    .message-wrap
-    {
-        box-shadow: 0 0 3px #ddd;
-        padding:0;
+.message-wrap {
+    box-shadow: 0 0 3px #ddd;
+    padding: 0;
+}
 
-    }
-    .msg
-    {
-        padding:5px;
-        /*border-bottom:1px solid #ddd;*/
-        margin:0;
-    }
-    .msg-wrap
-    {
-        padding:10px;
-        max-height: 400px;
-        overflow: auto;
+.msg {
+    padding: 5px;
+    /*border-bottom:1px solid #ddd;*/
+    margin: 0;
+}
 
-    }
+.msg-wrap {
+    padding: 10px;
+    max-height: 400px;
+    overflow: auto;
+}
 
-    .time
-    {
-        color:#bfbfbf;
-    }
+.time {
+    color: #bfbfbf;
+}
 
-    .send-wrap
-    {
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        padding:10px;
-        /*background: #f8f8f8;*/
-    }
+.send-wrap {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    /*background: #f8f8f8;*/
+}
 
-    .send-message
-    {
-        resize: none;
-    }
+.send-message {
+    resize: none;
+}
 
-    .highlight
-    {
-        background-color: #f7f7f9;
-        border: 1px solid #e1e1e8;
-    }
+.highlight {
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+}
 
-    .send-message-btn
-    {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 0;
+.send-message-btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
 
-        border-bottom-right-radius: 0;
-    }
-    .btn-panel
-    {
-        background: #f7f7f9;
-    }
+.btn-panel {
+    background: #f7f7f9;
+}
 
-    .btn-panel .btn
-    {
-        color:#b8b8b8;
-
+    .btn-panel .btn {
+        color: #b8b8b8;
         transition: 0.2s all ease-in-out;
     }
 
-    .btn-panel .btn:hover
-    {
-        color:#666;
-        background: #f8f8f8;
-    }
-    .btn-panel .btn:active
-    {
-        background: #f8f8f8;
-        box-shadow: 0 0 1px #ddd;
-    }
+        .btn-panel .btn:hover {
+            color: #666;
+            background: #f8f8f8;
+        }
 
-    .btn-panel-conversation .btn,.btn-panel-msg .btn
-    {
+        .btn-panel .btn:active {
+            background: #f8f8f8;
+            box-shadow: 0 0 1px #ddd;
+        }
 
-        background: #f8f8f8;
-    }
-    .btn-panel-conversation .btn:first-child
-    {
+.btn-panel-conversation .btn, .btn-panel-msg .btn {
+    background: #f8f8f8;
+}
+
+    .btn-panel-conversation .btn:first-child {
         border-right: 1px solid #ddd;
     }
 
-    .msg-wrap .media-heading
-    {
-        color:#003bb3;
-        font-weight: 700;
-    }
+.msg-wrap .media-heading {
+    color: #003bb3;
+    font-weight: 700;
+}
 
 
-    .msg-date
-    {
-        background: none;
-        text-align: center;
-        color:#aaa;
-        border:none;
-        box-shadow: none;
-        border-bottom: 1px solid #ddd;
-    }
+.msg-date {
+    background: none;
+    text-align: center;
+    color: #aaa;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+}
 
 
-    body::-webkit-scrollbar {
-        width: 12px;
-    }
- 
-    
-    /* Let's get this party started */
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
+body::-webkit-scrollbar {
+    width: 12px;
+}
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-/*        -webkit-border-radius: 10px;
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    /*        -webkit-border-radius: 10px;
         border-radius: 10px;*/
-    }
+}
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-/*        -webkit-border-radius: 10px;
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /*        -webkit-border-radius: 10px;
         border-radius: 10px;*/
-        background:#ddd; 
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-    }
+    background: #ddd;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
     ::-webkit-scrollbar-thumb:window-inactive {
-        background: #ddd; 
+        background: #ddd;
     }

@@ -16,5 +16,12 @@ namespace sln.Bll
             var user = await dbUser.FirstOrDefaultAsync(u=>u.Id== context.UserId.ToString());
             ship.FollowsBy.Add(user);
         }
+        public async Task AppendOwnerFollowBy(Shipping ship, IUserContext context, IDbSet<ApplicationUser> dbUser)
+        {
+            if (!ship.FollowsBy.Where(u => u.Id == context.UserId.ToString()).Any())
+                await AddOwnerFollowBy(ship, context, dbUser);
+
+        }
+         
     }
 }
