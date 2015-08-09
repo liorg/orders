@@ -48,13 +48,13 @@ namespace sln.Controllers
                 if (!String.IsNullOrEmpty(prevDay))
                     from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
 
-              
+
                 var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
                     shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
 
-                
+
 
                 int page = currentPage.HasValue ? currentPage.Value : 1;
                 var total = await shippingsQuery.CountAsync();
@@ -104,7 +104,7 @@ namespace sln.Controllers
             }
         }
 
-        public async Task<ActionResult> Create()
+        public async Task<ActionResult> Create(string orgid)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -142,14 +142,20 @@ namespace sln.Controllers
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.City = new SelectList(city, "CityId", "Name");
-                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                {
-                    distances = cache.GetDistancesPerOrg(context, userContext.OrgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
-                }
-                else
-                {
-                    distances = await context.Distance.ToListAsync();
-                }
+                if (String.IsNullOrEmpty(orgid))
+                    orgid = userContext.OrgId.ToString();
+                var organid=Guid.Parse(orgid);
+                distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+
+                model.OrgId = organid;
+                //if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                //{
+                //    distances = cache.GetDistancesPerOrg(context, userContext.OrgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                //}
+                //else
+                //{
+                //    distances = await context.Distance.ToListAsync();
+                //}
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
             }
@@ -262,7 +268,7 @@ namespace sln.Controllers
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;
                 model.Id = shipping.ShippingId;
-              
+
                 model.NumFrom = shipping.AddressNumFrom;
                 model.NumTo = shipping.AddressNumTo;
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
@@ -273,9 +279,9 @@ namespace sln.Controllers
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
                 model.Recipient = shipping.Recipient;
-              //  model.TelSource = shipping.TelSource;
+                //  model.TelSource = shipping.TelSource;
                 model.TelTarget = shipping.TelTarget;
-             //   model.NameSource = shipping.NameSource;
+                //   model.NameSource = shipping.NameSource;
                 model.NameTarget = shipping.NameTarget;
 
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
@@ -297,8 +303,8 @@ namespace sln.Controllers
                     distances = cache.GetDistancesPerOrg(context, userContext.OrgId);
                 }
                 else
-                   distances = await context.Distance.ToListAsync();
-                
+                    distances = await context.Distance.ToListAsync();
+
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
             }
@@ -336,9 +342,9 @@ namespace sln.Controllers
                 shipping.Recipient = shippingVm.Recipient;
                 //shipping.TelSource = shippingVm.TelSource;
                 shipping.TelTarget = shippingVm.TelTarget;
-            //    shipping.NameSource = userContext.FullName;
+                //    shipping.NameSource = userContext.FullName;
                 shipping.NameTarget = shippingVm.NameTarget;
-               
+
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 
                 await context.SaveChangesAsync();
@@ -360,7 +366,7 @@ namespace sln.Controllers
             {
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att=>att.AttachmentsShipping).Include(com=>com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });

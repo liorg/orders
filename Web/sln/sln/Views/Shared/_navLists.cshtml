@@ -4,33 +4,17 @@
     <input type="hidden" value="@ViewBag.StatusId" id="viewType" name="viewType" />
     <input type="hidden" value="@ViewBag.ShowAll" id="viewAll" name="viewAll" />
     <div style="background-color:#18bc9c" class="well carousel-search hidden-sm">
-       @* <div class="btn-group pull-left">
-            <a class=" btn btn-success orange-circle-button" href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i><br /> צור <br />משלוח  </a>
-
-        </div>*@
-
+      
         <div class="btn-group">
-
             <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                @foreach (var view in ViewBag.Views)
-                {
-@*<li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })">@view.StatusDesc</a></li>*@
-@*<li onclick="$('#viewType').val(@view.StatusId); $('#viewSelected').submit()">@view.StatusDesc</li>*@
-    
-                    <li><a href="#" onclick="javascript:changeViewType(@view.StatusId)">@view.StatusDesc</a></li>
-                }
+                 <li><a  href="@Url.Action("index","F")"> מעקב אחרי משלוחים שלי </a></li>
+                <li class="divider"></li>
+                 <li><a  href="@Url.Action("index","S")"> תצוגות המערכת </a></li>
+              
                 <li class="divider"></li>
                 <li><a href="#">דו''ח חודשי</a></li>
             </ul>
-        </div>
-        <div class="btn-group">
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="chkAll" name="chkAll" checked="@ViewBag.BShowAll" />הצג הכל
-                </label>
-            </div>
         </div>
     </div>
 }

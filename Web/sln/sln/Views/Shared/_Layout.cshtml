@@ -48,7 +48,15 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
+                        @if (!User.IsInRole(sln.Helper.HelperAutorize.RoleAdmin))
+                        {
+                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
+                     
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("CreateShipByOrg", "Org")"><i class="fa fa-cart-plus"></i>יצירת משלוח חדש </a>
+                        }
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
@@ -91,7 +99,7 @@
         *@
     </div>
     </div>
-    @RenderSection("scripts", required: false)
+        @RenderSection("scripts", required: false)
     <script>
 
         $(document).ready(function () {
@@ -129,7 +137,7 @@
             var viewType = $('#viewType').val();
             var viewAll = $('#viewAll').val();
             var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
-         
+
             var toMinus = isNext == true ? 1 : -1;
 
             var nextDay = $('#nextDay').val();
@@ -138,11 +146,11 @@
             var nextDayDate = new Date(nextDay);
             var prevDayDate = new Date(prevDay);
 
-             nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
-             prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
+            nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
+            prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
 
-             var nextToStr = nextDayDate.toISOString().split('T')[0];
-             var prevToStr = prevDayDate.toISOString().split('T')[0];
+            var nextToStr = nextDayDate.toISOString().split('T')[0];
+            var prevToStr = prevDayDate.toISOString().split('T')[0];
 
             changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
             // window.location.replace=

@@ -37,8 +37,9 @@ namespace sln.Controllers
                 comment.ModifiedBy = user.UserId;
                 comment.IsActive = true;
                 comment.Desc = commnetText;
+                comment.Name = user.FullName;
                 view.SetJob(comment, User);
-
+                await context.SaveChangesAsync();
                // if(User.IsInRole
                
 

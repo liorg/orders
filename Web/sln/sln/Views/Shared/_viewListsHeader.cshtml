@@ -1,6 +1,9 @@
-﻿@foreach (var view in ViewBag.Views){
-                        <li><a href="@Url.Action("Index","S",new { viewType=@view.StatusId})">@view.StatusDesc</a></li>
-           }
-           <li class="divider"></li>
-            <li><a href="#">דו''ח חודשי</a></li>
-    
+﻿<li><a  href="@Url.Action("index", "F")">מעקב אחרי משלוחים שלי </a></li>
+<li class="divider"></li>
+@foreach (var view in ViewBag.Views)
+{
+    <li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })">@view.StatusDesc</a></li>
+}
+<li class="divider"></li>
+<li><a href="#">דו''ח חודשי</a></li>
+

@@ -31,7 +31,7 @@ namespace sln.Helper
             filterContext.Controller.ViewBag.Views = views.GetView().ToList();
             filterContext.Controller.ViewBag.UserProfiler=userProfiler;
             filterContext.Controller.ViewBag.Label = " בחר תצוגה אישית ... ";
-        }
+        } 
 
     }
     //public class LayoutInjecterAttribute : ActionFilterAttribute
