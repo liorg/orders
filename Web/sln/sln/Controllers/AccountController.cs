@@ -44,28 +44,24 @@ namespace sln.Controllers
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Index()
         {
-          //  using (var context = new ApplicationDbContext())
-           // {
-                var userContext = new UserContext(AuthenticationManager);
-                IEnumerable<ApplicationUser> usersData;
-                var users = DBContext.Users;
-                var model = new List<EditUserViewModel>();
-                if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                {
+            //  using (var context = new ApplicationDbContext())
+            // {
+            var userContext = new UserContext(AuthenticationManager);
+            IEnumerable<ApplicationUser> usersData;
+            var users = DBContext.Users;
+            var model = new List<EditUserViewModel>();
+            if (!User.IsInRole(HelperAutorize.RoleAdmin))
+                usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
+            else
+                usersData = users.ToList();
 
-                    usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
-                }
-                else
-                {
-                    usersData = users.ToList();
-                }
-                foreach (var user in usersData)
-                {
-                    var edit = new EditUserViewModel(user);
-                    model.Add(edit);
-                }
-                return View(model);
-           // }
+            foreach (var user in usersData)
+            {
+                var edit = new EditUserViewModel(user);
+                model.Add(edit);
+            }
+            return View(model);
+            // }
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
@@ -243,7 +239,8 @@ namespace sln.Controllers
             {
                 using (ApplicationDbContext context = new ApplicationDbContext())
                 {
-                    var orgs = await context.Organization.ToListAsync();
+                    MemeryCacheDataService cache = new MemeryCacheDataService();
+                    var orgs = cache.GetOrgs(context); //await context.Organization.ToListAsync();
                     ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                     var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
                     var userName = model.UserName;
@@ -461,10 +458,34 @@ namespace sln.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            Helper.JobType jobType = Helper.JobType.Client;
+            string jobTitle = Helper.JobTitle.Client;
+            var claimAllRoles = identity.Claims.Where(ccl => ccl.Type == ClaimTypes.Role).AsEnumerable();
+            foreach (var claimRole in claimAllRoles)
+            {
+                if (claimRole != null && !String.IsNullOrWhiteSpace(claimRole.Value))
+                {
+                    if (claimRole.Value == Helper.HelperAutorize.RoleAdmin)
+                    {
+                        jobType = Helper.JobType.Admin;
+                        jobTitle = Helper.JobTitle.Admin;
+                        break;
+                    }
+                    if (claimRole.Value == Helper.HelperAutorize.RoleRunner)
+                    {
+                        jobType = Helper.JobType.Runner;
+                        jobTitle = Helper.JobTitle.DeliveryBoy;
+                    }
+                }
+            }
+            identity.AddClaim(new Claim(CustomClaimTypes.JobTitle, jobTitle));
+            identity.AddClaim(new Claim(CustomClaimTypes.JobType, ((int)jobType).ToString()));
+
             identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
             identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
+
 
             identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));

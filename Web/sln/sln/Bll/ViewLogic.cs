@@ -134,16 +134,48 @@ namespace sln.Bll
             orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
             orderModel.IsEyeOnHim = shipping.FollowsBy.Where(fx => fx.Id == request.UserContext.UserId.ToString()).Any();
 
-            
+            orderModel.JobTitle = request.UserContext;
+
             var timeLineVms = new List<TimeLineVm>();
             foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
             {
                 timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             }
-
+            var comments = new List<CommentVm>();
+            foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
+            {
+                comments.Add(new CommentVm { JobTitle = comment.JobTitle,JobType=comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(),  Desc = comment.Desc });
+            }
             orderModel.TimeLineVms = timeLineVms;
+            orderModel.CommentsVm = comments;
             return orderModel;
         }
+
+        //public void SetJob(ClaimsIdentity identity, IEnumerable<Claim> claims)
+        //{
+        //    var claimAllRoles = claims.Where(ccl => ccl.Type == ClaimTypes.Role).AsEnumerable();
+        //    foreach (var claimRole in claimAllRoles)
+        //    {
+        //        if (claimRole != null && !String.IsNullOrWhiteSpace(claimRole.Value))
+        //        {
+        //            identity.
+        //        }
+        //    }
+        //    if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
+        //    {
+        //        job.JobTitle = Helper.JobTitle.Admin;
+        //        job.JobType = ((int)Helper.JobType.Admin).ToString();
+        //        return;
+        //    }
+        //    if (user.IsInRole(Helper.HelperAutorize.RoleRunner))
+        //    {
+        //        job.JobTitle = Helper.JobTitle.DeliveryBoy;
+        //        job.JobType = ((int)Helper.JobType.Runner).ToString();
+        //        return;
+        //    }
+        //    job.JobTitle = Helper.JobTitle.Client;
+        //    job.JobType = ((int)Helper.JobType.Client).ToString();
+        //}
 
         public void SetJob(IJob job, IPrincipal user)
         {

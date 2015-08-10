@@ -1,6 +1,9 @@
-﻿@model sln.Models.OrderView
-<div class="row">
+﻿
+@model sln.Models.OrderView
 
+
+<div class="row">
+        <hr style="border:dotted thin" />
     <div class="message-wrap col-lg-12">
         <div class="msg-wrap">
             <div class="media msg">
@@ -8,11 +11,10 @@
                 {
                     <input type="hidden" name="shipIdComment" id="shipIdComment" value="@Model.ShippingVm.Id" />
                     <a class="pull-left" href="#">
-                        <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;"
-                            src="~/Content/img/Male-Avatar-Bowler-Hat-icon.png">
+                          @Html.Image(@Model.JobTitle.JobType)
                     </a>
                     <div class="media-body">
-                        <small class="pull-right time"><i class="fa fa-clock-o"></i>12:10am</small>
+                        <small class="pull-right time"><i class="fa fa-clock-o"></i>@DateTime.Now.ToString("hh:mm")</small>
 
                         <h5 class="media-heading">Naimish Sakhpara</h5>
                         <small class="col-lg-10">
@@ -26,41 +28,22 @@
                     </div>
                 }
             </div>
-            <div class="media msg">
+            @foreach (var commentItem in @Model.CommentsVm)
+            {
+                <div class="media msg">
                 <a class="pull-left" href="#">
-                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;"
-                        src="~/Content/img/Male-Avatar-Cool-Cap-icon.png">
-                </a>
-                <div class="media-body">
-                    <small class="pull-right time"><i class="fa fa-clock-o"></i>12:10am</small>
-
-                    <h5 class="media-heading">Naimish Sakhpara</h5>
-                    <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
-                </div>
-            </div>
-            <div class="media msg">
-                <a class="pull-left" href="#">
-                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;"
-                        src="~/Content/img/Male-Avatar-Emo-Haircut-icon.png" />
+                    @Html.Image(commentItem.JobType)
+                   @* <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;"src="/Content/img/Male-Avatar-Emo-Haircut-icon.png" />*@
 
                 </a>
                 <div class="media-body">
-                    <small class="pull-right time"><i class="fa fa-clock-o"></i>12:10am</small>
+                    <small class="pull-right time"><i class="fa fa-clock-o"></i>@commentItem.DateComment</small>
 
-                    <h5 class="media-heading">Naimish Sakhpara</h5>
-                    <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
+                    <h5 class="media-heading">@commentItem.Name @commentItem.JobTitle</h5>
+                    <small class="col-lg-10">@commentItem.Desc</small>
                 </div>
             </div>
+            }
         </div>
-
-        @*            <div class="send-wrap ">
-
-                <textarea class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
-
-
-            </div>
-            <div class="btn-panel">
-                <a href="" class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> שלח הודעה</a>
-            </div>*@
     </div>
-</div>
+    <hr style="border:dotted thin" />

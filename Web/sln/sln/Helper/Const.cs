@@ -25,6 +25,8 @@ namespace sln.Helper
         public const string ShowAllView = "http://r.co.il/claims/ShowAllView";
         public const string DefaultView = "http://r.co.il/claims/DefaultView";
         public const string Tel = "http://r.co.il/claims/Tel";
+        public const string JobTitle = "http://r.co.il/claims/JobTitle";
+        public const string JobType = "http://r.co.il/claims/JobType";
     }
     public class TimeStatus
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace sln.Contract
 {
-    public interface IUserContext
+    public interface IUserContext : IJob
     {
         int DefaultView { get; }
         string EmpId { get; }

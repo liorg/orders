@@ -221,6 +221,7 @@
     <Compile Include="Helper\Const.cs" />
     <Compile Include="Helper\CustomPasswordValidator.cs" />
     <Compile Include="Helper\HelperAutorize.cs" />
+    <Compile Include="Helper\RazorHelper.cs" />
     <Compile Include="Helper\UserProfileActionFilter.cs" />
     <Compile Include="Migrations\201508050713206_dff.cs" />
     <Compile Include="Migrations\201508050713206_dff.Designer.cs">
