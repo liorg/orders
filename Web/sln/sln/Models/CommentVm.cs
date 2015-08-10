@@ -18,7 +18,7 @@ namespace sln.Models
             get
             {
                 if (CreatedOn.Date == DateTime.Now.Date)
-                   return CreatedOn.Date.ToString("hh:mm");
+                   return CreatedOn.ToString("hh:mm");
 
                 return CreatedOn.Date.ToString("dd-MM-yy");
             }
