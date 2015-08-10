@@ -12,7 +12,7 @@ namespace sln.Models
         public string JobTitle { get; set; }
         public string Desc { get; set; }
         public string JobType { get; set; }
-
+        public string Name { get; set; }
         public string DateComment
         {
             get

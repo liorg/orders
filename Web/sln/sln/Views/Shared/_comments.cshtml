@@ -16,7 +16,7 @@
                     <div class="media-body">
                         <small class="pull-right time"><i class="fa fa-clock-o"></i>@DateTime.Now.ToString("hh:mm")</small>
 
-                        <h5 class="media-heading">Naimish Sakhpara</h5>
+                        <h5 class="media-heading">@Model.JobTitle.FullName (אתה)</h5>
                         <small class="col-lg-10">
                             <textarea class="form-control send-message" rows="3" name="commnetText"
                                 placeholder="רשום הערה..."></textarea></small>
@@ -33,13 +33,11 @@
                 <div class="media msg">
                 <a class="pull-left" href="#">
                     @Html.Image(commentItem.JobType)
-                   @* <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;"src="/Content/img/Male-Avatar-Emo-Haircut-icon.png" />*@
-
                 </a>
                 <div class="media-body">
                     <small class="pull-right time"><i class="fa fa-clock-o"></i>@commentItem.DateComment</small>
 
-                    <h5 class="media-heading">@commentItem.Name @commentItem.JobTitle</h5>
+                    <h5 class="media-heading">@commentItem.Name (@commentItem.JobTitle)</h5>
                     <small class="col-lg-10">@commentItem.Desc</small>
                 </div>
             </div>

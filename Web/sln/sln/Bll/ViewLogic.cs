@@ -144,7 +144,7 @@ namespace sln.Bll
             var comments = new List<CommentVm>();
             foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
             {
-                comments.Add(new CommentVm { JobTitle = comment.JobTitle,JobType=comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(),  Desc = comment.Desc });
+                comments.Add(new CommentVm {Name=comment.Name, JobTitle = comment.JobTitle,JobType=comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(),  Desc = comment.Desc });
             }
             orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;

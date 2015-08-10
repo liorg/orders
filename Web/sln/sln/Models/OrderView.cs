@@ -14,7 +14,7 @@ namespace sln.Models
         public StatusVm Status { get; set; }
         public bool IsEyeOnHim { get; set; }
         public IEnumerable<CommentVm> CommentsVm { get; set; }
-        public IJob JobTitle { get; set; }
+        public UserContext JobTitle { get; set; }
         
     }
 }
