@@ -12,9 +12,8 @@ namespace sln.Models
         public IEnumerable<TimeLineVm> TimeLineVms { get; set; }
         public StatusVm Status { get; set; }
         public bool IsEyeOnHim { get; set; }
-
-       
-
-
+        public IEnumerable<CommentVm> CommentVm { get; set; }
+        public JobTitleVm JobTitle { get; set; }
+        
     }
 }

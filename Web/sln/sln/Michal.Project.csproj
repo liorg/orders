@@ -249,6 +249,8 @@
       <DependentUpon>201508081739333_changescema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CommentVm.cs" />
+    <Compile Include="Models\JobTitleVm.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />

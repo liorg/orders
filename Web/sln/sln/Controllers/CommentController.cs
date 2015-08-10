@@ -23,7 +23,7 @@ namespace sln.Controllers
     public class CommentController : Controller
     {
         [HttpPost]
-        public async Task<ActionResult> AddComment(string commnetText,string shipId)
+        public async Task<ActionResult> AddComment(string commnetText,string shipIdComment)
         {
             Comment comment = new Comment();
             using (var context = new ApplicationDbContext())
@@ -38,13 +38,15 @@ namespace sln.Controllers
                 comment.IsActive = true;
                 comment.Desc = commnetText;
                 comment.Name = user.FullName;
+                comment.Shipping_ShippingId = Guid.Parse(shipIdComment);
+                context.Entry<Comment>(comment).State = EntityState.Added;
                 view.SetJob(comment, User);
                 await context.SaveChangesAsync();
                // if(User.IsInRole
                
 
             }
-            return RedirectToAction("ShipView", "S", new { id = shipId });
+            return RedirectToAction("ShipView", "S", new { id = shipIdComment });
         }
         
         private IAuthenticationManager AuthenticationManager
