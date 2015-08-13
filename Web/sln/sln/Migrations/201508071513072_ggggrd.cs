@@ -1,4 +1,4 @@
-namespace sln.Migrations
+namespace Michal.Project.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

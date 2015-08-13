@@ -1,11 +1,11 @@
-﻿using sln.Contract;
-using sln.DataModel;
+﻿using Michal.Project.Contract;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace sln.Models.Status
+namespace Michal.Project.Models.Status
 {
     public class StatusRequest : StatusRequestBase
     {

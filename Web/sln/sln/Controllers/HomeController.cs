@@ -1,11 +1,11 @@
-﻿using sln.Helper;
+﻿using Michal.Project.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln.Controllers
+namespace Michal.Project.Controllers
 {
     public class HomeController : Controller
     {

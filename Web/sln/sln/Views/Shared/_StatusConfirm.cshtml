@@ -13,7 +13,7 @@
 <input type="hidden" value="@Model.ShipId" id="hdShipId" name="hdShipId" />
 @switch (Model.StatusId.ToString())
 {
-    case sln.Helper.Status.Draft:
+    case Michal.Project.Helper.Status.Draft:
         if (ViewBag.userProfiler.AllowConfirm)
         {
     <div class="row">
@@ -37,7 +37,7 @@
     </div>
         }
         break;
-    case sln.Helper.Status.ApporvallRequest:
+    case Michal.Project.Helper.Status.ApporvallRequest:
         if (ViewBag.userProfiler.AllowAccept)
         {
     <div class="row">
@@ -66,7 +66,7 @@
     </div>
         }
         break;
-    case sln.Helper.Status.Confirm:
+    case Michal.Project.Helper.Status.Confirm:
         if (ViewBag.userProfiler.AllowRunner)
         {
     <div class="row">
@@ -83,7 +83,7 @@
     </div>
         }
         break;
-    case sln.Helper.Status.AcceptByRunner:
+    case Michal.Project.Helper.Status.AcceptByRunner:
         if (ViewBag.userProfiler.AllowRunner)
         {
    
@@ -102,7 +102,7 @@
     </div>
         }
         break;
-    case sln.Helper.Status.Arrived:
+    case Michal.Project.Helper.Status.Arrived:
         if (ViewBag.userProfiler.AllowAccept)
         {
     <div class="row">
@@ -126,7 +126,7 @@
 
 }
 
-@if (Model.StatusId.ToString() == sln.Helper.Status.Arrived)
+@if (Model.StatusId.ToString() == Michal.Project.Helper.Status.Arrived)
 {
     
     <div class="modal fade" id="okModel" tabindex="-1" role="dialog" aria-labelledby="okModelLabel">

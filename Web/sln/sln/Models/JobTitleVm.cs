@@ -1,10 +1,10 @@
-﻿using sln.Contract;
+﻿using Michal.Project.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class JobTitleVm : IJob
     {

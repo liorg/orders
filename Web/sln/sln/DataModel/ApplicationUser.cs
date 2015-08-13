@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using sln.Contract;
+using Michal.Project.Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace sln.DataModel
+namespace Michal.Project.DataModel
 {
     public class ApplicationUser : IdentityUser, IViewerUser
     {

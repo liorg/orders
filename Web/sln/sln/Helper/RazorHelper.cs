@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln.Helper
+namespace Michal.Project.Helper
 {
     public static class ImageHelper
     {
@@ -35,10 +35,8 @@ namespace sln.Helper
             builder.MergeAttribute("src", src);
             builder.MergeAttribute("style", "width: 32px; height: 32px;");
             builder.MergeAttribute("class", "media-object");
-           // builder.MergeAttribute("alt", altText);
-            //builder.MergeAttribute("height", height);
-           // builder.MergeAttribute("height", height);
             return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
+
     }
 }

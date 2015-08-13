@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using sln.Dal;
-using sln.DataModel;
-using sln.Helper;
-using sln.Models;
+using Michal.Project.Dal;
+using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using sln.Bll;
+using Michal.Project.Bll;
 using System.Linq.Expressions;
-namespace sln.Controllers
+namespace Michal.Project.Controllers
 {
     [Authorize]
     public class FController : Controller

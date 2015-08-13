@@ -48,7 +48,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        @if (!User.IsInRole(sln.Helper.HelperAutorize.RoleAdmin))
+                        @if (!User.IsInRole(Michal.Project.Helper.HelperAutorize.RoleAdmin))
                         {
                             <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
                      

@@ -1,7 +1,7 @@
-﻿using sln.Contract;
-using sln.DataModel;
-using sln.Helper;
-using sln.Models;
+﻿using Michal.Project.Contract;
+using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -15,12 +15,12 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Security.Principal;
 
-namespace sln.Bll
+namespace Michal.Project.Bll
 {
-    
+
     public class ViewLogic
     {
-        public void SetViewerUserByRole(sln.Contract.IRole source, IViewerUser target)
+        public void SetViewerUserByRole(Michal.Project.Contract.IRole source, IViewerUser target)
         {
             bool showAll = true;
             int defaultView = TimeStatus.New;
@@ -144,7 +144,7 @@ namespace sln.Bll
             var comments = new List<CommentVm>();
             foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
             {
-                comments.Add(new CommentVm {Name=comment.Name, JobTitle = comment.JobTitle,JobType=comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(),  Desc = comment.Desc });
+                comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
             }
             orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;
@@ -176,7 +176,12 @@ namespace sln.Bll
         //    job.JobTitle = Helper.JobTitle.Client;
         //    job.JobType = ((int)Helper.JobType.Client).ToString();
         //}
+        public void SetJob(IJob job, UserContext user)
+        {
 
+            job.JobTitle = user.JobTitle;
+            job.JobType = user.JobType;
+        }
         public void SetJob(IJob job, IPrincipal user)
         {
             if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))

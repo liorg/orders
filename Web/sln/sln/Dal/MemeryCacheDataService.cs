@@ -1,13 +1,13 @@
 ﻿    using Kipodeal.Helper.Cache;
-using sln.DataModel;
-using sln.Helper;
-using sln.Models;
+using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace sln.Dal
+namespace Michal.Project.Dal
 {
 
 

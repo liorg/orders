@@ -1,12 +1,12 @@
-﻿using sln.Dal;
-using sln.Models;
+﻿using Michal.Project.Dal;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln.Helper
+namespace Michal.Project.Helper
 {
     public class UserProfileActionFilter : ActionFilterAttribute
     {

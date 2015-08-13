@@ -1,12 +1,12 @@
-﻿using sln.Dal;
-using sln.DataModel;
+﻿using Michal.Project.Dal;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class OrderRequest
     {

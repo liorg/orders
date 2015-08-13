@@ -1,5 +1,5 @@
 ﻿using System;
-namespace sln.Contract
+namespace Michal.Project.Contract
 {
     public interface IUserContext : IJob
     {

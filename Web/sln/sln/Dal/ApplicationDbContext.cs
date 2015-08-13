@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using sln.DataModel;
-using sln.Models;
+using Michal.Project.DataModel;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace sln.Dal
+namespace Michal.Project.Dal
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

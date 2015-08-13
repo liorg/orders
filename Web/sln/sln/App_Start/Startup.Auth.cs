@@ -3,7 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-namespace sln
+namespace Michal.Project
 {
     public partial class Startup
     {

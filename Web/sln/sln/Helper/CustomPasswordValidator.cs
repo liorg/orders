@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace sln.Helper
+namespace Michal.Project.Helper
 {
     public class CustomPasswordValidator : IIdentityValidator<string>
     {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using sln.Dal;
-using sln.DataModel;
+using Michal.Project.Dal;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class SelectUserRolesViewModel
     {

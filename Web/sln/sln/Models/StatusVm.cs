@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class StatusVm
     {

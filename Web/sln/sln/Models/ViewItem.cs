@@ -1,12 +1,12 @@
-﻿using sln.Contract;
-using sln.DataModel;
+﻿using Michal.Project.Contract;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class ViewItem
     {

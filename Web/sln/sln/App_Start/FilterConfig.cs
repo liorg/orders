@@ -1,8 +1,8 @@
-﻿using sln.Helper;
+﻿using Michal.Project.Helper;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln
+namespace Michal.Project
 {
     public class FilterConfig
     {

@@ -1,13 +1,13 @@
-﻿using sln.DataModel;
-using sln.Helper;
-using sln.Models;
-using sln.Models.Status;
+﻿using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
+using Michal.Project.Models.Status;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace sln.Bll
+namespace Michal.Project.Bll
 {
     public class StatusLogic
     {

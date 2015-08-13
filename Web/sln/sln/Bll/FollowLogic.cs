@@ -1,5 +1,5 @@
-﻿using sln.Contract;
-using sln.DataModel;
+﻿using Michal.Project.Contract;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace sln.Bll
+namespace Michal.Project.Bll
 {
     public class FollowLogic
     {

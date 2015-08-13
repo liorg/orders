@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln.Helper
+namespace Michal.Project.Helper
 {
     public static class HelperAutorize
     {

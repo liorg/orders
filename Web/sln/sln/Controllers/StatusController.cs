@@ -1,10 +1,10 @@
 ﻿using Microsoft.Owin.Security;
-using sln.Bll;
-using sln.Dal;
-using sln.DataModel;
-using sln.Helper;
-using sln.Models;
-using sln.Models.Status;
+using Michal.Project.Bll;
+using Michal.Project.Dal;
+using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
+using Michal.Project.Models.Status;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace sln.Controllers
+namespace Michal.Project.Controllers
 {
     public class StatusController : Controller
     {
@@ -37,7 +37,9 @@ namespace sln.Controllers
             {
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.FindAsync(shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -60,7 +62,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                var ship = await context.Shipping.Include(fb=>fb.FollowsBy).FirstOrDefaultAsync(s=>s.ShippingId== shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -86,8 +90,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-               // var ship = await context.Shipping.FindAsync(shipId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 Guid approval = Guid.Parse(Helper.Status.Confirm);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
@@ -120,8 +125,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                // var ship = await context.Shipping.FindAsync(shipId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
 
                 var request = new StatusRequestBase();
@@ -146,8 +152,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                // var ship = await context.Shipping.FindAsync(shipId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -163,7 +170,6 @@ namespace sln.Controllers
             }
         }
 
-       
         public async Task<ActionResult> Arrived(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -171,8 +177,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                // var ship = await context.Shipping.FindAsync(shipId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -196,7 +203,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(takeOkId);
-                var ship = await context.Shipping.FindAsync(shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -219,8 +228,9 @@ namespace sln.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(noTakeOkId);
-                // var ship = await context.Shipping.FindAsync(shipId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                //// var ship = await context.Shipping.FindAsync(shipId);
+                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;

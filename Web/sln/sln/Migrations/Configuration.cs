@@ -1,18 +1,18 @@
-namespace sln.Migrations
+namespace Michal.Project.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<sln.Dal.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Michal.Project.Dal.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(sln.Dal.ApplicationDbContext context)
+        protected override void Seed(Michal.Project.Dal.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -1,13 +1,13 @@
 ﻿using Microsoft.Owin.Security;
-using sln.Contract;
-using sln.Helper;
+using Michal.Project.Contract;
+using Michal.Project.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
 
-namespace sln.Models
+namespace Michal.Project.Models
 {
     public class UserContext : IUserContext
     {
