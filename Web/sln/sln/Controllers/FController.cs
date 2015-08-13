@@ -152,19 +152,18 @@ namespace Michal.Project.Controllers
 
                 bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
 
-
-                ViewBag.Total = total;
-                ViewBag.CurrentPage = page;
-                ViewBag.MoreRecord = hasMoreRecord;
-                ViewBag.FromDay = from.ToString("yyyy-MM-dd");
-                ViewBag.ToDay = to.ToString("yyyy-MM-dd");
-                ViewBag.IsToday = isToday;
-                ViewBag.Title = "מעקב המשלוחים שלי לתאריך " + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
+                //ViewBag.Total = total;
+                //ViewBag.CurrentPage = page;
+                //ViewBag.MoreRecord = hasMoreRecord;
+                //ViewBag.FromDay = from.ToString("yyyy-MM-dd");
+                //ViewBag.ToDay = to.ToString("yyyy-MM-dd");
+                //ViewBag.IsToday = isToday;
+                //ViewBag.Title = "מעקב המשלוחים שלי לתאריך " + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
 
 
                 FollowsView followsView = new FollowsView();
                 followsView.Items = shippingsItems.AsEnumerable();
-
+                followsView.ClientViewType = ClientViewType.Follows;
 
                 followsView.Total = total;
                 followsView.CurrentPage = page;

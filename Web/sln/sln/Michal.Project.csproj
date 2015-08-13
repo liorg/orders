@@ -190,6 +190,7 @@
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />
+    <Compile Include="Contract\View\IViewType.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CommentController.cs" />

@@ -6,11 +6,11 @@
     <ul class="pager"><li></li>
 @if (Model.CurrentPage > 1)
 {
-        <li><a href="#"  onclick="javascript:prevPage()">הקודם</a></li>
+        <li><a href="#"  onclick="javascript:prevPage('@Model.ClientViewType')">הקודם</a></li>
 }
 @if (Model.MoreRecord == true)
 {
-      <li><a href="#"  onclick="javascript:nextPage()">הבא</a></li> 
+      <li><a href="#"  onclick="javascript:nextPage('@Model.ClientViewType')">הבא</a></li> 
 }
         
 

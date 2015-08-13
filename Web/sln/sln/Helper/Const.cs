@@ -6,6 +6,7 @@ using System.Web;
 namespace Michal.Project.Helper
 {
     public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5 };
+   
     public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 
     public static class JobTitle

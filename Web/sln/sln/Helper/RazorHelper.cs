@@ -51,36 +51,36 @@ namespace Michal.Project.Helper
             return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
 
-        public static MvcHtmlString NextPage(this HtmlHelper helper, ClientViewType clientViewType)
-        {
-            var builder = new TagBuilder("a");
-            var src = "/s/";
-            var func = "/s/";
+        //public static MvcHtmlString NextPage(this HtmlHelper helper, ClientViewType clientViewType)
+        //{
+        //    var builder = new TagBuilder("a");
+        //    var src = "/s/";
+        //    var func = "/s/";
 
 
-            switch (clientViewType)
-            {
-                case ClientViewType.Views:
-                    break;
-                case ClientViewType.Follows:
-                    break;
-                case ClientViewType.Users:
-                    break;
-                case ClientViewType.Search:
-                    break;
-                case ClientViewType.Report:
-                    break;
-                default:
-                    break;
-            }
-            //<img class="media-object" data-src="holder.js/64x64" alt="64x64" 
-            //style="width: 32px; height: 32px;"
-            //src = "~/Content/img/Male-Avatar-Cool-Cap-icon.png" >
-            builder.MergeAttribute("src", src);
-            builder.MergeAttribute("style", "width: 32px; height: 32px;");
-            builder.MergeAttribute("class", "media-object");
-            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
-        }
+        //    switch (clientViewType)
+        //    {
+        //        case ClientViewType.Views:
+        //            break;
+        //        case ClientViewType.Follows:
+        //            break;
+        //        case ClientViewType.Users:
+        //            break;
+        //        case ClientViewType.Search:
+        //            break;
+        //        case ClientViewType.Report:
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //    //<img class="media-object" data-src="holder.js/64x64" alt="64x64" 
+        //    //style="width: 32px; height: 32px;"
+        //    //src = "~/Content/img/Male-Avatar-Cool-Cap-icon.png" >
+        //    builder.MergeAttribute("src", src);
+        //    builder.MergeAttribute("style", "width: 32px; height: 32px;");
+        //    builder.MergeAttribute("class", "media-object");
+        //    return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+        //}
 
     }
 }

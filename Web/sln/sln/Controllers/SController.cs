@@ -92,21 +92,21 @@ namespace Michal.Project.Controllers
 
                 bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
 
-                ViewBag.BShowAll = showAll;
-                ViewBag.ShowAll = showAll.ToString();
-                ViewBag.Total = total;
-                ViewBag.CurrentPage = page;
-                ViewBag.MoreRecord = hasMoreRecord;
+                //ViewBag.BShowAll = showAll;
+                //ViewBag.ShowAll = showAll.ToString();
+                //ViewBag.Total = total;
+                //ViewBag.CurrentPage = page;
+                //ViewBag.MoreRecord = hasMoreRecord;
                 ViewBag.Selected = view.StatusDesc;
                 ViewBag.StatusId = view.StatusId;
-                ViewBag.FromDay = from.ToString("yyyy-MM-dd");
-                ViewBag.ToDay = to.ToString("yyyy-MM-dd");
-                ViewBag.IsToday = isToday;
-                ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
+                //ViewBag.FromDay = from.ToString("yyyy-MM-dd");
+                //ViewBag.ToDay = to.ToString("yyyy-MM-dd");
+                //ViewBag.IsToday = isToday;
+                //ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
 
                 SpecialView specialView = new SpecialView();
                 specialView.Items = shippingsItems.AsEnumerable();
-                
+                specialView.ClientViewType = ClientViewType.Views;
 
                 specialView.BShowAll = showAll;
                 specialView.ShowAll = showAll.ToString();

@@ -133,11 +133,9 @@
             })
         });
 
-        function changeDay(isNext) {
-            var viewType = $('#viewType').val();
-            var viewAll = $('#viewAll').val();
-            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
-
+        function changeDay(isNext,t) {
+          
+            var currentPage = 1;
             var toMinus = isNext == true ? 1 : -1;
 
             var nextDay = $('#nextDay').val();
@@ -152,9 +150,42 @@
             var nextToStr = nextDayDate.toISOString().split('T')[0];
             var prevToStr = prevDayDate.toISOString().split('T')[0];
 
-            changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
-            // window.location.replace=
+            switch (t) {
+                case "Follows":
+                    followView(currentPage, prevToStr, nextToStr);
+                    break;
+                case "Views":
+                    viewer(null, null, currentPage, prevToStr, nextToStr);
+                    break;
+                default:
+                    changeView(page);
+            }
+           // changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+          
         }
+        //function changeDay(isNext) {
+        //    var viewType = $('#viewType').val();
+        //    var viewAll = $('#viewAll').val();
+        //    var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+
+        //    var toMinus = isNext == true ? 1 : -1;
+
+        //    var nextDay = $('#nextDay').val();
+        //    var prevDay = $('#prevDay').val();
+
+        //    var nextDayDate = new Date(nextDay);
+        //    var prevDayDate = new Date(prevDay);
+
+        //    nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
+        //    prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
+
+        //    var nextToStr = nextDayDate.toISOString().split('T')[0];
+        //    var prevToStr = prevDayDate.toISOString().split('T')[0];
+
+        //    changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+        //    // window.location.replace=
+        //}
+
 
         function changeViewType(viewType) {
             $('#viewType').val(viewType);
@@ -164,24 +195,41 @@
             // window.location.replace=
         }
 
-        function nextPage() {
-            debugger;
-            if ($('#currentPage').val() == null) {
+        function nextPage(t) {
+            if ($('#currentPage').val() == null) 
                 return;
-            }
+            
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) + 1;
-            changePage(page);
+            switch (t) {
+                case "Follows":
+                    followView(page);
+                    break;
+                case "Views":
+                    viewer(null, null, page, null, null);
+                    break;
+                default:
+                    changePage(page);
+            }
+           
         }
 
-        function prevPage() {
-            debugger;
-            if ($('#currentPage').val() == null) {
+        function prevPage(t) {
+            if ($('#currentPage').val() == null) 
                 return;
-            }
+            
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) - 1;
-            changePage(page);
+            switch (t) {
+                case "Follows":
+                    followView(page);
+                    break;
+                case "Views":
+                    viewer(null, null, page, null, null);
+                    break;
+                default:
+                    changePage(page);
+            }
         }
 
         function changePage(page) {
@@ -196,23 +244,54 @@
         }
 
         function clickToOrder(url) {
-            $.blockUI({
-                message: "נא המתו מעבד את הבקשה...",
-                css: {
-                    border: 'none',
-                    padding: '15px',
-                    backgroundColor: '#000',
-                    '-webkit-border-radius': '10px',
-                    '-moz-border-radius': '10px',
-                    opacity: .5,
-                    color: '#fff'
-                }
-            });
-            setTimeout(function () {
-                //  $.unblockUI();
-                window.location.href = url;
-            }
-            , 500);
+            changeUrl(url);
+        }
+
+        function followView( page, prevDay, nextDay) {
+            //debugger;
+            if(page==null)
+                 page = $('#currentPage').val();
+            
+            if(prevDay==null)
+                prevDay = $('#prevDay').val();
+            
+            if(nextDay==null)
+                nextDay = $('#nextDay').val();
+
+            var viewUrl = "/f?&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            changeUrl(viewUrl);
+        }
+
+        function viewer(viewType, viewAll, page, prevDay, nextDay) {
+
+            if (viewAll == null)
+                viewAll = $('#viewAll').val();
+
+            if (viewType == null)
+                viewType = $('#viewType').val();
+
+            if (page == null)
+                page = $('#currentPage').val();
+
+            if (prevDay == null)
+                prevDay = $('#prevDay').val();
+
+            if (nextDay == null)
+                nextDay = $('#nextDay').val();
+
+
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            changeUrl(viewUrl);
         }
 
         function changeView(viewType, viewAll, page, prevDay, nextDay) {
@@ -223,6 +302,10 @@
             if (nextDay != null)
                 viewUrl = viewUrl + "&nextDay=" + nextDay;
 
+            changeUrl(viewUrl);
+        }
+
+        function changeUrl(changeUrl) {
             $.blockUI({
                 message: "נא המתן מעבד את הבקשה...",
                 css: {
@@ -236,8 +319,7 @@
                 }
             });
             setTimeout(function () {
-                // $.unblockUI();
-                window.location.href = viewUrl;
+                window.location.href = changeUrl;
             }
             , 600);
         }
