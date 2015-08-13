@@ -229,28 +229,6 @@
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\RazorHelper.cs" />
     <Compile Include="Helper\UserProfileActionFilter.cs" />
-    <Compile Include="Migrations\201508050713206_dff.cs" />
-    <Compile Include="Migrations\201508050713206_dff.Designer.cs">
-      <DependentUpon>201508050713206_dff.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508061247310_recipient.cs" />
-    <Compile Include="Migrations\201508061247310_recipient.Designer.cs">
-      <DependentUpon>201508061247310_recipient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508061512068_pricecalc\.cs" />
-    <Compile Include="Migrations\201508061512068_pricecalc\.Designer.cs" />
-    <Compile Include="Migrations\201508070210281_gggg.cs" />
-    <Compile Include="Migrations\201508070210281_gggg.Designer.cs">
-      <DependentUpon>201508070210281_gggg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508070528152_ggggr.cs" />
-    <Compile Include="Migrations\201508070528152_ggggr.Designer.cs">
-      <DependentUpon>201508070528152_ggggr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508071513072_ggggrd.cs" />
-    <Compile Include="Migrations\201508071513072_ggggrd.Designer.cs">
-      <DependentUpon>201508071513072_ggggrd.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201508081739333_changescema.cs" />
     <Compile Include="Migrations\201508081739333_changescema.Designer.cs">
       <DependentUpon>201508081739333_changescema.cs</DependentUpon>
@@ -421,24 +399,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508050713206_dff.resx">
-      <DependentUpon>201508050713206_dff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508061247310_recipient.resx">
-      <DependentUpon>201508061247310_recipient.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508061512068_pricecalc\.resx">
-      <DependentUpon>.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508070210281_gggg.resx">
-      <DependentUpon>201508070210281_gggg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508070528152_ggggr.resx">
-      <DependentUpon>201508070528152_ggggr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508071513072_ggggrd.resx">
-      <DependentUpon>201508071513072_ggggrd.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508081739333_changescema.resx">
       <DependentUpon>201508081739333_changescema.cs</DependentUpon>
     </EmbeddedResource>
