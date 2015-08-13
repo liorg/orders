@@ -202,6 +202,9 @@
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) + 1;
             switch (t) {
+                case "Users":
+                    usersView(page);
+                    break;
                 case "Follows":
                     followView(page);
                     break;
@@ -221,12 +224,16 @@
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) - 1;
             switch (t) {
+                case "Users":
+                    usersView(page);
+                    break;
                 case "Follows":
                     followView(page);
                     break;
                 case "Views":
                     viewer(null, null, page, null, null);
                     break;
+
                 default:
                     changePage(page);
             }
@@ -241,6 +248,14 @@
 
             changeView(viewType, viewAll, page, prevDay, nextDay);
 
+        }
+        function usersView(page, prevDay, nextDay) {
+            //debugger;
+            if (page == null)
+                page = $('#currentPage').val();
+
+            var viewUrl = "/Account?&currentPage=" + page;
+            changeUrl(viewUrl);
         }
 
         function clickToOrder(url) {

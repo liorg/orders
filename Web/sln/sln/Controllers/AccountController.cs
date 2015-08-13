@@ -62,27 +62,38 @@ namespace Michal.Project.Controllers
         //    return View(model);
         //}
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? currentPage)
         {
             var userContext = new UserContext(AuthenticationManager);
-            IEnumerable<ApplicationUser> usersData;
-            var users = DBContext.Users;
-            var model = new List<EditUserViewModel>();
-            if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
-            else
-                usersData = users.ToList();
+            IQueryable<ApplicationUser> usersQuery;
+            //var users = DBContext.Users;
+            var inMemo = new List<EditUserViewModel>();
 
+            if (!User.IsInRole(HelperAutorize.RoleAdmin))
+                usersQuery = DBContext.Users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
+            else
+                usersQuery = DBContext.Users;
+            var total = await usersQuery.CountAsync();
+            int page = currentPage.HasValue ? currentPage.Value : 1;
+            var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+
+            var usersData = await usersQuery.OrderByDescending(ord => ord.UserName).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
+        
+           
             foreach (var user in usersData)
             {
                 var edit = new EditUserViewModel(user);
-                model.Add(edit);
+                inMemo.Add(edit);
             }
             UsersView usersView = new UsersView();
-            
-
-
-            return View(model);
+            usersView.Items = inMemo;
+            usersView.ClientViewType = ClientViewType.Users;
+            usersView.CurrentPage = page;
+            usersView.MoreRecord = hasMoreRecord;
+            usersView.Title = "משתמשים";
+            usersView.Total = total;
+           
+            return View(usersView);
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]

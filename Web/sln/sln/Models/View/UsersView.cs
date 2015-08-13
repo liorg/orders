@@ -9,34 +9,5 @@ namespace Michal.Project.Models.View
     public class UsersView : ViewDataPage<IEnumerable<EditUserViewModel>>
     {
 
-        public string FromDay
-        {
-            get;
-            set;
-        }
-
-        public string ToDay
-        {
-            get;
-            set;
-        }
-
-        public bool IsToday
-        {
-            get;
-            set;
-        }
-
-        public string ShowAll
-        {
-            get;
-            set;
-        }
-
-        public bool BShowAll
-        {
-            get;
-            set;
-        }
     }
 }
