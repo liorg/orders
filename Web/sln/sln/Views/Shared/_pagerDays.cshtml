@@ -1,10 +1,13 @@
-﻿<input type="hidden" value="@ViewBag.FromDay" id="prevDay" name="prevDay" />
-<input type="hidden" value="@ViewBag.ToDay" id="nextDay" name="nextDay" />
+﻿@model Michal.Project.Contract.IViewDays
+
+
+<input type="hidden" value="@Model.FromDay" id="prevDay" name="prevDay" />
+<input type="hidden" value="@Model.ToDay" id="nextDay" name="nextDay" />
 
 <div class="col-md-12">
     <ul class="pager">
         <li class="previous"><a href="#"  onclick="javascript:changeDay(false)">יום קודם</a></li>
-        @if (ViewBag.IsToday == false)
+        @if (Model.IsToday == false)
         {
             <li class="next"><a href="#"  onclick="javascript:changeDay(true)">יום הבא</a></li>
         }

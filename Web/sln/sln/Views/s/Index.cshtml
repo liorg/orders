@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Michal.Project.Models.ShippingVm>
+﻿@model Michal.Project.Models.View.SpecialView
 
 @{
     //ViewBag.Title = "הזמנות חדשות-טיוטות";
@@ -6,23 +6,23 @@
 }
 @Html.Partial("_viewLists")
 <div class="row">
-    <h3> <b class="centered">@ViewBag.Title</b> </h3>
-    @Html.Partial("_pagerDays")
+    <h3> <b class="centered">@Model.Title</b> </h3>
+    @Html.Partial("_pagerDays",Model)
 </div>
 <div class="row">
     <div class="col-md-12">
         <div style="overflow-x: scroll;">
             <table class="table table-striped table-hover">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.DistanceName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Status)</th>
-                    <th>@Html.DisplayNameFor(model => model.ShipTypeIdName)</th>
-                    <th>@Html.DisplayNameFor(model => model.CreatedOn)</th>
-                    <th>@Html.DisplayNameFor(model => model.From)</th>
-                    <th>@Html.DisplayNameFor(model => model.To)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Name)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.DistanceName)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Status)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.ShipTypeIdName)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.CreatedOn)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.From)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.To)</th>
                 </tr>
-                @if (!Model.Any())
+                @if (!Model.Items.Any())
                 {
                     <tr>
                         <td colspan="6">
@@ -30,7 +30,7 @@
                         </td>
                     </tr>
                 }
-                @foreach (var item in Model)
+                @foreach (var item in Model.Items)
                 {
                     <tr style="cursor: pointer;" onclick="javascript:clickToOrder('@(Url.Action("ShipView", "S", new { id = item.Id }))')">
                         <td>@Html.DisplayFor(modelItem => item.Name) </td>
@@ -45,5 +45,5 @@
             </table>
         </div>
     </div>
-    @Html.Partial("_pager")
+    @Html.Partial("_pager",Model)
 </div>

@@ -18,9 +18,6 @@
                 <li class="divider"></li>
                 @foreach (var view in ViewBag.Views)
                 {
-@*<li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })">@view.StatusDesc</a></li>*@
-@*<li onclick="$('#viewType').val(@view.StatusId); $('#viewSelected').submit()">@view.StatusDesc</li>*@
-    
                     <li><a href="#" onclick="javascript:changeViewType(@view.StatusId)">@view.StatusDesc</a></li>
                 }
                 <li class="divider"></li>

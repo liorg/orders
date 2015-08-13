@@ -5,21 +5,22 @@ using System.Web;
 
 namespace Michal.Project.Helper
 {
+    public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5 };
+    public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 
-    public enum JobType {Admin=1,Runner=2,Client=3};
     public static class JobTitle
     {
         public const string Admin = "מנהל מערכת";
         public const string Client = "לקוח";
         public const string DeliveryBoy = "שליח";
-
     }
+
     public static class General
     {
-
-        public const int MaxRecordsPerPage = 10;
+        public const int MaxRecordsPerPage = 3;
         public const string OrgWWW = "www";
     }
+
     public static class CustomClaimTypes
     {
         public const string ShowAllView = "http://r.co.il/claims/ShowAllView";
@@ -28,6 +29,7 @@ namespace Michal.Project.Helper
         public const string JobTitle = "http://r.co.il/claims/JobTitle";
         public const string JobType = "http://r.co.il/claims/JobType";
     }
+
     public class TimeStatus
     {
         public const int New = 1;
@@ -43,6 +45,7 @@ namespace Michal.Project.Helper
         public const int PrevStep = 11;
         public const int ChangePrice = 12;
     }
+
     public class Status
     {
         public const string Draft = "00000000-0000-0000-0000-000000000017";//1
@@ -55,14 +58,13 @@ namespace Michal.Project.Helper
         public const string AcceptByClient = "00000000-0000-0000-0000-000000000020";//8
         public const string NoAcceptByClient = "00000000-0000-0000-0000-000000000022";//9
         public const string Close = "00000000-0000-0000-0000-000000000021";//10
-
     }
 
     public class ProductType
     {
         public const string TimeWait = "00000000-0000-0000-0000-000000000001";
-
     }
+
     public class Notification
     {
         public const int Default = 0;

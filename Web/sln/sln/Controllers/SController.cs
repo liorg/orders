@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Michal.Project.Bll;
 using System.Linq.Expressions;
+using Michal.Project.Models.View;
 namespace Michal.Project.Controllers
 {
     [Authorize]
@@ -27,8 +28,103 @@ namespace Michal.Project.Controllers
             }
         }
 
-
         public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage, string nextDay, string prevDay)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var user = new UserContext(AuthenticationManager);
+                Guid orgId = Guid.Empty;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                int order = viewType.HasValue ? viewType.Value : user.DefaultView;
+                var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
+                if (view == null)
+                {
+                    view = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
+                    view.FieldShowMy = "OwnerId";
+                }
+
+                if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
+                    orgId = Guid.Empty; //user.OrgId;
+                var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
+                List<Shipping> shippings = new List<Shipping>();
+                var from = DateTime.Today.AddDays(-1).Date;
+                var to = DateTime.Today.AddDays(1).Date;
+
+                if (!String.IsNullOrEmpty(nextDay))
+                    to = DateTime.ParseExact(nextDay, "yyyy-MM-dd", null);
+
+                if (!String.IsNullOrEmpty(prevDay))
+                    from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
+
+
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+
+                if (!showAll)
+                    shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
+
+                int page = currentPage.HasValue ? currentPage.Value : 1;
+                var total = await shippingsQuery.CountAsync();
+                var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+
+                shippings = await shippingsQuery.OrderByDescending(ord => ord.ModifiedOn).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
+                var shippingsItems = new List<ShippingVm>();
+                foreach (var ship in shippings)
+                {
+
+                    var u = new ShippingVm();
+                    u.Id = ship.ShippingId;
+                    u.Status = ship.StatusShipping.Desc;
+                    u.Name = ship.Name;
+                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
+                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
+                    u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
+                    u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
+                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+                    u.NumFrom = ship.AddressNumFrom;
+                    u.NumTo = ship.AddressNumTo;
+                    u.SreetFrom = ship.AddressFrom;
+                    u.SreetTo = ship.AddressTo;
+                    u.TelTarget = ship.TelTarget;
+                    u.NameTarget = ship.NameTarget;
+
+                    shippingsItems.Add(u);
+                }
+
+                bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
+
+                ViewBag.BShowAll = showAll;
+                ViewBag.ShowAll = showAll.ToString();
+                ViewBag.Total = total;
+                ViewBag.CurrentPage = page;
+                ViewBag.MoreRecord = hasMoreRecord;
+                ViewBag.Selected = view.StatusDesc;
+                ViewBag.StatusId = view.StatusId;
+                ViewBag.FromDay = from.ToString("yyyy-MM-dd");
+                ViewBag.ToDay = to.ToString("yyyy-MM-dd");
+                ViewBag.IsToday = isToday;
+                ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
+
+                SpecialView specialView = new SpecialView();
+                specialView.Items = shippingsItems.AsEnumerable();
+                
+
+                specialView.BShowAll = showAll;
+                specialView.ShowAll = showAll.ToString();
+
+                specialView.Total = total;
+                specialView.CurrentPage = page;
+                specialView.MoreRecord = hasMoreRecord;
+                specialView.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
+                
+                specialView.FromDay = from.ToString("yyyy-MM-dd");
+                specialView.ToDay = to.ToString("yyyy-MM-dd");
+                specialView.IsToday = to.Date == DateTime.Now.AddDays(1).Date;
+
+                return View(specialView);
+            }
+        }
+
+        public async Task<ActionResult> IndexOld(int? viewType, bool? viewAll, int? currentPage, string nextDay, string prevDay)
         {
             using (var context = new ApplicationDbContext())
             {

@@ -188,6 +188,8 @@
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
+    <Compile Include="Contract\View\IViewAll.cs" />
+    <Compile Include="Contract\View\IViewDays.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -252,6 +254,9 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\View\FollowsView.cs" />
+    <Compile Include="Models\View\SpecialView.cs" />
+    <Compile Include="Models\View\base\ViewDataPage.cs" />
     <Compile Include="Models\ViewItem.cs" />
     <Compile Include="Models\ViewListsRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
