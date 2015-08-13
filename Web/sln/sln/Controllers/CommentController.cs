@@ -25,6 +25,7 @@ namespace sln.Controllers
         [HttpPost]
         public async Task<ActionResult> AddComment(string commnetText,string shipIdComment)
         {
+            
             Comment comment = new Comment();
             using (var context = new ApplicationDbContext())
             {
