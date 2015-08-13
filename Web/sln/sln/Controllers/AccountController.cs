@@ -15,6 +15,7 @@ using Michal.Project.DataModel;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
 using Michal.Project.Bll;
+using Michal.Project.Models.View;
 
 namespace Michal.Project.Controllers
 {
@@ -42,10 +43,27 @@ namespace Michal.Project.Controllers
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
+        //public ActionResult Index()
+        //{
+        //    var userContext = new UserContext(AuthenticationManager);
+        //    IEnumerable<ApplicationUser> usersData;
+        //    var users = DBContext.Users;
+        //    var model = new List<EditUserViewModel>();
+        //    if (!User.IsInRole(HelperAutorize.RoleAdmin))
+        //        usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
+        //    else
+        //        usersData = users.ToList();
+
+        //    foreach (var user in usersData)
+        //    {
+        //        var edit = new EditUserViewModel(user);
+        //        model.Add(edit);
+        //    }
+        //    return View(model);
+        //}
+
         public ActionResult Index()
         {
-            //  using (var context = new ApplicationDbContext())
-            // {
             var userContext = new UserContext(AuthenticationManager);
             IEnumerable<ApplicationUser> usersData;
             var users = DBContext.Users;
@@ -60,8 +78,11 @@ namespace Michal.Project.Controllers
                 var edit = new EditUserViewModel(user);
                 model.Add(edit);
             }
+            UsersView usersView = new UsersView();
+            
+
+
             return View(model);
-            // }
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
