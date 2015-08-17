@@ -22,6 +22,18 @@ namespace Michal.Project.Bll
                 await AddOwnerFollowBy(ship, context, dbUser);
 
         }
-         
+
+        public async Task AppendAdminFollowBy(Shipping ship, IEnumerable<IUserContext> admins, IDbSet<ApplicationUser> dbUser)
+        {
+            foreach (var admin in admins)
+            {
+
+                if (!ship.FollowsBy.Where(u => u.Id == admin.UserId.ToString()).Any())
+                    await AddOwnerFollowBy(ship, admin, dbUser);
+            }
+
+        }
+
+        
     }
 }

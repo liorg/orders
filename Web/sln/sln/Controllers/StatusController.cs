@@ -13,6 +13,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Michal.Project.Contract;
 
 namespace Michal.Project.Controllers
 {
@@ -74,8 +75,17 @@ namespace Michal.Project.Controllers
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
 
+                var usersAdmin = await context.Users.Where(us => us.Roles.Any(r => r.Role != null && r.Role.Name == Helper.HelperAutorize.RoleAdmin)).ToListAsync();
+                List<IUserContext> admins = new List<IUserContext>();
+                foreach (var useradmin in usersAdmin)
+                {
+                    admins.Add(new UserContext { UserId = Guid.Parse(useradmin.Id) });
+                }
+
+
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+                await followLogic.AppendAdminFollowBy(ship, admins, context.Users);
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "F");
@@ -110,7 +120,7 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 if (!String.IsNullOrEmpty(assignTo))
                 {
-                    await followLogic.AppendOwnerFollowBy(ship, new UserContext{ UserId =Guid.Parse(assignTo) }, context.Users); 
+                    await followLogic.AppendOwnerFollowBy(ship, new UserContext { UserId = Guid.Parse(assignTo) }, context.Users);
                 }
                 await context.SaveChangesAsync();
 
