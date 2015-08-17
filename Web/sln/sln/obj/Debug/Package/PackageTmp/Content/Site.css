@@ -194,45 +194,35 @@ img {
     margin: 0.15em;
     font-size: 3em;
 }
-
-.fa-eye-slash {
-    color: #FFFFFF;
-    background: #dd4b39;
-    padding: 0.1em 0.1em;
-}
-
-.fa-eye {
-    color: #FFFFFF;
-    background: #dd4b39;
-    padding: 0.1em 0.1em;
-}
-
-
-.fa-file-image-o {
-    background: #bb0000;
+.fa-whatsapp {
+ background: #18bc9c;
     color: #FFFFFF;
     padding: 0.25em 0.25em;
 }
 
-.fa-twitter {
-    background: #4099FF;
+.fa-eye-slash {
     color: #FFFFFF;
-    padding: 0.05em 0.07em;
+    background: #18bc9c;
+    padding: 0.25em 0.25em;
 }
 
-.fa-google-plus {
+.fa-eye {
     color: #FFFFFF;
-    background: #dd4b39;
-    padding: 0.1em 0.1em;
+     background: #18bc9c;
+     padding: 0.25em 0.25em;
 }
 
-.fa-dribbble {
-    color: #ea4c89;
+.fa-print{
+    color: #FFFFFF;
+     background: #18bc9c;
+     padding: 0.25em 0.25em;
+}
+.fa-file-image-o {
+    color: #FFFFFF;
+     background: #18bc9c;
+     padding: 0.25em 0.25em;
 }
 
-.fa-pinterest {
-    color: #cb2027;
-}
 
 .fa-facebook {
     background: #3B5998;
@@ -241,10 +231,11 @@ img {
 }
 
 .fa-youtube {
-    background: #bb0000;
+    background: #18bc9c;
     color: #FFFFFF;
     padding: 0.25em 0.25em;
 }
+
 /*http://bootsnipp.com/snippets/featured/circle-button*/
 .btn-circle {
     width: 30px;
@@ -404,3 +395,7 @@ body::-webkit-scrollbar {
     ::-webkit-scrollbar-thumb:window-inactive {
         background: #ddd;
     }
+
+.ran-nav-list {
+    background-color: #18bc9c;
+}
