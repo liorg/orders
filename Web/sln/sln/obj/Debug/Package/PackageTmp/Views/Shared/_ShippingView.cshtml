@@ -22,8 +22,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12 col-sm-12">
-                    
-                      <i class="fa fa-print circle"></i>
+
+                    <i class="fa fa-print  circle"></i>
                     <i class="fa fa-eye circle"></i>
                     <i class="fa fa-eye-slash circle"></i>
                     @*    <i class="fa fa-file-image-o circle"></i>*@
@@ -98,8 +98,12 @@
     </div>
 </div>
 <div class="row">
-    @Html.Partial("_comments")
+    <div class="col-md-12">
+        @Html.Partial("_comments")
+    </div>
 </div>
 <div class="row">
-    @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
+    <div class="col-md-12">
+        @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
+    </div>
 </div>
