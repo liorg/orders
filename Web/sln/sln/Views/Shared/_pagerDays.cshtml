@@ -3,7 +3,7 @@
 
 <input type="hidden" value="@Model.FromDay" id="prevDay" name="prevDay" />
 <input type="hidden" value="@Model.ToDay" id="nextDay" name="nextDay" />
-
+<div class="row">
 <div class="col-md-12">
     <ul class="pager">
         <li class="previous"><a href="#"  onclick="javascript:changeDay(false,'@Model.ClientViewType')">יום קודם</a></li>
@@ -13,3 +13,4 @@
         }
     </ul>
 </div>
+    </div>
