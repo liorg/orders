@@ -9,7 +9,6 @@ namespace Michal.Project.Controllers
 {
     public class HomeController : Controller
     {
-     //   [LayoutInjecterAttribute("~/Views/Shared/Homepage.cshtml")]
         public ActionResult Index()
         {
             return View();

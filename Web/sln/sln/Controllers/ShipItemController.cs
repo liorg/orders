@@ -29,14 +29,10 @@ namespace Michal.Project.Controllers
                 var shipItem = await context.ShippingItem.FindAsync(shipItemId);
                 if (shipItem != null)
                 {
-                    //shipItem.IsActive = false;
-                    //shipItem.ModifiedOn = DateTime.Now;
-                    //shipItem.ModifiedBy = userid;
                    shipId = shipItem.Shipping_ShippingId.Value;
                
                 }
                 
-               // ViewBag.ShipId = id.ToString();
                 context.Entry<ShippingItem>(shipItem).State = EntityState.Deleted;
                 await context.SaveChangesAsync();
 
@@ -96,13 +92,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 userid = user.UserId;
-                ////ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                ////foreach (var claim in claimsIdentity.Claims)
-                ////{
-                ////    if (claim.Type == ClaimTypes.NameIdentifier)
-                ////        userid = Guid.Parse(claim.Value);
-
-                ////}
 
                 shippingItem.ShippingItemId = Guid.NewGuid();
                 shippingItem.Shipping_ShippingId = shippingItemVm.ShipId;

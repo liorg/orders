@@ -43,11 +43,6 @@ namespace Michal.Project.Providers
                 identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
                 identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
             } 
-          
-
-            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //identity.AddClaim(new Claim("sub", context.UserName));
-            //identity.AddClaim(new Claim("role", "user"));
 
             context.Validated(identity);
 
