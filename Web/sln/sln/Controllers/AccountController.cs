@@ -43,25 +43,6 @@ namespace Michal.Project.Controllers
         }
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
-        //public ActionResult Index()
-        //{
-        //    var userContext = new UserContext(AuthenticationManager);
-        //    IEnumerable<ApplicationUser> usersData;
-        //    var users = DBContext.Users;
-        //    var model = new List<EditUserViewModel>();
-        //    if (!User.IsInRole(HelperAutorize.RoleAdmin))
-        //        usersData = users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId).ToList();
-        //    else
-        //        usersData = users.ToList();
-
-        //    foreach (var user in usersData)
-        //    {
-        //        var edit = new EditUserViewModel(user);
-        //        model.Add(edit);
-        //    }
-        //    return View(model);
-        //}
-
         public async Task<ActionResult> Index(int? currentPage)
         {
             var userContext = new UserContext(AuthenticationManager);
