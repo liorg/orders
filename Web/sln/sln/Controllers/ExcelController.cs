@@ -58,7 +58,7 @@ namespace Michal.Project.Controllers
                                       join u in context.Users
                                       on s.OwnerId.Value.ToString() equals u.Id
                                       where s.OwnerId.HasValue == true
-                                      && s.StatusShipping != null && s.StatusShipping.StatusShippingId == draf
+                                      && s.StatusShipping != null && s.StatusShipping.StatusShippingId != draf
                                       && s.CreatedOn > fromMonth && s.CreatedOn <= toMonth
                                       select new
                                       {
@@ -67,7 +67,16 @@ namespace Michal.Project.Controllers
                                           OwnerLastName = u.LastName,
                                           Department = u.Department,
                                           Price = s.ActualPrice,
-                                          Status = s.StatusShipping.Desc
+                                          Status = s.StatusShipping.Desc,
+
+                                         FromStreet=s.AddressFrom,
+                                          FromNum=s.AddressNumFrom,
+                                          FromCity = s.CityFromName,
+
+                                          ToStreet = s.AddressTo,
+                                          ToNum = s.AddressNumTo,
+                                          ToCity = s.CityToName,
+
                                       }).ToList();
                 DataSet ds = new DataSet();
                 ds.Tables.Add(new DataTable(toMonth.ToString("MM")));
@@ -77,7 +86,8 @@ namespace Michal.Project.Controllers
                 dt.Columns.Add(new DataColumn("מחלקה", typeof(string)));
                 dt.Columns.Add(new DataColumn("סטאטוס", typeof(string)));
                 dt.Columns.Add(new DataColumn("מחיר", typeof(decimal)));
-
+                dt.Columns.Add(new DataColumn("ממקום", typeof(string)));
+                dt.Columns.Add(new DataColumn("למקום", typeof(string)));
                 foreach (var ship in shippingsQuery)
                 {
                     var row = dt.NewRow();
@@ -86,6 +96,9 @@ namespace Michal.Project.Controllers
                     row["מחלקה"] = ship.Department;
                     row["סטאטוס"] = ship.Status;
                     row["מחיר"] = ship.Price;
+                    row["ממקום"] = ship.FromStreet + " " + ship.FromNum + " " + ship.FromCity;
+                    row["למקום"] = ship.ToStreet + " " + ship.ToNum + " " + ship.ToCity;
+
                     dt.Rows.Add(row);
                 }
                 using (MemoryStream ms = new MemoryStream())
