@@ -17,7 +17,7 @@ namespace Michal.Project.Providers
         {
             context.Validated();
         }
-
+        
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
