@@ -283,6 +283,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\rechov_150630.xml" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -414,7 +415,6 @@
     <Content Include="Views\Org\CreateShipByOrg.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
