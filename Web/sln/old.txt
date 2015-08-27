@@ -1,16 +1,17 @@
-1. follow ups /remove add
-2. camera
-3. upload
-4. signture
-5. report excel
-6. close order
-7. previous order
-8. search 
-9. price 
+1.  follow ups /remove add
+2.  camera
+3.  upload
+4.  signture
+5.  report excel
+6.  close order
+7.  previous order
+8.  search 
+9.  price 
 10. lead 
 11. whatsup
 12. jwt json token-done
 13. auto complete city and adress
 14. google map
+15. accept money
 
 -------------------------------------------------
