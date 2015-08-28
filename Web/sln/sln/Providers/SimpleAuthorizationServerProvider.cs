@@ -13,11 +13,16 @@ namespace Michal.Project.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        //public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        //{
+        //    context.Validated();
+        //     return Task.FromResult<object>(null);
+        //}
+        public override  Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
+            return Task.FromResult<object>(null);
         }
-        
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 

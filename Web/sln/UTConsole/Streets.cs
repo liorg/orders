@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,22 @@ namespace Michal.Project.Models
         public string CodeAddr { get; set; }
         [XmlElement("שם_רחוב")]
         public string Addr { get; set; }
+        [XmlElement("טבלה")]
+        public string Tbl { get; set; }
 
+    }
+    [JsonObject]
+    public class StreetsGeoLocation
+    {
+       
+        public List<StreetLatAndLng> StreetsItems { get; set; }
+    }
+    public class StreetLatAndLng : Street
+    {
+        public string GoogleApiUrl { get; set; }
+        [XmlElement("Lant")]
+        public double Lant { get; set; }
+         [XmlElement("Lng")]
+        public double Lng { get; set; }
     }
 }
