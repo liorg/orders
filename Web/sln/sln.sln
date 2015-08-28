@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{41
 		old.txt = old.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTConsole", "UTConsole\UTConsole.csproj", "{8ECD1E94-727A-4620-A630-39665E528D32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C18C3B7-5463-4F3B-A929-F4402DDEE822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

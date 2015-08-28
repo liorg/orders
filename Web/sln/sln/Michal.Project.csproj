@@ -260,6 +260,7 @@
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
+    <Compile Include="Models\Streets.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
