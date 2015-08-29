@@ -1,4 +1,5 @@
 ﻿using Michal.Project.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,25 @@ namespace UTConsole
     {
         static void Main(string[] args)
         {
-            //string path = HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
-            string path = "rr.xml";//HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
-            Streets streets;
-            // Construct an instance of the XmlSerializer with the type
-            // of object that is being deserialized.
-            XmlSerializer mySerializer =
-            new XmlSerializer(typeof(Streets));
-            // To read the file, create a FileStream.
-            FileStream myFileStream = new FileStream(path, FileMode.Open);
-            // Call the Deserialize method and cast to the object type.
-            streets = (Streets)mySerializer.Deserialize(myFileStream);
-            var googleformat = "http://maps.googleapis.com/maps/api/geocode/json?address={0},+{1},+{2}&sensor=true_or_false";
             StreetsGeoLocation location = new StreetsGeoLocation();
+            string path = "rr.xml";//HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
+            Streets streets = null;
+         
+            XmlSerializer mySerializer = new XmlSerializer(typeof(Streets));
+            // To read the file, create a FileStream.
+            using (FileStream myFileStream = new FileStream(path, FileMode.Open))
+            {
+                // Call the Deserialize method and cast to the object type.
+                streets = (Streets)mySerializer.Deserialize(myFileStream);
+            }
+
+            //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
+            //http://maps.googleapis.com/maps/api/geocode/json?address=אבולפיה,+תל אביב - יפו,+ישראל&sensor=true_or_false
+
+            var googleformat = "http://maps.googleapis.com/maps/api/geocode/json?address={0},+{1},+{2}&sensor=true_or_false";
+            int idx = 0;
+            int all = streets.StreetsItems.Count;
+            location.StreetsItems = new List<StreetLatAndLng>();
             foreach (var street in streets.StreetsItems)
             {
                 var streetLatAndLng = new StreetLatAndLng();
@@ -36,6 +43,8 @@ namespace UTConsole
                 streetLatAndLng.CodeAddr = street.CodeAddr;
                 streetLatAndLng.CodeCity = street.CodeCity;
                 streetLatAndLng.Id = street.Id;
+                streetLatAndLng.Tbl = street.Tbl;
+                //2247
                 try
                 {
                     var uri = String.Format(googleformat, street.Addr, street.City, "ישראל");
@@ -49,33 +58,40 @@ namespace UTConsole
 
                     string content = response.Content.ReadAsStringAsync().Result;
                     dynamic o = JObject.Parse(content);
-                    var result=o.results;
+                    var result = o.results;
+                    if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
+                    {
+                        var loc = result[0].geometry.location;
+
+                        streetLatAndLng.Lat = loc.lat;
+                        streetLatAndLng.Lng = loc.lng;
+                        Console.WriteLine("{0} ,{1},City ={2},Addr={3} ", streetLatAndLng.Lat, streetLatAndLng.Lng, streetLatAndLng.City, streetLatAndLng.Addr);
+
+                    }
                     var status = o.status;
-                    if (status.Value == "ZERO_RESULTS") 
+                    if (status.Value == "ZERO_RESULTS")
+                    {
+                        Console.WriteLine("no found,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
                         continue;
+                    }
+
                 }
                 catch (Exception ee)
                 {
-                    
-                    //throw;
                 }
-
-                //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
-                //http://maps.googleapis.com/maps/api/geocode/json?address=אבולפיה,+תל אביב - יפו,+ישראל&sensor=true_or_false
-               
+                Console.WriteLine("item {0} of {1}", idx, all);
+                idx++;
+                location.StreetsItems.Add(streetLatAndLng);
             }
+            using (FileStream fs = File.Open(@"rechov1.json", FileMode.OpenOrCreate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
 
-            //var st = new Streets();
-            //st.StreetsItems = new List<Street>();
-            //st.StreetsItems.Add(new Street { Addr = "1", City = "2", CodeAddr = "3", CodeCity = "4", Id = "5" });
-
-            //st.StreetsItems.Add(new Street { Addr = "1", City = "2", CodeAddr = "3", CodeCity = "4", Id = "5" });
-            //XmlSerializer s = new XmlSerializer(st.GetType());
-            //StringBuilder sb = new StringBuilder();
-            //TextWriter w = new StringWriter(sb);
-            //s.Serialize(w, st);
-            //w.Flush();
-
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(jw, location);
+            }
         }
     }
 }
