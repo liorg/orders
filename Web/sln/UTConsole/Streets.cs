@@ -38,7 +38,7 @@ namespace Michal.Project.Models
     [JsonObject]
     public class StreetsGeoLocation
     {
-       
+
         public List<StreetLatAndLng> StreetsItems { get; set; }
     }
     public class StreetLatAndLng : Street
@@ -46,7 +46,10 @@ namespace Michal.Project.Models
         public string GoogleApiUrl { get; set; }
         [XmlElement("Lat")]
         public double Lat { get; set; }
-         [XmlElement("Lng")]
+        [XmlElement("Lng")]
         public double Lng { get; set; }
+        public string Desc { get; set; }
+        public int UId { get; set; }
+        public string Status { get; set; }//OVER_QUERY_LIMIT,ZERO_RESULTSkkkk
     }
 }
