@@ -50,6 +50,6 @@ namespace Michal.Project.Models
         public double Lng { get; set; }
         public string Desc { get; set; }
         public int UId { get; set; }
-        public string Status { get; set; }//OVER_QUERY_LIMIT,ZERO_RESULTSkkkk
+        public string Status { get; set; }//OVER_QUERY_LIMIT,ZERO_RESULTS
     }
 }
