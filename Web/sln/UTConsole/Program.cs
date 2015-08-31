@@ -23,7 +23,7 @@ namespace UTConsole
 
             Init(file);
             //
-
+            //Test(file);
             //Test(@"rechovArrange2015-08-30 1127.json");
             //Test(@"rechovArrange2015-08-30 1228.json");
             //Test(@"rechovArrange2.json");
@@ -152,9 +152,9 @@ namespace UTConsole
                         {
                             try
                             {
-                                Thread.Sleep(1000);
+                                Thread.Sleep(200);
                                 var httpClient = new HttpClient();
-                                var response = httpClient.GetAsync(streetLatAndLng.GoogleApiUrl).Result;
+                                var response = httpClient.GetAsync(streetLatAndLng.GoogleApiUrl + "@client=AIzaSyC1gBDtccHjscCT6kVrIoNbF65YvB4j2o0").Result;
                                 //will throw an exception if not successful
                                 response.EnsureSuccessStatusCode();
 

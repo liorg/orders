@@ -57,15 +57,7 @@
     <None Include="rechovArrange2.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="rechovArrange2015-08-30 1028.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="rechovArrange2015-08-30 1127.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="rechovArrange2015-08-30 1228.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="rechovArrange2015-08-31 0517.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="rr.xml">
