@@ -54,10 +54,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="rechovArrange.json" />
-    <None Include="rechovArrange2.json">
+    <None Include="rechovArrange2015-08-31 0837.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="rechovArrange2015-08-31 0517.json" />
+    <None Include="rechovArrange2015-08-31 0845.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="rr.xml">
