@@ -57,9 +57,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="rechovArrange.json" />
-    <None Include="rechovArrange2015-08-31 0240.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="rechovArrange2015-08-31 0453.json" />
   </ItemGroup>
   <ItemGroup>
