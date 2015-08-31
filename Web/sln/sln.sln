@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{41
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLat", "UTConsole\MigrationXmlToJsonLngLat.csproj", "{8ECD1E94-727A-4620-A630-39665E528D32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLatF4", "XmlToJsonF4\MigrationXmlToJsonLngLatF4.csproj", "{E164196C-8372-4D1B-923D-DEE699FEAE78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{8ECD1E94-727A-4620-A630-39665E528D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
