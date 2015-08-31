@@ -23,7 +23,7 @@ namespace UTConsole
 
             Init(file);
             //
-            //Test(file);
+           // Test(file);
             //Test(@"rechovArrange2015-08-30 1127.json");
             //Test(@"rechovArrange2015-08-30 1228.json");
             //Test(@"rechovArrange2.json");
