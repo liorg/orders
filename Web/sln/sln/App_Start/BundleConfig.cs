@@ -14,6 +14,11 @@ namespace Michal.Project
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                       "~/Scripts/jquery-ui-1.11.4.min.js",
+                       "~/Scripts/AutocmpleteCascade.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                        "~/Scripts/myadmin.js"));
 
@@ -27,11 +32,9 @@ namespace Michal.Project
                       "~/Scripts/bootstrap-rtl.js",
                       "~/Scripts/respond.js"));
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include(
-            //          "~/Content/css/bootstrap-rtl.css",
-            //          "~/Content/site.css",
-            //          "~/Content/style.css"
-            //          ));
+            bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+                      "~/Content/themes/base/base.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap-rtl.css",
