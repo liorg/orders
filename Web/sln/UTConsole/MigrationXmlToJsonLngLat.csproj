@@ -85,7 +85,12 @@
     <None Include="App.config" />
     <None Include="MigrationXmlToJsonLngLat_TemporaryKey.pfx" />
     <None Include="packages.config" />
-    <None Include="rechovArrange.json" />
+    <Content Include="rechov.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="rechovArrange.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="rechovArrange2015-09-01 0358.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
