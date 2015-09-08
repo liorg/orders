@@ -1,9 +1,11 @@
-﻿    using Kipodeal.Helper.Cache;
+﻿using Kipodeal.Helper.Cache;
 using Michal.Project.DataModel;
 using Michal.Project.Helper;
 using Michal.Project.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -15,10 +17,40 @@ namespace Michal.Project.Dal
     {
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
-
+        static StreetsGeoLocation _locationDes = null;
         public MemeryCacheDataService()
         {
 
+        }
+
+        public StreetsGeoLocation GetStreetsGeoLocation()
+        {
+            string path = System.Web.HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "rechov.json";
+            if (_locationDes == null)
+            {
+                lock (lockObj)
+                {
+                    if (_locationDes == null)
+                    {
+                        using (StreamReader file = File.OpenText(path))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            _locationDes = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
+                        }
+                    }
+                }
+            }
+            return _locationDes;
+        }
+
+        public IEnumerable<KeyValuePair<string, string>> GetCities()
+        {
+             StreetsGeoLocation locationDes = GetStreetsGeoLocation();
+            var query = from cm in locationDes.StreetsItems
+                        group cm by new { cm.CodeCity, cm.City } into cms
+                        select
+                        new KeyValuePair<string, string>(cms.Key.CodeCity, cms.Key.City);
+            return query.ToList();
         }
 
         public List<City> GetCities(ApplicationDbContext context)
@@ -51,7 +83,7 @@ namespace Michal.Project.Dal
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
             List<Distance> lists = null;
-            cacheMemoryProvider.Get("DistancesPerOrg_"+orgId.ToString(), out lists);
+            cacheMemoryProvider.Get("DistancesPerOrg_" + orgId.ToString(), out lists);
             if (lists == null)
             {
                 lists = context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
@@ -87,7 +119,7 @@ namespace Michal.Project.Dal
                         viewItem.FieldShowMy = "CancelByAdmin";
                         _viewItems.Add(viewItem);
 
-                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח "  };
+                        viewItem = new ViewItem { StatusId = TimeStatus.AcceptByRunner, StatusDesc = "משלוחים שנמצאים אצל השליח " };
                         viewItem.FieldShowMy = "BroughtShipmentCustomer";
                         _viewItems.Add(viewItem);
 
