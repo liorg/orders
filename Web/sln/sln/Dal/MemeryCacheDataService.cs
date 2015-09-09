@@ -43,6 +43,21 @@ namespace Michal.Project.Dal
             return _locationDes;
         }
 
+        public IEnumerable<KeyValuePairUI> GetStreetByCityCode(string cityCode,string term,int maxTake)
+        {
+            StreetsGeoLocation locationDes = GetStreetsGeoLocation();
+            var query = (from cm in locationDes.StreetsItems
+                        where cm.CodeCity == cityCode && cm.Addr.Contains(term)
+                       select
+                        new KeyValuePairUI(cm.CodeAddr, cm.Addr)).Take(maxTake);
+            return query.ToList();
+        }
+
+        public IEnumerable<KeyValuePairUI> GetCitiesByName(string term)
+        {
+            var cities = GetCities();
+            return cities.Where(c => c.Value.Contains(term)).ToList();
+        }
         public IEnumerable<KeyValuePairUI> GetCities()
         {
              StreetsGeoLocation locationDes = GetStreetsGeoLocation();

@@ -260,6 +260,14 @@
     <Compile Include="Migrations\201509091147402_addressco3.Designer.cs">
       <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509091745301_f.cs" />
+    <Compile Include="Migrations\201509091745301_f.Designer.cs">
+      <DependentUpon>201509091745301_f.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509091746550_latlang.cs" />
+    <Compile Include="Migrations\201509091746550_latlang.Designer.cs">
+      <DependentUpon>201509091746550_latlang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
@@ -483,6 +491,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509091147402_addressco3.resx">
       <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509091745301_f.resx">
+      <DependentUpon>201509091745301_f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509091746550_latlang.resx">
+      <DependentUpon>201509091746550_latlang.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

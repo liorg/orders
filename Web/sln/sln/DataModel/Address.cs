@@ -15,5 +15,9 @@ namespace Michal.Project.DataModel
         public string StreetName { get; set; }
         public string ExtraDetail { get; set; }
         public string StreetNum{ get; set; }
+        public bool IsSensor { get; set; }
+        public int UID { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 }

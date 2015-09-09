@@ -4,116 +4,151 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-  @Styles.Render("~/Content/jqueryui")
-    @Scripts.Render("~/bundles/jqueryui")
- <script>
-  $(function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#tags" ).autocomplete({
-      source: availableTags
+@Styles.Render("~/Content/jqueryui")
+@Scripts.Render("~/bundles/jqueryui")
+<script>
+    $(function () {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
     });
-  });
-  </script>
- <style>
-  .ui-autocomplete-loading {
-    background: white url("/Content/img/ui-anim_basic_16x16.gif") right center no-repeat;
-  }
-  </style>
+</script>
+<style>
+    .ui-autocomplete-loading {
+        background: white url("/Content/img/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+</style>
 <div>
-
-
     utest
      
-<div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div><div class="ui-widget">
-   <label for="country">Country: </label> 
-       @* <input id="country" />
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+    <div class="ui-widget">
+        <label for="country">Country: </label>
+        @* <input id="country" />
         (Type "a", "r", "g", "e", "n", "t", "i", "n", "v", "z", "u", "l", "s", "c" or "h")
         <br/>*@
         <label for="city">City: </label>
         <input id="city" />
+        <input id="cityCode" />
         (Type "c")
-        <br/>
+        <br />
         <label for="street">Street: </label>
         <input id="street" />
         (Type "s")
     </div>
-        <script type="text/javascript">
-            $(function () {
-                //$("#country").autocomplete({
-                //    source: [
-                //        "Argentina",
-                //        "Venezuela",
-                //        "Italia",
-                //        "Russia",
-                //        "China",
-                //        "Australia"
-                //    ]
-                //});
-                var cache = {};
-                $("#city").autocomplete({
-                    source: "http://localhost:4545/api/address/SearchCities",
+    <script type="text/javascript">
+        $(function () {
+            function log(message) {
+                $("<div>").text(message).prependTo("#log");
+                $("#log").scrollTop(0);
+            }
+            //$("#country").autocomplete({
+            //    source: [
+            //        "Argentina",
+            //        "Venezuela",
+            //        "Italia",
+            //        "Russia",
+            //        "China",
+            //        "Australia"
+            //    ]
+            //});
+            var cache = {};
+            $("#city").autocomplete({
+                source: "/api/address/SearchCities",
 
-                    minLength: 2,
+                minLength: 2,
 
-                    select: function (event, ui) {
-                        debugger;
-                        log(ui.item ?
+                select: function (event, ui) {
+                    debugger;
+                    log(ui.item ?
 
-                          "Selected: " + ui.item.value + " aka " + ui.item.id :
+                      "Selected: " + ui.item.value + " aka " + ui.item.id :
 
-                          "Nothing selected, input was " + this.value);
+                      "Nothing selected, input was " + this.value);
+                    $("#cityCode").val(ui.item.id);
+                }
 
-                    }
 
-
-                });
-                $("#street").autocomplete({
-                    source: function (request, response) {
-                        var city = $("#city").val(),
-                            streets = [
-                                "Street 1, " + city,
-                                "Street 1, " + city,
-                                "Street 1, " + city,
-                                "Street 1, " + city
-                            ];
-                        var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                        response($.grep(streets, function (value) {
-                            return matcher.test(value);
-                        }));
-                    }
-                });
-
-                $.cascadingAutocompletes(["#city", "#street"]);
             });
-        </script>
+            $("#street").autocomplete({
+                source: function (request, response) {
+                    //var from_url = $(this.element).attr("from-url");
+                    //var parent = $(this.element).attr("parent");
+                    var pfId = $("#cityCode").val();
+                    $.ajax({
+                        url: "/api/address/SearchStreets",
+                        dataType: "json",
+                        type: 'POST',
+                        data: {
+                            MaxItems: 12,
+                            ParentFilterId: pfId,
+                            NameStartsWith: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data.items, function (item) {
+                                return {
+                                    label: item.value,
+                                    value: item.value,
+                                    id: item.id
+                                }
+                            }));
+                        }
+                    });
+                    //var city = $("#city").val(),
+                    //    streets = [
+                    //        "Street 1, " + city,
+                    //        "Street 1, " + city,
+                    //        "Street 1, " + city,
+                    //        "Street 1, " + city
+                    //    ];
+                    //var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    //response($.grep(streets, function (value) {
+                    //    return matcher.test(value);
+                    //}));
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    //  $("#" + $(this).attr("autocomplete-for")).val(ui.item.id);
+                    log(ui.item ?
+
+                     "Selected: " + ui.item.value + " aka " + ui.item.id :
+
+                     "Nothing selected, input was " + this.value);
+                },
+            });
+
+            $.cascadingAutocompletes(["#city", "#street"]);
+        });
+    </script>
 </div>
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Result:
+<div class="ui-widget" style="margin-top: 2em; font-family: Arial">
+    Result:
   <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>

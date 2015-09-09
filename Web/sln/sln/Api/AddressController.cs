@@ -37,8 +37,7 @@ namespace Michal.Project.Api
         {
 
             MemeryCacheDataService mem = new MemeryCacheDataService();
-            var cities = mem.GetCities();
-            var search = cities.Where(c => c.Value.Contains(term)).ToList();
+            var search = mem.GetCitiesByName(term);
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(search,
@@ -49,6 +48,22 @@ namespace Michal.Project.Api
             //response.Headers.CacheControl.NoStore = true;
             return response;
         }
+        [AcceptVerbs("GET")]
+        [Route("SearchStreets")]
+        public HttpResponseMessage SearchStreet(int MaxItems,string ParentFilterId,string Term)
+        {
 
+            MemeryCacheDataService mem = new MemeryCacheDataService();  
+            var streets=mem.GetStreetByCityCode(ParentFilterId, Term, MaxItems);
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(streets,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            //response.Headers.CacheControl = new CacheControlHeaderValue();
+            //response.Headers.CacheControl.NoStore = true;
+            return response;
+        }
     }
 }

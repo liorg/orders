@@ -41,6 +41,86 @@
     .ui-autocomplete-loading {
         background: white url("/Content/img/ui-anim_basic_16x16.gif") right center no-repeat;
     }
+
+    /* highlight results */
+    .ui-autocomplete span.hl_results {
+        background-color: #ffff66;
+    }
+
+
+
+    /* scroll results */
+    .ui-autocomplete {
+        max-height: 250px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding for vertical scrollbar */
+        padding-right: 5px;
+    }
+
+        .ui-autocomplete li {
+            font-size: 16px;
+        }
+
+    /* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+    * html .ui-autocomplete {
+        height: 250px;
+    }
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        float: left;
+        display: none;
+        min-width: 160px;
+        _width: 160px;
+        padding: 4px 0;
+        margin: 2px 0 0 0;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+    }
+
+    .ui-state-hover, &.ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    
 </style>
 <div>
     utest
@@ -56,6 +136,7 @@
         <br/>*@
         <label for="city">City: </label>
         <input id="city" />
+        <input id="cityCode" />
         (Type "c")
         <br />
         <label for="street">Street: </label>
@@ -68,22 +149,15 @@
                 $("<div>").text(message).prependTo("#log");
                 $("#log").scrollTop(0);
             }
-            //$("#country").autocomplete({
-            //    source: [
-            //        "Argentina",
-            //        "Venezuela",
-            //        "Italia",
-            //        "Russia",
-            //        "China",
-            //        "Australia"
-            //    ]
-            //});
+
             var cache = {};
             $("#city").autocomplete({
-                source: "http://localhost:4545/api/address/SearchCities",
-
+                source: "/api/address/SearchCities",
+                html: true, autoFocus: true, selectFirst: true,
                 minLength: 2,
-
+                open: function (event, ui) {
+                    $(".ui-autocomplete").css("z-index", 1000);
+                },
                 select: function (event, ui) {
                     debugger;
                     log(ui.item ?
@@ -91,25 +165,36 @@
                       "Selected: " + ui.item.value + " aka " + ui.item.id :
 
                       "Nothing selected, input was " + this.value);
-
+                    $("#cityCode").val(ui.item.id);
                 }
 
 
             });
             $("#street").autocomplete({
+                html: true,
+                open: function (event, ui) {
+                    $(".ui-autocomplete").css("z-index", 1000);
+                },
                 source: function (request, response) {
-                    //var city = $("#city").val(),
-                    //    streets = [
-                    //        "Street 1, " + city,
-                    //        "Street 1, " + city,
-                    //        "Street 1, " + city,
-                    //        "Street 1, " + city
-                    //    ];
-                    //var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    //response($.grep(streets, function (value) {
-                    //    return matcher.test(value);
-                    //}));
-                }
+                    var pfId = $("#cityCode").val();
+                    $.ajax({
+                        url: "/api/address/SearchStreets",
+                        dataType: "json", autoFocus: true, selectFirst: true,
+                        type: 'GET',
+                        data: {
+                            MaxItems: 12,
+                            ParentFilterId: pfId,
+                            Term: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    log(ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
+                },
             });
 
             $.cascadingAutocompletes(["#city", "#street"]);
