@@ -19,17 +19,34 @@ namespace Michal.Project.Api
         [Route("Cities")]
         public HttpResponseMessage GetCities()
         {
-            //StreetsGeoLocation location = new StreetsGeoLocation();
             MemeryCacheDataService mem = new MemeryCacheDataService();
             var cities = mem.GetCities();
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<IEnumerable<KeyValuePair<string, string>>>(cities,
+                Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(cities,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
-            response.Headers.CacheControl = new CacheControlHeaderValue();
-            response.Headers.CacheControl.NoStore = true;
+            //response.Headers.CacheControl = new CacheControlHeaderValue();
+            //response.Headers.CacheControl.NoStore = true;
+            return response;
+        }
+        [AcceptVerbs("GET")]
+        [Route("SearchCities")]
+        public HttpResponseMessage SearchCities(string term)
+        {
+
+            MemeryCacheDataService mem = new MemeryCacheDataService();
+            var cities = mem.GetCities();
+            var search = cities.Where(c => c.Value.Contains(term)).ToList();
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(search,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            //response.Headers.CacheControl = new CacheControlHeaderValue();
+            //response.Headers.CacheControl.NoStore = true;
             return response;
         }
 

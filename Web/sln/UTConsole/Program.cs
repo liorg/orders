@@ -19,7 +19,9 @@ namespace UTConsole
         {
             Console.WriteLine("1.0.0.5");
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
-            Test(file);
+            Merge();
+            //Init(file);
+          //  Test(file);
             //  ConvertXmlToJson();
             // Merge();
             //  
@@ -53,8 +55,8 @@ namespace UTConsole
             StreetsGeoLocation location = new StreetsGeoLocation();
             location.StreetsItems = new List<StreetLatAndLng>();
             int idx = 0;
-            using (StreamReader rechovArrange = File.OpenText(@"rechovArrange.json"))
-            using (StreamReader file = File.OpenText(@"rechovArrange2015-08-30 1028.json"))
+            using (StreamReader rechovArrange = File.OpenText(@"rechov.json"))
+            using (StreamReader file = File.OpenText(@"rechovArrange2015-09-09 0414.json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 StreetsGeoLocation locationTarget = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
@@ -77,7 +79,7 @@ namespace UTConsole
                     streetLatAndLng.Id = streetSource.Id;
                     streetLatAndLng.Tbl = streetSource.Tbl;
                     streetLatAndLng.GoogleApiUrl = streetSource.GoogleApiUrl;
-
+                    streetLatAndLng.GoogleFromatApiUrl = streetSource.GoogleFromatApiUrl;
                     streetLatAndLng.Lat = streetSource.Lat;
                     streetLatAndLng.Lng = streetSource.Lng;
                     Console.WriteLine("item {0} of {1}", idx, all);
@@ -93,20 +95,20 @@ namespace UTConsole
                             break;
                         }
                     }
-                    if (streetLatAndLng.Lat == 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
-                    {
-                        streetLatAndLng.Status = "new";
-                    }
-                    else if (streetLatAndLng.Lat != 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
-                    {
-                        streetLatAndLng.Status = "ok";
-                    }
+                    //if (streetLatAndLng.Lat == 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
+                    //{
+                    //    streetLatAndLng.Status = "new";
+                    //}
+                    //else if (streetLatAndLng.Lat != 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
+                    //{
+                    //    streetLatAndLng.Status = "ok";
+                    //}
 
                     location.StreetsItems.Add(streetLatAndLng);
 
                 }
             }
-            using (FileStream fs = File.Open(@"rechovArrange2.json", FileMode.OpenOrCreate))
+            using (FileStream fs = File.Open(@"rechovOk.json", FileMode.OpenOrCreate))
             using (StreamWriter sw = new StreamWriter(fs))
             using (JsonWriter jw = new JsonTextWriter(sw))
             {
@@ -130,7 +132,9 @@ namespace UTConsole
             {
                 JsonSerializer serializer = new JsonSerializer();
                 StreetsGeoLocation locationDes = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
-                var items = locationDes.StreetsItems.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+               // var items = locationDes.StreetsItems.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+                var items = locationDes.StreetsItems.OrderBy(i=>i.UId).ToList();//.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+               
                 var all = items.Count; bool stopService = false;
                 foreach (var street in items)
                 {
@@ -145,12 +149,13 @@ namespace UTConsole
                     streetLatAndLng.Id = street.Id;
                     streetLatAndLng.Tbl = street.Tbl;
                     streetLatAndLng.GoogleApiUrl = street.GoogleApiUrl;
+                    streetLatAndLng.GoogleFromatApiUrl = street.GoogleFromatApiUrl;
                     streetLatAndLng.Lat = street.Lat;
                     streetLatAndLng.Lng = street.Lng;
                     streetLatAndLng.Status = street.Status;
                     if (streetLatAndLng.Lat == 0.0)
                     {
-                        if (!stopService)
+                        if (!stopService && (street.Status == "new" || street.Status == "OVER_QUERY_LIMIT"))
                         {
                             try
                             {

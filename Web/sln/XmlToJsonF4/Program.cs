@@ -37,7 +37,9 @@ namespace XmlToJsonF4
             {
                 JsonSerializer serializer = new JsonSerializer();
                 StreetsGeoLocation locationDes = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
-                var items = locationDes.StreetsItems.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+             //   var items = locationDes.StreetsItems.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+                  var items = locationDes.StreetsItems.OrderBy(i => i.UId).ToList();//.Where(w => String.IsNullOrEmpty(w.Status) || w.Status == "new" || w.Status == "OVER_QUERY_LIMIT").OrderBy(d => d.UId).ToList();
+               
                 var all = items.Count; bool stopService = false;
                 foreach (var street in items)
                 {
@@ -52,12 +54,15 @@ namespace XmlToJsonF4
                     streetLatAndLng.Id = street.Id;
                     streetLatAndLng.Tbl = street.Tbl;
                     streetLatAndLng.GoogleApiUrl = street.GoogleApiUrl;
+                    streetLatAndLng.GoogleFromatApiUrl = street.GoogleFromatApiUrl;
                     streetLatAndLng.Lat = street.Lat;
                     streetLatAndLng.Lng = street.Lng;
                     streetLatAndLng.Status = street.Status;
                     if (streetLatAndLng.Lat == 0.0)
                     {
-                        if (!stopService)
+                       // if (!stopService)
+                        //{
+                        if (!stopService && (street.Status == "new" || street.Status == "OVER_QUERY_LIMIT"))
                         {
                             try
                             {

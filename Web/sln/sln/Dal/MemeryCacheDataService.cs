@@ -43,13 +43,13 @@ namespace Michal.Project.Dal
             return _locationDes;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetCities()
+        public IEnumerable<KeyValuePairUI> GetCities()
         {
              StreetsGeoLocation locationDes = GetStreetsGeoLocation();
             var query = from cm in locationDes.StreetsItems
                         group cm by new { cm.CodeCity, cm.City } into cms
                         select
-                        new KeyValuePair<string, string>(cms.Key.CodeCity, cms.Key.City);
+                        new KeyValuePairUI(cms.Key.CodeCity, cms.Key.City);
             return query.ToList();
         }
 

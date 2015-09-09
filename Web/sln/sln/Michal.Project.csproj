@@ -252,13 +252,18 @@
     <Compile Include="Helper\HelperAutorize.cs" />
     <Compile Include="Helper\RazorHelper.cs" />
     <Compile Include="Helper\UserProfileActionFilter.cs" />
-    <Compile Include="Migrations\201508081739333_changescema.cs" />
-    <Compile Include="Migrations\201508081739333_changescema.Designer.cs">
-      <DependentUpon>201508081739333_changescema.cs</DependentUpon>
+    <Compile Include="Migrations\201508081739333_changescema.Designer.cs" />
+    <Compile Include="Migrations\201508081739333_changescema.Designer.Designer.cs">
+      <DependentUpon>201508081739333_changescema.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509091147402_addressco3.cs" />
+    <Compile Include="Migrations\201509091147402_addressco3.Designer.cs">
+      <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
+    <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
@@ -315,6 +320,9 @@
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
+    <Content Include="Content\img\ui-anim_basic_16x16.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
@@ -470,8 +478,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508081739333_changescema.resx">
-      <DependentUpon>201508081739333_changescema.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508081739333_changescema.Designer.resx">
+      <DependentUpon>201508081739333_changescema.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509091147402_addressco3.resx">
+      <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
