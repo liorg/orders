@@ -222,6 +222,7 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
+    <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\Comment.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="DataModel\ShipType.cs" />
     <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\ShippingItemPrice.cs" />
+    <Compile Include="DataModel\TableTest.cs" />
     <Compile Include="fonts\XbzCounter.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />

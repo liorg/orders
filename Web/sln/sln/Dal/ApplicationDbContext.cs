@@ -31,5 +31,7 @@ namespace Michal.Project.Dal
         public DbSet<Lead> Lead { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<ShipType> ShipType { get; set; }
+
+        public DbSet<TableTest> TableTest { get; set; }
     }
 }

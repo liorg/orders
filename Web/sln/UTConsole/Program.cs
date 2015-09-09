@@ -18,10 +18,12 @@ namespace UTConsole
         static void Main(string[] args)
         {
             Console.WriteLine("1.0.0.5");
-            ConvertXmlToJson();
+            var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
+            Test(file);
+            //  ConvertXmlToJson();
             // Merge();
-            //  var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
-         //   MegrgLoad();
+            //  
+         
             //Init(file);
             //
             // Test(file);
@@ -410,6 +412,7 @@ namespace UTConsole
                 }
                 catch (Exception ee)
                 {
+                    Console.WriteLine(ee);
                 }
                 Console.WriteLine("item {0} of {1}", idx, all);
                 idx++;
