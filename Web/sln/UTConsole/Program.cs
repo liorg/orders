@@ -17,10 +17,11 @@ namespace UTConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("1.0.0.4");
+            Console.WriteLine("1.0.0.5");
+            ConvertXmlToJson();
             // Merge();
             //  var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
-            MegrgLoad();
+         //   MegrgLoad();
             //Init(file);
             //
             // Test(file);
@@ -263,7 +264,7 @@ namespace UTConsole
         static void FirstLoadOld()
         {
             StreetsGeoLocation location = new StreetsGeoLocation();
-            string path = "rr.xml";//HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
+            string path = "rechov_150630.xml";//HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
             Streets streets = null;
 
             XmlSerializer mySerializer = new XmlSerializer(typeof(Streets));
@@ -340,7 +341,8 @@ namespace UTConsole
             }
         }
 
-        static void MegrgLoad()
+        
+        static void ConvertXmlToJson()
         {
             StreetsGeoLocation location = new StreetsGeoLocation();
             string path = "rechov_150630.xml";//HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "cars.xml";
@@ -353,28 +355,17 @@ namespace UTConsole
                 // Call the Deserialize method and cast to the object type.
                 streets = (Streets)mySerializer.Deserialize(myFileStream);
             }
-            StreetsGeoLocation locationGeo = new StreetsGeoLocation();
-            location.StreetsItems = new List<StreetLatAndLng>();
-
-            using (StreamReader file = File.OpenText("rechovArrange.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                StreetsGeoLocation locationDes = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
-               
-            }
 
             //http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
             //http://maps.googleapis.com/maps/api/geocode/json?address=אבולפיה,+תל אביב - יפו,+ישראל&sensor=true_or_false
 
             var googleformat = "http://maps.googleapis.com/maps/api/geocode/json?address={0},+{1},+{2}&sensor=true_or_false";
-            int idx = locationGeo.StreetsItems.Count + 100;
-
+            var googleformatNum = "http://maps.googleapis.com/maps/api/geocode/json?address=##+{0},+{1},+{2}&sensor=true_or_false";
+            int idx = 1;
+            int all = streets.StreetsItems.Count;
             location.StreetsItems = new List<StreetLatAndLng>();
             foreach (var street in streets.StreetsItems)
             {
-                if (locationGeo.StreetsItems.Where(idd => idd.Id == street.Id).Any())
-                    continue;
-
                 var streetLatAndLng = new StreetLatAndLng();
                 streetLatAndLng.Addr = street.Addr;
                 streetLatAndLng.City = street.City;
@@ -384,48 +375,47 @@ namespace UTConsole
                 streetLatAndLng.Tbl = street.Tbl;
                 streetLatAndLng.UId = idx;
                 streetLatAndLng.Status = "new";
+                //2247
                 try
                 {
                     var uri = String.Format(googleformat, street.Addr, street.City, "ישראל");
+                     
                     streetLatAndLng.GoogleApiUrl = uri;
+                    streetLatAndLng.GoogleFromatApiUrl = String.Format(googleformatNum, street.Addr, street.City, "ישראל").Replace("##", "{0}");
+                    //var httpClient = new HttpClient();
+                    //var response = httpClient.GetAsync(uri).Result;
 
-                    var httpClient = new HttpClient();
-                    var response = httpClient.GetAsync(uri).Result;
+                    ////will throw an exception if not successful
+                    //response.EnsureSuccessStatusCode();
 
-                    //will throw an exception if not successful
-                    response.EnsureSuccessStatusCode();
+                    //string content = response.Content.ReadAsStringAsync().Result;
+                    //dynamic o = JObject.Parse(content);
+                    //var result = o.results;
+                    //if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
+                    //{
+                    //    var loc = result[0].geometry.location;
 
-                    string content = response.Content.ReadAsStringAsync().Result;
-                    dynamic o = JObject.Parse(content);
-                    var result = o.results;
-                    if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
-                    {
-                        var loc = result[0].geometry.location;
+                    //    streetLatAndLng.Lat = loc.lat;
+                    //    streetLatAndLng.Lng = loc.lng;
+                    //    Console.WriteLine("{0} ,{1},City ={2},Addr={3} ", streetLatAndLng.Lat, streetLatAndLng.Lng, streetLatAndLng.City, streetLatAndLng.Addr);
 
-                        streetLatAndLng.Lat = loc.lat;
-                        streetLatAndLng.Lng = loc.lng;
-                        Console.WriteLine("{0} ,{1},City ={2},Addr={3} ", streetLatAndLng.Lat, streetLatAndLng.Lng, streetLatAndLng.City, streetLatAndLng.Addr);
-
-                    }
-                    var status = o.status;
-                    streetLatAndLng.Status = status;
-                    if (status.Value == "ZERO_RESULTS")
-                    {
-                        Console.WriteLine("no found,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
-                        continue;
-                    }
+                    //}
+                    //var status = o.status;
+                    //if (status.Value == "ZERO_RESULTS")
+                    //{
+                    //    Console.WriteLine("no found,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+                    //    continue;
+                    //}
 
                 }
                 catch (Exception ee)
                 {
                 }
-                Console.WriteLine("item {0}", idx);
+                Console.WriteLine("item {0} of {1}", idx, all);
                 idx++;
                 location.StreetsItems.Add(streetLatAndLng);
-
-
             }
-            using (FileStream fs = File.Open(@"rechovextra.json", FileMode.OpenOrCreate))
+            using (FileStream fs = File.Open(@"rechov.json", FileMode.OpenOrCreate))
             using (StreamWriter sw = new StreamWriter(fs))
             using (JsonWriter jw = new JsonTextWriter(sw))
             {
@@ -435,5 +425,6 @@ namespace UTConsole
                 serializer.Serialize(jw, location);
             }
         }
+
     }
 }

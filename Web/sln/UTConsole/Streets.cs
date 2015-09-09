@@ -43,6 +43,7 @@ namespace Michal.Project.Models
     }
     public class StreetLatAndLng : Street
     {
+        public string GoogleFromatApiUrl { get; set; }
         public string GoogleApiUrl { get; set; }
         [XmlElement("Lat")]
         public double Lat { get; set; }
