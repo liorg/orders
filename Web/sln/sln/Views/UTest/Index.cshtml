@@ -7,6 +7,17 @@
 @Styles.Render("~/Content/jqueryui")
 @Scripts.Render("~/bundles/jqueryui")
 <script>
+    /*
+ * jQuery UI Autocomplete Auto Select Extension
+ *
+ * Copyright 2010, Scott González (http://scottgonzalez.com)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
+ * http://github.com/scottgonzalez/jquery-ui-extensions
+ */
+   
+   
+
     $(function () {
         var availableTags = [
           "ActionScript",
@@ -123,12 +134,7 @@
     
 </style>
 <div>
-    utest
-     
-    <div class="ui-widget">
-        <label for="tags">Tags: </label>
-        <input id="tags">
-    </div>
+ 
     <div class="ui-widget">
         <label for="country">Country: </label>
         @* <input id="country" />
@@ -140,7 +146,7 @@
         (Type "c")
         <br />
         <label for="street">Street: </label>
-        <input id="street" />
+        <input id="street" /><input id="streetCode" />
         (Type "s")
     </div>
     <script type="text/javascript">
@@ -153,25 +159,21 @@
             var cache = {};
             $("#city").autocomplete({
                 source: "/api/address/SearchCities",
-                html: true, autoFocus: true, selectFirst: true,
+                html: true, autoFocus: true, selectFirst: true,autoSelect:true,
                 minLength: 2,
                 open: function (event, ui) {
                     $(".ui-autocomplete").css("z-index", 1000);
                 },
                 select: function (event, ui) {
                     debugger;
-                    log(ui.item ?
-
-                      "Selected: " + ui.item.value + " aka " + ui.item.id :
-
-                      "Nothing selected, input was " + this.value);
+                    log(ui.item ?  "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
                     $("#cityCode").val(ui.item.id);
                 }
 
 
             });
             $("#street").autocomplete({
-                html: true,
+                html: true, autoFocus: true, selectFirst: true, autoSelect: true,
                 open: function (event, ui) {
                     $(".ui-autocomplete").css("z-index", 1000);
                 },
@@ -179,7 +181,7 @@
                     var pfId = $("#cityCode").val();
                     $.ajax({
                         url: "/api/address/SearchStreets",
-                        dataType: "json", autoFocus: true, selectFirst: true,
+                        dataType: "json", 
                         type: 'GET',
                         data: {
                             MaxItems: 12,
@@ -193,6 +195,7 @@
                 },
                 minLength: 2,
                 select: function (event, ui) {
+                    $("#streetCode").val(ui.item.id);
                     log(ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
                 },
             });
