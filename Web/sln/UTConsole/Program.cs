@@ -19,8 +19,8 @@ namespace UTConsole
         {
             Console.WriteLine("1.0.0.5");
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
-            Merge();
-            //Init(file);
+           // Merge();
+            Init(file);
           //  Test(file);
             //  ConvertXmlToJson();
             // Merge();
