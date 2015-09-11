@@ -52,11 +52,11 @@
             <h3 class="panel-title">מזהה משלוח</h3>
         </div>
         <div class="panel-body">
-                @Html.LabelFor(model => model.Number, new { @class = "col-md-2" })
-                <div class="col-md-10">
-                    @Model.Number
-                </div>
-            
+            @Html.LabelFor(model => model.Number, new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @Model.Number
+            </div>
+
         </div>
     </div>
 
@@ -136,7 +136,7 @@
                     @Html.ValidationMessageFor(m => m.TelTarget)
                 </div>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 @Html.LabelFor(m => m.Recipient, new { @class = "col-md-2 control-label" })
                 <div class="col-md-6">
                     @Html.TextBoxFor(m => m.Recipient, new { @class = "form-control" })
@@ -168,7 +168,22 @@
             </div>
         </div>
     </div>
-   
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">מקור חדש </h3>
+        </div>
+        <div class="panel-body">
+             @(Html.EditorFor(m => m.SourceAddress))
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">יעד חדש </h3>
+        </div>
+        <div class="panel-body">
+             @(Html.EditorFor(m => m.TargetAddress))
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-success btn-lg" value="צור משלוח" />

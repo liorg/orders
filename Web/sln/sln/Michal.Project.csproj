@@ -269,6 +269,7 @@
       <DependentUpon>201509091746550_latlang.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
     <Compile Include="Models\KeyValuePairUI.cs" />
@@ -474,6 +475,9 @@
     <Content Include="Views\Shared\_navLists.cshtml" />
     <Content Include="Views\Org\CreateShipByOrg.cshtml" />
     <Content Include="Views\UTest\Index.cshtml" />
+    <Content Include="Views\Shared\_address.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AddressEditorViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplate\AddressEditorViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

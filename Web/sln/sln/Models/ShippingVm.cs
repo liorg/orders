@@ -84,7 +84,7 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "שם איש קשר חובה")]
         public string Recipient { get; set; }
 
-      
+
         public string ActualRecipient { get; set; }
 
         [Display(Name = "טלפון של המזמין")]
@@ -103,7 +103,7 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "שם המקבל שדה חובה")]
         public string NameTarget { get; set; }
 
-         [Display(Name = "מקור")]
+        [Display(Name = "מקור")]
         public string From
         {
             get
@@ -112,13 +112,18 @@ namespace Michal.Project.Models
             }
         }
 
-         [Display(Name = "יעד")]
+        [Display(Name = "יעד")]
         public string To
         {
             get
             {
-                return NameTarget +" "+SreetTo + " " + NumTo + " " + CityToName;
+                return NameTarget + " " + SreetTo + " " + NumTo + " " + CityToName;
             }
         }
+        [Display(Name = "כתובת יעד")]
+        public AddressEditorViewModel TargetAddress { get; set; }
+
+        [Display(Name = "כתובת מקור")]
+        public AddressEditorViewModel SourceAddress { get; set; }
     }
 }

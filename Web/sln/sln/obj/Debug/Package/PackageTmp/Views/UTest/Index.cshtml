@@ -15,8 +15,8 @@
  *
  * http://github.com/scottgonzalez/jquery-ui-extensions
  */
-   
-   
+
+
 
     $(function () {
         var availableTags = [
@@ -58,8 +58,6 @@
         background-color: #ffff66;
     }
 
-
-
     /* scroll results */
     .ui-autocomplete {
         max-height: 250px;
@@ -70,7 +68,7 @@
         padding-right: 5px;
     }
 
-        .ui-autocomplete li {
+    .ui-autocomplete li {
             font-size: 16px;
         }
 
@@ -130,11 +128,9 @@
         -moz-border-radius: 0px;
         background-image: none;
     }
-
-    
 </style>
 <div>
- 
+
     <div class="ui-widget">
         <label for="country">Country: </label>
         @* <input id="country" />
@@ -156,32 +152,77 @@
                 $("#log").scrollTop(0);
             }
 
-            var cache = {};
-            $("#city").autocomplete({
-                source: "/api/address/SearchCities",
-                html: true, autoFocus: true, selectFirst: true,autoSelect:true,
-                minLength: 2,
-                open: function (event, ui) {
-                    $(".ui-autocomplete").css("z-index", 1000);
-                },
-                select: function (event, ui) {
-                    debugger;
-                    log(ui.item ?  "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
-                    $("#cityCode").val(ui.item.id);
-                }
+            $("#city").bind('autocompleteresponse',
+                   function (event, ui) {
+                       $("#city").data('menuItems', ui.content);
+                   }).blur(function () {
+                       debugger;
+                       var autocomplete = $("#city").data("uiAutocomplete");
+                       var matcher = new RegExp("^"
+                               + $.ui.autocomplete.escapeRegex($(this).val())
+                               + "$", "i");
+                       var menuItems = $(this).data('menuItems');
+                       for (idx in menuItems) {
+                           var item = menuItems[idx];
+                           if (matcher.test(item.value)) {
+                               autocomplete.selectedItem = item;
+                               break;
+                           }
+                       }
+                       if (autocomplete.selectedItem) {
+                           autocomplete._trigger("select", event, {
+                               item: autocomplete.selectedItem
+                           });
+                       } else {
+                           $("#streetCode").val("");
+                           $("#street").val("");
+                           $("#cityCode").val("");
+                           $("#city").val("");
+                       }
+                   }).autocomplete({
+                       source: "/api/address/SearchCities",
+                       html: true, autoFocus: true, selectFirst: true, autoSelect: true,
+                       minLength: 2,
+                       open: function (event, ui) {
+                           $(".ui-autocomplete").css("z-index", 1000);
+                       },
+                       select: function (event, ui) {
+                           debugger;
+                           log(ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
+                           $("#cityCode").val(ui.item.id);
+
+                           $("#streetCode").val("")
+                           $("#street").val("");//.prop("disabled", false);
+                       },
+                       change: function (event, ui) {
+
+                           //   $("#streetCode").val("");
+                           //$("#street").val("").prop("disabled", true);
+                       }
 
 
-            });
+                   });
             $("#street").autocomplete({
                 html: true, autoFocus: true, selectFirst: true, autoSelect: true,
                 open: function (event, ui) {
+                    // var pfId = $("#cityCode").val();
+                    //if (pfId == "") { alert("יש לבחור עיר"); return; }
                     $(".ui-autocomplete").css("z-index", 1000);
+
                 },
                 source: function (request, response) {
                     var pfId = $("#cityCode").val();
+                    if (pfId == "") {
+                        $("#street").removeClass("ui-autocomplete-loading");
+                        alert("יש לבחור עיר");
+
+                        request.preventDefault();
+                        return false;
+                    }
+                    $("#street").addClass("ui - autocomplete - loading");
                     $.ajax({
                         url: "/api/address/SearchStreets",
-                        dataType: "json", 
+                        dataType: "json",
                         type: 'GET',
                         data: {
                             MaxItems: 12,
@@ -189,6 +230,7 @@
                             Term: request.term
                         },
                         success: function (data) {
+                            $("#street").removeClass("ui-autocomplete-loading");
                             response(data);
                         }
                     });
@@ -200,7 +242,7 @@
                 },
             });
 
-            $.cascadingAutocompletes(["#city", "#street"]);
+            //  $.cascadingAutocompletes(["#city", "#street"]);
         });
     </script>
 </div>

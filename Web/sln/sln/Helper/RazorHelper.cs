@@ -50,5 +50,11 @@ namespace Michal.Project.Helper
             builder.MergeAttribute("class", "media-object");
             return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
+
+        public static MvcHtmlString ClientIdFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        {
+            return MvcHtmlString.Create(
+                htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(ExpressionHelper.GetExpressionText(expression)));
+        }
     }
 }
