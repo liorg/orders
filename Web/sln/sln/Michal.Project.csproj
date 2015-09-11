@@ -475,7 +475,6 @@
     <Content Include="Views\Shared\_navLists.cshtml" />
     <Content Include="Views\Org\CreateShipByOrg.cshtml" />
     <Content Include="Views\UTest\Index.cshtml" />
-    <Content Include="Views\Shared\_address.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AddressEditorViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplate\AddressEditorViewModel.cshtml" />
   </ItemGroup>
