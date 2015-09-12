@@ -23,5 +23,15 @@ namespace Michal.Project.Models
 
         [Required(ErrorMessage = "עיר שדה חובה")]
         public string Citycode { get; set; }
+
+        [Required(ErrorMessage = "מספר בית שדה חובה")]
+        [Display(Name = "מספר בית")]
+        public string Num { get; set; }
+
+        [Display(Name = "פרטים נוספים")]
+        public string ExtraDetail { get; set; }
+
+        public string CitycodeOld { get; set; }
+        public string StreetcodeOld { get; set; }
     }
 }

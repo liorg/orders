@@ -22,7 +22,24 @@
             @Html.ValidationMessageFor(m => m.Streetcode)
         </div>
     </div>
-   
+    <div class="form-group">
+        @Html.LabelFor(m => m.Num, new { @class = "col-md-2 control-label" })
+        <div class="col-md-6">
+     
+            @Html.TextBoxFor(m => m.Num, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Num)
+  
+        </div>
+    </div>
+      <div class="form-group">
+        @Html.LabelFor(m => m.ExtraDetail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-6">
+     
+            @Html.TextBoxFor(m => m.ExtraDetail, new { @class = "form-control" })
+ 
+  
+        </div>
+    </div>
     <input id="@textbox" class="autp" value="@textbox" type="hidden" />
 </div>
 
