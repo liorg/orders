@@ -168,12 +168,12 @@
             </div>
         </div>
     </div>
-      <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">מקור חדש </h3>
         </div>
         <div class="panel-body">
-             @(Html.EditorFor(m => m.SourceAddress))
+            @(Html.EditorFor(m => m.SourceAddress))
         </div>
     </div>
     <div class="panel panel-default">
@@ -181,7 +181,7 @@
             <h3 class="panel-title">יעד חדש </h3>
         </div>
         <div class="panel-body">
-             @(Html.EditorFor(m => m.TargetAddress))
+            @(Html.EditorFor(m => m.TargetAddress))
         </div>
     </div>
     <div class="form-group">
@@ -193,4 +193,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
 }

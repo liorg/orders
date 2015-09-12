@@ -7,8 +7,8 @@ var initialize = function (i, el) {
     // el is the input element that we need to initialize a map for, jQuery-ize it,
     //  and cache that since we'll be using it a few times.
     var $input = $(el);
-    var city = "#" + $input.val() + "city";
-    var street = "#" + $input.val() + "street";
+    var city = "#" + $input.val() + "_City";
+    var street = "#" + $input.val() + "_Street";
     var citycode = city + "code";
     var streetcode = street + "code";
 

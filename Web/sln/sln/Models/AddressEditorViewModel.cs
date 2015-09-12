@@ -10,14 +10,18 @@ namespace Michal.Project.Models
     {
         public int UId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "כתובת שדה חובה")]
+        [Display(Name = "כתובת")]
         public string Street { get; set; }
-        [Required]
-        public string StreetCode { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "כתובת שדה חובה")]
+        public string Streetcode { get; set; }
+
+        [Required(ErrorMessage = "עיר שדה חובה")]
+        [Display(Name = "עיר")]
         public string City { get; set; }
-        [Required]
-        public string CityCode { get; set; }
+
+        [Required(ErrorMessage = "עיר שדה חובה")]
+        public string Citycode { get; set; }
     }
 }
