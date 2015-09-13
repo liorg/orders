@@ -277,6 +277,10 @@
     <Compile Include="Migrations\201509122253203_address org and users.Designer.cs">
       <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509130517177_remove city.cs" />
+    <Compile Include="Migrations\201509130517177_remove city.Designer.cs">
+      <DependentUpon>201509130517177_remove city.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -485,7 +489,8 @@
     <Content Include="Views\Org\CreateShipByOrg.cshtml" />
     <Content Include="Views\UTest\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AddressEditorViewModel.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplate\AddressEditorViewModel.cshtml" />
+    <Content Include="Views\Shared\_addressView.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AddressEditorViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Content\css\" />
@@ -517,6 +522,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509122253203_address org and users.resx">
       <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509130517177_remove city.resx">
+      <DependentUpon>201509130517177_remove city.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

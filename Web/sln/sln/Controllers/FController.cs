@@ -137,13 +137,22 @@ namespace Michal.Project.Controllers
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
                     u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                    u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
-                    u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
+                    u.TargetAddress = new AddressEditorViewModel();
+                    //u.TargetAddress.Citycode = ship.Target.CityCode;
+                    u.TargetAddress.City = ship.Target.CityName;
+                    u.TargetAddress.Street = ship.Target.StreetName;
+                    u.TargetAddress.Num = ship.Target.StreetNum;
+                    u.TargetAddress.ExtraDetail = ship.Target.ExtraDetail;
+
+                    u.SourceAddress = new AddressEditorViewModel();
+                    //u.TargetAddress.Citycode = ship.Target.CityCode;
+                    u.SourceAddress.City = ship.Source.CityName;
+                    u.SourceAddress.Street = ship.Source.StreetName;
+                    u.SourceAddress.Num = ship.Source.StreetNum;
+                    u.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
+
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                    u.NumFrom = ship.AddressNumFrom;
-                    u.NumTo = ship.AddressNumTo;
-                    u.SreetFrom = ship.AddressFrom;
-                    u.SreetTo = ship.AddressTo;
+                 
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
                     shippingsItems.Add(u);

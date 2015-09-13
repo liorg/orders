@@ -77,13 +77,13 @@ namespace Michal.Project.Controllers
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
                     u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                    u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
-                    u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
+                 //   u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
+                  //  u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                    u.NumFrom = ship.AddressNumFrom;
-                    u.NumTo = ship.AddressNumTo;
-                    u.SreetFrom = ship.AddressFrom;
-                    u.SreetTo = ship.AddressTo;
+                  //  u.NumFrom = ship.AddressNumFrom;
+                 //   u.NumTo = ship.AddressNumTo;
+                //    u.SreetFrom = ship.AddressFrom;
+                //    u.SreetTo = ship.AddressTo;
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
 
@@ -131,8 +131,7 @@ namespace Michal.Project.Controllers
                 List<Distance> distances = new List<Distance>();
                 UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-
-                var city = cache.GetCities(context); // await context.City.ToListAsync();
+                
                 var shiptypes = cache.GetShipType(context);
 
                 long increa = 0;
@@ -161,21 +160,13 @@ namespace Michal.Project.Controllers
                 var orgs = cache.GetOrgs(context);
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
-                ViewBag.City = new SelectList(city, "CityId", "Name");
                 if (String.IsNullOrEmpty(orgid))
                     orgid = userContext.OrgId.ToString();
                 var organid=Guid.Parse(orgid);
                 distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
 
                 model.OrgId = organid;
-                //if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                //{
-                //    distances = cache.GetDistancesPerOrg(context, userContext.OrgId); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
-                //}
-                //else
-                //{
-                //    distances = await context.Distance.ToListAsync();
-                //}
+
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
             }
@@ -212,13 +203,7 @@ namespace Michal.Project.Controllers
                 shipping.IsActive = true;
                 shipping.NotifyType = Notification.Warning; //Notification.Error;//Notification.Warning;
                 shipping.NotifyText = Notification.MessageConfirm;
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityTo_CityId = shippingVm.CityTo;
-                shipping.AddressTo = shippingVm.SreetTo;
-                shipping.AddressNumTo = shippingVm.NumTo;
-                shipping.AddressNumFrom = shippingVm.NumFrom;
-
+               
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelSource = userContext.Tel;
                 shipping.TelTarget = shippingVm.TelTarget;
@@ -288,34 +273,49 @@ namespace Michal.Project.Controllers
                 var shipping = await context.Shipping.FindAsync(shipId);
 
                 List<Distance> distances = new List<Distance>();
-                var city = cache.GetCities(context);
+
                 var shiptypes = cache.GetShipType(context);
                 var orgs = cache.GetOrgs(context);
 
                 var model = new ShippingVm();
                 model.Number = shipping.Name;
 
-                model.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
-                model.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+              
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;
                 model.Id = shipping.ShippingId;
 
-                model.NumFrom = shipping.AddressNumFrom;
-                model.NumTo = shipping.AddressNumTo;
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-                model.SreetFrom = shipping.AddressFrom;
-                model.SreetTo = shipping.AddressTo;
+
                 model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
                 model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
                 model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
                 model.Recipient = shipping.Recipient;
-                //  model.TelSource = shipping.TelSource;
                 model.TelTarget = shipping.TelTarget;
-                //   model.NameSource = shipping.NameSource;
                 model.NameTarget = shipping.NameTarget;
+
+                model.SourceAddress = new AddressEditorViewModel();
+                model.SourceAddress.City = shipping.Source.CityName;
+                model.SourceAddress.Citycode = shipping.Source.CityCode;
+                model.SourceAddress.CitycodeOld = shipping.Source.CityCode;
+                model.SourceAddress.Street = shipping.Source.StreetName;
+                model.SourceAddress.Streetcode = shipping.Source.StreetCode;
+                model.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
+                model.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
+                model.SourceAddress.Num = shipping.Source.StreetNum;
+ 
+
+                model.TargetAddress = new AddressEditorViewModel();
+                model.TargetAddress.City = shipping.Target.CityName;
+                model.TargetAddress.Citycode = shipping.Target.CityCode;
+                model.TargetAddress.CitycodeOld = shipping.Target.CityCode;
+                model.TargetAddress.Street = shipping.Target.StreetName;
+                model.TargetAddress.Streetcode = shipping.Target.StreetCode;
+                model.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
+                model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
+                model.TargetAddress.Num = shipping.Target.StreetNum;
 
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
                 {
@@ -326,7 +326,6 @@ namespace Michal.Project.Controllers
                     }
                 }
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
-                ViewBag.City = new SelectList(city, "CityId", "Name");
                 ViewBag.OrderNumber = shipping.Name;
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
 
@@ -365,17 +364,8 @@ namespace Michal.Project.Controllers
                 shipping.ModifiedBy = userContext.UserId;
                 shipping.IsActive = true;
 
-                shipping.CityFrom_CityId = shippingVm.CityForm;
-                shipping.AddressFrom = shippingVm.SreetFrom;
-                shipping.CityTo_CityId = shippingVm.CityTo;
-                shipping.AddressTo = shippingVm.SreetTo;
-                shipping.AddressNumTo = shippingVm.NumTo;
-                shipping.AddressNumFrom = shippingVm.NumFrom;
-
                 shipping.Recipient = shippingVm.Recipient;
-                //shipping.TelSource = shippingVm.TelSource;
                 shipping.TelTarget = shippingVm.TelTarget;
-                //    shipping.NameSource = userContext.FullName;
                 shipping.NameTarget = shippingVm.NameTarget;
 
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;

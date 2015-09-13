@@ -57,7 +57,7 @@
                 <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.From</span>
+                <span class="label label-success">@Html.Partial("_addressView",Model.ShippingVm.SourceAddress)</span>
                 <span class="prefix  pull-right">מ:</span>
             </li>
             <li class="list-group-item">
@@ -69,7 +69,7 @@
                 <span class="prefix pull-right">טלפון איש קשר (מקור)</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.To</span>
+                <span class="label label-success">  @Html.Partial("_addressView",Model.ShippingVm.TargetAddress) </span>
                 <span class="prefix  pull-right">אל:</span>
             </li>
             <li class="list-group-item">

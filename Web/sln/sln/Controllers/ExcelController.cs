@@ -69,13 +69,13 @@ namespace Michal.Project.Controllers
                                           Price = s.ActualPrice,
                                           Status = s.StatusShipping.Desc,
 
-                                         FromStreet=s.AddressFrom,
-                                          FromNum=s.AddressNumFrom,
-                                          FromCity = s.CityFromName,
+                                        // FromStreet=s.AddressFrom,
+                                        //  FromNum=s.AddressNumFrom,
+                                       //   FromCity = s.CityFromName,
 
-                                          ToStreet = s.AddressTo,
-                                          ToNum = s.AddressNumTo,
-                                          ToCity = s.CityToName,
+                                        //  ToStreet = s.AddressTo,
+                                       //   ToNum = s.AddressNumTo,
+                                       //   ToCity = s.CityToName,
 
                                       }).ToList();
                 DataSet ds = new DataSet();
@@ -96,8 +96,8 @@ namespace Michal.Project.Controllers
                     row["מחלקה"] = ship.Department;
                     row["סטאטוס"] = ship.Status;
                     row["מחיר"] = ship.Price;
-                    row["ממקום"] = ship.FromStreet + " " + ship.FromNum + " " + ship.FromCity;
-                    row["למקום"] = ship.ToStreet + " " + ship.ToNum + " " + ship.ToCity;
+                    row["ממקום"] = ""; //ship.FromStreet + " " + ship.FromNum + " " + ship.FromCity;
+                    row["למקום"] = "";// ship.ToStreet + " " + ship.ToNum + " " + ship.ToCity;
 
                     dt.Rows.Add(row);
                 }

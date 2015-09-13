@@ -69,19 +69,6 @@ namespace Michal.Project.Dal
             return query.ToList();
         }
 
-        public List<City> GetCities(ApplicationDbContext context)
-        {
-            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
-            List<City> cities = null;
-            cacheMemoryProvider.Get("City", out cities);
-            if (cities == null)
-            {
-                cities = context.City.ToList();
-                cacheMemoryProvider.Set("City", cities);
-            }
-            return cities;
-        }
-
         public List<Organization> GetOrgs(ApplicationDbContext context)
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();

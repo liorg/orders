@@ -107,17 +107,13 @@ namespace Michal.Project.Bll
             orderModel.Status.Runners = runners;
             orderModel.ShippingVm = new ShippingVm();
             orderModel.ShippingVm.Number = shipping.Name;
-            orderModel.ShippingVm.CityForm = shipping.CityFrom_CityId.GetValueOrDefault();
-            orderModel.ShippingVm.CityTo = shipping.CityTo_CityId.GetValueOrDefault();
+
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
             orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
             orderModel.ShippingVm.Id = shipping.ShippingId;
             orderModel.ShippingVm.Number = shipping.Desc;
-            orderModel.ShippingVm.NumFrom = shipping.AddressNumFrom;
-            orderModel.ShippingVm.NumTo = shipping.AddressNumTo;
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-            orderModel.ShippingVm.SreetFrom = shipping.AddressFrom;
-            orderModel.ShippingVm.SreetTo = shipping.AddressTo;
+
             orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
@@ -130,8 +126,27 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.NameTarget = shipping.NameTarget;
             orderModel.ShippingVm.Recipient = shipping.Recipient;
 
-            orderModel.ShippingVm.CityFormName = shipping.CityFrom != null ? shipping.CityFrom.Name : "";
-            orderModel.ShippingVm.CityToName = shipping.CityTo != null ? shipping.CityTo.Name : "";
+            orderModel.ShippingVm.SourceAddress = new AddressEditorViewModel();
+            orderModel.ShippingVm.SourceAddress.City = shipping.Source.CityName;
+            orderModel.ShippingVm.SourceAddress.Citycode = shipping.Source.CityCode;
+            orderModel.ShippingVm.SourceAddress.CitycodeOld = shipping.Source.CityCode;
+            orderModel.ShippingVm.SourceAddress.Street = shipping.Source.StreetName;
+            orderModel.ShippingVm.SourceAddress.Streetcode = shipping.Source.StreetCode;
+            orderModel.ShippingVm.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
+            orderModel.ShippingVm.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
+            orderModel.ShippingVm.SourceAddress.Num = shipping.Source.StreetNum;
+
+
+            orderModel.ShippingVm.TargetAddress = new AddressEditorViewModel();
+            orderModel.ShippingVm.TargetAddress.City = shipping.Target.CityName;
+            orderModel.ShippingVm.TargetAddress.Citycode = shipping.Target.CityCode;
+            orderModel.ShippingVm.TargetAddress.CitycodeOld = shipping.Target.CityCode;
+            orderModel.ShippingVm.TargetAddress.Street = shipping.Target.StreetName;
+            orderModel.ShippingVm.TargetAddress.Streetcode = shipping.Target.StreetCode;
+            orderModel.ShippingVm.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
+            orderModel.ShippingVm.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
+            orderModel.ShippingVm.TargetAddress.Num = shipping.Target.StreetNum;
+
             orderModel.IsEyeOnHim = shipping.FollowsBy.Where(fx => fx.Id == request.UserContext.UserId.ToString()).Any();
 
             orderModel.JobTitle = request.UserContext;
@@ -151,31 +166,6 @@ namespace Michal.Project.Bll
             return orderModel;
         }
 
-        //public void SetJob(ClaimsIdentity identity, IEnumerable<Claim> claims)
-        //{
-        //    var claimAllRoles = claims.Where(ccl => ccl.Type == ClaimTypes.Role).AsEnumerable();
-        //    foreach (var claimRole in claimAllRoles)
-        //    {
-        //        if (claimRole != null && !String.IsNullOrWhiteSpace(claimRole.Value))
-        //        {
-        //            identity.
-        //        }
-        //    }
-        //    if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
-        //    {
-        //        job.JobTitle = Helper.JobTitle.Admin;
-        //        job.JobType = ((int)Helper.JobType.Admin).ToString();
-        //        return;
-        //    }
-        //    if (user.IsInRole(Helper.HelperAutorize.RoleRunner))
-        //    {
-        //        job.JobTitle = Helper.JobTitle.DeliveryBoy;
-        //        job.JobType = ((int)Helper.JobType.Runner).ToString();
-        //        return;
-        //    }
-        //    job.JobTitle = Helper.JobTitle.Client;
-        //    job.JobType = ((int)Helper.JobType.Client).ToString();
-        //}
         public void SetJob(IJob job, UserContext user)
         {
 

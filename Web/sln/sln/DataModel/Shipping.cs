@@ -90,22 +90,6 @@ namespace Michal.Project.DataModel
             set;
         }
 
-        public virtual City CityFrom { get; set; }
-        [ForeignKey("CityFrom")]
-        public Guid? CityFrom_CityId { get; set; }
-        public string CityFromName { get; set; }
-
-        public virtual City CityTo { get; set; }
-        [ForeignKey("CityTo")]
-        public Guid? CityTo_CityId { get; set; }
-        public string CityToName { get; set; }
-
-        public string AddressFrom { get; set; }
-        public string AddressTo { get; set; }
-
-        public string AddressNumFrom { get; set; }
-        public string AddressNumTo { get; set; }
-
         [Column(TypeName = "Money")]
         public decimal Price { get; set; }
 

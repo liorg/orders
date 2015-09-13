@@ -17,30 +17,8 @@ namespace Michal.Project.Models
         [Display(Name = "סטאטוס")]
         public string Status { get; set; }
 
-        [Required(ErrorMessage = "כתובת מקור חובה")]
-        [Display(Name = "כתובת מקור")]
-        public string SreetFrom { get; set; }
-
-        [Display(Name = "מספר כתובת מקור ")]
-        [Required(ErrorMessage = "מספר כתובת מקור חובה")]
-        public string NumFrom { get; set; }
-
-        [Required(ErrorMessage = "כתובת יעד חובה")]
-        [Display(Name = "כתובת יעד ")]
-        public string SreetTo { get; set; }
-
-        [Required(ErrorMessage = "מספר כתובת יעד חובה")]
-        [Display(Name = "מספר כתובת יעד ")]
-        public string NumTo { get; set; }
-
         [Display(Name = "סטאטוס")]
         public Guid StatusId { get; set; }
-
-        [Display(Name = "עיר מקור")]
-        public Guid CityForm { get; set; }
-
-        [Display(Name = "עיר יעד")]
-        public Guid CityTo { get; set; }
 
         [Display(Name = "חישוב היעד")]
         public Guid DistanceId { get; set; }
@@ -53,12 +31,6 @@ namespace Michal.Project.Models
 
         [Display(Name = "חישוב היעד")]
         public string DistanceName { get; set; }
-
-        [Display(Name = "עיר מקור")]
-        public string CityFormName { get; set; }
-
-        [Display(Name = "עיר יעד")]
-        public string CityToName { get; set; }
 
         [Required]
         [Display(Name = "ארגון")]
@@ -103,23 +75,23 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "שם המקבל שדה חובה")]
         public string NameTarget { get; set; }
 
-        [Display(Name = "מקור")]
-        public string From
-        {
-            get
-            {
-                return SreetFrom + " " + NumFrom + " " + CityFormName;
-            }
-        }
+        //[Display(Name = "מקור")]
+        //public string From
+        //{
+        //    get
+        //    {
+        //        return SreetFrom + " " + NumFrom + " " + CityFormName;
+        //    }
+        //}
 
-        [Display(Name = "יעד")]
-        public string To
-        {
-            get
-            {
-                return NameTarget + " " + SreetTo + " " + NumTo + " " + CityToName;
-            }
-        }
+        //[Display(Name = "יעד")]
+        //public string To
+        //{
+        //    get
+        //    {
+        //        return NameTarget + " " + SreetTo + " " + NumTo + " " + CityToName;
+        //    }
+        //}
         [Display(Name = "כתובת יעד")]
         public AddressEditorViewModel TargetAddress { get; set; }
 
