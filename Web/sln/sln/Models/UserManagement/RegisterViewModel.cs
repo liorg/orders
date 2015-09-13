@@ -10,9 +10,11 @@ namespace Michal.Project.Models
 {
     public class RegisterViewModel : IRole
     {
+        [Display(Name = "כתובת לקוח")]
+        public AddressEditorViewModel Address { get; set; }
+
         [Display(Name = "מספר עובד")]
         public string EmpId { get; set; }
-
 
         [Required(ErrorMessage = "שם משתמש שדה חובה")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "הזן אותיות אנגליות בלבד ללא רווחים")]

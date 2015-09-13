@@ -8,7 +8,7 @@ namespace Michal.Project.Models
 {
     public class AddressEditorViewModel
     {
-        public int UId { get; set; }
+        public int? UId { get; set; }
 
         [Required(ErrorMessage = "כתובת שדה חובה")]
         [Display(Name = "כתובת")]

@@ -23,9 +23,20 @@ namespace Michal.Project.Models
             this.IsActive = user.IsActive;
             this.EmpId = user.EmpId;
             this.Tel = user.Tel;
-            this.OrgId = user.Organization_OrgId.HasValue ? user.Organization_OrgId.Value : Guid.Empty;
+            this.OrgId = user.Organization_OrgId.GetValueOrDefault();
+            this.Address = new AddressEditorViewModel();
+            this.Address.City = user.AddressUser.CityName;
+            this.Address.Citycode = user.AddressUser.CityCode;
+            this.Address.Street = user.AddressUser.StreetName;
+            this.Address.Streetcode = user.AddressUser.StreetCode;
+            this.Address.UId = user.AddressUser.UID;
+            this.Address.ExtraDetail = user.AddressUser.ExtraDetail;
+            this.Address.Num = user.AddressUser.StreetNum;
 
         }
+        [Display(Name = "כתובת לקוח")]
+        public AddressEditorViewModel Address { get; set; }
+
         [Display(Name = "מספר עובד")]
         public string EmpId { get; set; }
         // [Required]

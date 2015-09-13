@@ -18,7 +18,10 @@ namespace Michal.Project.DataModel
         public ApplicationUser(string userName):base(userName)
         {
             FollowsBy = new HashSet<Shipping>();
+            AddressUser = new Address();
         }
+
+        public Address AddressUser { get; set; }
         // many to many
         public ICollection<Shipping> FollowsBy { get; set; }
 

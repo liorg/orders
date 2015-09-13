@@ -225,6 +225,19 @@ namespace Michal.Project.Controllers
                 shipping.NameSource = userContext.FullName;
                 shipping.NameTarget = shippingVm.NameTarget;
 
+                shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
+                shipping.Target.CityName = shippingVm.TargetAddress.City;
+                shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
+                shipping.Target.StreetName = shippingVm.TargetAddress.Street;
+                shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
+                shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
+
+                shipping.Source.CityCode = shippingVm.SourceAddress.Citycode;
+                shipping.Source.CityName = shippingVm.SourceAddress.City;
+                shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
+                shipping.Source.StreetName = shippingVm.SourceAddress.Street;
+                shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 var shipItem = new ShippingItem()

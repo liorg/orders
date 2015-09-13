@@ -58,6 +58,7 @@ namespace Michal.Project.Dal
             var cities = GetCities();
             return cities.Where(c => c.Value.Contains(term)).ToList();
         }
+     
         public IEnumerable<KeyValuePairUI> GetCities()
         {
              StreetsGeoLocation locationDes = GetStreetsGeoLocation();

@@ -222,6 +222,7 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
+    <Compile Include="Dal\ShippingRepository.cs" />
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
@@ -268,6 +269,14 @@
     <Compile Include="Migrations\201509091746550_latlang.Designer.cs">
       <DependentUpon>201509091746550_latlang.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509122238327_address.cs" />
+    <Compile Include="Migrations\201509122238327_address.Designer.cs">
+      <DependentUpon>201509122238327_address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509122253203_address org and users.cs" />
+    <Compile Include="Migrations\201509122253203_address org and users.Designer.cs">
+      <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -313,66 +322,66 @@
     <Content Include="Content\img\c.png" />
     <Content Include="Content\img\c32.png" />
     <Content Include="Content\img\delivery.png" />
-    <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\img\Male-Avatar-Emo-Haircut-icon.png" />
-    <Content Include="Content\img\Male-Avatar-Goatee-Beard-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\img\Male-Avatar-Mustache-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
-    <Content Include="Content\img\ui-anim_basic_16x16.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\themes\base\accordion.css" />
-    <Content Include="Content\themes\base\all.css" />
-    <Content Include="Content\themes\base\autocomplete.css" />
-    <Content Include="Content\themes\base\base.css" />
-    <Content Include="Content\themes\base\button.css" />
-    <Content Include="Content\themes\base\core.css" />
-    <Content Include="Content\themes\base\datepicker.css" />
-    <Content Include="Content\themes\base\dialog.css" />
-    <Content Include="Content\themes\base\draggable.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\menu.css" />
-    <Content Include="Content\themes\base\progressbar.css" />
-    <Content Include="Content\themes\base\resizable.css" />
-    <Content Include="Content\themes\base\selectable.css" />
-    <Content Include="Content\themes\base\selectmenu.css" />
-    <Content Include="Content\themes\base\slider.css" />
-    <Content Include="Content\themes\base\sortable.css" />
-    <Content Include="Content\themes\base\spinner.css" />
-    <Content Include="Content\themes\base\tabs.css" />
-    <Content Include="Content\themes\base\theme.css" />
-    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Controllers\Content\img\Male-Avatar-Bowler-Hat-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controllers\Content\img\Male-Avatar-Cool-Cap-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controllers\Content\img\Male-Avatar-Goatee-Beard-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controllers\Content\img\Male-Avatar-Mustache-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controllers\Content\img\ui-anim_basic_16x16.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controllers\Content\themes\base\accordion.css" />
+    <Content Include="Controllers\Content\themes\base\all.css" />
+    <Content Include="Controllers\Content\themes\base\autocomplete.css" />
+    <Content Include="Controllers\Content\themes\base\base.css" />
+    <Content Include="Controllers\Content\themes\base\button.css" />
+    <Content Include="Controllers\Content\themes\base\core.css" />
+    <Content Include="Controllers\Content\themes\base\datepicker.css" />
+    <Content Include="Controllers\Content\themes\base\dialog.css" />
+    <Content Include="Controllers\Content\themes\base\draggable.css" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Controllers\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Controllers\Content\themes\base\menu.css" />
+    <Content Include="Controllers\Content\themes\base\progressbar.css" />
+    <Content Include="Controllers\Content\themes\base\resizable.css" />
+    <Content Include="Controllers\Content\themes\base\selectable.css" />
+    <Content Include="Controllers\Content\themes\base\selectmenu.css" />
+    <Content Include="Controllers\Content\themes\base\slider.css" />
+    <Content Include="Controllers\Content\themes\base\sortable.css" />
+    <Content Include="Controllers\Content\themes\base\spinner.css" />
+    <Content Include="Controllers\Content\themes\base\tabs.css" />
+    <Content Include="Controllers\Content\themes\base\theme.css" />
+    <Content Include="Controllers\Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\affix.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\AutocmpleteCascade.js" />
@@ -380,12 +389,12 @@
     <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="App_Data\rechov.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -479,6 +488,8 @@
     <Content Include="Views\Shared\DisplayTemplate\AddressEditorViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\Content\css\" />
+    <Folder Include="Controllers\Content\fonts\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
@@ -500,6 +511,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509091746550_latlang.resx">
       <DependentUpon>201509091746550_latlang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509122238327_address.resx">
+      <DependentUpon>201509122238327_address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509122253203_address org and users.resx">
+      <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

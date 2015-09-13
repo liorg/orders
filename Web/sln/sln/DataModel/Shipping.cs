@@ -18,8 +18,12 @@ namespace Michal.Project.DataModel
             Comments = new HashSet<Comment>();
             FollowsBy = new HashSet<ApplicationUser>();
             AttachmentsShipping = new HashSet<AttachmentShipping>();
-        }
 
+            Target = new Address();
+            Source = new Address();
+        }
+        public Address Target { get; set; }
+        public Address Source { get; set; }
         // many to many
         public ICollection<ApplicationUser> FollowsBy { get; set; }
 
@@ -152,6 +156,9 @@ namespace Michal.Project.DataModel
         public string NameSource { get; set; }
 
         public string NameTarget { get; set; }
+
+
+
 
 
     }

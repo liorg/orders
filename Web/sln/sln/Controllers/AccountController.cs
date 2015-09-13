@@ -134,6 +134,15 @@ namespace Michal.Project.Controllers
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
                     user.Tel = model.Tel;
+
+                    user.AddressUser.IsSensor = false;
+                    user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    user.AddressUser.CityCode = model.Address.Citycode;
+                    user.AddressUser.CityName = model.Address.City;
+                    user.AddressUser.StreetCode = model.Address.Streetcode;
+                    user.AddressUser.StreetName = model.Address.Street;
+                    user.AddressUser.StreetNum = model.Address.Num;
+
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
                     viewLogic.SetViewerUserByRole(model, user);
@@ -324,7 +333,7 @@ namespace Michal.Project.Controllers
                 var userName = model.UserName;
                 if (org.Name != General.OrgWWW)
                     userName = model.UserName + "@" + org.Domain;
-
+            
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser()
@@ -338,6 +347,18 @@ namespace Michal.Project.Controllers
                         Organization_OrgId = model.OrgId,
                         Tel = model.Tel
                     };
+                    user.AddressUser = new Address();
+                    user.AddressUser.IsSensor = false;
+                    user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    user.AddressUser.CityCode = model.Address.Citycode;
+                    user.AddressUser.CityName = model.Address.City;
+                    user.AddressUser.StreetCode = model.Address.Streetcode;
+                    user.AddressUser.StreetName = model.Address.Street;
+                    user.AddressUser.StreetNum = model.Address.Num;
+                    user.AddressUser.UID = 0;
+                    user.AddressUser.Lat = 0;
+                    user.AddressUser.Lng = 0;
+
                     viewLogic.SetViewerUserByRole(model, user);
 
 
