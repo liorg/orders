@@ -368,6 +368,23 @@ namespace Michal.Project.Controllers
                 shipping.TelTarget = shippingVm.TelTarget;
                 shipping.NameTarget = shippingVm.NameTarget;
 
+
+                shipping.Source.CityName = shippingVm.SourceAddress.City;
+                shipping.Source.CityCode=  shippingVm.SourceAddress.Citycode;
+                shipping.Source.StreetName= shippingVm.SourceAddress.Street;
+                shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
+                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+                shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+               
+
+                shipping.Target.CityName = shippingVm.TargetAddress.City;
+                shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
+                shipping.Target.StreetName = shippingVm.TargetAddress.Street;
+                shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
+                shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
+                shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
+
+
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 
                 await context.SaveChangesAsync();
