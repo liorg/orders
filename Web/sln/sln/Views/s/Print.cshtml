@@ -23,7 +23,7 @@
                 <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
             </li>
             <li class="list-group-item">
-                <span >@Model.ShippingVm.From</span>
+                <span >@Html.DisplayFor(m=>m.ShippingVm.SourceAddress)</span>
                 <span class="prefix  pull-right">מ:</span>
             </li>
             <li class="list-group-item">
@@ -35,7 +35,7 @@
                 <span class="prefix pull-right">טלפון איש קשר (מקור):</span>
             </li>
             <li class="list-group-item">
-                <span >@Model.ShippingVm.To</span>
+               <span >@Html.DisplayFor(m=>m.ShippingVm.TargetAddress)</span>
                 <span class="prefix  pull-right">אל:</span>
             </li>
             <li class="list-group-item">

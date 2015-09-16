@@ -287,6 +287,7 @@
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
     <Compile Include="Models\KeyValuePairUI.cs" />
+    <Compile Include="Models\LocationUi.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
@@ -492,6 +493,7 @@
     <Content Include="Views\Shared\EditorTemplates\AddressEditorViewModel.cshtml" />
     <Content Include="Views\Shared\_addressView.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AddressEditorViewModel.cshtml" />
+    <Content Include="Views\Shared\_map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Content\css\" />

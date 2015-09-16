@@ -8,6 +8,7 @@ namespace Michal.Project.Models
 {
     public class OrderView
     {
+        public Location Location { get; set; }
         public  ShippingVm  ShippingVm { get; set; }
         public List<ShippingItemVm> ShippingItems { get; set; }
         public IEnumerable<TimeLineVm> TimeLineVms { get; set; }

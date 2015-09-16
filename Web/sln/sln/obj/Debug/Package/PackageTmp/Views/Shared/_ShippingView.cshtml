@@ -22,10 +22,8 @@
                     </div>
                 </div>
                 <div class="rantoolbox col-md-6 col-xs-12 col-sm-12">
+                    <a class="btn" href="@Url.Action("Print", "S", new { id = @Model.ShippingVm.Id })"><i class="fa fa-print  circle"></i></a>
 
-                    <i class="fa fa-print  circle"></i>
-                    <i class="fa fa-eye circle"></i>
-                    <i class="fa fa-eye-slash circle"></i>
                     @*    <i class="fa fa-file-image-o circle"></i>*@
                     <i class="fa fa-whatsapp  circle"></i>
                     @*     <i class="fa fa-pinterest circle"></i>*@
@@ -57,7 +55,7 @@
                 <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">@Html.Partial("_addressView",Model.ShippingVm.SourceAddress)</span>
+                <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.SourceAddress)</span>
                 <span class="prefix  pull-right">מ:</span>
             </li>
             <li class="list-group-item">
@@ -69,7 +67,7 @@
                 <span class="prefix pull-right">טלפון איש קשר (מקור)</span>
             </li>
             <li class="list-group-item">
-                <span class="label label-success">  @Html.Partial("_addressView",Model.ShippingVm.TargetAddress) </span>
+                <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.TargetAddress) </span>
                 <span class="prefix  pull-right">אל:</span>
             </li>
             <li class="list-group-item">
@@ -102,8 +100,46 @@
         @Html.Partial("_comments")
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
     </div>
 </div>
+<div class="row">
+    <div id="map" style="height:200px"></div>
+    @Html.HiddenFor(o => o.Location.TargetLat)
+    @Html.HiddenFor(o => o.Location.TargetLng)
+
+
+
+</div>
+<script>
+
+    var map;
+    function initMap() {
+        var lng = $("Location_TargetLng").val();
+        var lat = $("Location_TargetLat").val();
+        var point = { lat: lat, lng: lng };
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            scaleControl: true,
+            center: point,
+            zoom: 10
+        });
+
+        var infowindow = new google.maps.InfoWindow;
+        infowindow.setContent('<b>יעד קבלת המשלוח</b>');
+
+        var marker = new google.maps.Marker({ map: map, position: point });
+        marker.addListener('click', function () {
+            infowindow.open(map, marker);
+        });
+    }
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
+    async defer></script>
+
+

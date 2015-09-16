@@ -105,6 +105,9 @@ namespace Michal.Project.Bll
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
             orderModel.Status.Runners = runners;
+            orderModel.Location = new Location();
+            orderModel.Location.TargetLat = shipping.Target.Lat;
+            orderModel.Location.TargetLng = shipping.Target.Lng;
             orderModel.ShippingVm = new ShippingVm();
             orderModel.ShippingVm.Number = shipping.Name;
 
