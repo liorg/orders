@@ -37,7 +37,7 @@ namespace Michal.Project.Api
         {
 
             MemeryCacheDataService mem = new MemeryCacheDataService();
-            var search = mem.GetCitiesByName(term);
+            var search = mem.GetCitiesByName(term.Trim());
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(search,
@@ -54,7 +54,7 @@ namespace Michal.Project.Api
         {
 
             MemeryCacheDataService mem = new MemeryCacheDataService();  
-            var streets=mem.GetStreetByCityCode(ParentFilterId, Term, MaxItems);
+            var streets=mem.GetStreetByCityCode(ParentFilterId.Trim(), Term.Trim(), MaxItems);
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(streets,
