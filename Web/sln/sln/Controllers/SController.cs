@@ -15,6 +15,7 @@ using System.Data.Entity;
 using Michal.Project.Bll;
 using System.Linq.Expressions;
 using Michal.Project.Models.View;
+using Michal.Project.Agent;
 namespace Michal.Project.Controllers
 {
     [Authorize]
@@ -192,6 +193,9 @@ namespace Michal.Project.Controllers
                 shipping.Name = shippingVm.Number;
 
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                LocationAgent location = new LocationAgent(cache);
 
                 var currentDate = DateTime.Now;
                 shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
@@ -210,19 +214,23 @@ namespace Michal.Project.Controllers
                 shipping.NameSource = userContext.FullName;
                 shipping.NameTarget = shippingVm.NameTarget;
 
-                shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
-                shipping.Target.CityName = shippingVm.TargetAddress.City;
-                shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
-                shipping.Target.StreetName = shippingVm.TargetAddress.Street;
-                shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
+                //shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
+                //shipping.Target.CityName = shippingVm.TargetAddress.City;
+                //shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
+                //shipping.Target.StreetName = shippingVm.TargetAddress.Street;
+                //shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
 
-                shipping.Source.CityCode = shippingVm.SourceAddress.Citycode;
-                shipping.Source.CityName = shippingVm.SourceAddress.City;
-                shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
-                shipping.Source.StreetName = shippingVm.SourceAddress.Street;
-                shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+                location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+
+                //shipping.Source.CityCode = shippingVm.SourceAddress.Citycode;
+                //shipping.Source.CityName = shippingVm.SourceAddress.City;
+                //shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
+                //shipping.Source.StreetName = shippingVm.SourceAddress.Street;
+                //shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
                 shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+
+                location.SetLocation(shippingVm.SourceAddress, shipping.Source);
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 var shipItem = new ShippingItem()
@@ -295,6 +303,8 @@ namespace Michal.Project.Controllers
                 model.Recipient = shipping.Recipient;
                 model.TelTarget = shipping.TelTarget;
                 model.NameTarget = shipping.NameTarget;
+             
+               
 
                 model.SourceAddress = new AddressEditorViewModel();
                 model.SourceAddress.City = shipping.Source.CityName;
@@ -305,6 +315,7 @@ namespace Michal.Project.Controllers
                 model.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
                 model.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
                 model.SourceAddress.Num = shipping.Source.StreetNum;
+                
  
 
                 model.TargetAddress = new AddressEditorViewModel();
@@ -316,7 +327,7 @@ namespace Michal.Project.Controllers
                 model.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
                 model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
                 model.TargetAddress.Num = shipping.Target.StreetNum;
-
+               
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
                 {
                     if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
@@ -345,6 +356,7 @@ namespace Michal.Project.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(ShippingVm shippingVm)
         {
+
             using (var context = new ApplicationDbContext())
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
@@ -367,23 +379,26 @@ namespace Michal.Project.Controllers
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelTarget = shippingVm.TelTarget;
                 shipping.NameTarget = shippingVm.NameTarget;
-
-
-                shipping.Source.CityName = shippingVm.SourceAddress.City;
-                shipping.Source.CityCode=  shippingVm.SourceAddress.Citycode;
-                shipping.Source.StreetName= shippingVm.SourceAddress.Street;
-                shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
-                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
-                shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
                
+                LocationAgent location = new LocationAgent(cache);
 
-                shipping.Target.CityName = shippingVm.TargetAddress.City;
-                shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
-                shipping.Target.StreetName = shippingVm.TargetAddress.Street;
-                shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
+                //shipping.Source.CityName = shippingVm.SourceAddress.City;
+                //shipping.Source.CityCode=  shippingVm.SourceAddress.Citycode;
+                //shipping.Source.StreetName= shippingVm.SourceAddress.Street;
+                //shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
+                //shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+                location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+
+                //shipping.Target.CityName = shippingVm.TargetAddress.City;
+                //shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
+                //shipping.Target.StreetName = shippingVm.TargetAddress.Street;
+                //shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
+               
+                //shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
-                shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
-
+                location.SetLocation(shippingVm.TargetAddress, shipping.Target);
 
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 
