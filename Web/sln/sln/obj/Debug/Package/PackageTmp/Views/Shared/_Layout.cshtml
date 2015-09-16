@@ -98,8 +98,8 @@
         </footer>
         *@
     </div>
-    </div>
-        @RenderSection("scripts", required: false)
+
+    @RenderSection("scripts", required: false)
     <script>
 
         $(document).ready(function () {
@@ -133,8 +133,8 @@
             })
         });
 
-        function changeDay(isNext,t) {
-          
+        function changeDay(isNext, t) {
+
             var currentPage = 1;
             var toMinus = isNext == true ? 1 : -1;
 
@@ -160,32 +160,9 @@
                 default:
                     changeView(page);
             }
-           // changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
-          
+            // changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+
         }
-        //function changeDay(isNext) {
-        //    var viewType = $('#viewType').val();
-        //    var viewAll = $('#viewAll').val();
-        //    var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
-
-        //    var toMinus = isNext == true ? 1 : -1;
-
-        //    var nextDay = $('#nextDay').val();
-        //    var prevDay = $('#prevDay').val();
-
-        //    var nextDayDate = new Date(nextDay);
-        //    var prevDayDate = new Date(prevDay);
-
-        //    nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
-        //    prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
-
-        //    var nextToStr = nextDayDate.toISOString().split('T')[0];
-        //    var prevToStr = prevDayDate.toISOString().split('T')[0];
-
-        //    changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
-        //    // window.location.replace=
-        //}
-
 
         function changeViewType(viewType) {
             $('#viewType').val(viewType);
@@ -196,9 +173,9 @@
         }
 
         function nextPage(t) {
-            if ($('#currentPage').val() == null) 
+            if ($('#currentPage').val() == null)
                 return;
-            
+
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) + 1;
             switch (t) {
@@ -214,13 +191,13 @@
                 default:
                     changePage(page);
             }
-           
+
         }
 
         function prevPage(t) {
-            if ($('#currentPage').val() == null) 
+            if ($('#currentPage').val() == null)
                 return;
-            
+
             var currentPage = $('#currentPage').val();
             page = parseInt(currentPage) - 1;
             switch (t) {
@@ -250,7 +227,6 @@
 
         }
         function usersView(page, prevDay, nextDay) {
-            //debugger;
             if (page == null)
                 page = $('#currentPage').val();
 
@@ -262,15 +238,14 @@
             changeUrl(url);
         }
 
-        function followView( page, prevDay, nextDay) {
-            //debugger;
-            if(page==null)
-                 page = $('#currentPage').val();
-            
-            if(prevDay==null)
+        function followView(page, prevDay, nextDay) {
+            if (page == null)
+                page = $('#currentPage').val();
+
+            if (prevDay == null)
                 prevDay = $('#prevDay').val();
-            
-            if(nextDay==null)
+
+            if (nextDay == null)
                 nextDay = $('#nextDay').val();
 
             var viewUrl = "/f?&currentPage=" + page;
@@ -310,7 +285,6 @@
         }
 
         function changeView(viewType, viewAll, page, prevDay, nextDay) {
-            //debugger;
             var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
             if (prevDay != null)
                 viewUrl = viewUrl + "&prevDay=" + prevDay;

@@ -107,26 +107,26 @@
     </div>
 </div>
 <div class="row">
-    <div id="map" style="height:200px"></div>
     @Html.HiddenFor(o => o.Location.TargetLat)
     @Html.HiddenFor(o => o.Location.TargetLng)
-
-
+    @Html.Partial("_map", Model.Location)
+  @*  @RenderSection("map", required: false)*@
 
 </div>
+
 <script>
 
     var map;
     function initMap() {
         var lng = $("#Location_TargetLng").val();
         var lat = $("#Location_TargetLat").val();
-        alert(lng +","+lat);
+        //alert(lng +","+lat);
         var point = { lat: parseFloat( lat), lng: parseFloat( lng) };
 
         var map = new google.maps.Map(document.getElementById('map'), {
             scaleControl: true,
             center: point,
-            zoom: 1000
+            zoom: 100
         });
 
         var infowindow = new google.maps.InfoWindow;
