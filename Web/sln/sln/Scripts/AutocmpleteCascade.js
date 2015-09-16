@@ -65,13 +65,12 @@ var initialize = function (i, el) {
         source: function (request, response) {
             var pfId = $(citycode).val();
             if (pfId == "") {
-                $(street).removeClass("ui-autocomplete-loading");
+              //  $(street).removeClass("ui-autocomplete-loading");
                 alert("יש לבחור עיר");
-
                 request.preventDefault();
                 return false;
             }
-            $(street).addClass("ui - autocomplete - loading");
+           // $(street).addClass("ui - autocomplete - loading");
             $.ajax({
                 url: "/api/address/SearchStreets",
                 dataType: "json",

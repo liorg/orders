@@ -31,7 +31,6 @@ namespace Michal.Project.Agent
         {
             try
             {
-                // Thread.Sleep(200);
                 addr.UId = streetLatAndLng.UId;
                 addr.Lng = streetLatAndLng.Lng;
                 addr.Lat = streetLatAndLng.Lat;
@@ -52,8 +51,6 @@ namespace Michal.Project.Agent
                     addr.Lat = loc.lat;
                     addr.Lng = loc.lng;
                     addr.IsSensor = true;
-                   // Console.WriteLine("{0} ,{1},City ={2},Addr={3} ", streetLatAndLng.Lat, streetLatAndLng.Lng, streetLatAndLng.City, streetLatAndLng.Addr);
-
                 }
                 var status = o.status;
 
@@ -80,6 +77,7 @@ namespace Michal.Project.Agent
         void Map(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
         {
             target.StreetName = source.Street;
+            target.CityName = source.City;
             target.CityCode = source.Citycode;
             target.StreetCode = source.Streetcode;
             target.Lat = source.Lat;
