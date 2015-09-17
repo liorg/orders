@@ -222,49 +222,163 @@ img {
      background: #18bc9c;
      padding: 0.25em 0.25em;
 }*/
+/*start: http://codepen.io/xfs/pen/CaLsK*/
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-
-
-    .rantoolbox1 nav ul {
-        /*background: radial-gradient( transparent, rgba(0, 40, 50, 1)), url('http://d1jqu7g1y74ds1.cloudfront.net/wp-content/uploads/2010/08/The-Brightest-of-Stars.jpg');*/
-        text-align: center;
-    }
-
-        .rantoolbox1 nav ul li {
-            display: inline-block;
-        }
-
-    .rantoolbox nav ul li a {
-        font-family: "Open Sans";
-        color: rgba(0, 35, 34, 0.6);
-        font-size: 15px;
-        text-transform: uppercase;
-        text-decoration: none;
-    }
-
+@media (max-width: 767px) {
     .rantoolbox1 li a {
-        /*background: rgba(255, 255, 255, 0.3);*/
-          background:#18bc9c;
-        /*box-shadow: 0 0 30px rgba(0, 0, 0, 0;1), inset 0 0 1px rgba(225, 255, 255, 0.8);*/
+        width: 60px;
+        height: 60px;
+        line-height: 55px;
+    }
+
+    .rantoolbox1 .print {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .mark {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .whatsup {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .calc {
+        max-width: 32px;
+        max-height: 32px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .rantoolbox1 li a {
+        width: 60px;
+        height: 60px;
+        line-height: 55px;
+    }
+
+    .rantoolbox1 .print {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .mark {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .whatsup {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .calc {
+        max-width: 32px;
+        max-height: 32px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .rantoolbox1 li a {
+        width: 90px;
+        height: 90px;
+        line-height: 85px;
+    }
+
+    .rantoolbox1 .print {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .mark {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .whatsup {
+        max-width: 32px;
+        max-height: 32px;
+    }
+
+    .rantoolbox1 .calc {
+        max-width: 32px;
+        max-height: 32px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .rantoolbox1 li a {
         width: 120px;
         height: 120px;
         line-height: 115px;
-        border-radius: 50%;
-        display: block;
     }
 
-        .rantoolbox1 li a:hover {
-            transition-duration: 300ms;
-            /*background:#18bc9c;*/
-            background: rgba(0, 120, 140, 0.6);
-        }
+    .rantoolbox1 .print {
+        max-width: 64px;
+        max-height: 64px;
+    }
+
+    .rantoolbox1 .mark {
+        max-width: 64px;
+        max-height: 64px;
+    }
+
+    .rantoolbox1 .whatsup {
+        max-width: 64px;
+        max-height: 64px;
+    }
+
+    .rantoolbox1 .calc {
+        max-width: 64px;
+        max-height: 64px;
+    }
+}
 
 
 
 
-/*http://bootsnipp.com/snippets/featured/circle-button*/
+.rantoolbox1 nav ul {
+    /*background: radial-gradient( transparent, rgba(0, 40, 50, 1)), url('http://d1jqu7g1y74ds1.cloudfront.net/wp-content/uploads/2010/08/The-Brightest-of-Stars.jpg');*/
+    text-align: center;
+}
+
+    .rantoolbox1 nav ul li {
+        display: inline-block;
+    }
+
+.rantoolbox nav ul li a {
+    font-family: "Open Sans";
+    color: rgba(0, 35, 34, 0.6);
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.rantoolbox1 li a {
+    /*background: rgba(255, 255, 255, 0.3);*/
+    background: #18bc9c;
+    /*box-shadow: 0 0 30px rgba(0, 0, 0, 0;1), inset 0 0 1px rgba(225, 255, 255, 0.8);*/
+    /*width: 120px;
+        height: 120px;
+        line-height: 115px;*/
+    border-radius: 50%;
+    display: block;
+}
+
+    .rantoolbox1 li a:hover {
+        transition-duration: 300ms;
+        /*background:#18bc9c;*/
+        background: rgba(0, 120, 140, 0.6);
+    }
+
+
+/*end: http://codepen.io/xfs/pen/CaLsK*/
+
+/*start: http://bootsnipp.com/snippets/featured/circle-button*/
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -293,8 +407,8 @@ img {
         border-radius: 35px;
     }
 
-
-/*http://bootsnipp.com/snippets/featured/comments-list*/
+/*end : http://bootsnipp.com/snippets/featured/circle-button*/
+/*start: http://bootsnipp.com/snippets/featured/comments-list*/
 .conversation-wrap {
     box-shadow: -2px 0 3px #ddd;
     padding: 0;
@@ -428,85 +542,86 @@ body::-webkit-scrollbar {
     background-color: #18bc9c;
 }
 
+/*end : http://bootsnipp.com/snippets/featured/comments-list*/
 
 /*start:jquery ui custom*/
-   .ui-autocomplete-loading {
-        background: white url("/Content/img/ui-anim_basic_16x16.gif") left center no-repeat;
-    }
+.ui-autocomplete-loading {
+    background: white url("/Content/img/ui-anim_basic_16x16.gif") left center no-repeat;
+}
 
-    /* highlight results */
-    .ui-autocomplete span.hl_results {
-        background-color: #ffff66;
-    }
+/* highlight results */
+.ui-autocomplete span.hl_results {
+    background-color: #ffff66;
+}
 
-    /* scroll results */
-    .ui-autocomplete {
-        max-height: 250px;
-        overflow-y: auto;
-        /* prevent horizontal scrollbar */
-        overflow-x: hidden;
-        /* add padding for vertical scrollbar */
-        padding-right: 5px;
-    }
+/* scroll results */
+.ui-autocomplete {
+    max-height: 250px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding for vertical scrollbar */
+    padding-right: 5px;
+}
 
     .ui-autocomplete li {
-            font-size: 16px;
-        }
+        font-size: 16px;
+    }
 
-    /* IE 6 doesn't support max-height
+/* IE 6 doesn't support max-height
 * we use height instead, but this forces the menu to always be this tall
 */
-    * html .ui-autocomplete {
-        height: 250px;
-    }
+* html .ui-autocomplete {
+    height: 250px;
+}
 
-    .ui-autocomplete {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1000;
-        float: left;
-        display: none;
-        min-width: 160px;
-        _width: 160px;
-        padding: 4px 0;
-        margin: 2px 0 0 0;
-        list-style: none;
-        background-color: #ffffff;
-        border-color: #ccc;
-        border-color: rgba(0, 0, 0, 0.2);
-        border-style: solid;
-        border-width: 1px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        -webkit-background-clip: padding-box;
-        -moz-background-clip: padding;
-        background-clip: padding-box;
-        *border-right-width: 2px;
-        *border-bottom-width: 2px;
-    }
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    display: none;
+    min-width: 160px;
+    _width: 160px;
+    padding: 4px 0;
+    margin: 2px 0 0 0;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+}
 
-    .ui-menu-item > a.ui-corner-all {
-        display: block;
-        padding: 3px 15px;
-        clear: both;
-        font-weight: normal;
-        line-height: 18px;
-        color: #555555;
-        white-space: nowrap;
-    }
+.ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+}
 
-    .ui-state-hover, &.ui-state-active {
-        color: #ffffff;
-        text-decoration: none;
-        background-color: #0088cc;
-        border-radius: 0px;
-        -webkit-border-radius: 0px;
-        -moz-border-radius: 0px;
-        background-image: none;
-    }
+.ui-state-hover, &.ui-state-active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
+}
 /*end:jquery ui custom*/

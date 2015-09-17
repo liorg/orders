@@ -494,6 +494,9 @@
     <Content Include="Views\Shared\_addressView.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AddressEditorViewModel.cshtml" />
     <Content Include="Views\Shared\_map.cshtml" />
+    <Content Include="Views\Shared\_rantoolbox.cshtml" />
+    <Content Include="Views\Shared\_qrcode.cshtml" />
+    <Content Include="Views\Shared\_orderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Content\css\" />

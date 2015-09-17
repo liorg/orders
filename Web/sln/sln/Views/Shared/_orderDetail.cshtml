@@ -1,0 +1,44 @@
+﻿@model Michal.Project.Models.OrderView
+
+
+<h4>סטאטוס משלוח הזמנה @Model.ShippingVm.Name</h4>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <span class="label label-success">@Model.ShippingVm.Status</span>
+        <span class="prefix  pull-right">סטאטוס:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Model.ShippingVm.CreatedOn</span>
+        <span class="prefix pull-right">תאריך יצירה:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Model.ShippingVm.ModifiedOn</span>
+        <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.SourceAddress)</span>
+        <span class="prefix  pull-right">מ:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Model.ShippingVm.NameSource</span>
+        <span class="prefix pull-right">איש קשר (מקור)</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelSource">@Model.ShippingVm.TelSource</a></span>
+        <span class="prefix pull-right">טלפון איש קשר (מקור)</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.TargetAddress) </span>
+        <span class="prefix  pull-right">אל:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-success">@Model.ShippingVm.Recipient</span>
+        <span class="prefix pull-right">איש קשר (יעד)</span>
+    </li>
+
+    <li class="list-group-item">
+        <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelTarget">@Model.ShippingVm.TelTarget</a></span>
+        <span class="prefix pull-right">טלפון איש קשר (יעד)</span>
+    </li>
+</ul>
