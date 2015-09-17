@@ -343,10 +343,11 @@ img {
 
 .rantoolbox1 nav ul {
     /*background: radial-gradient( transparent, rgba(0, 40, 50, 1)), url('http://d1jqu7g1y74ds1.cloudfront.net/wp-content/uploads/2010/08/The-Brightest-of-Stars.jpg');*/
-    text-align: center;
+    /*text-align: center;*/
+    float:right;
 }
 
-    .rantoolbox1 nav ul li {
+    .rantoolbox1 nav ul li {   text-align: center;
         display: inline-block;
     }
 
