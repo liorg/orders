@@ -9,5 +9,8 @@ namespace Michal.Project.Models
     {
         public double TargetLat { get; set; }
         public double TargetLng { get; set; }
+
+        public double SourceLat { get; set; }
+        public double SourceLng { get; set; }
     }
 }

@@ -108,6 +108,11 @@ namespace Michal.Project.Bll
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;
             orderModel.Location.TargetLng = shipping.Target.Lng;
+
+            orderModel.Location.SourceLat = shipping.Source.Lat;
+            orderModel.Location.SourceLng = shipping.Source.Lng;
+
+
             orderModel.ShippingVm = new ShippingVm();
             orderModel.ShippingVm.Number = shipping.Name;
 
