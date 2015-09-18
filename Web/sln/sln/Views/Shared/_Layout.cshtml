@@ -13,12 +13,10 @@
     @Scripts.Render("~/bundles/admin")
     @Styles.Render("~/Content/admin")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
-     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 
-
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
         body {
@@ -106,6 +104,31 @@
 
         $(document).ready(function () {
             $('.switchboot').bootstrapSwitch();
+            $("#whatsup").on("tap", function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+            });
+            $('#whatsup').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#waze').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#print').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#calc').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+
             //   $(document).tooltip();
             $('#chkAll').click(function () {
                 var viewAll = $("#chkAll").prop('checked');
