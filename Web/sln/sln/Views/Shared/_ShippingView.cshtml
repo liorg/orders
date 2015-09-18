@@ -2,20 +2,21 @@
 
 
 <div class="row">
-    <div class=" col-md-12">
-        <div class=" col-md-9 text-center">
-            @Html.Partial("_rantoolbox")
+    <div class=" col-md-12 ">
+        <div class="row">
+            <div class=" col-md-9 col-sm-12  col-xs-12 text-center prantoolbox">
+                @Html.Partial("_rantoolbox")
+            </div>
+            <div class=" col-md-3  col-sm-12 col-xs-12">
+                @Html.Partial("_qrcode")
+            </div>
         </div>
-        <div class=" col-md-3">
-            @Html.Partial("_qrcode")
-        </div>
-
     </div>
 </div>
 @Html.Partial("_StatusConfirm", Model.Status)
 <div class="row">
     <div class="col-md-9">
-          @Html.Partial("_orderDetail")
+        @Html.Partial("_orderDetail")
     </div>
 
 </div>
@@ -93,7 +94,7 @@
 
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=@System.Web.Configuration.WebConfigurationManager.AppSettings["googleapi"]&callback=initMap"
     async defer></script>
 
 <!-- 
@@ -104,5 +105,9 @@
 
     dev
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
+    async defer></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
     async defer></script>
     -->

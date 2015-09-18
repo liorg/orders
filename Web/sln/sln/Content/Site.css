@@ -224,13 +224,57 @@ img {
 }*/
 /*start: http://codepen.io/xfs/pen/CaLsK*/
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans);*/
 
+.rantoolbox1 nav ul {
+    float: right;
+}
+
+    .rantoolbox1 nav ul li {
+        text-align: center;
+        display: inline-block;
+    }
+
+.rantoolbox1 nav ul li a {
+    /*font-family: "Open Sans";*/
+    color: rgba(0, 35, 34, 0.6);
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.rantoolbox1 li a {
+    /*background: rgba(255, 255, 255, 0.3);*/
+    background: #18bc9c;
+    /*box-shadow: 0 0 30px rgba(0, 0, 0, 0;1), inset 0 0 1px rgba(225, 255, 255, 0.8);*/
+    /*width: 120px;
+        height: 120px;
+        line-height: 115px;*/
+    border-radius: 50%;
+    display: block;
+}
+
+    .rantoolbox1 li a:hover {
+        transition-duration: 300ms;
+        /*background:#18bc9c;*/
+        background: rgba(0, 120, 140, 0.6);
+    }
+
+
+/*end: http://codepen.io/xfs/pen/CaLsK*/
 @media (max-width: 767px) {
+    .prantoolbox {
+        padding-right: 0px;
+    }
+
+    .rantoolbox1 nav .layoutright {
+        padding-right: 5px;
+    }
+
     .rantoolbox1 li a {
-        width: 60px;
-        height: 60px;
-        line-height: 55px;
+        width: 75px;
+        height: 75px;
+        line-height: 70px;
     }
 
     .rantoolbox1 .print {
@@ -255,11 +299,20 @@ img {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  
+
     .rantoolbox1 li a {
-        width: 60px;
-        height: 60px;
-        line-height: 55px;
+        width: 75px;
+        height: 75px;
+        line-height: 70px;
     }
+
+    .rantoolbox1 li a {
+        width: 90px;
+        height: 90px;
+        line-height: 85px;
+    }
+
 
     .rantoolbox1 .print {
         max-width: 32px;
@@ -283,6 +336,7 @@ img {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
+    
     .rantoolbox1 li a {
         width: 90px;
         height: 90px;
@@ -338,46 +392,6 @@ img {
     }
 }
 
-
-
-
-.rantoolbox1 nav ul {
-    /*background: radial-gradient( transparent, rgba(0, 40, 50, 1)), url('http://d1jqu7g1y74ds1.cloudfront.net/wp-content/uploads/2010/08/The-Brightest-of-Stars.jpg');*/
-    /*text-align: center;*/
-    float:right;
-}
-
-    .rantoolbox1 nav ul li {   text-align: center;
-        display: inline-block;
-    }
-
-.rantoolbox nav ul li a {
-    font-family: "Open Sans";
-    color: rgba(0, 35, 34, 0.6);
-    font-size: 15px;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
-.rantoolbox1 li a {
-    /*background: rgba(255, 255, 255, 0.3);*/
-    background: #18bc9c;
-    /*box-shadow: 0 0 30px rgba(0, 0, 0, 0;1), inset 0 0 1px rgba(225, 255, 255, 0.8);*/
-    /*width: 120px;
-        height: 120px;
-        line-height: 115px;*/
-    border-radius: 50%;
-    display: block;
-}
-
-    .rantoolbox1 li a:hover {
-        transition-duration: 300ms;
-        /*background:#18bc9c;*/
-        background: rgba(0, 120, 140, 0.6);
-    }
-
-
-/*end: http://codepen.io/xfs/pen/CaLsK*/
 
 /*start: http://bootsnipp.com/snippets/featured/circle-button*/
 .btn-circle {
