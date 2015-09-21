@@ -501,6 +501,8 @@
     <Content Include="Views\Shared\_rantoolbox.cshtml" />
     <Content Include="Views\Shared\_qrcode.cshtml" />
     <Content Include="Views\Shared\_orderDetail.cshtml" />
+    <Content Include="Views\Shared\_StatusApporvallRequest.cshtml" />
+    <Content Include="Views\Shared\_StatusAllowConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Content\css\" />

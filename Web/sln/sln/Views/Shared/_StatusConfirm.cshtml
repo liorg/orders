@@ -15,54 +15,15 @@
 {
     case Michal.Project.Helper.Status.Draft:
         if (ViewBag.userProfiler.AllowConfirm)
-        {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-success" href="@Url.Action("ApprovalRequest", "Status", new { id = Model.ShipId })">
-                        <i class="fa fa-paper-plane fa-2x pull-right"></i>שלח </a>
-
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-default" href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))">
-                        <i class="fa fa-pencil fa-2x pull-right"></i>ערוך </a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="@(Url.Action("RemoveItem", "Status", new { id = Model.ShipId }))">
-                        <i class="fa  fa-times fa-2x pull-right"></i>ביטול הזמנה </a>
-                </div>
-            </div>
-        </div>
-    </div>
+        { 
+    @Html.Partial("_StatusAllowConfirm")
         }
         break;
     case Michal.Project.Helper.Status.ApporvallRequest:
         if (ViewBag.userProfiler.AllowAccept)
         {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" href="#"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i><span class="hidden-phone">אושר</span></a>
-                    <a class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="fa fa-caret-down fa-2x"></span></a>
-                    <ul class="dropdown-menu">
-                        @foreach (var runner in Model.Runners)
-                        {
-                            <li><a href="@Url.Action("ConfirmRequest", "Status", new { id = Model.ShipId, assignTo = runner.Id })"><i class="fa fa-hand-o-left fa-fw"></i>@runner.FullName</a></li> 
-                            <li class="divider"></li>
-                        }
-                        <li><a href="@Url.Action("ConfirmRequest", "Status", new { id = Model.ShipId })"><i class="fa fa-repeat fa-fw"></i>העבר אליי</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" href="@Url.Action("CancelRequest", "Status", new { id = Model.ShipId })"><span class="hidden-phone">לא אושר הזמנה</span>  <i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i></a>
-                </div>
-                @Html.Partial("_editOrder")
-            </div>
-        </div>
-    </div>
+   
+    @Html.Partial("_StatusApporvallRequest")
         }
         break;
     case Michal.Project.Helper.Status.Confirm:
