@@ -496,7 +496,7 @@
     <Content Include="Views\UTest\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AddressEditorViewModel.cshtml" />
     <Content Include="Views\Shared\_addressView.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DisplayTemplates\AddressEditorViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AddressEditorViewModel.cshtml" />
     <Content Include="Views\Shared\_map.cshtml" />
     <Content Include="Views\Shared\_rantoolbox.cshtml" />
     <Content Include="Views\Shared\_qrcode.cshtml" />
