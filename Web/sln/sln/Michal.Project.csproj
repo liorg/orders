@@ -211,6 +211,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\OrgController.cs" />
     <Compile Include="Controllers\FController.cs" />
@@ -396,7 +397,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
-    <None Include="Properties\PublishProfiles\test.pubxml" />
+    <None Include="Properties\PublishProfiles\realse.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\carousel-rtl.js" />
@@ -496,6 +497,7 @@
     <Content Include="Views\Shared\_StatusConfirmShip.cshtml" />
     <Content Include="Views\Shared\_StatusAcceptByRunner.cshtml" />
     <Content Include="Views\Shared\_StatusEnd.cshtml" />
+    <Content Include="Views\ErrorPage\Oops.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />
