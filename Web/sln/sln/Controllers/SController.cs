@@ -78,13 +78,8 @@ namespace Michal.Project.Controllers
                     u.Name = ship.Name;
                     u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
                     u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                 //   u.CityToName = ship.CityTo != null ? ship.CityTo.Name : "";
-                  //  u.CityFormName = ship.CityFrom != null ? ship.CityFrom.Name : "";
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                  //  u.NumFrom = ship.AddressNumFrom;
-                 //   u.NumTo = ship.AddressNumTo;
-                //    u.SreetFrom = ship.AddressFrom;
-                //    u.SreetTo = ship.AddressTo;
+                  
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
 
@@ -93,18 +88,9 @@ namespace Michal.Project.Controllers
 
                 bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
 
-                //ViewBag.BShowAll = showAll;
-                //ViewBag.ShowAll = showAll.ToString();
-                //ViewBag.Total = total;
-                //ViewBag.CurrentPage = page;
-                //ViewBag.MoreRecord = hasMoreRecord;
                 ViewBag.Selected = view.StatusDesc;
                 ViewBag.StatusId = view.StatusId;
-                //ViewBag.FromDay = from.ToString("yyyy-MM-dd");
-                //ViewBag.ToDay = to.ToString("yyyy-MM-dd");
-                //ViewBag.IsToday = isToday;
-                //ViewBag.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
-
+              
                 SpecialView specialView = new SpecialView();
                 specialView.Items = shippingsItems.AsEnumerable();
                 specialView.ClientViewType = ClientViewType.Views;
@@ -116,7 +102,7 @@ namespace Michal.Project.Controllers
                 specialView.CurrentPage = page;
                 specialView.MoreRecord = hasMoreRecord;
                 specialView.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
-                
+
                 specialView.FromDay = from.ToString("yyyy-MM-dd");
                 specialView.ToDay = to.ToString("yyyy-MM-dd");
                 specialView.IsToday = to.Date == DateTime.Now.AddDays(1).Date;
@@ -132,7 +118,7 @@ namespace Michal.Project.Controllers
                 List<Distance> distances = new List<Distance>();
                 UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-                
+
                 var shiptypes = cache.GetShipType(context);
 
                 long increa = 0;
@@ -157,13 +143,28 @@ namespace Michal.Project.Controllers
                 }
                 model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5, '0'));
                 model.FastSearch = increa;
+
+                model.SourceAddress = new AddressEditorViewModel();
+                model.SourceAddress.City = userContext.Address.CityName;
+                model.SourceAddress.Citycode = userContext.Address.CityCode;
+                model.SourceAddress.CitycodeOld = userContext.Address.CityCode;
+                model.SourceAddress.Street = userContext.Address.StreetName;
+                model.SourceAddress.Streetcode = userContext.Address.StreetCode;
+                model.SourceAddress.StreetcodeOld = userContext.Address.StreetCode;
+                model.SourceAddress.ExtraDetail = userContext.Address.ExtraDetail;
+                model.SourceAddress.Num = userContext.Address.StreetNum;
+                model.SourceAddress.UId = userContext.Address.UID;
+
+                model.TelSource = userContext.Tel;
+                model.NameSource = userContext.FullName;
+
                 ViewBag.OrderNumber = model.Name;
                 var orgs = cache.GetOrgs(context);
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 if (String.IsNullOrEmpty(orgid))
                     orgid = userContext.OrgId.ToString();
-                var organid=Guid.Parse(orgid);
+                var organid = Guid.Parse(orgid);
                 distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
 
                 model.OrgId = organid;
@@ -207,27 +208,17 @@ namespace Michal.Project.Controllers
                 shipping.IsActive = true;
                 shipping.NotifyType = Notification.Warning; //Notification.Error;//Notification.Warning;
                 shipping.NotifyText = Notification.MessageConfirm;
-               
+
                 shipping.Recipient = shippingVm.Recipient;
-                shipping.TelSource = userContext.Tel;
+                shipping.TelSource = shippingVm.TelSource; // userContext.Tel;
                 shipping.TelTarget = shippingVm.TelTarget;
-                shipping.NameSource = userContext.FullName;
+                shipping.NameSource = shippingVm.NameSource;// userContext.FullName;
                 shipping.NameTarget = shippingVm.NameTarget;
 
-                //shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
-                //shipping.Target.CityName = shippingVm.TargetAddress.City;
-                //shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
-                //shipping.Target.StreetName = shippingVm.TargetAddress.Street;
-                //shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
 
                 location.SetLocation(shippingVm.TargetAddress, shipping.Target);
 
-                //shipping.Source.CityCode = shippingVm.SourceAddress.Citycode;
-                //shipping.Source.CityName = shippingVm.SourceAddress.City;
-                //shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
-                //shipping.Source.StreetName = shippingVm.SourceAddress.Street;
-                //shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
                 shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
 
                 location.SetLocation(shippingVm.SourceAddress, shipping.Source);
@@ -288,7 +279,7 @@ namespace Michal.Project.Controllers
                 var model = new ShippingVm();
                 model.Number = shipping.Name;
 
-              
+
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;
@@ -303,8 +294,9 @@ namespace Michal.Project.Controllers
                 model.Recipient = shipping.Recipient;
                 model.TelTarget = shipping.TelTarget;
                 model.NameTarget = shipping.NameTarget;
-             
-               
+
+                model.TelSource = shipping.TelSource;
+                model.NameSource = shipping.NameSource;
 
                 model.SourceAddress = new AddressEditorViewModel();
                 model.SourceAddress.City = shipping.Source.CityName;
@@ -315,8 +307,6 @@ namespace Michal.Project.Controllers
                 model.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
                 model.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
                 model.SourceAddress.Num = shipping.Source.StreetNum;
-                
- 
 
                 model.TargetAddress = new AddressEditorViewModel();
                 model.TargetAddress.City = shipping.Target.CityName;
@@ -327,7 +317,7 @@ namespace Michal.Project.Controllers
                 model.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
                 model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
                 model.TargetAddress.Num = shipping.Target.StreetNum;
-               
+
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
                 {
                     if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
@@ -361,7 +351,8 @@ namespace Michal.Project.Controllers
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
                 UserContext userContext = new UserContext(AuthenticationManager);
-
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                LocationAgent location = new LocationAgent(cache);
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                     shipping.Organization_OrgId = userContext.OrgId;
                 else
@@ -379,24 +370,13 @@ namespace Michal.Project.Controllers
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelTarget = shippingVm.TelTarget;
                 shipping.NameTarget = shippingVm.NameTarget;
-                MemeryCacheDataService cache = new MemeryCacheDataService();
-               
-                LocationAgent location = new LocationAgent(cache);
 
-                //shipping.Source.CityName = shippingVm.SourceAddress.City;
-                //shipping.Source.CityCode=  shippingVm.SourceAddress.Citycode;
-                //shipping.Source.StreetName= shippingVm.SourceAddress.Street;
-                //shipping.Source.StreetCode = shippingVm.SourceAddress.Streetcode;
-                //shipping.Source.StreetNum = shippingVm.SourceAddress.Num;
+                shipping.TelSource = shippingVm.TelSource;
+                shipping.NameSource = shippingVm.NameSource;
+
                 shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
                 location.SetLocation(shippingVm.SourceAddress, shipping.Source);
 
-                //shipping.Target.CityName = shippingVm.TargetAddress.City;
-                //shipping.Target.CityCode = shippingVm.TargetAddress.Citycode;
-                //shipping.Target.StreetName = shippingVm.TargetAddress.Street;
-                //shipping.Target.StreetCode = shippingVm.TargetAddress.Streetcode;
-               
-                //shipping.Target.StreetNum = shippingVm.TargetAddress.Num;
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
                 location.SetLocation(shippingVm.TargetAddress, shipping.Target);
 
@@ -437,14 +417,14 @@ namespace Michal.Project.Controllers
 
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(fx=>fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
                 var runners = cacheProvider.GetRunners(context);
-                var orderModel = view.GetOrder(new OrderRequest { UserContext=userContext, Shipping = shipping, Runners = runners });
+                var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping, Runners = runners });
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }

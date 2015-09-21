@@ -1,21 +1,23 @@
 ﻿@model Michal.Project.Models.OrderView
 
+@Html.Partial("_navLists")
 
 <div class="row">
-    <div class=" col-md-12">
-        <div class=" col-md-9 text-center">
-            @Html.Partial("_rantoolbox")
+    <div class=" col-md-12 ">
+        <div class="row">
+            <div class=" col-md-9 col-sm-12  col-xs-12 text-center prantoolbox">
+                @Html.Partial("_rantoolbox")
+            </div>
+            <div class=" col-md-3  col-sm-12 col-xs-12">
+                @Html.Partial("_qrcode")
+            </div>
         </div>
-        <div class=" col-md-3">
-            @Html.Partial("_qrcode")
-        </div>
-
     </div>
 </div>
 @Html.Partial("_StatusConfirm", Model.Status)
 <div class="row">
     <div class="col-md-9">
-          @Html.Partial("_orderDetail")
+        @Html.Partial("_orderDetail")
     </div>
 
 </div>
@@ -76,7 +78,7 @@
             sinfowindow.open(map, smarker);
         });
 
-
+        //http://salman-w.blogspot.co.il/2011/03/zoom-to-fit-all-markers-on-google-map.html
         var bounds = new google.maps.LatLngBounds();
         bounds.extend(new google.maps.LatLng(parseFloat(lat), parseFloat(lng)));
         bounds.extend(new google.maps.LatLng(parseFloat(slat), parseFloat(slng)));

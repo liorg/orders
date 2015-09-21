@@ -525,6 +525,14 @@ namespace Michal.Project.Controllers
             identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.Tel, user.Tel.ToString()));
 
+            identity.AddClaim(new Claim(CustomClaimTypes.City, user.AddressUser.CityName.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.CityCode, user.AddressUser.CityCode.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.Street, user.AddressUser.StreetName.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.StreetCode, user.AddressUser.StreetCode.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.Num, user.AddressUser.StreetNum.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.External, user.AddressUser.ExtraDetail.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.UID, user.AddressUser.UID.ToString()));
+
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 

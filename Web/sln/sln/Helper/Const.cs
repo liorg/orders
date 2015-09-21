@@ -30,6 +30,13 @@ namespace Michal.Project.Helper
         public const string Tel = "http://r.co.il/claims/Tel";
         public const string JobTitle = "http://r.co.il/claims/JobTitle";
         public const string JobType = "http://r.co.il/claims/JobType";
+        public const string City = "http://r.co.il/claims/City";
+        public const string CityCode = "http://r.co.il/claims/CityCode";
+        public const string Street = "http://r.co.il/claims/Street";
+        public const string StreetCode = "http://r.co.il/claims/StreetCode";
+        public const string Num = "http://r.co.il/claims/Num";
+        public const string External = "http://r.co.il/claims/External";
+        public const string UID = "http://r.co.il/claims/UID";
     }
 
     public class TimeStatus

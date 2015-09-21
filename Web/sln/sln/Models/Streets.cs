@@ -32,12 +32,14 @@ namespace Michal.Project.Models
         public string Tbl { get; set; }
 
     }
+    
     [JsonObject]
     public class StreetsGeoLocation
     {
 
         public List<StreetLatAndLng> StreetsItems { get; set; }
     }
+    
     public class StreetLatAndLng : Street
     {
         public string GoogleApiUrl { get; set; }

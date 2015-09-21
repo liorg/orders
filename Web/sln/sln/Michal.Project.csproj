@@ -283,34 +283,34 @@
       <DependentUpon>201509130517177_remove city.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Views\Cache\Models\AddressEditorViewModel.cs" />
-    <Compile Include="Views\Cache\Models\CommentVm.cs" />
-    <Compile Include="Views\Cache\Models\JobTitleVm.cs" />
-    <Compile Include="Views\Cache\Models\KeyValuePairUI.cs" />
-    <Compile Include="Views\Cache\Models\LocationUi.cs" />
-    <Compile Include="Views\Cache\Models\OrderRequest.cs" />
-    <Compile Include="Views\Cache\Models\Runner.cs" />
-    <Compile Include="Views\Cache\Models\StatusVm.cs" />
+    <Compile Include="Models\AddressEditorViewModel.cs" />
+    <Compile Include="Models\CommentVm.cs" />
+    <Compile Include="Models\JobTitleVm.cs" />
+    <Compile Include="Models\KeyValuePairUI.cs" />
+    <Compile Include="Models\LocationUi.cs" />
+    <Compile Include="Models\OrderRequest.cs" />
+    <Compile Include="Models\Runner.cs" />
+    <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
-    <Compile Include="Views\Cache\Models\Status\StatusRequestBase.cs" />
-    <Compile Include="Views\Cache\Models\Streets.cs" />
-    <Compile Include="Views\Cache\Models\UserProfiler.cs" />
-    <Compile Include="Views\Cache\Models\OrderView.cs" />
-    <Compile Include="Views\Cache\Models\ShippingItemVm.cs" />
-    <Compile Include="Views\Cache\Models\ShippingVm.cs" />
-    <Compile Include="Views\Cache\Models\TimeLineVm.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\EditUserViewModel.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\LoginViewModel.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\ManageUserViewModel.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\RegisterViewModel.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\SelectUserRolesViewModel.cs" />
-    <Compile Include="Views\Cache\Models\UserManagement\UserContext.cs" />
-    <Compile Include="Views\Cache\Models\View\UsersView.cs" />
-    <Compile Include="Views\Cache\Models\View\FollowsView.cs" />
-    <Compile Include="Views\Cache\Models\View\SpecialView.cs" />
-    <Compile Include="Views\Cache\Models\View\base\ViewDataPage.cs" />
-    <Compile Include="Views\Cache\Models\ViewItem.cs" />
-    <Compile Include="Views\Cache\Models\ViewListsRequest.cs" />
+    <Compile Include="Models\Status\StatusRequestBase.cs" />
+    <Compile Include="Models\Streets.cs" />
+    <Compile Include="Models\UserProfiler.cs" />
+    <Compile Include="Models\OrderView.cs" />
+    <Compile Include="Models\ShippingItemVm.cs" />
+    <Compile Include="Models\ShippingVm.cs" />
+    <Compile Include="Models\TimeLineVm.cs" />
+    <Compile Include="Models\UserManagement\EditUserViewModel.cs" />
+    <Compile Include="Models\UserManagement\LoginViewModel.cs" />
+    <Compile Include="Models\UserManagement\ManageUserViewModel.cs" />
+    <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
+    <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
+    <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\View\UsersView.cs" />
+    <Compile Include="Models\View\FollowsView.cs" />
+    <Compile Include="Models\View\SpecialView.cs" />
+    <Compile Include="Models\View\base\ViewDataPage.cs" />
+    <Compile Include="Models\ViewItem.cs" />
+    <Compile Include="Models\ViewListsRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ExcelProvider.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
@@ -330,65 +330,55 @@
     <Content Include="Content\img\calc32x32.png" />
     <Content Include="Content\img\delivery.png" />
     <Content Include="Content\img\location32x32.png" />
+    <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png" />
+    <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png" />
     <Content Include="Content\img\Male-Avatar-Emo-Haircut-icon.png" />
+    <Content Include="Content\img\Male-Avatar-Goatee-Beard-icon.png" />
+    <Content Include="Content\img\Male-Avatar-Mustache-icon.png" />
     <Content Include="Content\img\printer32x32.png" />
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
+    <Content Include="Content\img\ui-anim_basic_16x16.gif" />
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
     <Content Include="Content\img\whatsapp32x32.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Controllers\Content\img\Male-Avatar-Bowler-Hat-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controllers\Content\img\Male-Avatar-Cool-Cap-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controllers\Content\img\Male-Avatar-Goatee-Beard-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controllers\Content\img\Male-Avatar-Mustache-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controllers\Content\img\ui-anim_basic_16x16.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controllers\Content\themes\base\accordion.css" />
-    <Content Include="Controllers\Content\themes\base\all.css" />
-    <Content Include="Controllers\Content\themes\base\autocomplete.css" />
-    <Content Include="Controllers\Content\themes\base\base.css" />
-    <Content Include="Controllers\Content\themes\base\button.css" />
-    <Content Include="Controllers\Content\themes\base\core.css" />
-    <Content Include="Controllers\Content\themes\base\datepicker.css" />
-    <Content Include="Controllers\Content\themes\base\dialog.css" />
-    <Content Include="Controllers\Content\themes\base\draggable.css" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Controllers\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Controllers\Content\themes\base\menu.css" />
-    <Content Include="Controllers\Content\themes\base\progressbar.css" />
-    <Content Include="Controllers\Content\themes\base\resizable.css" />
-    <Content Include="Controllers\Content\themes\base\selectable.css" />
-    <Content Include="Controllers\Content\themes\base\selectmenu.css" />
-    <Content Include="Controllers\Content\themes\base\slider.css" />
-    <Content Include="Controllers\Content\themes\base\sortable.css" />
-    <Content Include="Controllers\Content\themes\base\spinner.css" />
-    <Content Include="Controllers\Content\themes\base\tabs.css" />
-    <Content Include="Controllers\Content\themes\base\theme.css" />
-    <Content Include="Controllers\Content\themes\base\tooltip.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -508,8 +498,6 @@
     <Content Include="Views\Shared\_StatusEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Content\css\" />
-    <Folder Include="Controllers\Content\fonts\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>

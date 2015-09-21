@@ -18,23 +18,23 @@
     </li>
     <li class="list-group-item">
         <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.SourceAddress)</span>
-        <span class="prefix  pull-right">מ:</span>
+        <span class="prefix  pull-right">כתובת השולח:</span>
     </li>
     <li class="list-group-item">
         <span class="label label-success">@Model.ShippingVm.NameSource</span>
-        <span class="prefix pull-right">איש קשר (מקור)</span>
+        <span class="prefix pull-right">שם השולח:</span>
     </li>
     <li class="list-group-item">
         <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelSource">@Model.ShippingVm.TelSource</a></span>
-        <span class="prefix pull-right">טלפון איש קשר (מקור)</span>
+        <span class="prefix pull-right">טלפון של השולח:</span>
     </li>
     <li class="list-group-item">
         <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.TargetAddress) </span>
-        <span class="prefix  pull-right">אל:</span>
+        <span class="prefix  pull-right">כתובת היעד:</span>
     </li>
     <li class="list-group-item">
         <span class="label label-success">@Model.ShippingVm.Recipient</span>
-        <span class="prefix pull-right">איש קשר (יעד)</span>
+        <span class="prefix pull-right">שם פרטי המקבל:</span>
     </li>
 
     <li class="list-group-item">

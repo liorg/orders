@@ -72,45 +72,102 @@ namespace Michal.Project.Models
         }
         Guid _orgId, _userid = Guid.Empty; string _fullname; string _empId; string _tel;
         bool _showAll; int _defaultView;
+        Michal.Project.DataModel.Address _address;
+        public Michal.Project.DataModel.Address Address
+        {
+            get
+            {
+                return _address;
+            }
+        }
 
         public UserContext()
         {
+            _address = new DataModel.Address();
         }
         public UserContext(IAuthenticationManager authenticationManager)
         {
+            _address = new DataModel.Address();
             ClaimsIdentity claimsIdentity = authenticationManager.User.Identity as ClaimsIdentity;
             foreach (var claim in claimsIdentity.Claims)
             {
+                if (claim.Type == CustomClaimTypes.CityCode)
+                {
+                    _address.CityCode = claim.Value;  continue;
+                }
+                if (claim.Type == CustomClaimTypes.City)
+                {
+                    _address.CityName = claim.Value; continue;
+                }
+                if (claim.Type == CustomClaimTypes.StreetCode)
+                {
+                    _address.StreetCode = claim.Value; continue;
+                }
+                if (claim.Type == CustomClaimTypes.Street)
+                {
+                    _address.StreetName = claim.Value; continue;
+                }
+                if (claim.Type == CustomClaimTypes.Num)
+                {
+                    _address.StreetNum = claim.Value; continue;
+                }
+                if (claim.Type == CustomClaimTypes.External)
+                {
+                    _address.ExtraDetail = claim.Value; continue;
+                }
+                if (claim.Type == CustomClaimTypes.UID)
+                {
+                    _address.UID = int.Parse(claim.Value); continue;
+                }
                 if (claim.Type == CustomClaimTypes.Tel)
-                    _tel = claim.Value;
+                {
+                    _tel = claim.Value; continue;
+                }
 
                 if (claim.Type == ClaimTypes.GroupSid)
-                    _orgId = Guid.Parse(claim.Value);
+                {
+                    _orgId = Guid.Parse(claim.Value); continue;
+                }
 
                 if (claim.Type == ClaimTypes.NameIdentifier)
-                    _userid = Guid.Parse(claim.Value);
+                {
+                    _userid = Guid.Parse(claim.Value); continue;
+                }
                 if (claim.Type == ClaimTypes.Surname)
-                    _fullname = claim.Value;
+                {
+                    _fullname = claim.Value; continue;
+                }
                 if (claim.Type == ClaimTypes.SerialNumber)
-                    _empId = claim.Value;
+                {
+                    _empId = claim.Value; continue;
+                }
                 if (claim.Type == CustomClaimTypes.DefaultView)
+                {
                     if (String.IsNullOrEmpty(claim.Value))
                         _defaultView = 1;
                     else _defaultView = int.Parse(claim.Value);
-
+                    continue;
+                }
                 if (claim.Type == CustomClaimTypes.ShowAllView)
+                {
                     if (String.IsNullOrEmpty(claim.Value))
                         _showAll = false;
                     else _showAll = bool.Parse(claim.Value);
-
+                    continue;
+                }
                 if (claim.Type == CustomClaimTypes.JobType)
+                {
                     if (String.IsNullOrEmpty(claim.Value))
                         _jobType = "";
                     else _jobType = claim.Value;
+                    continue;
+                }
                 if (claim.Type == CustomClaimTypes.JobTitle)
+                {
                     if (String.IsNullOrEmpty(claim.Value))
                         _jobTitle = "";
-                    else _jobTitle = claim.Value;
+                    else _jobTitle = claim.Value; continue;
+                }
             }
 
         }

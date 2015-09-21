@@ -16,7 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
 
-
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
         body {
@@ -59,14 +58,13 @@
                         }
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ניהול<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/Account/"><i class="fa fa-user-plus"></i> ניהול משתמשים</a></li>
-                            <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i> רענון Cache</a></li>
-                        </ul>
-                    </li>
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bars "></i> ניהול<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Account/"><i class="fa fa-user-plus"></i>ניהול משתמשים</a></li>
+                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache</a></li>
+                            </ul></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תצוגות<span class="caret"></span></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  <i class="fa fa-bar-chart"></i> תצוגות<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             @Html.Partial("_viewListsHeader")
                         </ul>
@@ -104,7 +102,32 @@
 
         $(document).ready(function () {
             $('.switchboot').bootstrapSwitch();
-            $(document).tooltip();
+            $("#whatsup").on("tap", function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+            });
+            $('#whatsup').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#waze').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#print').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+            $('#calc').click(function () {
+                var url = $(this).attr("data-url");
+                alert(url);
+                // changeUrl(url);
+            });
+
+            //   $(document).tooltip();
             $('#chkAll').click(function () {
                 var viewAll = $("#chkAll").prop('checked');
                 var viewType = $('#viewType').val();
