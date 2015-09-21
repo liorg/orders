@@ -1,5 +1,5 @@
 ﻿@model Michal.Project.Models.OrderView
-<div class="rantoolbox1 col-md-12 prantoolbox">
+@*<div class="rantoolbox1 col-md-12 prantoolbox">
     <nav>
         <ul class="layoutright">
             <!-- http://www.flaticon.com/free-icon/facebook-placeholder-for-locate-places-on-maps_34250-->
@@ -25,4 +25,30 @@
         </ul>
     </nav>
 
+</div>*@
+<div class="  col-md-12 rantoolbox2">
+
+    <div class="btn-group" style="margin-left:4px">
+        <button type="button"   id="whatsup" 
+            data-url="@HttpContext.Current.Server.UrlEncode(HttpContext.Current.Request.Url.AbsoluteUri)"
+             class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/whatsapp32x32.png" />
+        </button>
+    </div>
+    <div class="btn-group" style="margin-left:4px">
+        <button type="button" id="waze" data-url="#" class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/location32x32.png" />
+        </button>
+    </div>
+     <div class="btn-group" style="margin-left:4px">
+        <button type="button" id="print" 
+             data-url="@Url.Action("Print", "S", new { id = @Model.ShippingVm.Id })" class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/printer32x32.png" />
+        </button>
+    </div>
+    <div class="btn-group" style="margin-left:4px">
+        <button type="button" id="calc" data-url="#" class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/calc32x32.png" />
+        </button>
+    </div>
 </div>

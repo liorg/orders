@@ -235,13 +235,13 @@ img {
         display: inline-block;
     }
 
-.rantoolbox1 nav ul li a {
-    /*font-family: "Open Sans";*/
-    color: rgba(0, 35, 34, 0.6);
-    font-size: 15px;
-    text-transform: uppercase;
-    text-decoration: none;
-}
+        .rantoolbox1 nav ul li a {
+            /*font-family: "Open Sans";*/
+            color: rgba(0, 35, 34, 0.6);
+            font-size: 15px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
 
 .rantoolbox1 li a {
     /*background: rgba(255, 255, 255, 0.3);*/
@@ -261,6 +261,9 @@ img {
     }
 
 
+.rantoolbox2 .btn-group {
+    float: right;
+}
 /*end: http://codepen.io/xfs/pen/CaLsK*/
 @media (max-width: 767px) {
     .prantoolbox {
@@ -299,7 +302,7 @@ img {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  
+
 
     .rantoolbox1 li a {
         width: 75px;
@@ -336,7 +339,7 @@ img {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-    
+
     .rantoolbox1 li a {
         width: 90px;
         height: 90px;

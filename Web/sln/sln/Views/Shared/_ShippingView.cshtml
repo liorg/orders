@@ -78,7 +78,7 @@
             sinfowindow.open(map, smarker);
         });
 
-
+        //http://salman-w.blogspot.co.il/2011/03/zoom-to-fit-all-markers-on-google-map.html
         var bounds = new google.maps.LatLngBounds();
         bounds.extend(new google.maps.LatLng(parseFloat(lat), parseFloat(lng)));
         bounds.extend(new google.maps.LatLng(parseFloat(slat), parseFloat(slng)));
