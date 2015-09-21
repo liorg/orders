@@ -22,62 +22,27 @@
     case Michal.Project.Helper.Status.ApporvallRequest:
         if (ViewBag.userProfiler.AllowAccept)
         {
-   
     @Html.Partial("_StatusApporvallRequest")
         }
         break;
     case Michal.Project.Helper.Status.Confirm:
         if (ViewBag.userProfiler.AllowRunner)
         {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
-                        <i class="fa fa-envelope-o fa-2x pull-right"></i><span class="hidden-phone">קבלת המשלוח</span>  </a>
-
-                </div>
-                @Html.Partial("_editOrder")
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_StatusConfirmShip")
         }
         break;
     case Michal.Project.Helper.Status.AcceptByRunner:
         if (ViewBag.userProfiler.AllowRunner)
         {
    
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <div class="btn-group">
-                    <div class="switch">
-                        <input id="chkCheckin" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
-                        <label for="chkCheckin" data-on="הגעתי ליעד" data-off="לא הגעתי"><i class="fa fa-map-marker fa-fw fa-2x"></i></label>
-                    </div>
-                </div>
-                @Html.Partial("_editOrder")
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_StatusAcceptByRunner")
         }
         break;
     case Michal.Project.Helper.Status.Arrived:
         if (ViewBag.userProfiler.AllowRunner)
         {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well well-lg">
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#okModel" href="#"><i class="fa fa-gift fa-fw fa-2x"></i><span class="hidden-phone">התקבל</span> </a>
-                </div>
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-danger" data-toggle="modal" data-target="#noOkModel" href="#" href="#"><span class="hidden-phone">לא התקבל</span><i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></a>
-                </div>
-                @Html.Partial("_editOrder")
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_StatusEnd")
+        
         }
         break;
     default:

@@ -503,6 +503,9 @@
     <Content Include="Views\Shared\_orderDetail.cshtml" />
     <Content Include="Views\Shared\_StatusApporvallRequest.cshtml" />
     <Content Include="Views\Shared\_StatusAllowConfirm.cshtml" />
+    <Content Include="Views\Shared\_StatusConfirmShip.cshtml" />
+    <Content Include="Views\Shared\_StatusAcceptByRunner.cshtml" />
+    <Content Include="Views\Shared\_StatusEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Content\css\" />

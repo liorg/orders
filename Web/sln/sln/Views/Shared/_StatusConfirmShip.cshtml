@@ -1,0 +1,18 @@
+﻿@model StatusVm
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b>קבלת המשלוח מהשולח</b></h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-success" href="@Url.Action("Accept", "Status", new { id = Model.ShipId })">
+                        <span class="visible-md visible-lg"><i class="fa fa-envelope-o fa-2x pull-right"></i>קבלת המשלוח</span><i class="visible-xs visible-sm fa fa-envelope-o fa-2x pull-right"></i>  </a>
+
+                </div>
+                @Html.Partial("_editOrder")
+            </div>
+        </div>
+    </div>
+</div>
