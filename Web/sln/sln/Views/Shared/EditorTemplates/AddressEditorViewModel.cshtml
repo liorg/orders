@@ -11,7 +11,7 @@
         @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
             @Html.HiddenFor(m => m.Citycode, new { @class = "form-control" })
-            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" ,autocomplete="off"})
             @Html.ValidationMessageFor(m => m.City)
             @Html.ValidationMessageFor(m => m.Citycode)
         </div>
@@ -20,7 +20,7 @@
         @Html.LabelFor(m => m.Street, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
             @Html.HiddenFor(m => m.Streetcode, new { @class = "form-control" })
-            @Html.TextBoxFor(m => m.Street, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Street, new { @class = "form-control",autocomplete="off" })
             @Html.ValidationMessageFor(m => m.Street)
             @Html.ValidationMessageFor(m => m.Streetcode)
         </div>
@@ -29,7 +29,7 @@
         @Html.LabelFor(m => m.Num, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
 
-            @Html.TextBoxFor(m => m.Num, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Num, new { @class = "form-control",autocomplete="off" })
             @Html.HiddenFor(m => m.NumOld)
             @Html.ValidationMessageFor(m => m.Num)
 
