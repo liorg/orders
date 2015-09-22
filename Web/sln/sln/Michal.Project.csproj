@@ -295,6 +295,7 @@
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
+    <Compile Include="Models\Status\StatusDesc.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
     <Compile Include="Models\Streets.cs" />
     <Compile Include="Models\UserProfiler.cs" />
@@ -502,6 +503,7 @@
     <Content Include="Views\Shared\_StatusEnd.cshtml" />
     <Content Include="Views\ErrorPage\Oops.cshtml" />
     <Content Include="Views\Map\Show.cshtml" />
+    <Content Include="Views\Status\EndStatusDesc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

@@ -255,5 +255,11 @@ namespace Michal.Project.Controllers
                 return RedirectToAction("Index", "F");
             }
         }
+
+        public async Task<ActionResult> EndStatusDesc()
+        {
+            return View();
+        }
+
     }
 }
