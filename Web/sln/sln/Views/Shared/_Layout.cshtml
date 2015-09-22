@@ -106,18 +106,15 @@
 
             $('#whatsup').click(function () {
                 var url = $(this).attr("data-url");
-               // alert(url);
                 window.location.href = "whatsapp://send?text=" + url;
 
             });
             $('#waze').click(function () {
                 var url = $(this).attr("data-url");
-                alert(url);
                 changeUrl(url);
             });
             $('#print').click(function () {
                 var url = $(this).attr("data-url");
-               // alert(url);
                 changeUrl(url);
             });
             $('#calc').click(function () {
