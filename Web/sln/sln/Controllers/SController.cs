@@ -279,7 +279,6 @@ namespace Michal.Project.Controllers
                 var model = new ShippingVm();
                 model.Number = shipping.Name;
 
-
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;

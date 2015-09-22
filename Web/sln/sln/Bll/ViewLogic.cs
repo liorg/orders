@@ -114,7 +114,7 @@ namespace Michal.Project.Bll
 
 
             orderModel.ShippingVm = new ShippingVm();
-            orderModel.ShippingVm.Number = shipping.Name;
+            orderModel.ShippingVm.Name = shipping.Name;
 
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
             orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;

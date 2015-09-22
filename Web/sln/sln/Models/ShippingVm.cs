@@ -75,23 +75,6 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "שם המקבל שדה חובה")]
         public string NameTarget { get; set; }
 
-        //[Display(Name = "מקור")]
-        //public string From
-        //{
-        //    get
-        //    {
-        //        return SreetFrom + " " + NumFrom + " " + CityFormName;
-        //    }
-        //}
-
-        //[Display(Name = "יעד")]
-        //public string To
-        //{
-        //    get
-        //    {
-        //        return NameTarget + " " + SreetTo + " " + NumTo + " " + CityToName;
-        //    }
-        //}
         [Display(Name = "כתובת יעד")]
         public AddressEditorViewModel TargetAddress { get; set; }
 

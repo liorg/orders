@@ -17,10 +17,8 @@ namespace Michal.Project.Models
     {
         public T Model { get; set; }
         public List<ViewType> ViewTypes { get; set; }
-        
     }
-   
-
+  
     public class ShippingItemVm
     {
         [Display(Name = "מזהה")]

@@ -38,5 +38,10 @@ namespace Michal.Project.Models
         public double Lat { get; set; }
         public double Lng { get; set; }
         public bool IsSensor { get; set; }
+
+        public override string ToString()
+        {
+            return this.Street + " " + this.Num + "," + this.City;
+        }
     }
 }

@@ -213,6 +213,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\OrgController.cs" />
     <Compile Include="Controllers\FController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\LocationUi.cs" />
     <Compile Include="Models\OrderRequest.cs" />
+    <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
@@ -326,6 +328,7 @@
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\timeline.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\back32x32.png" />
     <Content Include="Content\img\c.png" />
     <Content Include="Content\img\c32.png" />
     <Content Include="Content\img\calc32x32.png" />
@@ -498,6 +501,7 @@
     <Content Include="Views\Shared\_StatusAcceptByRunner.cshtml" />
     <Content Include="Views\Shared\_StatusEnd.cshtml" />
     <Content Include="Views\ErrorPage\Oops.cshtml" />
+    <Content Include="Views\Map\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />
