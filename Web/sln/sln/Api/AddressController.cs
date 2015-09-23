@@ -1,5 +1,6 @@
 ﻿using Michal.Project.Dal;
 using Michal.Project.Models;
+using Michal.Project.Models.NSStreet;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Web.Http;
 
 namespace Michal.Project.Api
 {
+   
     [RoutePrefix("api/Address")]
     public class AddressController : ApiController
     {
@@ -50,11 +52,15 @@ namespace Michal.Project.Api
         }
         [AcceptVerbs("GET")]
         [Route("SearchStreets")]
-        public HttpResponseMessage SearchStreet(int MaxItems,string ParentFilterId,string Term)
+        public HttpResponseMessage SearchStreet([FromUri]StreetRequest req)
+
+      // public HttpResponseMessage SearchStreet(int MaxItems, string ParentFilterId, string Term)
         {
 
-            MemeryCacheDataService mem = new MemeryCacheDataService();  
-            var streets=mem.GetStreetByCityCode(ParentFilterId.Trim(), Term.Trim(), MaxItems);
+            MemeryCacheDataService mem = new MemeryCacheDataService();
+            //  var streets = mem.GetStreetByCityCode(ParentFilterId.Trim(), Term.Trim(), MaxItems);
+            var streets = mem.GetStreetByCityCode(req.ParentFilterId.Trim(), req.Term.Trim(), req.MaxItems);
+
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new ObjectContent<IEnumerable<KeyValuePairUI>>(streets,

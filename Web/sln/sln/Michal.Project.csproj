@@ -290,6 +290,7 @@
     <Compile Include="Models\JobTitleVm.cs" />
     <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\LocationUi.cs" />
+    <Compile Include="Models\NSStreet\StreetRequest.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -297,7 +298,7 @@
     <Compile Include="Contract\IUserContext.cs" />
     <Compile Include="Models\Status\StatusDesc.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
-    <Compile Include="Models\Streets.cs" />
+    <Compile Include="Models\NSStreet\Streets.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
