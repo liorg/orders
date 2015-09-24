@@ -90,6 +90,70 @@ namespace Michal.Project.Bll
         //    }
         //    return response;
         //}
+        public OrderViewStatus GetOrderStatus(OrderRequest request)
+        {
+
+            var orderModel = new OrderViewStatus();
+            var shipping = request.Shipping;
+            var runners = request.Runners;
+            orderModel.Status = new StatusVm();
+            orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+            orderModel.Status.Recipient = shipping.Recipient;
+            orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.Status.MessageType = shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
+            orderModel.Status.Message = shipping.NotifyText;
+            orderModel.Status.ShipId = shipping.ShippingId;
+            orderModel.Status.Runners = runners;
+            orderModel.Location = new Location();
+            orderModel.Location.TargetLat = shipping.Target.Lat;
+            orderModel.Location.TargetLng = shipping.Target.Lng;
+
+            orderModel.Location.SourceLat = shipping.Source.Lat;
+            orderModel.Location.SourceLng = shipping.Source.Lng;
+
+            orderModel.ShippingVm = new ShippingVm();
+            orderModel.ShippingVm.Name = shipping.Name;
+
+            orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+            orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
+            orderModel.ShippingVm.Id = shipping.ShippingId;
+            orderModel.ShippingVm.Number = shipping.Desc;
+            orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+
+            orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+            orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+            orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
+            orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
+
+            orderModel.ShippingVm.TelSource = shipping.TelSource;
+            orderModel.ShippingVm.TelTarget = shipping.TelTarget;
+            orderModel.ShippingVm.NameSource = shipping.NameSource;
+            orderModel.ShippingVm.NameTarget = shipping.NameTarget;
+            orderModel.ShippingVm.Recipient = shipping.Recipient;
+
+            orderModel.ShippingVm.SourceAddress = new AddressEditorViewModel();
+            orderModel.ShippingVm.SourceAddress.City = shipping.Source.CityName;
+            orderModel.ShippingVm.SourceAddress.Citycode = shipping.Source.CityCode;
+            orderModel.ShippingVm.SourceAddress.CitycodeOld = shipping.Source.CityCode;
+            orderModel.ShippingVm.SourceAddress.Street = shipping.Source.StreetName;
+            orderModel.ShippingVm.SourceAddress.Streetcode = shipping.Source.StreetCode;
+            orderModel.ShippingVm.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
+            orderModel.ShippingVm.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
+            orderModel.ShippingVm.SourceAddress.Num = shipping.Source.StreetNum;
+
+            orderModel.ShippingVm.TargetAddress = new AddressEditorViewModel();
+            orderModel.ShippingVm.TargetAddress.City = shipping.Target.CityName;
+            orderModel.ShippingVm.TargetAddress.Citycode = shipping.Target.CityCode;
+            orderModel.ShippingVm.TargetAddress.CitycodeOld = shipping.Target.CityCode;
+            orderModel.ShippingVm.TargetAddress.Street = shipping.Target.StreetName;
+            orderModel.ShippingVm.TargetAddress.Streetcode = shipping.Target.StreetCode;
+            orderModel.ShippingVm.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
+            orderModel.ShippingVm.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
+            orderModel.ShippingVm.TargetAddress.Num = shipping.Target.StreetNum;
+
+            return orderModel;
+        }
 
         public OrderView GetOrder(OrderRequest request)
         {

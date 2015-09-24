@@ -38,8 +38,6 @@ namespace Michal.Project.Controllers
             {
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -63,8 +61,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -135,10 +131,7 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
-
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -162,8 +155,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -187,8 +178,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -213,8 +202,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(takeOkId);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -230,6 +217,7 @@ namespace Michal.Project.Controllers
                 return RedirectToAction("Index", "F");
             }
         }
+       
         [HttpPost]
         public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
         {
@@ -238,8 +226,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(noTakeOkId);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 var request = new StatusRequestBase();
@@ -256,9 +242,20 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public async Task<ActionResult> EndStatusDesc()
+        public async Task<ActionResult> EndStatusDesc(string id)
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext userContext = new UserContext(AuthenticationManager);
+
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
+                Guid shipId = Guid.Parse(id);
+                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                ViewLogic view = new ViewLogic();
+                var orderModel = view.GetOrderStatus(new OrderRequest { UserContext = userContext, Shipping = shipping });
+                ViewBag.OrderNumber = shipping.Name;
+                return View(orderModel);
+            }
         }
 
     }

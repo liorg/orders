@@ -17,7 +17,7 @@ namespace Michal.Project.Models
         public UserContext UserContext { get; set; }
 
     }
-
+  
     //public class ViewListsResponse
     //{
     //    public IEnumerable<ShippingVm> shippingsQuery { get; set; }

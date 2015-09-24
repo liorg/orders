@@ -1,0 +1,38 @@
+﻿@model Michal.Project.Models.ShippingVm
+
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <span class="label label-success">@Html.Partial("_addressView", Model.SourceAddress)</span>
+                <span class="prefix  pull-right">כתובת השולח:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-success">@Model.NameSource</span>
+                <span class="prefix pull-right">שם השולח:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-success"><a href="tel:+@Model.TelSource">@Model.TelSource</a></span>
+                <span class="prefix pull-right">טלפון של השולח:</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="label label-danger">@Html.Partial("_addressView", Model.TargetAddress) </span>
+                <span class="prefix  pull-right">כתובת היעד:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-danger">@Model.Recipient</span>
+                <span class="prefix pull-right">שם פרטי המקבל:</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-danger"><a href="tel:+@Model.TelTarget">@Model.TelTarget</a></span>
+                <span class="prefix pull-right">טלפון איש קשר (יעד)</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

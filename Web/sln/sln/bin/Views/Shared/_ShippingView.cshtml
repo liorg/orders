@@ -3,7 +3,7 @@
 <div class="row">
     <div class=" col-md-12 ">
         <div class="row">
-            <div class=" col-md-9 col-sm-12  col-xs-12 text-center prantoolbox">
+            <div class=" col-md-9 col-sm-12  col-xs-12  ">
                 @Html.Partial("_rantoolbox")
             </div>
             <div class=" col-md-3  col-sm-12 col-xs-12">
@@ -19,6 +19,9 @@
     </div>
 
 </div>
+
+@Html.Partial("_locations", Model.ShippingVm)
+
 <div class="row">
     <div class="col-md-12">
         @Html.Partial("_comments")
@@ -31,81 +34,4 @@
     </div>
 </div>
 
-@*<div class="row">
-    @Html.HiddenFor(o => o.Location.TargetLat)
-    @Html.HiddenFor(o => o.Location.TargetLng)
-    @Html.HiddenFor(o => o.Location.SourceLng)
-    @Html.HiddenFor(o => o.Location.SourceLat)
-    @Html.Partial("_map", Model.Location)
-</div>
 
-<script>
-
-    var map;
-    function initMap() {
-        var lng = $("#Location_TargetLng").val();
-        var lat = $("#Location_TargetLat").val();
-
-        var slng = $("#Location_SourceLng").val();
-        var slat = $("#Location_SourceLat").val();
-        // alert(slng + "," + slat);
-        var point = { lat: parseFloat(lat), lng: parseFloat(lng) };
-        var spoint = { lat: parseFloat(slat), lng: parseFloat(slng) };
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: new google.maps.LatLng(0, 0),
-            zoom: 0,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var infowindow = new google.maps.InfoWindow;
-        infowindow.setContent('<b>יעד קבלת המשלוח</b>');
-
-        var sinfowindow = new google.maps.InfoWindow;
-        sinfowindow.setContent('<b> שליחת המשלוח</b>');
-
-        var marker = new google.maps.Marker({ map: map, position: point });
-        var smarker = new google.maps.Marker({ map: map, position: spoint, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' });
-
-
-        marker.addListener('click', function () {
-            infowindow.open(map, marker);
-        });
-        smarker.addListener('click', function () {
-            sinfowindow.open(map, smarker);
-        });
-
-        //http://salman-w.blogspot.co.il/2011/03/zoom-to-fit-all-markers-on-google-map.html
-        var bounds = new google.maps.LatLngBounds();
-        bounds.extend(new google.maps.LatLng(parseFloat(lat), parseFloat(lng)));
-        bounds.extend(new google.maps.LatLng(parseFloat(slat), parseFloat(slng)));
-        map.fitBounds(bounds);
-
-        new google.maps.Rectangle({
-            bounds: bounds,
-            map: map,
-            fillColor: "#000000",
-            fillOpacity: 0.2,
-            strokeWeight: 0
-        });
-    }
-
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=@System.Web.Configuration.WebConfigurationManager.AppSettings["googleapi"]&callback=initMap"
-    async defer></script>
-
-<!-- 
-    prod
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN5IIadRYEhkXYfL-velSE46dRHQ5wmI0&callback=initMap"
-    async defer></script>
-
-
-    dev
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
-    async defer></script>
-
-
-    <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
-    async defer></script>
-    -->*@

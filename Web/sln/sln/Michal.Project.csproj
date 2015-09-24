@@ -345,6 +345,8 @@
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
+    <Content Include="Content\img\sign2_32x32.png" />
+    <Content Include="Content\img\sign32x32.png" />
     <Content Include="Content\img\ui-anim_basic_16x16.gif" />
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
@@ -505,6 +507,7 @@
     <Content Include="Views\ErrorPage\Oops.cshtml" />
     <Content Include="Views\Map\Show.cshtml" />
     <Content Include="Views\Status\EndStatusDesc.cshtml" />
+    <Content Include="Views\Shared\_locations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

@@ -1,7 +1,7 @@
 ﻿@model Michal.Project.Models.OrderViewBase
 
 @{
-    ViewBag.Title = "מפה";
+    ViewBag.Title = " מפה של משלוח מספר " + @Model.ShippingVm.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h4>מפה של פרטי משלוח הזמנה @Model.ShippingVm.Name</h4>
@@ -28,55 +28,22 @@
         </div>
     </div>
 </div>
+@Html.Partial("_locations", Model.ShippingVm)
+
 <div class="row">
-    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-        <ul class="list-group">
+    <div class="col-md-12">
+        @Html.HiddenFor(o => o.Location.TargetLat)
+        @Html.HiddenFor(o => o.Location.TargetLng)
+        @Html.HiddenFor(o => o.Location.TargetName)
 
-            <li class="list-group-item">
-                <span class="label label-success">@Html.Partial("_addressView", Model.ShippingVm.SourceAddress)</span>
-                <span class="prefix  pull-right">כתובת השולח:</span>
-            </li>
-            <li class="list-group-item">
-                <span class="label label-success">@Model.ShippingVm.NameSource</span>
-                <span class="prefix pull-right">שם השולח:</span>
-            </li>
-            <li class="list-group-item">
-                <span class="label label-success"><a href="tel:+@Model.ShippingVm.TelSource">@Model.ShippingVm.TelSource</a></span>
-                <span class="prefix pull-right">טלפון של השולח:</span>
-            </li>
-        </ul>
+        @Html.HiddenFor(o => o.Location.SourceLng)
+        @Html.HiddenFor(o => o.Location.SourceLat)
+        @Html.HiddenFor(o => o.Location.SourceName)
+        <div id="map" style="height: 350px; margin: 10px"></div>
     </div>
-    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="label label-danger">@Html.Partial("_addressView", Model.ShippingVm.TargetAddress) </span>
-                <span class="prefix  pull-right">כתובת היעד:</span>
-            </li>
-            <li class="list-group-item">
-                <span class="label label-danger">@Model.ShippingVm.Recipient</span>
-                <span class="prefix pull-right">שם פרטי המקבל:</span>
-            </li>
-            <li class="list-group-item">
-                <span class="label label-danger"><a href="tel:+@Model.ShippingVm.TelTarget">@Model.ShippingVm.TelTarget</a></span>
-                <span class="prefix pull-right">טלפון איש קשר (יעד)</span>
-            </li>
-        </ul>
-    </div>
-
-</div>
-<div class="row">
-    @Html.HiddenFor(o => o.Location.TargetLat)
-    @Html.HiddenFor(o => o.Location.TargetLng)
-    @Html.HiddenFor(o => o.Location.TargetName)
-
-    @Html.HiddenFor(o => o.Location.SourceLng)
-    @Html.HiddenFor(o => o.Location.SourceLat)
-    @Html.HiddenFor(o => o.Location.SourceName)
-    <div id="map" style="height: 350px"></div>
 </div>
 
 @section Scripts {
-
     <script>
         $(document).ready(function () {
             $('#wazetarget').click(function () {
@@ -191,7 +158,6 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=@System.Web.Configuration.WebConfigurationManager.AppSettings["googleapi"]&callback=initMap"
     async defer></script>
-
     <!-- 
     prod
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN5IIadRYEhkXYfL-velSE46dRHQ5wmI0&callback=initMap"
@@ -206,5 +172,4 @@
     <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
     async defer></script>
     -->
-
 }

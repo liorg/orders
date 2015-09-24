@@ -119,10 +119,14 @@
             });
             $('#calc').click(function () {
                 var url = $(this).attr("data-url");
-                alert(url);
+               // alert(url);
                 // changeUrl(url);
             });
-
+            $('#end').click(function () {
+                var url = $(this).attr("data-url");
+              //  alert(url);
+                changeUrl(url);
+            });
             //   $(document).tooltip();
             $('#chkAll').click(function () {
                 var viewAll = $("#chkAll").prop('checked');
