@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Web.Helpers;
 namespace Michal.Project.Helper
 {
     public static class RazorHelper
@@ -56,5 +56,9 @@ namespace Michal.Project.Helper
             return MvcHtmlString.Create(
                 htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldId(ExpressionHelper.GetExpressionText(expression)));
         }
+
+
     }
+   
+
 }

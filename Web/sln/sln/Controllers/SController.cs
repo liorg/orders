@@ -206,7 +206,7 @@ namespace Michal.Project.Controllers
                 shipping.ModifiedBy = userid;
                 shipping.OwnerId = userid;
                 shipping.IsActive = true;
-                shipping.NotifyType = Notification.Warning; //Notification.Error;//Notification.Warning;
+                shipping.NotifyType =(int) AlertStyle.Warning; //Notification.Error;//Notification.Warning;
                 shipping.NotifyText = Notification.MessageConfirm;
 
                 shipping.Recipient = shippingVm.Recipient;
@@ -321,7 +321,7 @@ namespace Michal.Project.Controllers
                 {
                     if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
                     {
-                        shipping.NotifyType = Notification.Warning;
+                        shipping.NotifyType = (int)AlertStyle.Warning;//Notification.Warning;
                         shipping.NotifyText = Notification.MessageConfirm;
                     }
                 }

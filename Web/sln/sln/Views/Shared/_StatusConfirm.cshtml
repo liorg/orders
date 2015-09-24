@@ -1,7 +1,7 @@
 ﻿@model StatusVm
-
-@if (Model.Message != "")
+@*@if (Model.Message != "")
 {
+
     <div class="row">
 
         <div class="alert @(Model.MessageType == 2 ? "alert-danger" : "alert-warning") ">
@@ -9,6 +9,10 @@
             @Model.Message
         </div>
     </div>
+}*@
+@if (Model.Message != "")
+{    
+      @Html.Alert(Model.Message, Model.MessageType)
 }
 <input type="hidden" value="@Model.ShipId" id="hdShipId" name="hdShipId" />
 @switch (Model.StatusId.ToString())

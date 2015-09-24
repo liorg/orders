@@ -18,7 +18,7 @@ namespace Michal.Project.Bll
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.Cancel;
-            request.NotifyType = Notification.Error;
+            request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.Cancel);
 
             request.Ship.CancelByUser = request.UserContext.UserId;
@@ -31,8 +31,8 @@ namespace Michal.Project.Bll
             var text = "המשלוח אושרה " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
             request.Title = text;
             request.Desc = text;
-            
-            request.NotifyType = Notification.Info;
+
+            request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
             request.Status = TimeStatus.ApporvallRequest;
             request.StatusShipping = Guid.Parse(Helper.Status.ApporvallRequest);
 
@@ -62,7 +62,7 @@ namespace Michal.Project.Bll
 
             request.Title = title;
             request.Desc = text;
-            request.NotifyType = Notification.Info;
+            request.NotifyType = (int)AlertStyle.Info;// Notification.Info;
             request.Status = TimeStatus.Confirm;
             request.StatusShipping = Guid.Parse(Helper.Status.Confirm);
 
@@ -80,7 +80,7 @@ namespace Michal.Project.Bll
             
             request.Title = title;
             request.Desc = text;
-            request.NotifyType = Notification.Info;
+            request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
             request.Status = TimeStatus.AcceptByRunner;
             request.StatusShipping = Guid.Parse(Helper.Status.AcceptByRunner);
 
@@ -99,7 +99,7 @@ namespace Michal.Project.Bll
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.CancelByAdmin;
-            request.NotifyType = Notification.Error;
+            request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.CancelByAdmin);
 
             request.Ship.CancelByAdmin = request.UserContext.UserId;
@@ -116,7 +116,7 @@ namespace Michal.Project.Bll
 
             request.Title = title;
             request.Desc = text;
-            request.NotifyType = Notification.Info;
+            request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
             request.Status = TimeStatus.Arrived;
             request.StatusShipping = Guid.Parse(Helper.Status.Arrived);
 
@@ -136,7 +136,7 @@ namespace Michal.Project.Bll
 
             request.Title = title;
             request.Desc = text;
-            request.NotifyType = Notification.Success;
+            request.NotifyType = (int)AlertStyle.Success; //Notification.Success;//Notification.Success;
             request.Status = TimeStatus.AcceptByClient;
             request.StatusShipping = Guid.Parse(Helper.Status.AcceptByClient);
             request.Ship.BroughtShipmentCustomer = request.UserContext.UserId;
@@ -152,8 +152,7 @@ namespace Michal.Project.Bll
 
             request.Title = title;
             request.Desc = text;
-            request.NotifyType = Notification.Error;
-            request.Status = TimeStatus.NoAcceptByClient;
+            request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.NoAcceptByClient);
            
             request.Ship.NoBroughtShipmentCustomer = request.UserContext.UserId;

@@ -49,7 +49,7 @@ namespace Michal.Project.Controllers
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "s");
+                return RedirectToAction("Index", "F");
             }
         }
 
@@ -247,7 +247,6 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 UserContext userContext = new UserContext(AuthenticationManager);
-
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);

@@ -250,6 +250,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AlertHtmlHelper.cs" />
     <Compile Include="Helper\CacheMemoryProvider.cs" />
     <Compile Include="Helper\Const.cs" />
     <Compile Include="Helper\CustomPasswordValidator.cs" />
@@ -423,6 +424,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\myadmin.js" />
     <Content Include="Scripts\popover.js" />
+    <Content Include="Scripts\rantoolbx.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scrollspy.js" />

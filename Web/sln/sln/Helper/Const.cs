@@ -6,7 +6,15 @@ using System.Web;
 namespace Michal.Project.Helper
 {
     public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5 };
-   
+    
+    public enum AlertStyle
+    {
+        Default=0,
+        Success=4,
+        Warning=3,
+        Info=1,
+        Error=2
+    }
     public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 
     public static class JobTitle
@@ -76,11 +84,11 @@ namespace Michal.Project.Helper
 
     public class Notification
     {
-        public const int Default = 0;
-        public const int Error = 2;
-        public const int Warning = 1;
-        public const int Info = 3;
-        public const int Success = 4;
+        //public const int Default = 0;
+        //public const int Error = 2;
+        //public const int Warning = 1;
+        //public const int Info = 3;
+        //public const int Success = 4;
         public const string MessageConfirm = "יש לאשר את משלוח לפני קבלתו לחברת השליחים";
     }
 }
