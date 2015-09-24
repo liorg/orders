@@ -285,11 +285,11 @@
       <DependentUpon>201509130517177_remove city.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AddressEditorViewModel.cs" />
+    <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
     <Compile Include="Models\KeyValuePairUI.cs" />
-    <Compile Include="Models\LocationUi.cs" />
+    <Compile Include="Models\NSStreet\LocationUi.cs" />
     <Compile Include="Models\NSStreet\StreetRequest.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
