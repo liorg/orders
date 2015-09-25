@@ -9,19 +9,19 @@
     <div class="  col-md-12 well well-lg ">
 
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="wazetarget"
+            <button type="button" id="wazetarget"  data-toggle="tooltip" title="כתובת ב WAZE ליעד המשלוח" data-placement="top"
                 class="btn btn-success btn-circle btn-xl">
                 <img src="~/Content/img/location32x32.png" />
             </button>
         </div>
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="wazesource"
+            <button type="button" id="wazesource"  data-toggle="tooltip" title="כתובת ב WAZE לשליחת המשלוח"  data-placement="top"
                 class="btn btn-danger btn-circle btn-xl">
                 <img src="~/Content/img/location32x32.png" />
             </button>
         </div>
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="back"    data-url="@Url.Action("Show", "S", new { id = @Model.ShippingVm.Id })" 
+            <button type="button" id="back"   data-toggle="tooltip" title="חזרה לדף המשלוח" data-placement="top"  data-url="@Url.Action("Show", "S", new { id = @Model.ShippingVm.Id })" 
             class="btn btn-primary btn-circle btn-xl">
                 <img src="~/Content/img/back32x32.png" />
             </button>
@@ -44,6 +44,10 @@
 </div>
 
 @section Scripts {
+
+     
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
     <script>
         $(document).ready(function () {
             $('#wazetarget').click(function () {

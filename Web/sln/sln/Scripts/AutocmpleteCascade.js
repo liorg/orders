@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-    debugger;
+  //  debugger;
     $('.autp').each(initialize);
 });
 var initialize = function (i, el) {
-    debugger;
+   // debugger;
     // el is the input element that we need to initialize a map for, jQuery-ize it,
     //  and cache that since we'll be using it a few times.
     var $input = $(el);
@@ -16,7 +16,7 @@ var initialize = function (i, el) {
          function (event, ui) {
              $(city).data('menuItems', ui.content);
          }).blur(function () {
-             debugger;
+            // debugger;
              var autocomplete = $(city).data("uiAutocomplete");
              var matcher = new RegExp("^"
                      + $.ui.autocomplete.escapeRegex($(this).val())

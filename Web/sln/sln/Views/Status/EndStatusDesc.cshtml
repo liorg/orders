@@ -27,4 +27,78 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="  col-md-12 ">
+        <div class="form-group">
+            <div class="btn-group">
+                <div class="switch1">
+                    <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" data-size="large" data-switch-value="success" data-off-color="danger" data-toggle="toggle" data-off-text="לא התקבל המשלוח" data-on-text="התקבל המשלוח" data-off="לא פעיל" data-on="פעיל" type="checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.Status.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Status.Name)
+            </div>
+        </div>
+    </div>
 
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-6 col-xs-12 col-sm-12" style="padding: 2px;" id="signature-pad">
+                <canvas id="sign" style="border: dashed thin; padding: 2px;"></canvas>
+            </div>
+            <div class="col-md-6 col-xs-12 col-sm-12">
+                <button id="clearsig" style="float: right" data-action="clear">נקה</button>
+            </div>
+        </div>
+        @*  <button  data-action="save">Save</button>*@
+    </div>
+</div>
+@section Scripts {
+
+    <script src="~/Scripts/signature_pad.min.js"></script>
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        var wrapper = document.getElementById("signature-pad"),
+            clearButton = document.getElementById("clearsig"),//wrapper.querySelector("[data-action=clear]"),
+            saveButton = wrapper.querySelector("[data-action=save]"),
+            canvas = document.getElementById("sign"),//wrapper.querySelector("canvas"),
+            signaturePad;
+
+        // Adjust canvas coordinate space taking into account pixel ratio,
+        // to make it look crisp on mobile devices.
+        // This also causes canvas to be cleared.
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+        }
+
+        //window.onresize = resizeCanvas;
+        //resizeCanvas();
+
+        signaturePad = new SignaturePad(canvas);
+
+        clearButton.addEventListener("click", function (event) {
+            signaturePad.clear();
+        });
+
+        saveButton.addEventListener("click", function (event) {
+            if (signaturePad.isEmpty()) {
+                alert("Please provide signature first.");
+            } else {
+                window.open(signaturePad.toDataURL());
+            }
+        });
+    </script>
+}
