@@ -18,16 +18,14 @@ namespace Michal.Project.DataModel
            PriceLists = new HashSet<PriceList>();
            Discounts = new HashSet<Discount>();
         }
+
         // many to many
         public ICollection<Organization> Organizations { get; set; }
 
-        
         public ICollection<PriceList> PriceLists { get; set; }
 
-       
         public ICollection<Shipping> Shippings { get; set; }
 
-      
         public ICollection<Discount> Discounts { get; set; }
 
         [Key]

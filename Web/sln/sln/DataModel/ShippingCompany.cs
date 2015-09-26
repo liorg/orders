@@ -8,28 +8,26 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
-
-    public class Comment : IModifieder, IJob
+    public class ShippingCompany : IModifieder
     {
-        public Comment()
+        public ShippingCompany()
         {
-        
+            Organizations = new HashSet<Organization>();
+            Shippings = new HashSet<Shipping>();
+            Users = new HashSet<ApplicationUser>();
+            PriceLists = new HashSet<PriceList>();
         }
-      
 
-       
-        //http://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
-        [ForeignKey("Shipping")]
-        public Guid? Shipping_ShippingId { get; set; }
-        public virtual Shipping Shipping { get; set; }
+        public ICollection<PriceList> PriceLists { get; set; }
+        // many to many
+        public ICollection<Organization> Organizations { get; set; }
 
+        public ICollection<ApplicationUser> Users { get; set; }
+
+        public ICollection<Shipping> Shippings { get; set; }
 
         [Key]
-        public Guid CommentId { get; set; }
-
-        public string JobType { get; set; }
-
-        public string JobTitle { get; set; }
+        public Guid ShippingCompanyId { get; set; }
 
         public string Name { get; set; }
 
@@ -65,6 +63,5 @@ namespace Michal.Project.DataModel
             set;
         }
 
-       
     }
 }

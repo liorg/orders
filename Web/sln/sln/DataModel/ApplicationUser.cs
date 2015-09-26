@@ -14,8 +14,11 @@ namespace Michal.Project.DataModel
         public ApplicationUser()
         {
             FollowsBy = new HashSet<Shipping>();
+            AddressUser = new Address();
         }
-        public ApplicationUser(string userName):base(userName)
+
+        public ApplicationUser(string userName)
+            : base(userName)
         {
             FollowsBy = new HashSet<Shipping>();
             AddressUser = new Address();
@@ -24,6 +27,11 @@ namespace Michal.Project.DataModel
         public Address AddressUser { get; set; }
         // many to many
         public ICollection<Shipping> FollowsBy { get; set; }
+
+        //http://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
+        [ForeignKey("ShippingCompany")]
+        public Guid? ShippingCompany_ShippingCompanyId { get; set; }
+        public ShippingCompany ShippingCompany { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -36,18 +44,18 @@ namespace Michal.Project.DataModel
 
         [Required]
         public string Tel { get; set; }
-       
+
         public Guid? Organization_OrgId { get; set; }
-       
+
         public Organization Organization { get; set; }
 
-       // [Required]
+        // [Required]
         public bool IsActive
         {
             get;
             set;
         }
-       
+
         public string Department { get; set; }
 
         public string Subdivision { get; set; }

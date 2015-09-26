@@ -8,28 +8,35 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
-
-    public class PriceList : IModifieder
+    public class Sla : IModifieder
     {
-        public PriceList()
+        public Sla()
         {
-            Discounts = new HashSet<Discount>();
+
         }
+        [Required]
+        public int Priority { get; set; }
 
-        [ForeignKey("ShippingCompany")]
-        public Guid? ShippingCompany_ShippingCompanyId { get; set; }
-        public ShippingCompany ShippingCompany { get; set; }
+        [Required]
+        public bool IsBusinessDay { get; set; }
 
-        [ForeignKey("PriceList_PriceListId")]
-        public ICollection<Discount> Discounts { get; set; }
+        [Required]
+        public double Days { get; set; }
 
-        public virtual Product Product { get; set; }
-        [ForeignKey("Product")]
-        public Guid? Product_ProductId { get; set; }
+        [Required]
+        public double Hours { get; set; }
+
+        [Required]
+        public double Mins { get; set; }
+
 
         public virtual ShipType ShipType { get; set; }
         [ForeignKey("ShipType")]
         public Guid? ShipType_ShipTypeId { get; set; }
+
+        [ForeignKey("ShippingCompany")]
+        public Guid? ShippingCompany_ShippingCompanyId { get; set; }
+        public ShippingCompany ShippingCompany { get; set; }
 
         public virtual Distance Distance { get; set; }
         [ForeignKey("Distance")]
@@ -40,28 +47,9 @@ namespace Michal.Project.DataModel
         public Guid? Organizations_OrgId { get; set; }
 
         [Key]
-        public Guid PriceListId { get; set; }
-
-        [Column(TypeName = "Money")]
-        public decimal Price { get; set; }
+        public Guid SlaId { get; set; }
 
         public string Name { get; set; }
-
-        //public decimal MinTimeWait { get; set; }
-
-        public string Desc { get; set; }
-
-        public DateTime BeginDate
-        {
-            get;
-            set;
-        }
-
-        public DateTime? EndDate
-        {
-            get;
-            set;
-        }
 
         public DateTime? CreatedOn
         {
@@ -92,6 +80,5 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
-
     }
 }

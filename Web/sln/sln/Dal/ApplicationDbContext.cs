@@ -26,11 +26,12 @@ namespace Michal.Project.Dal
         public DbSet<PriceCalc> PriceCalc { get; set; }
         public DbSet<StatusShipping> StatusShipping { get; set; }
         public DbSet<TimeLine> TimeLine { get; set; }
-       // public DbSet<City> City { get; set; }
+        public DbSet<Sla> Sla { get; set; }
         public DbSet<XbzCounter> XbzCounter { get; set; }
         public DbSet<Lead> Lead { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<ShipType> ShipType { get; set; }
+        public DbSet<ShippingCompany> ShippingCompany { get; set; }
         public DbSet<TableTest> TableTest { get; set; }
     }
 }

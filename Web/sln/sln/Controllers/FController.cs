@@ -119,8 +119,8 @@ namespace Michal.Project.Controllers
                     from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
 
 
-                var shippingsQuery = context.Shipping.Where(s => s.FollowsBy.Any(gf => gf.Id == user.UserId.ToString()) && (s.CreatedOn > from &&
-                    s.CreatedOn <= to)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.FollowsBy.Any(gf => gf.Id == user.UserId.ToString()) && (s.ModifiedOn > from &&
+                    s.ModifiedOn <= to)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 int page = currentPage.HasValue ? currentPage.Value : 1;
                 var total = await shippingsQuery.CountAsync();

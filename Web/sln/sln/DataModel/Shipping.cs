@@ -22,6 +22,11 @@ namespace Michal.Project.DataModel
             Target = new Address();
             Source = new Address();
         }
+
+        [ForeignKey("ShippingCompany")]
+        public Guid? ShippingCompany_ShippingCompanyId { get; set; }
+        public ShippingCompany ShippingCompany { get; set; }
+
         public Address Target { get; set; }
         public Address Source { get; set; }
         // many to many
@@ -118,7 +123,7 @@ namespace Michal.Project.DataModel
         public Guid? NoBroughtShipmentCustomer { get; set; }
 
         public Guid? CancelByUser { get; set; }
-       
+
         public Guid? CancelByAdmin { get; set; }
 
         public Guid? ArrivedShippingSender { get; set; }
@@ -141,8 +146,7 @@ namespace Michal.Project.DataModel
 
         public string NameTarget { get; set; }
 
-
-
+        public DateTime SlaTime { get; set; }
 
 
     }

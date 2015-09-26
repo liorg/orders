@@ -231,9 +231,11 @@
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
+    <Compile Include="DataModel\ShippingCompany.cs" />
     <Compile Include="DataModel\ShipType.cs" />
     <Compile Include="DataModel\Lead.cs" />
     <Compile Include="DataModel\ShippingItemPrice.cs" />
+    <Compile Include="DataModel\Sla.cs" />
     <Compile Include="DataModel\TableTest.cs" />
     <Compile Include="fonts\XbzCounter.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
@@ -284,6 +286,14 @@
     <Compile Include="Migrations\201509130517177_remove city.cs" />
     <Compile Include="Migrations\201509130517177_remove city.Designer.cs">
       <DependentUpon>201509130517177_remove city.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509262247233_shipcompany.cs" />
+    <Compile Include="Migrations\201509262247233_shipcompany.Designer.cs">
+      <DependentUpon>201509262247233_shipcompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509262316131_sla.cs" />
+    <Compile Include="Migrations\201509262316131_sla.Designer.cs">
+      <DependentUpon>201509262316131_sla.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -544,6 +554,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509130517177_remove city.resx">
       <DependentUpon>201509130517177_remove city.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509262247233_shipcompany.resx">
+      <DependentUpon>201509262247233_shipcompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509262316131_sla.resx">
+      <DependentUpon>201509262316131_sla.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,28 +12,30 @@ namespace Michal.Project.DataModel
     {
         public Organization()
         {
-             Users = new HashSet<ApplicationUser>();
+            Users = new HashSet<ApplicationUser>();
             Distances = new HashSet<Distance>();
             PriceLists = new HashSet<PriceList>();
             Shippings = new HashSet<Shipping>();
             AddressOrg = new Address();
-
+            ShippingCompany = new HashSet<ShippingCompany>();
         }
 
         public Address AddressOrg { get; set; }
         // many to many
         public ICollection<Distance> Distances { get; set; }
+        // many to many
+        public ICollection<ShippingCompany> ShippingCompany { get; set; }
 
-       [ForeignKey("Organization_OrgId")]
+        [ForeignKey("Organization_OrgId")]
         public ICollection<ApplicationUser> Users { get; set; }
 
-       // many to many
-       public ICollection<Product> Products { get; set; }
+        // many to many
+        public ICollection<Product> Products { get; set; }
 
         public ICollection<PriceList> PriceLists { get; set; }
-   
 
-       // [ForeignKey("Organization_OrgId")]
+
+        // [ForeignKey("Organization_OrgId")]
         public ICollection<Shipping> Shippings { get; set; }
 
         [Key]
