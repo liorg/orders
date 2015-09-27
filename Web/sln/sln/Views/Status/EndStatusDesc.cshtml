@@ -36,14 +36,14 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <div class="btn-group">
-                    <div class=" col-md-2">סטאטוס קבלת משלוח</div>
-                    <div class="col-md-6">
-                        <div class="switch1">
-                            <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" data-size="large" data-switch-value="success" data-off-color="danger" data-toggle="toggle" data-off-text="לא התקבל המשלוח" data-on-text="התקבל המשלוח" data-off="לא פעיל" data-on="פעיל" type="checkbox">
-                        </div>
+
+                <label class="control-label col-md-2" for="chkCheckin2">סטאטוס קבלת משלוח</label>
+                <div class="col-md-6">
+                    <div class="switch1">
+                        <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" data-size="large" data-switch-value="success" data-off-color="danger" data-toggle="toggle" data-off-text="לא התקבל המשלוח" data-on-text="התקבל המשלוח" data-off="לא פעיל" data-on="פעיל" type="checkbox">
                     </div>
                 </div>
+
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Status.Recipient, new { @class = "control-label col-md-2" })
