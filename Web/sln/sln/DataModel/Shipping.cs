@@ -148,6 +148,8 @@ namespace Michal.Project.DataModel
 
         public DateTime SlaTime { get; set; }
 
+        public string ActualTelTarget { get; set; }
 
+        public string ActualNameTarget { get; set; }
     }
 }

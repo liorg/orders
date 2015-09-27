@@ -217,7 +217,7 @@ namespace Michal.Project.Controllers
                 return RedirectToAction("Index", "F");
             }
         }
-       
+
         [HttpPost]
         public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
         {
@@ -252,6 +252,23 @@ namespace Michal.Project.Controllers
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 ViewLogic view = new ViewLogic();
                 var orderModel = view.GetOrderStatus(new OrderRequest { UserContext = userContext, Shipping = shipping });
+
+                ViewBag.OrderNumber = shipping.Name;
+                return View(orderModel);
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> EndStatusDesc(StatusVm StatusVm)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext userContext = new UserContext(AuthenticationManager);
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
+                Guid shipId = StatusVm.ShipId;    
+                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                ViewLogic view = new ViewLogic();
+                var orderModel = view.GetOrderStatus(new OrderRequest { UserContext = userContext, Shipping = shipping });
+
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }

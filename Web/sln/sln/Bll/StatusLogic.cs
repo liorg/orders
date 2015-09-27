@@ -142,6 +142,7 @@ namespace Michal.Project.Bll
             request.Ship.BroughtShipmentCustomer = request.UserContext.UserId;
             ChangeStatus(request);
         }
+
         public void NoTake(StatusRequestBase requestBase, string desc)
         {
             var request = new StatusRequest(requestBase);
@@ -158,7 +159,6 @@ namespace Michal.Project.Bll
             request.Ship.NoBroughtShipmentCustomer = request.UserContext.UserId;
             ChangeStatus(request);
         }
-
 
         void ChangeStatus(StatusRequest request)
         {

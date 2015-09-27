@@ -223,6 +223,7 @@
     <Compile Include="Controllers\UTestController.cs" />
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
+    <Compile Include="Dal\AttachmentRepository.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
     <Compile Include="Dal\ShippingRepository.cs" />
@@ -298,6 +299,10 @@
     <Compile Include="Migrations\201509270655042_dicount.cs" />
     <Compile Include="Migrations\201509270655042_dicount.Designer.cs">
       <DependentUpon>201509270655042_dicount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509271434364_actualtarget.cs" />
+    <Compile Include="Migrations\201509271434364_actualtarget.Designer.cs">
+      <DependentUpon>201509271434364_actualtarget.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -567,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509270655042_dicount.resx">
       <DependentUpon>201509270655042_dicount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509271434364_actualtarget.resx">
+      <DependentUpon>201509271434364_actualtarget.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

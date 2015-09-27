@@ -18,6 +18,7 @@ namespace Michal.Project.Dal
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
         static StreetsGeoLocation _locationDes = null;
+
         public MemeryCacheDataService()
         {
 

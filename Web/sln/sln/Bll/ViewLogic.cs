@@ -99,6 +99,8 @@ namespace Michal.Project.Bll
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
+            orderModel.Status.TelRecipient = shipping.TelTarget;
+            orderModel.Status.NameTarget = shipping.NameTarget;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
@@ -164,6 +166,7 @@ namespace Michal.Project.Bll
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
+
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
