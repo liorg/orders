@@ -13,15 +13,15 @@ namespace Michal.Project.DataModel
     {
         public PriceList()
         {
-            Discounts = new HashSet<Discount>();
+            //Discounts = new HashSet<Discount>();
         }
 
         [ForeignKey("ShippingCompany")]
         public Guid? ShippingCompany_ShippingCompanyId { get; set; }
         public ShippingCompany ShippingCompany { get; set; }
 
-        [ForeignKey("PriceList_PriceListId")]
-        public ICollection<Discount> Discounts { get; set; }
+        //[ForeignKey("PriceList_PriceListId")]
+       // public ICollection<Discount> Discounts { get; set; }
 
         public virtual Product Product { get; set; }
         [ForeignKey("Product")]

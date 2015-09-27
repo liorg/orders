@@ -13,6 +13,7 @@ namespace Michal.Project.Helper
         public const string RoleRunner = "Runner";
         public const string RoleOrgManager = "OrgManager";
         public const string RoleAccept = "Accept";
+        public const string RunnerManager="RunnerManager";
     }
 
     public class RolesAttribute : System.Web.Mvc.AuthorizeAttribute

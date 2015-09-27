@@ -295,6 +295,10 @@
     <Compile Include="Migrations\201509262316131_sla.Designer.cs">
       <DependentUpon>201509262316131_sla.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509270655042_dicount.cs" />
+    <Compile Include="Migrations\201509270655042_dicount.Designer.cs">
+      <DependentUpon>201509270655042_dicount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -560,6 +564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509262316131_sla.resx">
       <DependentUpon>201509262316131_sla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509270655042_dicount.resx">
+      <DependentUpon>201509270655042_dicount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
