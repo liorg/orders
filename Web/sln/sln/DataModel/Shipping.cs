@@ -146,10 +146,16 @@ namespace Michal.Project.DataModel
 
         public string NameTarget { get; set; }
 
-        public DateTime SlaTime { get; set; }
+        public DateTime? SlaTime { get; set; }
 
         public string ActualTelTarget { get; set; }
 
         public string ActualNameTarget { get; set; }
+
+        public string CloseDesc { get; set; }
+       
+        public int? SigBackType { get; set; } //null or 0=none,1=return back,2=digital
+
     }
+  //  public enum SigBackType { None=0,Pad=1,
 }
