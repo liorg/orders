@@ -8,21 +8,20 @@
 <h3>מספר משלוח @ViewBag.OrderNumber  </h3>
 <div class="row">
     <div class="  col-md-12 well well-lg ">
-
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="wazetarget"
+            <button type="button" id="btnEdit" data-toggle="tooltip" title="שמור" data-placement="top"
                 class="btn btn-success btn-circle btn-xl">
                 <img src="~/Content/img/save32x32.png" />
             </button>
         </div>
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="wazesource"
+            <button type="button" id="btnNext2"  data-toggle="tooltip"  title="הוסף פריטים למשלוח" data-placement="top"  data-url="@Url.Action("Index", "ShipItem",new { id = Model.Id })" 
                 class="btn btn-danger btn-circle btn-xl">
-                <img src="~/Content/img/delete32x32.png" />
+                <img src="~/Content/img/stage32x32.png" />
             </button>
         </div>
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="back"    data-url="@Url.Action("Index", "F")" 
+            <button type="button" id="btnBack" data-toggle="tooltip"  title="חזרה" data-placement="top"  data-url="@Url.Action("Show", "S", new { id = Model.Id })"
             class="btn btn-primary btn-circle btn-xl">
                 <img src="~/Content/img/back32x32.png" />
             </button>
@@ -30,10 +29,10 @@
     </div>
 </div>
 
-@using (Html.BeginForm("Edit", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
 {
     @Html.AntiForgeryToken()
-    
+ 
     <div class="stepwizard">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
@@ -48,11 +47,6 @@
                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
                 <p>אשר הזמנה</p>
             </div>
-            @*<div class="stepwizard-step">
-             <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-             <p>קבלת הזמנה </p>
-         </div>
-         *@
         </div>
     </div>
     
@@ -111,11 +105,8 @@
                     @Html.ValidationMessageFor(m => m.ShipTypeId)
                 </div>
             </div>
-
-
         </div>
     </div>
-    
     
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -176,22 +167,20 @@
             </div>
         </div>
     </div>
-     <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">כתובת השולח </h3>
         </div>
         <div class="panel-body">
             @(Html.EditorFor(m => m.SourceAddress))
         </div>
-    </div>    
+    </div>@*    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-8">
             <input type="submit" class="btn btn-primary btn-lg" value="ערוך משלוח" />
-           @* <span class="pull-left">
-                <a alt="הבא" class="btn btn-success btn-lg" href="@Url.Action("Index", "ShipItem", new { id = @Html.DisplayFor(m => m.Id), order = @ViewBag.OrderNumber })"><i class="fa fa-motorcycle pull-right"></i>הבא <i class="fa fa-angle-double-left pull-left"></i></a>
-            </span>*@
+        
         </div>
-    </div>
+    </div>*@
     
 }
 
@@ -199,4 +188,5 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/rantoolbx.js"></script>
 }
