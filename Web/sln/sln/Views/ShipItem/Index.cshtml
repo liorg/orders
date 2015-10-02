@@ -8,7 +8,7 @@
     <div class="  col-md-12 well well-lg ">
 
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="btnAddItem" data-toggle="tooltip" title="שמור" data-placement="top" data-url="@Url.Action("Create",new { id= ViewBag.ShipId  })"
+            <button type="button" id="btnAddItem" data-toggle="tooltip" title="הוסף פריטים למשלוח" data-placement="top" data-url="@Url.Action("Create",new { id= ViewBag.ShipId  })"
                 class="btn btn-success btn-circle btn-xl">
                 <img src="~/Content/img/add32x32.png" />
             </button>
@@ -122,26 +122,5 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/jqueryui")
-   <script src="~/Scripts/rantoolbx.js"></script>
-    <script>
-        $(document).ready(function () {
-
-            //$("#btnEdit").click(function (e) {
-            //    //debugger;
-            //    e.preventDefault();
-            //    if ($("#frm").valid()) {
-            //        //submit
-            //        $("#frm").submit();
-            //    }
-            //    else
-            //        return false;
-            //});
-            //$('#btncreate').click(function () {
-            //    ("#frm").submit();
-
-            //});
-        });
-
-
-    </script>
+   <script src="~/Scripts/rantoolbx.js?v=1"></script>
 }
