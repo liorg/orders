@@ -1,0 +1,71 @@
+﻿@model ShippingItemVm
+
+@{
+    ViewBag.Title = "פריט קיים";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_viewLists")
+<h2> משלוח חדש  @ViewBag.OrderNumber  </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+
+       <div class="stepwizard">
+     <div class="stepwizard-row setup-panel">
+          <div class="stepwizard-step">
+             <a href="@Url.Action("Edit","S",new { id=ViewBag.ShipId })" type="button" class="btn btn-default btn-circle">1</a>
+             <p>ערוך הזמנה</p>
+         </div>
+         <div class="stepwizard-step">
+            <a href="@Url.Action("Index","ShipItem",new { id= ViewBag.ShipId,order=@ViewBag.OrderNumber })" type="button" class="btn btn-primary btn-circle">2</a>
+             <p>הוסף פריטי משלוח</p>
+         </div>
+         <div class="stepwizard-step">
+             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+             <p>אשר הזמנה</p>
+         </div>
+     </div>
+ </div>
+
+<div class="form-horizontal">
+  
+@Html.ValidationSummary()
+@Html.HiddenFor(m => m.Id); 
+@Html.HiddenFor(m => m.ShipId); 
+
+ <div class="form-group">
+     @Html.LabelFor(model => model.OrderNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.OrderNumber)
+            </div>
+ </div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.ProductId, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.DropDownListFor(m => m.ProductId ,(SelectList)ViewBag.Products, new { @class = "form-control"})
+          </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Total, new { @class = "col-md-2 control-label" })
+          <div class="col-md-6">
+              @Html.TextBoxFor(m => m.Total, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Total)
+          </div>
+</div>
+ 
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn btn-default" value="עדכן פריט חדש" />
+    </div>
+</div>
+
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
