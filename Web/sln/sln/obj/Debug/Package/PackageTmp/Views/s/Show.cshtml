@@ -10,27 +10,23 @@
 <div class="stepwizard">
     <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
-            <a href="#" type="button" class="btn btn-default btn-circle">1</a>
+            <a href="@Url.Action("Edit", "S", new { id = Model.ShippingVm.Id })" type="button" class="btn btn-default btn-circle">1</a>
             <p>ערוך הזמנה</p>
         </div>
         <div class="stepwizard-step">
-            <a href="#" type="button" class="btn btn-default btn-circle">2</a>
+            <a href="@Url.Action("Index", "ShipItem", new { id = Model.ShippingVm.Id, order = @ViewBag.OrderNumber })" type="button" class="btn btn-default btn-circle">2</a>
             <p>הוסף פריטי משלוח</p>
         </div>
         <div class="stepwizard-step">
             <a href="#step-3" type="button" class="btn btn-primary btn-circle" disabled="disabled">3</a>
             <p>אשר הזמנה</p>
         </div>
-
     </div>
 </div>
 
 @Html.Partial("_ShippingView")
 
-
-
 @section Scripts {
-  
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/jqueryui")
     <script src="~/Scripts/rantoolbx.js"></script>

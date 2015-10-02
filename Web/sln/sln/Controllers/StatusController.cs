@@ -258,19 +258,28 @@ namespace Michal.Project.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> EndStatusDesc(StatusVm StatusVm)
+        public async Task<ActionResult> EndStatusDesc(OrderViewStatus StatusVm)
         {
             using (var context = new ApplicationDbContext())
             {
+                Guid shipId = StatusVm.Status.ShipId;
                 UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
-                Guid shipId = StatusVm.ShipId;    
-                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
-                ViewLogic view = new ViewLogic();
-                var orderModel = view.GetOrderStatus(new OrderRequest { UserContext = userContext, Shipping = shipping });
 
-                ViewBag.OrderNumber = shipping.Name;
-                return View(orderModel);
+                AttachmentRepository attachments = new AttachmentRepository(context);
+                var attachment = attachments.UploadSign(shipId, userContext, StatusVm.Status.PicBase64);
+                context.AttachmentShipping.Add(attachment);
+               
+                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                shipping.ActualNameTarget = StatusVm.Status.NameTarget;
+                shipping.ActualRecipient = StatusVm.Status.Recipient;
+                shipping.ActualTelTarget = StatusVm.Status.TelRecipient;
+
+                //if(StatusVm.Status.
+
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Index", "F");
             }
         }
 

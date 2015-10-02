@@ -28,7 +28,6 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Num, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
-
             @Html.TextBoxFor(m => m.Num, new { @class = "form-control",autocomplete="off" })
             @Html.HiddenFor(m => m.NumOld)
             @Html.ValidationMessageFor(m => m.Num)
@@ -38,10 +37,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.ExtraDetail, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">
-
             @Html.TextBoxFor(m => m.ExtraDetail, new { @class = "form-control" })
-
-
         </div>
     </div>
     <input id="@textbox" class="autp" value="@textbox" type="hidden" />

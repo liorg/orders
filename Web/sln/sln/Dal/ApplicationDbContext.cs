@@ -33,5 +33,6 @@ namespace Michal.Project.Dal
         public DbSet<ShipType> ShipType { get; set; }
         public DbSet<ShippingCompany> ShippingCompany { get; set; }
         public DbSet<TableTest> TableTest { get; set; }
+        public DbSet<AttachmentShipping> AttachmentShipping { get; set; }
     }
 }

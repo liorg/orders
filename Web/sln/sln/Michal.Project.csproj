@@ -309,6 +309,10 @@
     <Compile Include="Migrations\201510011150090_xx.Designer.cs">
       <DependentUpon>201510011150090_xx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510020509288_attachment.cs" />
+    <Compile Include="Migrations\201510020509288_attachment.Designer.cs">
+      <DependentUpon>201510020509288_attachment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -543,6 +547,7 @@
     <Content Include="Views\Shared\_locations.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Contract\DAL\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
@@ -588,6 +593,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510011150090_xx.resx">
       <DependentUpon>201510011150090_xx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510020509288_attachment.resx">
+      <DependentUpon>201510020509288_attachment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

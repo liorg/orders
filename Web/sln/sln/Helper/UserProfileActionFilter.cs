@@ -23,8 +23,7 @@ namespace Michal.Project.Helper
 
                 userProfiler.AllowAccept = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
                 userProfiler.AllowRunner = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleRunner);
-
-               
+ 
             }
 
             MemeryCacheDataService views = new MemeryCacheDataService();

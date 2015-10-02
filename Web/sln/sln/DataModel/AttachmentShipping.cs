@@ -25,6 +25,11 @@ namespace Michal.Project.DataModel
 
         public string Name { get; set; }
 
+        public string Path { get; set; }
+
+        [Required]
+        public bool IsSign { get; set; }
+        
         public string TypeMime { get; set; }
 
         public DateTime? CreatedOn
