@@ -30,8 +30,10 @@
             //submit
             $("#frm").submit();
         }
-        else
+        else {
+            alert("יש למלא שדות חובה");
             return false;
+        }
     });
     $('#btnBack').click(function () {
         var url = $(this).attr("data-url");
