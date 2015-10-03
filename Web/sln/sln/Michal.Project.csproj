@@ -313,6 +313,18 @@
     <Compile Include="Migrations\201510020509288_attachment.Designer.cs">
       <DependentUpon>201510020509288_attachment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510031647158_remove table.cs" />
+    <Compile Include="Migrations\201510031647158_remove table.Designer.cs">
+      <DependentUpon>201510031647158_remove table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510032010449_add desc.cs" />
+    <Compile Include="Migrations\201510032010449_add desc.Designer.cs">
+      <DependentUpon>201510032010449_add desc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510032109303_add desc2.cs" />
+    <Compile Include="Migrations\201510032109303_add desc2.Designer.cs">
+      <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -596,6 +608,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510020509288_attachment.resx">
       <DependentUpon>201510020509288_attachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031647158_remove table.resx">
+      <DependentUpon>201510031647158_remove table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510032010449_add desc.resx">
+      <DependentUpon>201510032010449_add desc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510032109303_add desc2.resx">
+      <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

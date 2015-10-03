@@ -35,7 +35,7 @@ namespace Michal.Project.Models
         public List<Runner> Runners { get; set; }
 
         public string PathSig { get; set; }
-       
+
         [Display(Name = "שם המקבל בפועל")]
         public string NameActualTarget { get; set; }
 
@@ -45,5 +45,13 @@ namespace Michal.Project.Models
         [Display(Name = "טלפון של איש הקשר בפועל")]
         public string NameActualTelRecipient { get; set; }
 
+        [Display(Name = "סטאטוס קבלת משלוח כן/לא")]
+        public bool IsTake { get; set; }
+
+        [Display(Name = "פרטים נוספים")]
+        public string Desc { get; set; }
+
+        [Display(Name = "סוג חתימה")]
+        public int SigBackType { get; set; } 
     }
 }

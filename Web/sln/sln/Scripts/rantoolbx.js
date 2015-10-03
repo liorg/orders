@@ -28,7 +28,23 @@
         e.preventDefault();
         if ($("#frm").valid()) {
             //submit
-            $("#frm").submit();
+            $.blockUI({
+                message: "נא המתן שולח את הטופס...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                $("#frm").submit();
+            }
+            , 600);
+           // $("#frm").submit();
         }
         else {
             alert("יש למלא שדות חובה");

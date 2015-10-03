@@ -105,6 +105,13 @@
                     @Html.ValidationMessageFor(m => m.ShipTypeId)
                 </div>
             </div>
+             <div class="form-group">
+                @Html.LabelFor(m => m.SigBackType, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.SigBackType, (SelectList)ViewBag.SigBacks, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SigBackType)
+                </div>
+            </div>
         </div>
     </div>
     

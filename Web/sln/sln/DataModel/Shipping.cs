@@ -153,6 +153,8 @@ namespace Michal.Project.DataModel
         public string ActualNameTarget { get; set; }
 
         public string CloseDesc { get; set; }
+
+        public string EndDesc { get; set; }
        
         public int? SigBackType { get; set; } //null or 0=none,1=return back,2=digital
 

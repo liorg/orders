@@ -9,9 +9,9 @@ namespace Michal.Project.Bll
 {
     public class PriceLogic
     {
-        public void Calc(IEnumerable<PriceList> priceLists, IEnumerable<Discount> discounts, IPricesForItems pricesForItems, IPriceCalc priceCalc)
-        {
+        //public void Calc(IEnumerable<PriceList> priceLists, IEnumerable<Discount> discounts, IPricesForItems pricesForItems, IPriceCalc priceCalc)
+        //{
 
-        }
+        //}
     }
 }

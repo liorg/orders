@@ -17,13 +17,30 @@ namespace Michal.Project.Dal
     {
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
+        static List<KeyValuePair<int, string>> _backOrderItems = null;
         static StreetsGeoLocation _locationDes = null;
 
         public MemeryCacheDataService()
         {
 
         }
-
+        public List<KeyValuePair<int,string>> GetBackOrder()
+        {
+            if (_backOrderItems == null)
+            {
+                lock (lockObj)
+                {
+                    if (_backOrderItems == null)
+                    {
+                        _backOrderItems = new List<KeyValuePair<int, string>>();
+                        _backOrderItems.Add(new KeyValuePair<int, string>(0, "ללא חזרה"));
+                        _backOrderItems.Add(new KeyValuePair<int, string>(1, "ללא חזרה - חתימה במכשיר"));
+                        _backOrderItems.Add(new KeyValuePair<int, string>(2, "חזרה- עם חתימה"));
+                    }
+                }
+            }
+            return _backOrderItems;
+        }
         public StreetsGeoLocation GetStreetsGeoLocation()
         {
             string path = System.Web.HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "rechov.json";

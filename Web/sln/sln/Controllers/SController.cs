@@ -160,8 +160,11 @@ namespace Michal.Project.Controllers
 
                 ViewBag.OrderNumber = model.Name;
                 var orgs = cache.GetOrgs(context);
+                var sigBacks = cache.GetBackOrder();
+        
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
+                ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
                 if (String.IsNullOrEmpty(orgid))
                     orgid = userContext.OrgId.ToString();
                 var organid = Guid.Parse(orgid);
@@ -192,7 +195,7 @@ namespace Michal.Project.Controllers
                 shipping.ShippingId = Guid.NewGuid();
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.Name = shippingVm.Number;
-
+                shipping.SigBackType = shippingVm.SigBackType;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
 
@@ -273,12 +276,13 @@ namespace Michal.Project.Controllers
 
                 List<Distance> distances = new List<Distance>();
 
+                var sigBacks = cache.GetBackOrder();
                 var shiptypes = cache.GetShipType(context);
                 var orgs = cache.GetOrgs(context);
 
                 var model = new ShippingVm();
                 model.Number = shipping.Name;
-
+                model.SigBackType = shipping.SigBackType.GetValueOrDefault();
                 model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
                 model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
                 model.FastSearch = shipping.FastSearchNumber;
@@ -328,6 +332,7 @@ namespace Michal.Project.Controllers
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.OrderNumber = shipping.Name;
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
+                ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
 
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
@@ -352,6 +357,7 @@ namespace Michal.Project.Controllers
                 UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 LocationAgent location = new LocationAgent(cache);
+
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                     shipping.Organization_OrgId = userContext.OrgId;
                 else
@@ -359,7 +365,7 @@ namespace Michal.Project.Controllers
 
                 shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
-
+                shipping.SigBackType = shippingVm.SigBackType;
                 shipping.FastSearchNumber = shippingVm.FastSearch;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
                 shipping.ModifiedOn = DateTime.Now;
@@ -382,7 +388,7 @@ namespace Michal.Project.Controllers
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","F");
             }
         }
 

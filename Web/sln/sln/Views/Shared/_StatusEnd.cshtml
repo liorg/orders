@@ -7,13 +7,13 @@
             </div>
             <div class="panel-body">
                 <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" data-toggle="modal" data-target="#okModel" href="#">
-                        <span class="visible-md visible-lg"><i class="fa fa-gift fa-fw fa-2x"></i>התקבל</span><i class="visible-xs visible-sm fa fa-gift fa-fw fa-2x"></i> </a>
+                    <a class="btn btn-lg btn-primary" data-toggle="modal"  href="@Url.Action("EndStatusDesc", "Status", new { id = Model.ShipId })">
+                        <span class="visible-md visible-lg"><i class="fa fa-gift fa-fw fa-2x"></i>סיום</span><i class="visible-xs visible-sm fa fa-gift fa-fw fa-2x"></i> </a>
                 </div>
-                <div class="btn-group">
+               @* <div class="btn-group">
                     <a class="btn btn-lg btn-danger" data-toggle="modal" data-target="#noOkModel" href="#">
                         <span class="visible-md visible-lg">לא התקבל<i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></span><i class="visible-xs visible-sm fa fa-hand-rock-o  fa-2x pull-right"></i></a>
-                </div>
+                </div>*@
                 @Html.Partial("_editOrder")
             </div>
         </div>

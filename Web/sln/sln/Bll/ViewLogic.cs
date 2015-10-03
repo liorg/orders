@@ -96,6 +96,7 @@ namespace Michal.Project.Bll
             var orderModel = new OrderViewStatus();
             var shipping = request.Shipping;
             var runners = request.Runners;
+
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
@@ -105,11 +106,14 @@ namespace Michal.Project.Bll
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
+            orderModel.Status.IsTake =shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
+            orderModel.Status.Desc = shipping.EndDesc;
+            orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             orderModel.Status.Runners = runners;
+
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;
             orderModel.Location.TargetLng = shipping.Target.Lng;
-
             orderModel.Location.SourceLat = shipping.Source.Lat;
             orderModel.Location.SourceLng = shipping.Source.Lng;
 

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Michal.Project.Contract
 {
-    public interface IPricesForItems
-    {
-        IEnumerable<PriceCalc> Get(Shipping ship);
-    }
+    //public interface IPricesForItems
+    //{
+    //    IEnumerable<PriceCalc> Get(Shipping ship);
+    //}
 }

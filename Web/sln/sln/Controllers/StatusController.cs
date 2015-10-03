@@ -265,18 +265,32 @@ namespace Michal.Project.Controllers
                 Guid shipId = StatusVm.Status.ShipId;
                 UserContext userContext = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
-
-                AttachmentRepository attachments = new AttachmentRepository(context);
-                var attachment = attachments.UploadSign(shipId, userContext, StatusVm.Status.PicBase64);
-                context.AttachmentShipping.Add(attachment);
-               
+                if (StatusVm.Status.SigBackType == 1)
+                {
+                    AttachmentRepository attachments = new AttachmentRepository(context);
+                    var attachment = attachments.UploadSign(shipId, userContext, StatusVm.Status.PicBase64);
+                    context.AttachmentShipping.Add(attachment);
+                }
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 shipping.ActualNameTarget = StatusVm.Status.NameTarget;
                 shipping.ActualRecipient = StatusVm.Status.Recipient;
                 shipping.ActualTelTarget = StatusVm.Status.TelRecipient;
+                var request = new StatusRequestBase();
+                request.Ship = shipping;
+                request.UserContext = userContext;
 
-                //if(StatusVm.Status.
-
+                if (StatusVm.Status.IsTake)
+                {
+                    StatusLogic statusLogic = new StatusLogic();
+                    statusLogic.Take(request, StatusVm.Status.Desc, shipping.ActualRecipient);
+                }
+                else
+                {
+                    StatusLogic statusLogic = new StatusLogic();
+                    statusLogic.NoTake(request, StatusVm.Status.Desc);
+                }
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(shipping, userContext, context.Users);
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "F");

@@ -80,5 +80,8 @@ namespace Michal.Project.Models
 
         [Display(Name = "כתובת מקור")]
         public AddressEditorViewModel SourceAddress { get; set; }
+
+        [Display(Name = "סוג חתימה")]
+        public int SigBackType { get; set; } 
     }
 }

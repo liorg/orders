@@ -171,6 +171,9 @@ namespace Michal.Project.Bll
             ship.ModifiedBy = user.UserId;
             ship.NotifyType = request.NotifyType;
             ship.NotifyText = request.Desc;
+            if(!String.IsNullOrEmpty(request.EndDesc))
+                ship.EndDesc = request.EndDesc;
+
             ship.StatusShipping_StatusShippingId = request.StatusShipping;
 
             var tl = new TimeLine

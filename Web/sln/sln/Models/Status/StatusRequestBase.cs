@@ -14,6 +14,7 @@ namespace Michal.Project.Models.Status
             this.Ship = requestBase.Ship;
             this.UserContext = requestBase.UserContext;
             this.AssignTo = requestBase.AssignTo;
+            this.EndDesc = requestBase.EndDesc;
         }
        // public IUserContext UserContext { get; set; }
         //public Shipping Ship { get; set; }
@@ -23,6 +24,7 @@ namespace Michal.Project.Models.Status
         public int Status { get; set; }
         public int NotifyType { get; set; }
         public Guid StatusShipping { get; set; }
+       
 
     }
     public class StatusRequestBase
@@ -30,5 +32,6 @@ namespace Michal.Project.Models.Status
         public IUserContext UserContext { get; set; }
         public Shipping Ship { get; set; }
         public string AssignTo { get; set; }
+        public string EndDesc { get; set; }
     }
 }
