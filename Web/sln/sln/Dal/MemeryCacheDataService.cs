@@ -34,7 +34,8 @@ namespace Michal.Project.Dal
                 {
                     if (_orgId == Guid.Empty)
                     {
-                        var org=context.Organization.Where(o => o.Name == System.Configuration.ConfigurationManager.AppSettings["org"]).FirstOrDefault();
+                        var orgconfig = System.Configuration.ConfigurationManager.AppSettings["org"].ToString();
+                        var org = context.Organization.Where(o => o.Name == orgconfig).FirstOrDefault();
                         if (org != null)
                         {
                             _orgId = org.OrgId;

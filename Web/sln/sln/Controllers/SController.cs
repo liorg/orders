@@ -29,11 +29,10 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public async Task<ActionResult> Search(string term,int? currentPage)
+        public async Task<ActionResult> Search(string term)
         {
             using (var context = new ApplicationDbContext())
             {
-                
                 var user = new UserContext(AuthenticationManager);
                 Guid orgId = Guid.Empty;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
@@ -41,8 +40,8 @@ namespace Michal.Project.Controllers
 
                 List<Shipping> shippings = new List<Shipping>();
 
-                var shippingsQuery = context.Shipping.Where(s => s.Organization_OrgId.HasValue && 
-                    (s.Organization_OrgId.Value == orgId) ).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.Organization_OrgId.HasValue &&
+                    (s.Organization_OrgId.Value == orgId)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 int fastSearch = 0;
                 if (int.TryParse(term, out fastSearch))
@@ -54,11 +53,11 @@ namespace Michal.Project.Controllers
                     shippingsQuery = shippingsQuery.Where(d => d.Name.StartsWith(term));
                 }
 
-                int page = currentPage.HasValue ? currentPage.Value : 1;
-                var total = await shippingsQuery.CountAsync();
-                var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+                int page = 1;//currentPage.HasValue ? currentPage.Value : 1;
+                // var total = await shippingsQuery.CountAsync();
+                // var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
 
-                shippings = await shippingsQuery.OrderByDescending(ord => ord.ModifiedOn).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
+                shippings = await shippingsQuery.OrderByDescending(ord => ord.ModifiedOn).Skip((page - 1) * Helper.General.MaxRecordsPerSearch).Take(General.MaxRecordsPerSearch).ToListAsync();
                 var shippingsItems = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
@@ -81,10 +80,10 @@ namespace Michal.Project.Controllers
                 specialView.Items = shippingsItems.AsEnumerable();
                 specialView.ClientViewType = ClientViewType.Views;
 
-             
-                specialView.Total = total;
+                specialView.Title = "תוצאות חיפוש עבור " + term;
+                // specialView.Total = total;
                 specialView.CurrentPage = page;
-                specialView.MoreRecord = hasMoreRecord;
+                // specialView.MoreRecord = hasMoreRecord;
 
                 return View(specialView);
             }

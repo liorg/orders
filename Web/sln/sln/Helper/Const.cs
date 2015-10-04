@@ -26,6 +26,7 @@ namespace Michal.Project.Helper
 
     public static class General
     {
+        public const int MaxRecordsPerSearch = 100;
         public const int MaxRecordsPerPage = 10;
         public const string OrgWWW = "www";
         public const string OrgIDWWW = "00000000-0000-0000-0000-000000000002";
