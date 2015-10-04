@@ -220,11 +220,13 @@ namespace Michal.Project.Controllers
 
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
 
-                location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+               // location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+                await location.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
 
                 shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
 
-                location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+               // location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+                await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
                 var shipItem = new ShippingItem()
@@ -380,10 +382,12 @@ namespace Michal.Project.Controllers
                 shipping.NameSource = shippingVm.NameSource;
 
                 shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
-                location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+                //location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+                await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
 
                 shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
-                location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+                //location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+                await location.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
 
                 context.Entry<Shipping>(shipping).State = EntityState.Modified;
 

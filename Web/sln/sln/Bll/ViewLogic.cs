@@ -113,7 +113,7 @@ namespace Michal.Project.Bll
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
             orderModel.Status.IsTake =shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
-            orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : "";
+            orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : "אן פרטים";
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             orderModel.Status.Runners = runners;
 

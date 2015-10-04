@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Michal.Project.Agent
@@ -26,6 +27,70 @@ namespace Michal.Project.Agent
             }
             Map(source, target);
         }
+
+        public async Task SetLocationAsync(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
+        {
+            if (IsChanged(source))
+            {
+                var streetlan = _memeryCacheDataService.GetStreetsGeoLocation().StreetsItems.Where(st => st.CodeCity == source.Citycode && st.CodeAddr == source.Streetcode).FirstOrDefault();
+                if (streetlan != null)
+                    await CallGoogleAsync(streetlan, source);
+            }
+            Map(source, target);
+        }
+
+        async Task CallGoogleAsync(StreetLatAndLng streetLatAndLng, AddressEditorViewModel addr)
+        {
+            try
+            {
+                addr.UId = streetLatAndLng.UId;
+                addr.Lng = streetLatAndLng.Lng;
+                addr.Lat = streetLatAndLng.Lat;
+
+                using (var httpClient = new HttpClient())
+                {
+                    var url = String.Format(streetLatAndLng.GoogleFromatApiUrl, addr.Num);
+                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        //will throw an exception if not successful
+                        //response.EnsureSuccessStatusCode();
+                        //Product product = await response.Content.ReadAsAsync>Product>();
+                        var content = await response.Content.ReadAsStringAsync();
+                        dynamic o = JObject.Parse(content);
+                        var result = o.results;
+                        if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
+                        {
+                            var loc = result[0].geometry.location;
+
+                            addr.Lat = loc.lat;
+                            addr.Lng = loc.lng;
+                            addr.IsSensor = true;
+                        }
+                        var status = o.status;
+
+                        streetLatAndLng.Status = status.Value;
+
+                        if (status.Value == "ZERO_RESULTS")
+                        {
+                            Console.WriteLine("ZERO_RESULTS,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+                            //continue;
+                        }
+                        if (status.Value == "OVER_QUERY_LIMIT")
+                        {
+                            Console.WriteLine("OVER_QUERY_LIMIT,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+
+                            //continue;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ee)
+            {
+            }
+        }
+
 
         void CallGoogle(StreetLatAndLng streetLatAndLng, AddressEditorViewModel addr)
         {

@@ -281,7 +281,7 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = shipping;
                 request.UserContext = userContext;
-
+                request.EndDesc = StatusVm.Status.Desc;
                 if (StatusVm.Status.IsTake)
                 {
                     StatusLogic statusLogic = new StatusLogic();
