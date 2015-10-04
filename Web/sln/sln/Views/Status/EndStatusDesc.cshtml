@@ -75,13 +75,9 @@ else{
             $('[data-toggle="tooltip"]').tooltip();
 
             $("#btnOk").click(function (e) {
-                debugger;
+               // debugger;
                 var sigBackType = $("#Status_SigBackType").val();
-                alert(sigBackType);
-
-
-
-                if ($("#frm").valid()) {
+                 if ($("#frm").valid()) {
                     if (sigBackType == "1") {
                         if (signaturePad.isEmpty()) {
                             alert("יש לחתום");
