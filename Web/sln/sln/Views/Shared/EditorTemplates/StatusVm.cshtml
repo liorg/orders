@@ -14,15 +14,9 @@
 
                 @Html.LabelFor(model => model.IsTake, new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @*  <div class="switch1">*@
-                    @* <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" 
-                        data-switch-value="success" data-off-color="danger" data-toggle="toggle"
-                        data-off-text="לא התקבל" data-on-text="כן" data-off="לא" data-on="פעיל" type="checkbox">*@
-
                     @Html.CheckBoxFor(model => model.IsTake, new { @class = "switchboot", data_switch_value = "success", data_off_color = "danger", data_on_text = "כן", data_off_text = "לא התקבל", data_switch_set = "onColor", data_toggle = "toggle", data_off = "לא פעיל", data_on = "פעיל" })
                     @*</div>*@
                 </div>
-
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Recipient, new { @class = "control-label col-md-2" })
@@ -49,7 +43,6 @@
                 @Html.LabelFor(model => model.Desc, new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     @Html.TextBoxFor(model => model.Desc, new { @class = "form-control" })
-
                 </div>
             </div>
         </div>
@@ -70,7 +63,6 @@
                     <button id="clearsig" class="clearsig" style="float: right" data-action="clear">נקה</button>
                 </div>
             </div>
-            @*  <button  data-action="save">Save</button>*@
         </div>
     </div>
 }

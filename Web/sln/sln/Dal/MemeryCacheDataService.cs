@@ -19,11 +19,34 @@ namespace Michal.Project.Dal
         static List<ViewItem> _viewItems;
         static List<KeyValuePair<int, string>> _backOrderItems = null;
         static StreetsGeoLocation _locationDes = null;
+        static Guid _orgId = Guid.Empty;
 
         public MemeryCacheDataService()
         {
 
         }
+
+        public Guid GetOrg(ApplicationDbContext context)
+        {
+            if (_orgId == Guid.Empty)
+            {
+                lock (lockObj)
+                {
+                    if (_orgId == Guid.Empty)
+                    {
+                        var org=context.Organization.Where(o => o.Name == System.Configuration.ConfigurationManager.AppSettings["org"]).FirstOrDefault();
+                        if (org != null)
+                        {
+                            _orgId = org.OrgId;
+                        }
+
+                    }
+                }
+            }
+            return _orgId;
+        }
+        
+
         public List<KeyValuePair<int,string>> GetBackOrder()
         {
             if (_backOrderItems == null)
@@ -41,6 +64,7 @@ namespace Michal.Project.Dal
             }
             return _backOrderItems;
         }
+        
         public StreetsGeoLocation GetStreetsGeoLocation()
         {
             string path = System.Web.HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "rechov.json";

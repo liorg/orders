@@ -560,6 +560,7 @@
     <Content Include="Views\Shared\_locations.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\StatusVm.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StatusVm.cshtml" />
+    <Content Include="Views\s\search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

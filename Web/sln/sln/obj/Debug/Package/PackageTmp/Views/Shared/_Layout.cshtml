@@ -66,12 +66,12 @@
                     <li class="page-scroll">
                         @if (!User.IsInRole(Michal.Project.Helper.HelperAutorize.RoleAdmin))
                         {
-                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
+                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
                      
                         }
                         else
                         {
-                            <a href="@Url.Action("CreateShipByOrg", "Org")"><i class="fa fa-cart-plus"></i>יצירת משלוח חדש </a>
+                            <a href="@Url.Action("CreateShipByOrg", "Org")"><i class="fa fa-cart-plus"></i> יצירת משלוח חדש </a>
                         }
                     </li>
                     <li class="dropdown">
