@@ -201,6 +201,7 @@
     <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
+    <Compile Include="Contract\DAL\IAttachmentRepository.cs" />
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
@@ -557,9 +558,10 @@
     <Content Include="Views\Map\Show.cshtml" />
     <Content Include="Views\Status\EndStatusDesc.cshtml" />
     <Content Include="Views\Shared\_locations.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\StatusVm.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StatusVm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contract\DAL\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,76 @@
+﻿@model Michal.Project.Models.StatusVm
+
+
+<div class="row">
+    @using (Html.BeginForm("EndStatusDesc", "Status", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
+    {
+        @Html.HiddenFor(m => m.StatusId)
+        @Html.HiddenFor(m => m.ShipId)
+        @Html.HiddenFor(m => m.PicBase64)
+        @Html.HiddenFor(m => m.SigBackType)
+
+        <div class="col-md-12">
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.IsTake, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @*  <div class="switch1">*@
+                    @* <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" 
+                        data-switch-value="success" data-off-color="danger" data-toggle="toggle"
+                        data-off-text="לא התקבל" data-on-text="כן" data-off="לא" data-on="פעיל" type="checkbox">*@
+
+                    @Html.CheckBoxFor(model => model.IsTake, new { @class = "switchboot", data_switch_value = "success", data_off_color = "danger", data_on_text = "כן", data_off_text = "לא התקבל", data_switch_set = "onColor", data_toggle = "toggle", data_off = "לא פעיל", data_on = "פעיל" })
+                    @*</div>*@
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Recipient, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Recipient, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Recipient)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelRecipient, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.TelRecipient, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TelRecipient)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NameTarget, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.NameTarget, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NameTarget)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Desc, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.Desc, new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@if (Model.SigBackType == 1)
+{
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="row visible-md visible-lg ">
+                <input type="button" class="btn btn-success btn-lg clearsig " value="נקה חתימה" />
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12 col-sm-12" style="padding: 2px;" id="signature-pad">
+                    <canvas id="sign" style="border: dashed thin; padding: 2px;"></canvas>
+                </div>
+                <div class="visible-xs  visible-sm  col-md-6 col-xs-12 col-sm-12">
+                    <button id="clearsig" class="clearsig" style="float: right" data-action="clear">נקה</button>
+                </div>
+            </div>
+            @*  <button  data-action="save">Save</button>*@
+        </div>
+    </div>
+}

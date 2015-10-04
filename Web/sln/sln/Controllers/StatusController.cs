@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Michal.Project.Contract;
+using Michal.Project.Contract.DAL;
 
 namespace Michal.Project.Controllers
 {
@@ -194,53 +195,53 @@ namespace Michal.Project.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> TakeOk(string takeOkId, string recipient, string freeText)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                Guid userid = Guid.Empty;
-                UserContext user = new UserContext(AuthenticationManager);
-                Guid shipId = Guid.Parse(takeOkId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
+        //[HttpPost]
+        //public async Task<ActionResult> TakeOk(string takeOkId, string recipient, string freeText)
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        Guid userid = Guid.Empty;
+        //        UserContext user = new UserContext(AuthenticationManager);
+        //        Guid shipId = Guid.Parse(takeOkId);
+        //        var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
-                var request = new StatusRequestBase();
-                request.Ship = ship;
-                request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.Take(request, freeText, recipient);
+        //        var request = new StatusRequestBase();
+        //        request.Ship = ship;
+        //        request.UserContext = user;
+        //        StatusLogic statusLogic = new StatusLogic();
+        //        statusLogic.Take(request, freeText, recipient);
 
-                FollowLogic followLogic = new FollowLogic();
-                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
-                await context.SaveChangesAsync();
+        //        FollowLogic followLogic = new FollowLogic();
+        //        await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+        //        await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
-            }
-        }
+        //        return RedirectToAction("Index", "F");
+        //    }
+        //}
 
-        [HttpPost]
-        public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                Guid userid = Guid.Empty;
-                UserContext user = new UserContext(AuthenticationManager);
-                Guid shipId = Guid.Parse(noTakeOkId);
-                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
+        //[HttpPost]
+        //public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        Guid userid = Guid.Empty;
+        //        UserContext user = new UserContext(AuthenticationManager);
+        //        Guid shipId = Guid.Parse(noTakeOkId);
+        //        var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
-                var request = new StatusRequestBase();
-                request.Ship = ship;
-                request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.NoTake(request, desc);
+        //        var request = new StatusRequestBase();
+        //        request.Ship = ship;
+        //        request.UserContext = user;
+        //        StatusLogic statusLogic = new StatusLogic();
+        //        statusLogic.NoTake(request, desc);
 
-                FollowLogic followLogic = new FollowLogic();
-                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
-                await context.SaveChangesAsync();
+        //        FollowLogic followLogic = new FollowLogic();
+        //        await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+        //        await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
-            }
-        }
+        //        return RedirectToAction("Index", "F");
+        //    }
+        //}
 
         public async Task<ActionResult> EndStatusDesc(string id)
         {
@@ -251,8 +252,10 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 ViewLogic view = new ViewLogic();
-                var orderModel = view.GetOrderStatus(new OrderRequest { UserContext = userContext, Shipping = shipping });
-
+                IAttachmentRepository attachments = new AttachmentRepository(context);
+                var sign = await attachments.GetSign(shipId);
+                var orderModel = view.GetOrderStatus(sign,new OrderRequest { UserContext = userContext, Shipping = shipping });
+               
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }
@@ -267,7 +270,7 @@ namespace Michal.Project.Controllers
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 if (StatusVm.Status.SigBackType == 1)
                 {
-                    AttachmentRepository attachments = new AttachmentRepository(context);
+                    IAttachmentRepository attachments = new AttachmentRepository(context);
                     var attachment = attachments.UploadSign(shipId, userContext, StatusVm.Status.PicBase64);
                     context.AttachmentShipping.Add(attachment);
                 }

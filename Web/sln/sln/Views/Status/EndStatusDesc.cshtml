@@ -26,80 +26,17 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    @using (Html.BeginForm("EndStatusDesc", "Status", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
-    {
-        @Html.HiddenFor(m => m.Status.StatusId)
-        @Html.HiddenFor(m => m.Status.ShipId)
-        @Html.HiddenFor(m => m.Status.PicBase64)
-        @Html.HiddenFor(m => m.Status.SigBackType)
-
-        <div class="col-md-12">
-            <div class="form-group">
-
-                @Html.LabelFor(model => model.Status.IsTake, new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @*  <div class="switch1">*@
-                    @* <input id="chkCheckin2" class="switchboot" data-switch-set="onColor" 
-                        data-switch-value="success" data-off-color="danger" data-toggle="toggle"
-                        data-off-text="לא התקבל" data-on-text="כן" data-off="לא" data-on="פעיל" type="checkbox">*@
-
-                    @Html.CheckBoxFor(model => model.Status.IsTake, new { @class = "switchboot", data_switch_value = "success", data_off_color = "danger", data_on_text = "כן", data_off_text = "לא התקבל", data_switch_set = "onColor", data_toggle = "toggle", data_off = "לא פעיל", data_on = "פעיל" })
-                    @*</div>*@
-                </div>
-
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Status.Recipient, new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.Status.Recipient, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Status.Recipient)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Status.TelRecipient, new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.Status.TelRecipient, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Status.TelRecipient)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Status.NameTarget, new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.Status.NameTarget, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Status.NameTarget)
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Status.Desc, new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.Status.Desc, new { @class = "form-control" })
-
-                </div>
-            </div>
-        </div>
-    }
-</div>
-@if (Model.Status.SigBackType == 1)
+@if(Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.Cancel || 
+    Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.Close || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.CancelByAdmin
+    || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.AcceptByClient  || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.NoAcceptByClient)
 {
-    <div class="row">
-        <div class="col-md-offset-2 col-md-10">
-            <div class="row visible-md visible-lg ">
-                <input type="button" class="btn btn-success btn-lg clearsig " value="נקה חתימה" />
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-xs-12 col-sm-12" style="padding: 2px;" id="signature-pad">
-                    <canvas id="sign" style="border: dashed thin; padding: 2px;"></canvas>
-                </div>
-                <div class="visible-xs  visible-sm  col-md-6 col-xs-12 col-sm-12">
-                    <button id="clearsig" class="clearsig" style="float: right" data-action="clear">נקה</button>
-                </div>
-            </div>
-            @*  <button  data-action="save">Save</button>*@
-        </div>
-    </div>
+    @Html.DisplayFor(m=>m.Status)
 }
+else{
+    @Html.EditorFor(m => m.Status)
+}
+
+
 @section Scripts {
     <script src="~/Scripts/signature_pad.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
@@ -180,3 +117,4 @@
         });
     </script>
 }
+

@@ -90,7 +90,7 @@ namespace Michal.Project.Bll
         //    }
         //    return response;
         //}
-        public OrderViewStatus GetOrderStatus(OrderRequest request)
+        public OrderViewStatus GetOrderStatus(AttachmentShipping sign,OrderRequest request)
         {
 
             var orderModel = new OrderViewStatus();
@@ -98,16 +98,22 @@ namespace Michal.Project.Bll
             var runners = request.Runners;
 
             orderModel.Status = new StatusVm();
+            if (sign != null)
+               orderModel.Status.PathSig = sign.Path;
+            
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
             orderModel.Status.TelRecipient = shipping.TelTarget;
             orderModel.Status.NameTarget = shipping.NameTarget;
+            orderModel.Status.NameActualRecipient = shipping.ActualRecipient;
+            orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget;
+            orderModel.Status.NameActualTarget = shipping.ActualNameTarget;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
             orderModel.Status.IsTake =shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
-            orderModel.Status.Desc = shipping.EndDesc;
+            orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : "";
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             orderModel.Status.Runners = runners;
 
