@@ -92,8 +92,8 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
-        [Required]
-        public int SigBackType { get; set; }
+        //[Required]
+        //public int SigBackType { get; set; }
 
     }
 }

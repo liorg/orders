@@ -326,6 +326,10 @@
     <Compile Include="Migrations\201510032109303_add desc2.Designer.cs">
       <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510060716414_date.cs" />
+    <Compile Include="Migrations\201510060716414_date.Designer.cs">
+      <DependentUpon>201510060716414_date.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -620,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510032109303_add desc2.resx">
       <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510060716414_date.resx">
+      <DependentUpon>201510060716414_date.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
