@@ -49,7 +49,8 @@ namespace Michal.Project.Bll
             {
                request.Ship.GrantRunner = Guid.Parse(request.AssignTo);
 
-               grantToText = GetRunner(request.AssignTo);  //cache.GetRunners(context).Where(run => run.Id == assignTo).Select(run2 => run2.FullName).FirstOrDefault();
+               grantToText = GetRunner(request.AssignTo);  
+
             }
             else
             {
@@ -173,7 +174,10 @@ namespace Michal.Project.Bll
             ship.NotifyText = request.Desc;
             if(!String.IsNullOrEmpty(request.EndDesc))
                 ship.EndDesc = request.EndDesc;
-
+            if (request.ActualStartDate.HasValue)
+                ship.ActualStartDate = request.ActualStartDate.Value;
+            if (request.ActualEndDate.HasValue)
+                ship.ActualEndDate = request.ActualEndDate.Value;
             ship.StatusShipping_StatusShippingId = request.StatusShipping;
 
             var tl = new TimeLine

@@ -15,6 +15,8 @@ namespace Michal.Project.Models.Status
             this.UserContext = requestBase.UserContext;
             this.AssignTo = requestBase.AssignTo;
             this.EndDesc = requestBase.EndDesc;
+            this.ActualStartDate = requestBase.ActualStartDate;
+            this.ActualEndDate = requestBase.ActualEndDate;
         }
        // public IUserContext UserContext { get; set; }
         //public Shipping Ship { get; set; }
@@ -24,14 +26,16 @@ namespace Michal.Project.Models.Status
         public int Status { get; set; }
         public int NotifyType { get; set; }
         public Guid StatusShipping { get; set; }
-       
-
     }
+
     public class StatusRequestBase
     {
         public IUserContext UserContext { get; set; }
         public Shipping Ship { get; set; }
         public string AssignTo { get; set; }
         public string EndDesc { get; set; }
+        public DateTime? ActualStartDate { get; set; }
+        public DateTime? ActualEndDate { get; set; }
     }
+   
 }

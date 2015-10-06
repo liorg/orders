@@ -21,8 +21,8 @@
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Status)</th>
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.ShipTypeIdName)</th>
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.CreatedOn)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.SourceAddress)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.TargetAddress)</th>
+                    <th class="visible-md visible-lg">@Html.DisplayColumnNameFor(Model.Items, model => model.SourceAddress)</th>
+                    <th class="visible-md visible-lg">@Html.DisplayColumnNameFor(Model.Items, model => model.TargetAddress)</th>
                 </tr>
                 @if (!Model.Items.Any())
                 {
@@ -40,8 +40,8 @@
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
                         <td>@Html.DisplayFor(modelItem => item.ShipTypeIdName)</td>
                         <td>@Html.DisplayFor(modelItem => item.CreatedOn) </td>
-                        <td>@Html.DisplayFor(modelItem => item.SourceAddress)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TargetAddress)</td>
+                        <td class="visible-md visible-lg">@Html.DisplayFor(modelItem => item.SourceAddress)</td>
+                        <td class="visible-md visible-lg">@Html.DisplayFor(modelItem => item.TargetAddress)</td>
                     </tr>
                 }
             </table>

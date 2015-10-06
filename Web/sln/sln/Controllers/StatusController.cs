@@ -109,7 +109,7 @@ namespace Michal.Project.Controllers
                 request.Ship = ship;
                 request.UserContext = user;
                 request.AssignTo = assignTo;
-
+                request.ActualStartDate = DateTime.Now;
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request, func);
 
@@ -282,6 +282,7 @@ namespace Michal.Project.Controllers
                 request.Ship = shipping;
                 request.UserContext = userContext;
                 request.EndDesc = StatusVm.Status.Desc;
+                request.ActualEndDate = DateTime.Now;
                 if (StatusVm.Status.IsTake)
                 {
                     StatusLogic statusLogic = new StatusLogic();
