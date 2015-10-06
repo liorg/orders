@@ -116,6 +116,8 @@ namespace Michal.Project.Bll
             orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : "אן פרטים";
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             orderModel.Status.Runners = runners;
+            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy hh:mm"):" ";
+            orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy hh:mm") : " ";
 
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;

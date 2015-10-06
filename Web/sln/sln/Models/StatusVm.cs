@@ -52,6 +52,13 @@ namespace Michal.Project.Models
         public string Desc { get; set; }
 
         [Display(Name = "סוג חתימה")]
-        public int SigBackType { get; set; } 
+        public int SigBackType { get; set; }
+
+      
+        [Display(Name = "תאריך סיום")]
+        public string ActualEndDate { get; set; }
+
+        [Display(Name = "תאריך תחילת משלוח")]
+        public string ActualStartDate { get; set; }
     }
 }

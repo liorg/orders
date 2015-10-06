@@ -10,8 +10,8 @@
         @Html.HiddenFor(m => m.SigBackType)
 
         <div class="col-md-12">
+            
             <div class="form-group">
-
                 @Html.LabelFor(model => model.IsTake, new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     @Html.CheckBoxFor(model => model.IsTake, new { @class = "switchboot", data_switch_value = "success", data_off_color = "danger", data_on_text = "כן", data_off_text = "לא התקבל", data_switch_set = "onColor", data_toggle = "toggle", data_off = "לא פעיל", data_on = "פעיל" })

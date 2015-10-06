@@ -371,19 +371,19 @@ namespace Michal.Project.Controllers
                 await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
-                var shipItem = new ShippingItem()
-                    {
-                        Name = "זמן המתנה",
-                        CreatedBy = userid,
-                        CreatedOn = currentDate,
-                        ModifiedBy = userid,
-                        ModifiedOn = currentDate,
-                        ShippingItemId = Guid.NewGuid(),
-                        IsActive = true,
-                        Quantity = 0
-                    };
-                shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
-                shipping.ShippingItems.Add(shipItem);
+                //var shipItem = new ShippingItem()
+                //    {
+                //        Name = "זמן המתנה",
+                //        CreatedBy = userid,
+                //        CreatedOn = currentDate,
+                //        ModifiedBy = userid,
+                //        ModifiedOn = currentDate,
+                //        ShippingItemId = Guid.NewGuid(),
+                //        IsActive = true,
+                //        Quantity = 0
+                //    };
+                //shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
+                //shipping.ShippingItems.Add(shipItem);
 
                 TimeLine tl = new TimeLine
                 {
@@ -548,7 +548,7 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
@@ -570,7 +570,7 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();

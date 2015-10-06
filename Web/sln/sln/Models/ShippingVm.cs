@@ -39,7 +39,6 @@ namespace Michal.Project.Models
         [Display(Name = "מספר  הזמנה ")]
         public string Number { get; set; }
 
-
         [Display(Name = "לחיפוש מהיר מספר  הזמנה ")]
         public long FastSearch { get; set; }
 
@@ -56,11 +55,9 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "שם איש קשר חובה")]
         public string Recipient { get; set; }
 
-
-        public string ActualRecipient { get; set; }
+        //public string ActualRecipient { get; set; }
 
         [Display(Name = "טלפון של המזמין")]
-
         public string TelSource { get; set; }
 
         [Display(Name = "טלפון של המקבל")]
@@ -82,6 +79,11 @@ namespace Michal.Project.Models
         public AddressEditorViewModel SourceAddress { get; set; }
 
         [Display(Name = "החזרת אסמכתא")]
-        public int SigBackType { get; set; } 
+        public int SigBackType { get; set; }
+
+      
+
+        //[Display(Name = "תאריך סיום")]
+        //public DateTime? ActualEndDate { get; set; }
     }
 }
