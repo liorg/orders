@@ -97,8 +97,6 @@ namespace Michal.Project.Controllers
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                //// var ship = await context.Shipping.FindAsync(shipId);
-                //var ship = await context.Shipping.Include(fb => fb.FollowsBy).FirstOrDefaultAsync(s => s.ShippingId == shipId);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
                 Guid approval = Guid.Parse(Helper.Status.Confirm);

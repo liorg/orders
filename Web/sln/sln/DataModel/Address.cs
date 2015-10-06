@@ -19,5 +19,10 @@ namespace Michal.Project.DataModel
         public int UID { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
+
+        public override string ToString()
+        {
+            return this.StreetName + " " + this.StreetNum + " ," + this.CityName + "(" + this.ExtraDetail + ")";
+        }
     }
 }

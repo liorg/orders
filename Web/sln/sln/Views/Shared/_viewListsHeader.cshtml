@@ -5,5 +5,5 @@
     <li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })"><i class="fa fa-envelope"></i> @view.StatusDesc</a></li>
 }
 <li class="divider"></li>
-<li><a href="#"><i class="fa fa-file-excel-o"></i> דו''ח חודשי</a></li>
+<li><a href="@Url.Action("ExportExcel", "Excel")"><i class="fa fa-file-excel-o"></i> דו''ח חודשי</a></li>
 

@@ -566,6 +566,7 @@
     <Content Include="Views\Shared\EditorTemplates\StatusVm.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StatusVm.cshtml" />
     <Content Include="Views\s\search.cshtml" />
+    <Content Include="Views\Excel\ExportExcel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

@@ -58,8 +58,8 @@ namespace Michal.Project.Bll
                 grantToText = request.UserContext.FullName;
             }
 
-            var title = "המשלוח אושרה ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + "המשלוח אושרה " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+            var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
 
             request.Title = title;
             request.Desc = text;
@@ -96,7 +96,7 @@ namespace Michal.Project.Bll
             var user = request.UserContext;
             var ship = request.Ship;
             var currentDate = request.CurrentDate;
-            var text = "המשלוח לא מאושרת" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.CancelByAdmin;

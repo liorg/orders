@@ -22,7 +22,7 @@ namespace Michal.Project.Models
         //public Guid OrgId { get; set; }
 
         [Required]
-        [Display(Name = "האם אתה שליח")]
+        [Display(Name = "האם אתה שליח?")]
         public bool IsDeliveryBoy { get; set; }
 
         [Display(Name = "זכור אותי?")]
