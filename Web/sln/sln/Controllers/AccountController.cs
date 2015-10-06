@@ -59,8 +59,8 @@ namespace Michal.Project.Controllers
             var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
 
             var usersData = await usersQuery.OrderByDescending(ord => ord.UserName).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
-        
-           
+
+
             foreach (var user in usersData)
             {
                 var edit = new EditUserViewModel(user);
@@ -73,7 +73,7 @@ namespace Michal.Project.Controllers
             usersView.MoreRecord = hasMoreRecord;
             usersView.Title = "משתמשים";
             usersView.Total = total;
-           
+
             return View(usersView);
         }
 
@@ -210,7 +210,6 @@ namespace Michal.Project.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -240,11 +239,11 @@ namespace Michal.Project.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
+            // using (ApplicationDbContext db = new ApplicationDbContext())
+            //  {
+            //   ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
 
-            }
+            //  }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -263,13 +262,19 @@ namespace Michal.Project.Controllers
                 {
                     MemeryCacheDataService cache = new MemeryCacheDataService();
                     var orgs = cache.GetOrgs(context); //await context.Organization.ToListAsync();
-                    ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
-                    var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
+                    //  ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
+                    //  var org = orgs.Where(o => o.OrgId == model.OrgId).FirstOrDefault();
+                    var orgId = cache.GetOrg(context);
+                    var org = orgs.Where(o => o.OrgId == orgId).FirstOrDefault();
                     var userName = model.UserName;
-                    if (org.Name != General.OrgWWW)
+                    if (!model.IsDeliveryBoy)
                     {
                         userName = model.UserName + "@" + org.Domain;
                     }
+                    //if (org.Name != General.OrgWWW)
+                    //{
+                    //    userName = model.UserName + "@" + org.Domain;
+                    //}
                     var user = await UserManager.FindAsync(userName, model.Password);
                     if (user != null)
                     {
@@ -333,7 +338,7 @@ namespace Michal.Project.Controllers
                 var userName = model.UserName;
                 if (org.Name != General.OrgWWW)
                     userName = model.UserName + "@" + org.Domain;
-            
+
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser()
@@ -530,7 +535,7 @@ namespace Michal.Project.Controllers
             identity.AddClaim(new Claim(CustomClaimTypes.Street, user.AddressUser.StreetName.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.StreetCode, user.AddressUser.StreetCode.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.Num, user.AddressUser.StreetNum.ToString()));
-            identity.AddClaim(new Claim(CustomClaimTypes.External, user.AddressUser.ExtraDetail.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.External, String.IsNullOrEmpty( user.AddressUser.ExtraDetail)? "":  user.AddressUser.ExtraDetail.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.UID, user.AddressUser.UID.ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);

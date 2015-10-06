@@ -89,88 +89,6 @@ namespace Michal.Project.Controllers
             }
         }
 
-        //public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage, string nextDay, string prevDay)
-        //{
-        //    using (var context = new ApplicationDbContext())
-        //    {
-        //        var user = new UserContext(AuthenticationManager);
-        //        Guid orgId = Guid.Empty;
-        //        MemeryCacheDataService cache = new MemeryCacheDataService();
-        //        int order = viewType.HasValue ? viewType.Value : user.DefaultView;
-        //        var view = cache.GetView().Where(g => g.StatusId == order).FirstOrDefault();
-        //        if (view == null)
-        //        {
-        //            view = new ViewItem { StatusId = TimeStatus.New, StatusDesc = "משלוחים טויטה - היום" };
-        //            view.FieldShowMy = "OwnerId";
-        //        }
-
-        //        if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
-        //            orgId = Guid.Empty; //user.OrgId;
-        //        var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
-        //        List<Shipping> shippings = new List<Shipping>();
-        //        var from = DateTime.Today.AddDays(-1).Date;
-        //        var to = DateTime.Today.AddDays(1).Date;
-
-        //        if (!String.IsNullOrEmpty(nextDay))
-        //            to = DateTime.ParseExact(nextDay, "yyyy-MM-dd", null);
-
-        //        if (!String.IsNullOrEmpty(prevDay))
-        //            from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
-
-
-        //        var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
-
-        //        if (!showAll)
-        //            shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
-
-        //        int page = currentPage.HasValue ? currentPage.Value : 1;
-        //        var total = await shippingsQuery.CountAsync();
-        //        var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
-
-        //        shippings = await shippingsQuery.OrderByDescending(ord => ord.ModifiedOn).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
-        //        var shippingsItems = new List<ShippingVm>();
-        //        foreach (var ship in shippings)
-        //        {
-
-        //            var u = new ShippingVm();
-        //            u.Id = ship.ShippingId;
-        //            u.Status = ship.StatusShipping.Desc;
-        //            u.Name = ship.Name;
-        //            u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-        //            u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-        //            u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-
-        //            u.TelTarget = ship.TelTarget;
-        //            u.NameTarget = ship.NameTarget;
-
-        //            shippingsItems.Add(u);
-        //        }
-
-        //        bool isToday = to.Date == DateTime.Now.AddDays(1).Date;
-
-        //        ViewBag.Selected = view.StatusDesc;
-        //        ViewBag.StatusId = view.StatusId;
-
-        //        SpecialView specialView = new SpecialView();
-        //        specialView.Items = shippingsItems.AsEnumerable();
-        //        specialView.ClientViewType = ClientViewType.Views;
-
-        //        specialView.BShowAll = showAll;
-        //        specialView.ShowAll = showAll.ToString();
-
-        //        specialView.Total = total;
-        //        specialView.CurrentPage = page;
-        //        specialView.MoreRecord = hasMoreRecord;
-        //        specialView.Title = view.StatusDesc + " " + to.Date.AddMinutes(-1).ToString("dd/MM/yyyy");
-
-        //        specialView.FromDay = from.ToString("yyyy-MM-dd");
-        //        specialView.ToDay = to.ToString("yyyy-MM-dd");
-        //        specialView.IsToday = to.Date == DateTime.Now.AddDays(1).Date;
-
-        //        return View(specialView);
-        //    }
-        //}
-
         public async Task<ActionResult> Index(int? viewType, bool? viewAll, int? currentPage, string nextDay, string prevDay)
         {
             using (var context = new ApplicationDbContext())
@@ -186,8 +104,9 @@ namespace Michal.Project.Controllers
                     view.FieldShowMy = "OwnerId";
                 }
 
-                if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
-                    orgId = Guid.Empty; //user.OrgId;
+                //if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
+                //    orgId = Guid.Empty; //user.OrgId;
+                orgId = cache.GetOrg(context);
                 var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1).Date;
@@ -199,8 +118,7 @@ namespace Michal.Project.Controllers
                 if (!String.IsNullOrEmpty(prevDay))
                     from = DateTime.ParseExact(prevDay, "yyyy-MM-dd", null);
 
-
-                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.CreatedOn > from && s.CreatedOn <= to) && s.Organization_OrgId.HasValue && (s.Organization_OrgId.Value == orgId || orgId == Guid.Empty)).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
+                var shippingsQuery = context.Shipping.Where(s => s.StatusShipping.OrderDirection == order && (s.ModifiedOn > from && s.ModifiedOn <= to) && s.Organization_OrgId.HasValue && s.Organization_OrgId.Value == orgId ).AsQueryable();// && (!showAll && view.GetOnlyMyRecords(s,user))).AsQueryable();//)).AsQueryable();
 
                 if (!showAll)
                     shippingsQuery = shippingsQuery.Where(view.GetMyRecords(user)).AsQueryable();
@@ -213,7 +131,6 @@ namespace Michal.Project.Controllers
                 var shippingsItems = new List<ShippingVm>();
                 foreach (var ship in shippings)
                 {
-
                     var u = new ShippingVm();
                     u.Id = ship.ShippingId;
                     u.Status = ship.StatusShipping.Desc;
@@ -225,6 +142,17 @@ namespace Michal.Project.Controllers
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
 
+                    u.TargetAddress = new AddressEditorViewModel();
+                    u.TargetAddress.City = ship.Target.CityName;
+                    u.TargetAddress.Street = ship.Target.StreetName;
+                    u.TargetAddress.Num = ship.Target.StreetNum;
+                    u.TargetAddress.ExtraDetail = ship.Target.ExtraDetail;
+
+                    u.SourceAddress = new AddressEditorViewModel();
+                    u.SourceAddress.City = ship.Source.CityName;
+                    u.SourceAddress.Street = ship.Source.StreetName;
+                    u.SourceAddress.Num = ship.Source.StreetNum;
+                    u.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
                     shippingsItems.Add(u);
                 }
 
@@ -253,7 +181,7 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public async Task<ActionResult> Create(string orgid)
+        public async Task<ActionResult> Create()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -307,9 +235,10 @@ namespace Michal.Project.Controllers
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
-                if (String.IsNullOrEmpty(orgid))
-                    orgid = userContext.OrgId.ToString();
-                var organid = Guid.Parse(orgid);
+                //if (String.IsNullOrEmpty(orgid))
+                //    orgid = userContext.OrgId.ToString();
+                //var organid = Guid.Parse(orgid);
+                var organid = cache.GetOrg(context);
                 distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
 
                 model.OrgId = organid;
@@ -327,11 +256,12 @@ namespace Michal.Project.Controllers
                 shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
                 var shipping = new Shipping();
                 UserContext userContext = new UserContext(AuthenticationManager);
-
-                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                    shipping.Organization_OrgId = userContext.OrgId;
-                else
-                    shipping.Organization_OrgId = shippingVm.OrgId;
+                  MemeryCacheDataService cache = new MemeryCacheDataService();
+                  shipping.Organization_OrgId = cache.GetOrg(context);
+                //if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                //    shipping.Organization_OrgId = userContext.OrgId;
+                //else
+                //    shipping.Organization_OrgId = shippingVm.OrgId;
 
                 var userid = userContext.UserId;
                 shipping.ShippingId = Guid.NewGuid();
@@ -339,7 +269,7 @@ namespace Michal.Project.Controllers
                 shipping.Name = shippingVm.Number;
                 shipping.SigBackType = shippingVm.SigBackType;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-                MemeryCacheDataService cache = new MemeryCacheDataService();
+              
 
                 LocationAgent location = new LocationAgent(cache);
 

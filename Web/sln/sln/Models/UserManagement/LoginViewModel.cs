@@ -9,7 +9,7 @@ namespace Michal.Project.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
 
         [Required]
@@ -17,9 +17,13 @@ namespace Michal.Project.Models
         [Display(Name = "סיסמא")]
         public string Password { get; set; }
 
+        //[Required]
+        //[Display(Name = "ארגון")]
+        //public Guid OrgId { get; set; }
+
         [Required]
-        [Display(Name = "ארגון")]
-        public Guid OrgId { get; set; }
+        [Display(Name = "האם אתה שליח")]
+        public bool IsDeliveryBoy { get; set; }
 
         [Display(Name = "זכור אותי?")]
         public bool RememberMe { get; set; }

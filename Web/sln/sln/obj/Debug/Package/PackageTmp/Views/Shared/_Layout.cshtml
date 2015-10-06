@@ -64,21 +64,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        @if (!User.IsInRole(Michal.Project.Helper.HelperAutorize.RoleAdmin))
-                        {
-                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
-                     
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("CreateShipByOrg", "Org")"><i class="fa fa-cart-plus"></i> יצירת משלוח חדש </a>
-                        }
+                          <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i> ניהול <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/Account/"><i class="fa fa-user-plus"></i>ניהול משתמשים</a></li>
-                            <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache</a></li>
+                            <li><a href="/Account/"><i class="fa fa-user-plus"></i> ניהול משתמשים </a></li>
+                            <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i> רענון Cache </a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

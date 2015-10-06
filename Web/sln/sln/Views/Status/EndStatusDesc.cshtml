@@ -28,7 +28,8 @@
 </div>
 @if(Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.Cancel || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.Draft ||
     Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.Close || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.CancelByAdmin
-    || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.AcceptByClient  || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.NoAcceptByClient)
+    || Model.Status.StatusId.ToString() == Michal.Project.Helper.Status.ApporvallRequest
+    || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.AcceptByClient  || Model.Status.StatusId.ToString()==Michal.Project.Helper.Status.NoAcceptByClient )
 {
     @Html.DisplayFor(m=>m.Status)
 }
