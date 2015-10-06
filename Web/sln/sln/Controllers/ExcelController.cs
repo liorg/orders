@@ -49,8 +49,15 @@ namespace Michal.Project.Controllers
                 //if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
                 //    orgId = Guid.Empty; //user.OrgId;
                 //We load the data
-                var fromMonth = DateTime.Today.AddMonths(-1).Date;
-                var toMonth = DateTime.Today.AddMonths(1).Date;
+                //var fromMonth = DateTime.Today.AddMonths(-1).Date;
+                //var toMonth = DateTime.Today.AddMonths(1).Date;
+
+
+                var today = DateTime.Today;
+                var month = new DateTime(today.Year, today.Month, 1);
+                var fromMonth = month;// var fromMonth = month.AddMonths(-1);
+                var toMonth = month.AddMonths(1).AddDays(-1);
+
                 if (!String.IsNullOrEmpty(nextMonth))
                     toMonth = DateTime.ParseExact(nextMonth, "yyyy-MM-dd", null);
 
@@ -125,8 +132,14 @@ namespace Michal.Project.Controllers
                 //if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
                 //    orgId = Guid.Empty; //user.OrgId;
                 //We load the data
-                var fromMonth = DateTime.Today.AddMonths(-1).Date;
-                var toMonth = DateTime.Today.AddMonths(1).Date;
+                //var fromMonth = DateTime.Today.AddMonths(-1).Date;
+                //var toMonth = DateTime.Today.AddMonths(1).Date;
+
+                var today = DateTime.Today;
+                var month = new DateTime(today.Year, today.Month, 1);
+                var fromMonth = month;//month.AddMonths(-1);
+                var toMonth = month.AddMonths(1).AddDays(-1);
+
                 if (!String.IsNullOrEmpty(nextMonth))
                     toMonth = DateTime.ParseExact(nextMonth, "yyyy-MM-dd", null);
 
