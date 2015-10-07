@@ -377,6 +377,7 @@
     <Content Include="Content\css\timeline.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\add32x32.png" />
+    <Content Include="Content\img\adduser32x32.png" />
     <Content Include="Content\img\back32x32.png" />
     <Content Include="Content\img\c.png" />
     <Content Include="Content\img\c32.png" />

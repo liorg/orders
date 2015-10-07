@@ -6,13 +6,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row">
+    <div class="  col-md-12 well well-lg ">
 
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="btnAddItem" data-toggle="tooltip" title="הוסף משתמש חדש" data-placement="top" data-url="@Url.Action("Register")"
+                class="btn btn-success btn-circle btn-xl">
+                <img src="~/Content/img/adduser32x32.png" />
+            </button>
+        </div>
 
-<p>
-    <a class="btn btn-success btn-lg" href="@Url.Action("Register")">
-        <i class="fa fa-user-plus  pull-right"></i>הוסף משתמש חדש</i></a>
-</p>
-</p>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped table-hover">
@@ -69,3 +74,10 @@
     </div>
     @Html.Partial("_pager", Model)
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/rantoolbx.js?v=2"></script>
+}
