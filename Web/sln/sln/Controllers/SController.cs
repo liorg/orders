@@ -518,9 +518,6 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 1)
-                    return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
-
                 ViewLogic view = new ViewLogic();
                 var runners = cacheProvider.GetRunners(context);
                 var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping, Runners = runners });
