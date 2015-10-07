@@ -16,6 +16,7 @@ using System.Data.Entity.Validation;
 using System.Data.Entity;
 using Michal.Project.Bll;
 using Michal.Project.Models.View;
+using Michal.Project.Agent;
 
 namespace Michal.Project.Controllers
 {
@@ -124,8 +125,10 @@ namespace Michal.Project.Controllers
                 {
                     var id = model.UserId.ToString();
                     var viewLogic = new ViewLogic();
+                    MemeryCacheDataService cache = new MemeryCacheDataService();
 
                     var context = DBContext;
+                    LocationAgent location = new LocationAgent(cache);
                     var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
                     user.FirstName = model.FirstName;
@@ -134,14 +137,15 @@ namespace Michal.Project.Controllers
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
                     user.Tel = model.Tel;
+                    await location.SetLocationAsync(model.Address, user.AddressUser);
 
-                    user.AddressUser.IsSensor = false;
+                    // user.AddressUser.IsSensor = false;
                     user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
-                    user.AddressUser.CityCode = model.Address.Citycode;
-                    user.AddressUser.CityName = model.Address.City;
-                    user.AddressUser.StreetCode = model.Address.Streetcode;
-                    user.AddressUser.StreetName = model.Address.Street;
-                    user.AddressUser.StreetNum = model.Address.Num;
+                    //user.AddressUser.CityCode = model.Address.Citycode;
+                    //user.AddressUser.CityName = model.Address.City;
+                    //user.AddressUser.StreetCode = model.Address.Streetcode;
+                    //user.AddressUser.StreetName = model.Address.Street;
+                    //user.AddressUser.StreetNum = model.Address.Num;
 
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
@@ -296,13 +300,38 @@ namespace Michal.Project.Controllers
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
         public ActionResult Register()
         {
+            RegisterViewModel model = new RegisterViewModel();
+            model.Address = new AddressEditorViewModel();
             //using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var db = DBContext;
+               
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                var orgs = cache.GetOrgs(db);
+                var orgid = cache.GetOrg(db);
+                var org = orgs.Where(o => o.OrgId == orgid).FirstOrDefault();
+                if (org != null)
+                {
+                   
+
+                    model.Address.ExtraDetail = org.AddressOrg.ExtraDetail;
+                    model.Address.City = org.AddressOrg.CityName;
+                    model.Address.Citycode = org.AddressOrg.CityCode;
+                    model.Address.CitycodeOld = model.Address.Citycode;
+                    model.Address.IsSensor = org.AddressOrg.IsSensor;
+                    model.Address.Lat = org.AddressOrg.Lat;
+                    model.Address.Lng = org.AddressOrg.Lng;
+                    model.Address.Num = org.AddressOrg.StreetNum;
+                    model.Address.Street = org.AddressOrg.StreetName;
+                    model.Address.Streetcode = org.AddressOrg.StreetCode;
+                    model.Address.StreetcodeOld = model.Address.Streetcode;
+                    model.Address.UId = org.AddressOrg.UID;
+                }
+
                 ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
 
             }
-            return View();
+            return View(model);
         }
 
         // POST: /Account/Register
@@ -314,6 +343,8 @@ namespace Michal.Project.Controllers
             //using (var context = new ApplicationDbContext())
             {
                 var context = DBContext;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                LocationAgent location = new LocationAgent(cache);
                 var viewLogic = new ViewLogic();
 
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
@@ -339,7 +370,7 @@ namespace Michal.Project.Controllers
                 if (org.Name != General.OrgWWW)
                     userName = model.UserName + "@" + org.Domain;
 
-                if (ModelState.IsValid)
+                //if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser()
                     {
@@ -353,16 +384,8 @@ namespace Michal.Project.Controllers
                         Tel = model.Tel
                     };
                     user.AddressUser = new Address();
-                    user.AddressUser.IsSensor = false;
+                    await location.SetLocationAsync(model.Address, user.AddressUser);
                     user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
-                    user.AddressUser.CityCode = model.Address.Citycode;
-                    user.AddressUser.CityName = model.Address.City;
-                    user.AddressUser.StreetCode = model.Address.Streetcode;
-                    user.AddressUser.StreetName = model.Address.Street;
-                    user.AddressUser.StreetNum = model.Address.Num;
-                    user.AddressUser.UID = 0;
-                    user.AddressUser.Lat = 0;
-                    user.AddressUser.Lng = 0;
 
                     viewLogic.SetViewerUserByRole(model, user);
 
@@ -525,7 +548,6 @@ namespace Michal.Project.Controllers
             identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
 
-
             identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.Tel, user.Tel.ToString()));
@@ -535,7 +557,7 @@ namespace Michal.Project.Controllers
             identity.AddClaim(new Claim(CustomClaimTypes.Street, user.AddressUser.StreetName.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.StreetCode, user.AddressUser.StreetCode.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.Num, user.AddressUser.StreetNum.ToString()));
-            identity.AddClaim(new Claim(CustomClaimTypes.External, String.IsNullOrEmpty( user.AddressUser.ExtraDetail)? "":  user.AddressUser.ExtraDetail.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.External, String.IsNullOrEmpty(user.AddressUser.ExtraDetail) ? "" : user.AddressUser.ExtraDetail.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.UID, user.AddressUser.UID.ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
