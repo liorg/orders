@@ -283,7 +283,7 @@ namespace Michal.Project.Controllers
                 shipping.IsActive = true;
                 shipping.NotifyType = (int)AlertStyle.Warning;
                 shipping.NotifyText = Notification.MessageConfirm;
-                shipping.Direction = shippingVm.Direction;
+               
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelSource = shippingVm.TelSource; // userContext.Tel;
                 shipping.TelTarget = shippingVm.TelTarget;

@@ -127,7 +127,7 @@ namespace Michal.Project.Bll
 
             orderModel.ShippingVm = new ShippingVm();
             orderModel.ShippingVm.Name = shipping.Name;
-
+            orderModel.ShippingVm.Direction = shipping.Direction;
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
             orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
             orderModel.ShippingVm.Id = shipping.ShippingId;
@@ -193,7 +193,7 @@ namespace Michal.Project.Bll
 
 
             orderModel.ShippingVm = new ShippingVm();
-            orderModel.ShippingVm.Direction = orderModel.ShippingVm.Direction;
+            orderModel.ShippingVm.Direction = shipping.Direction;
             orderModel.ShippingVm.Name = shipping.Name;
 
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
