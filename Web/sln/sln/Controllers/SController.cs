@@ -270,7 +270,7 @@ namespace Michal.Project.Controllers
                 shipping.Name = shippingVm.Number;
                 shipping.SigBackType = shippingVm.SigBackType;
                 shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-             
+                shipping.Direction = shippingVm.Direction;
                 LocationAgent location = new LocationAgent(cache);
 
                 var currentDate = DateTime.Now;
