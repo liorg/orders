@@ -18,6 +18,7 @@ namespace Michal.Project.Dal
         static object lockObj = new object();
         static List<ViewItem> _viewItems;
         static List<KeyValuePair<int, string>> _backOrderItems = null;
+        static List<KeyValuePair<int, string>> _getDirection = null;
         static StreetsGeoLocation _locationDes = null;
         static Guid _orgId = Guid.Empty;
 
@@ -46,8 +47,24 @@ namespace Michal.Project.Dal
             }
             return _orgId;
         }
-        
 
+        public List<KeyValuePair<int, string>> GetDirection()
+        {
+            if (_getDirection == null)
+            {
+                lock (lockObj)
+                {
+                    if (_getDirection == null)
+                    {
+                        _getDirection = new List<KeyValuePair<int, string>>();
+                        _getDirection.Add(new KeyValuePair<int, string>(0, "משולח ההזמנה אל היעד"));
+                        _getDirection.Add(new KeyValuePair<int, string>(1, "מהיעד לשולח הזמנה"));
+                      
+                    }
+                }
+            }
+            return _getDirection;
+        }
         public List<KeyValuePair<int,string>> GetBackOrder()
         {
             if (_backOrderItems == null)

@@ -1,7 +1,8 @@
-﻿<div class="row">
+﻿@model Michal.Project.Models.View.SpecialView
+<div class="row">
     <div class="col-md-12">
         <input type="hidden" value="@ViewBag.StatusId" id="viewType" name="viewType" />
-        <input type="hidden" value="@ViewBag.ShowAll" id="viewAll" name="viewAll" />
+        <input type="hidden" value="@Model.ShowAll" id="viewAll" name="viewAll" />
         <div class="ran-nav-list  well carousel-search hidden-sm">
             @* <div class="btn-group pull-left">
             <a class=" btn btn-success orange-circle-button" href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i><br /> צור <br />משלוח  </a>
@@ -26,7 +27,7 @@
             <div class="btn-group">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="chkAll" name="chkAll" checked="@ViewBag.BShowAll" />הצג הכל
+                        <input type="checkbox" id="chkAll" name="chkAll" checked="@Model.BShowAll" />הצג הכל
                     </label>
                 </div>
             </div>

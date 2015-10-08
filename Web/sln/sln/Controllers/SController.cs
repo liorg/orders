@@ -224,17 +224,18 @@ namespace Michal.Project.Controllers
                 model.SourceAddress.ExtraDetail = userContext.Address.ExtraDetail;
                 model.SourceAddress.Num = userContext.Address.StreetNum;
                 model.SourceAddress.UId = userContext.Address.UID;
-
+                model.Direction = 0;//send
                 model.TelSource = userContext.Tel;
                 model.NameSource = userContext.FullName;
 
                 ViewBag.OrderNumber = model.Name;
                 var orgs = cache.GetOrgs(context);
                 var sigBacks = cache.GetBackOrder();
-
+                var directions=cache.GetDirection();
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
+                ViewBag.Directions = new SelectList(directions, "Key", "Value");
                 //if (String.IsNullOrEmpty(orgid))
                 //    orgid = userContext.OrgId.ToString();
                 //var organid = Guid.Parse(orgid);
@@ -280,9 +281,9 @@ namespace Michal.Project.Controllers
                 shipping.ModifiedBy = userid;
                 shipping.OwnerId = userid;
                 shipping.IsActive = true;
-                shipping.NotifyType = (int)AlertStyle.Warning; //Notification.Error;//Notification.Warning;
+                shipping.NotifyType = (int)AlertStyle.Warning;
                 shipping.NotifyText = Notification.MessageConfirm;
-
+                shipping.Direction = shippingVm.Direction;
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelSource = shippingVm.TelSource; // userContext.Tel;
                 shipping.TelTarget = shippingVm.TelTarget;
@@ -394,6 +395,8 @@ namespace Michal.Project.Controllers
                 model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
                 model.TargetAddress.Num = shipping.Target.StreetNum;
 
+                model.Direction = shipping.Direction;
+
                 if (shipping.StatusShipping_StatusShippingId.HasValue)
                 {
                     if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
@@ -402,11 +405,12 @@ namespace Michal.Project.Controllers
                         shipping.NotifyText = Notification.MessageConfirm;
                     }
                 }
+                var directions = cache.GetDirection();
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.OrderNumber = shipping.Name;
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
-
+                ViewBag.Directions = new SelectList(directions, "Key", "Value");
                 if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
                 {
                     Guid orgId = Guid.Empty;
@@ -444,7 +448,7 @@ namespace Michal.Project.Controllers
                 shipping.ModifiedOn = DateTime.Now;
                 shipping.ModifiedBy = userContext.UserId;
                 shipping.IsActive = true;
-
+                shipping.Direction = shippingVm.Direction;
                 shipping.Recipient = shippingVm.Recipient;
                 shipping.TelTarget = shippingVm.TelTarget;
                 shipping.NameTarget = shippingVm.NameTarget;

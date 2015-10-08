@@ -193,6 +193,7 @@ namespace Michal.Project.Bll
 
 
             orderModel.ShippingVm = new ShippingVm();
+            orderModel.ShippingVm.Direction = orderModel.ShippingVm.Direction;
             orderModel.ShippingVm.Name = shipping.Name;
 
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();

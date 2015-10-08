@@ -162,6 +162,17 @@ namespace Michal.Project.DataModel
 
         public DateTime? ActualEndDate { get; set; }
 
+        [Required]
+        public int Direction { get; set; }// 0=send,1=get
+
+        public DateTime? TimeWaitStartSend { get; set; }
+
+        public DateTime? TimeWaitEndSend { get; set; }
+
+        public DateTime? TimeWaitStartSGet { get; set; }
+
+        public DateTime? TimeWaitEndGet { get; set; }
+
 
 
     }

@@ -81,7 +81,9 @@ namespace Michal.Project.Models
         [Display(Name = "החזרת אסמכתא")]
         public int SigBackType { get; set; }
 
-      
+        [Display(Name = "כיוון ")]
+        [Required(ErrorMessage = "חובה לבחור כיוון")]
+        public int Direction { get; set; }
 
         //[Display(Name = "תאריך סיום")]
         //public DateTime? ActualEndDate { get; set; }
