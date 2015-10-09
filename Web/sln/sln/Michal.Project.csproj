@@ -255,13 +255,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\AlertHtmlHelper.cs" />
-    <Compile Include="Helper\CacheMemoryProvider.cs" />
-    <Compile Include="Helper\Const.cs" />
-    <Compile Include="Helper\CustomPasswordValidator.cs" />
-    <Compile Include="Helper\HelperAutorize.cs" />
-    <Compile Include="Helper\RazorHelper.cs" />
-    <Compile Include="Helper\UserProfileActionFilter.cs" />
+    <Compile Include="Helper\Razor\Alert\AlertHtmlHelper.cs" />
+    <Compile Include="Helper\Provider\CacheMemoryProvider.cs" />
+    <Compile Include="Helper\Const\Const.cs" />
+    <Compile Include="Helper\Provider\CustomPasswordValidator.cs" />
+    <Compile Include="Helper\Infrastructure\HelperAutorize.cs" />
+    <Compile Include="Helper\Razor\RazorHelper.cs" />
+    <Compile Include="Helper\Infrastructure\UserProfileActionFilter.cs" />
     <Compile Include="Migrations\201508081739333_changescema.Designer.cs" />
     <Compile Include="Migrations\201508081739333_changescema.Designer.Designer.cs">
       <DependentUpon>201508081739333_changescema.Designer.cs</DependentUpon>
