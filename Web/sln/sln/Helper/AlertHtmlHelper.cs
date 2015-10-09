@@ -38,7 +38,6 @@ namespace Michal.Project.Helper
             object htmlAttributes = null
             )
         {
-        
             var metadata = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
             return new AlertBox((string)metadata.Model, alertStyle, hideCloseButton, htmlAttributes);
         }
@@ -58,8 +57,6 @@ namespace Michal.Project.Helper
 
             return new AlertBox(text, alertStyle, hideCloseButton, htmlAttributes);
         }
-
-
     }
 
    

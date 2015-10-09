@@ -62,6 +62,7 @@ namespace Michal.Project.Helper
         public const int Close = 10;
         public const int PrevStep = 11;
         public const int ChangePrice = 12;
+        public const int ArrivedSender = 13;
     }
 
     public class Status
@@ -76,6 +77,7 @@ namespace Michal.Project.Helper
         public const string AcceptByClient = "00000000-0000-0000-0000-000000000020";//8
         public const string NoAcceptByClient = "00000000-0000-0000-0000-000000000022";//9
         public const string Close = "00000000-0000-0000-0000-000000000021";//10
+        public const string ArrivedSender = "00000000-0000-0000-0000-000000000025";//11
     }
 
     public class ProductType
