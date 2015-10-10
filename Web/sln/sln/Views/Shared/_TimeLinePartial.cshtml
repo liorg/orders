@@ -1,12 +1,14 @@
 ﻿@model  IEnumerable<Michal.Project.Models.TimeLineVm>
 
- <ul class="timeline">
-@foreach (var timeline in Model){
-                        <li ><div class="timeline-badge @timeline.Circle"><i class="fa @timeline.Icon fa-lg "></i></div>
-                             <div class="timeline-panel">
-                             @*   <div class="timeline-heading">@timeline.Title</div>*@
-                                <div class="timeline-body">@timeline.Desc</div>                            
-                             </div>
-                        </li>
-            }
-    </ul>
+<ul class="timeline">
+    @foreach (var timeline in Model)
+    {
+        <li>@*<div class="timeline-badge @timeline.Circle"><i class="fa @timeline.Icon fa-lg "></i></div>*@
+            @Html.TimeLineIcon(timeline.Status)
+            <div class="timeline-panel">
+                @*   <div class="timeline-heading">@timeline.Title</div>*@
+                <div class="timeline-body">@timeline.Desc</div>
+            </div>
+        </li>
+    }
+</ul>

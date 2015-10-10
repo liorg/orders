@@ -133,14 +133,10 @@ namespace Michal.Project.Helper
             icon.AddCssClass("fa");
             icon.AddCssClass(fa);
             icon.AddCssClass("fa-lg");
-
-            builder.InnerHtml = icon.ToString();
-
-
-
-
-
-            return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+            icon.ToString(TagRenderMode.EndTag);
+            builder.InnerHtml += icon.ToString();
+            return MvcHtmlString.Create(builder.ToString());
+            //return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
 
     }
