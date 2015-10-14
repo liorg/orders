@@ -573,6 +573,8 @@
     <Content Include="Views\Shared\DisplayTemplates\StatusVm.cshtml" />
     <Content Include="Views\s\search.cshtml" />
     <Content Include="Views\Excel\ExportExcel.cshtml" />
+    <Content Include="Views\Shared\_StatusArrivedGet.cshtml" />
+    <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

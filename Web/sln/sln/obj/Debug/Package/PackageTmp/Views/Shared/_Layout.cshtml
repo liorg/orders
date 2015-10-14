@@ -141,7 +141,7 @@
                 var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
                 $('#viewAll').val(viewAll);
                 changeView(viewType, viewAll, currentPage);
-            })
+            });
 
             $('#chkCheckin').click(function () {
                 // alert(4);
@@ -149,19 +149,39 @@
                     centerX: false,
                     centerY: false, message: $('#questionIsArrived'), css: { width: '200px' }
                 });
-            })
+            });
 
             $('#btnCheckin').click(function () {
                 var shipId = $('#hdShipId').val();
                 var changeStatus = "/status/Arrived?id=" + shipId;
                 window.location.href = changeStatus;
 
-            })
+            });
             $('#btnCheckout').click(function () {
                 $.unblockUI();
                 $("#chkCheckin").prop("checked", false);
                 return false;
-            })
+            });
+
+            $('#chkCheckinGet').click(function () {
+                $.blockUI({
+                    centerX: false,
+                    centerY: false, message: $('#questionIsArrivedGet'), css: { width: '200px' }
+                });
+            });
+
+            $('#btnCheckinGet').click(function () {
+                debugger;
+                var shipId = $('#hdShipId').val();
+                var changeStatus = "/status/ArrivedGet?id=" + shipId;
+                window.location.href = changeStatus;
+
+            });
+            $('#btnCheckoutGet').click(function () {
+                $.unblockUI();
+                $("#chkCheckinGet").prop("checked", false);
+                return false;
+            });
         });
 
         function changeDay(isNext, t) {
@@ -346,5 +366,6 @@
 
     </script>
     @Html.Partial("_questionIsArrived")
+    @Html.Partial("_questionIsArrivedGet")
 </body>
 </html>

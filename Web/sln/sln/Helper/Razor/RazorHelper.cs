@@ -111,9 +111,14 @@ namespace Michal.Project.Helper
                     circleCss = "success";
                     break;
                 case Helper.TimeStatus.Arrived:
-                    fa= "fa-map-marker";
+                    fa="fa-clock-o";// "fa-map-marker";
                     circleCss = "info";
                     break;
+                case Helper.TimeStatus.ArrivedSender:
+                    fa = "fa-clock-o";//"fa-check";
+                    circleCss = "info";
+                    break;
+                //fa-check
                 case Helper.TimeStatus.NoAcceptByClient:
                     fa= "fa-hand-rock-o";
                     circleCss = "danger";

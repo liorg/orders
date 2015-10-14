@@ -107,7 +107,7 @@ namespace Michal.Project.Controllers
                 request.Ship = ship;
                 request.UserContext = user;
                 request.AssignTo = assignTo;
-                request.ActualStartDate = DateTime.Now;
+            
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request, func);
 
@@ -193,53 +193,28 @@ namespace Michal.Project.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> TakeOk(string takeOkId, string recipient, string freeText)
-        //{
-        //    using (var context = new ApplicationDbContext())
-        //    {
-        //        Guid userid = Guid.Empty;
-        //        UserContext user = new UserContext(AuthenticationManager);
-        //        Guid shipId = Guid.Parse(takeOkId);
-        //        var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
+        public async Task<ActionResult> ArrivedGet(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                Guid shipId = Guid.Parse(id);
+                var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
 
-        //        var request = new StatusRequestBase();
-        //        request.Ship = ship;
-        //        request.UserContext = user;
-        //        StatusLogic statusLogic = new StatusLogic();
-        //        statusLogic.Take(request, freeText, recipient);
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.ArrivedGet(request);
 
-        //        FollowLogic followLogic = new FollowLogic();
-        //        await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
-        //        await context.SaveChangesAsync();
+                FollowLogic followLogic = new FollowLogic();
+                await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+                await context.SaveChangesAsync();
 
-        //        return RedirectToAction("Index", "F");
-        //    }
-        //}
-
-        //[HttpPost]
-        //public async Task<ActionResult> NoTake(string noTakeOkId, string desc)
-        //{
-        //    using (var context = new ApplicationDbContext())
-        //    {
-        //        Guid userid = Guid.Empty;
-        //        UserContext user = new UserContext(AuthenticationManager);
-        //        Guid shipId = Guid.Parse(noTakeOkId);
-        //        var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
-
-        //        var request = new StatusRequestBase();
-        //        request.Ship = ship;
-        //        request.UserContext = user;
-        //        StatusLogic statusLogic = new StatusLogic();
-        //        statusLogic.NoTake(request, desc);
-
-        //        FollowLogic followLogic = new FollowLogic();
-        //        await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
-        //        await context.SaveChangesAsync();
-
-        //        return RedirectToAction("Index", "F");
-        //    }
-        //}
+                return RedirectToAction("Index", "F");
+            }
+        }
 
         public async Task<ActionResult> EndStatusDesc(string id)
         {

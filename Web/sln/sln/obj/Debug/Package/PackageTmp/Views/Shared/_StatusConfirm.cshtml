@@ -32,6 +32,12 @@
     case Michal.Project.Helper.Status.Confirm:
         if (ViewBag.userProfiler.AllowRunner)
         {
+    @Html.Partial("_StatusArrivedGet")
+        }
+        break;
+    case Michal.Project.Helper.Status.ArrivedSender:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
     @Html.Partial("_StatusConfirmShip")
         }
         break;

@@ -43,7 +43,7 @@ namespace Michal.Project.Bll
         public void ConfirmRequest(StatusRequestBase requestBase, Func<string,string> GetRunner)
         {
             StatusRequest request = new StatusRequest(requestBase);
-
+            request.ActualStartDate = DateTime.Now;
             var grantToText = "";
             if (!String.IsNullOrEmpty(request.AssignTo))
             {
@@ -80,6 +80,7 @@ namespace Michal.Project.Bll
             var text = title + System.Environment.NewLine + " " + " מספר המשלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
             
             request.Title = title;
+            request.TimeWaitEndGet= DateTime.Now;
             request.Desc = text;
             request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
             request.Status = TimeStatus.AcceptByRunner;
@@ -106,12 +107,32 @@ namespace Michal.Project.Bll
             request.Ship.CancelByAdmin = request.UserContext.UserId;
             ChangeStatus(request);
         }
+        public void ArrivedGet(StatusRequestBase requestBase)
+        {
+            var request = new StatusRequest(requestBase);
+            var user = request.UserContext;
+            var ship = request.Ship;
+            request.TimeWaitStartGet = DateTime.Now;
+
+            var title = "המשלוח  הגיע לקבל   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
+            var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+
+            request.Title = title;
+            request.Desc = text;
+            request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
+            request.Status = TimeStatus.ArrivedSender;
+            request.StatusShipping = Guid.Parse(Helper.Status.ArrivedSender);
+
+            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            ChangeStatus(request);
+        }
 
         public void Arrived(StatusRequestBase requestBase)
         {
             var request = new StatusRequest(requestBase);
             var user = request.UserContext;
             var ship = request.Ship;
+            request.TimeWaitStartSend = DateTime.Now;
             var title = "המשלוח  הגיע  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
             var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
 
@@ -136,6 +157,7 @@ namespace Michal.Project.Bll
             ship.ActualRecipient = recipient;
 
             request.Title = title;
+            request.TimeWaitEndSend = DateTime.Now;
             request.Desc = text;
             request.NotifyType = (int)AlertStyle.Success; //Notification.Success;//Notification.Success;
             request.Status = TimeStatus.AcceptByClient;
@@ -151,6 +173,7 @@ namespace Michal.Project.Bll
             var ship = request.Ship;
             var title = "המשלוח  לא   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
             var text = title + desc;
+            request.TimeWaitEndSend = DateTime.Now;
 
             request.Title = title;
             request.Desc = text;
@@ -174,10 +197,23 @@ namespace Michal.Project.Bll
             ship.NotifyText = request.Desc;
             if(!String.IsNullOrEmpty(request.EndDesc))
                 ship.EndDesc = request.EndDesc;
+
+            if (request.TimeWaitStartGet.HasValue)
+                ship.TimeWaitStartSGet = request.TimeWaitStartGet.Value;
+            if (request.TimeWaitEndGet.HasValue)
+                ship.TimeWaitEndGet = request.TimeWaitEndGet.Value;
+
+            if (request.TimeWaitStartSend.HasValue)
+                ship.TimeWaitStartSend = request.TimeWaitStartSend.Value;
+            if (request.TimeWaitEndSend.HasValue)
+                ship.TimeWaitEndSend = request.TimeWaitEndSend.Value;
+
             if (request.ActualStartDate.HasValue)
                 ship.ActualStartDate = request.ActualStartDate.Value;
             if (request.ActualEndDate.HasValue)
                 ship.ActualEndDate = request.ActualEndDate.Value;
+
+
             ship.StatusShipping_StatusShippingId = request.StatusShipping;
 
             var tl = new TimeLine

@@ -102,10 +102,10 @@ namespace Michal.Project.Bll
                orderModel.Status.PathSig = sign.Path;
             
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
-            orderModel.Status.Recipient = shipping.Recipient;
-            orderModel.Status.TelRecipient = shipping.TelTarget;
-            orderModel.Status.NameTarget = shipping.NameTarget;
-            orderModel.Status.NameActualRecipient = shipping.ActualRecipient;
+            orderModel.Status.Recipient = shipping.Direction == 0 ? shipping.Recipient : shipping.NameSource;
+            orderModel.Status.TelRecipient = shipping.Direction == 0 ? shipping.TelTarget : shipping.TelSource;
+            orderModel.Status.NameTarget = shipping.Direction == 0 ? shipping.NameTarget : shipping.NameSource;
+            orderModel.Status.NameActualRecipient =  shipping.ActualRecipient;
             orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget;
             orderModel.Status.NameActualTarget = shipping.ActualNameTarget;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
