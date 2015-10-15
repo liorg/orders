@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201510151409569_requestship2.Designer.cs">
       <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510151539379_requestship33.cs" />
+    <Compile Include="Migrations\201510151539379_requestship33.Designer.cs">
+      <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -568,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510151409569_requestship2.resx">
       <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151539379_requestship33.resx">
+      <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
