@@ -15,6 +15,6 @@ namespace Michal.Project.Contract
         /// <param name="priceLists"></param>
         /// <param name="discounts"></param>
         /// <param name="ship"></param>
-        void ReCalc(IEnumerable<PriceList> priceLists, IEnumerable<Discount> discounts, Shipping ship);
+     //   void ReCalc(IEnumerable<PriceList> priceLists, IEnumerable<Discount> discounts, Shipping ship);
     }
 }

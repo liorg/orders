@@ -18,8 +18,9 @@ namespace Michal.Project.DataModel
             Shippings = new HashSet<Shipping>();
             AddressOrg = new Address();
             ShippingCompany = new HashSet<ShippingCompany>();
+            RequestShipping = new HashSet<RequestShipping>();
         }
-
+        public ICollection<RequestShipping> RequestShipping { get; set; }
         public Address AddressOrg { get; set; }
         // many to many
         public ICollection<Distance> Distances { get; set; }

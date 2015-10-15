@@ -13,41 +13,29 @@ namespace Michal.Project.DataModel
     {
         public PriceList()
         {
-            //Discounts = new HashSet<Discount>();
-        }
 
-        [ForeignKey("ShippingCompany")]
+        }
         public Guid? ShippingCompany_ShippingCompanyId { get; set; }
         public ShippingCompany ShippingCompany { get; set; }
-
-        //[ForeignKey("PriceList_PriceListId")]
-       // public ICollection<Discount> Discounts { get; set; }
-
-        public virtual Product Product { get; set; }
-        [ForeignKey("Product")]
-        public Guid? Product_ProductId { get; set; }
-
-        public virtual ShipType ShipType { get; set; }
-        [ForeignKey("ShipType")]
-        public Guid? ShipType_ShipTypeId { get; set; }
-
-        public virtual Distance Distance { get; set; }
-        [ForeignKey("Distance")]
-        public Guid? Distance_DistanceId { get; set; }
 
         public virtual Organization Organizations { get; set; }
         [ForeignKey("Organizations")]
         public Guid? Organizations_OrgId { get; set; }
 
+        [Required]
+        public Guid ObjectId { get; set; }
+
+        [Required]
+        public int ObjectTypeCode { get; set; } // 1 =product,2=productsystem,3=distance,4=shiptype
+
         [Key]
         public Guid PriceListId { get; set; }
 
-        [Column(TypeName = "Money")]
-        public decimal Price { get; set; }
+        public decimal PriceValue { get; set; } 
+
+        public decimal PriceType { get; set; } //1 =fixed,2=%present
 
         public string Name { get; set; }
-
-        //public decimal MinTimeWait { get; set; }
 
         public string Desc { get; set; }
 
@@ -92,8 +80,7 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
-        //[Required]
-        //public int SigBackType { get; set; }
+
 
     }
 }

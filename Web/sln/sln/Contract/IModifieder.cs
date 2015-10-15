@@ -13,5 +13,11 @@ namespace Michal.Project.Contract
          Guid? CreatedBy { get; set; }
          Guid? ModifiedBy { get; set; }
          bool IsActive { get; set; }
+       
+
+    }
+    public interface IOwner
+    {
+        Guid? OwnerId { get; set; }
     }
 }

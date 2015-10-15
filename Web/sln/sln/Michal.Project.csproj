@@ -233,6 +233,7 @@
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
+    <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\RequestShipping.cs" />
     <Compile Include="DataModel\ShippingCompany.cs" />
     <Compile Include="DataModel\ShipType.cs" />
@@ -333,6 +334,22 @@
     <Compile Include="Migrations\201510082105373_direction.cs" />
     <Compile Include="Migrations\201510082105373_direction.Designer.cs">
       <DependentUpon>201510082105373_direction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510150741122_removepricelist.cs" />
+    <Compile Include="Migrations\201510150741122_removepricelist.Designer.cs">
+      <DependentUpon>201510150741122_removepricelist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510151116522_ffer.cs" />
+    <Compile Include="Migrations\201510151116522_ffer.Designer.cs">
+      <DependentUpon>201510151116522_ffer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510151127250_add more.cs" />
+    <Compile Include="Migrations\201510151127250_add more.Designer.cs">
+      <DependentUpon>201510151127250_add more.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510151148068_add more2.cs" />
+    <Compile Include="Migrations\201510151148068_add more2.Designer.cs">
+      <DependentUpon>201510151148068_add more2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -640,6 +657,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510082105373_direction.resx">
       <DependentUpon>201510082105373_direction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510150741122_removepricelist.resx">
+      <DependentUpon>201510150741122_removepricelist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151116522_ffer.resx">
+      <DependentUpon>201510151116522_ffer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151127250_add more.resx">
+      <DependentUpon>201510151127250_add more.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151148068_add more2.resx">
+      <DependentUpon>201510151148068_add more2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

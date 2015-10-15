@@ -65,6 +65,7 @@ namespace Michal.Project.Dal
             }
             return _getDirection;
         }
+       
         public List<KeyValuePair<int,string>> GetBackOrder()
         {
             if (_backOrderItems == null)

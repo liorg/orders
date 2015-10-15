@@ -14,15 +14,15 @@ namespace Michal.Project.DataModel
         public ShipType()
         {
            Shippings = new HashSet<Shipping>();
-           PriceLists = new HashSet<PriceList>();
-           Discounts = new HashSet<Discount>();
+          // PriceLists = new HashSet<PriceList>();
+        //   Discounts = new HashSet<Discount>();
         }
         
-        public ICollection<PriceList> PriceLists { get; set; }
+       // public ICollection<PriceList> PriceLists { get; set; }
        
         public ICollection<Shipping> Shippings { get; set; }
 
-        public ICollection<Discount> Discounts { get; set; }
+     //   public ICollection<Discount> Discounts { get; set; }
 
         [Key]
         public Guid ShipTypeId { get; set; }

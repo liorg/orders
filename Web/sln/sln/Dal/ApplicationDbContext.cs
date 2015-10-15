@@ -23,7 +23,7 @@ namespace Michal.Project.Dal
         public DbSet<Discount> Discount { get; set; }
         public DbSet<Shipping> Shipping { get; set; }
         public DbSet<ShippingItem> ShippingItem { get; set; }
-      //  public DbSet<PriceCalc> PriceCalc { get; set; }
+        public DbSet<RequestShipping> RequestShipping { get; set; }
         public DbSet<StatusShipping> StatusShipping { get; set; }
         public DbSet<TimeLine> TimeLine { get; set; }
         public DbSet<Sla> Sla { get; set; }
@@ -34,5 +34,6 @@ namespace Michal.Project.Dal
         public DbSet<ShippingCompany> ShippingCompany { get; set; }
         public DbSet<TableTest> TableTest { get; set; }
         public DbSet<AttachmentShipping> AttachmentShipping { get; set; }
+        public DbSet<ProductSystem> ProductSystem { get; set; }
     }
 }

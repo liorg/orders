@@ -99,6 +99,9 @@ namespace Michal.Project.DataModel
         public decimal Price { get; set; }
 
         [Column(TypeName = "Money")]
+        public decimal DiscountPrice{ get; set; }
+
+        [Column(TypeName = "Money")]
         public decimal ActualPrice { get; set; }
 
         public decimal TimeWait { get; set; }

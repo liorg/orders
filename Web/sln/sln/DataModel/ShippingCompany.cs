@@ -16,7 +16,9 @@ namespace Michal.Project.DataModel
             Shippings = new HashSet<Shipping>();
             Users = new HashSet<ApplicationUser>();
             PriceLists = new HashSet<PriceList>();
+            RequestShipping = new HashSet<RequestShipping>();
         }
+        public ICollection<RequestShipping> RequestShipping { get; set; }
 
         public ICollection<PriceList> PriceLists { get; set; }
         // many to many
