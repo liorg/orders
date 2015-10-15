@@ -283,6 +283,10 @@
     <Compile Include="Migrations\201510151324312_requestship.Designer.cs">
       <DependentUpon>201510151324312_requestship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510151409569_requestship2.cs" />
+    <Compile Include="Migrations\201510151409569_requestship2.Designer.cs">
+      <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
@@ -290,6 +294,19 @@
     <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\NSStreet\LocationUi.cs" />
     <Compile Include="Models\NSStreet\StreetRequest.cs" />
+    <Compile Include="Models\Offer\DiscountItem.cs" />
+    <Compile Include="Models\Offer\ItemPrice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Offer\OrderDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Offer\OfferDetail.cs" />
+    <Compile Include="Models\Offer\OfferItemVm.cs" />
+    <Compile Include="Models\Offer\OfferVm.cs" />
+    <Compile Include="Models\Offer\OrderItemVm.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -548,6 +565,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510151324312_requestship.resx">
       <DependentUpon>201510151324312_requestship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151409569_requestship2.resx">
+      <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -30,9 +30,47 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int offerType, int state)//state=>1=New,2=InProccess, 3=End,4=Cancel
         {
-            return View();
-        }  
+            using (var context = new ApplicationDbContext())
+            {
+                List<OfferVm> offers = new List<OfferVm>();
+                var user = new UserContext(AuthenticationManager);
+                Guid orgId = Guid.Empty;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                orgId = cache.GetOrg(context);
+                return View(offers);
+            }
+        }
+
+        public async Task<ActionResult> CreateOffer()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                OfferDetail offer = new OfferDetail();
+                var user = new UserContext(AuthenticationManager);
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                Guid orgId = cache.GetOrg(context);
+                return View(offer);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateOffer(OfferItemVm offerItemVm)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var user = new UserContext(AuthenticationManager);
+                Guid orgId = Guid.Empty;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                orgId = cache.GetOrg(context);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index", "F");
+            }
+          
+        }
     }
 }

@@ -301,19 +301,6 @@ namespace Michal.Project.Controllers
                 await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
 
                 shipping.Distance_DistanceId = shippingVm.DistanceId;
-                //var shipItem = new ShippingItem()
-                //    {
-                //        Name = "זמן המתנה",
-                //        CreatedBy = userid,
-                //        CreatedOn = currentDate,
-                //        ModifiedBy = userid,
-                //        ModifiedOn = currentDate,
-                //        ShippingItemId = Guid.NewGuid(),
-                //        IsActive = true,
-                //        Quantity = 0
-                //    };
-                //shipItem.Product_ProductId = Guid.Parse(Helper.ProductType.TimeWait);
-                //shipping.ShippingItems.Add(shipItem);
 
                 TimeLine tl = new TimeLine
                 {

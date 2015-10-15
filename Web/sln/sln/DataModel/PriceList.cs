@@ -15,6 +15,7 @@ namespace Michal.Project.DataModel
         {
 
         }
+        [ForeignKey("ShippingCompany")]
         public Guid? ShippingCompany_ShippingCompanyId { get; set; }
         public ShippingCompany ShippingCompany { get; set; }
 
