@@ -18,10 +18,12 @@ namespace Michal.Project.DataModel
             Comments = new HashSet<Comment>();
             FollowsBy = new HashSet<ApplicationUser>();
             AttachmentsShipping = new HashSet<AttachmentShipping>();
+            RequestShipping = new HashSet<RequestShipping>();
 
             Target = new Address();
             Source = new Address();
         }
+        public ICollection<RequestShipping> RequestShipping { get; set; }
 
         [ForeignKey("ShippingCompany")]
         public Guid? ShippingCompany_ShippingCompanyId { get; set; }

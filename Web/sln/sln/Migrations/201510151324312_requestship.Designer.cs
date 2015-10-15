@@ -7,13 +7,13 @@ namespace Michal.Project.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class latlang : IMigrationMetadata
+    public sealed partial class requestship : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(latlang));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(requestship));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509091746550_latlang"; }
+            get { return "201510151324312_requestship"; }
         }
         
         string IMigrationMetadata.Source

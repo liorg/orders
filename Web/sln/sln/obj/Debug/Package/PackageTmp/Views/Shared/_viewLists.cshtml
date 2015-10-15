@@ -14,14 +14,20 @@
                 <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
                 <ul class="dropdown-menu">
 
-                    <li><a  href="@Url.Action("index", "F")"><i class="fa fa-eye"></i> מעקב אחרי משלוחים שלי </a></li>
-                    <li class="divider"></li>
-                    @foreach (var view in ViewBag.Views)
+                    <li><a  href="@Url.Action("index", "F")"><i class="fa fa-eye"></i>מעקב אחרי משלוחים שלי </a></li>
+                    @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.RoleAccept)))
                     {
-                        <li><a href="#" onclick="javascript:changeViewType(@view.StatusId)"><i class="fa fa-envelope"></i> @view.StatusDesc</a></li>
+                        <li class="divider"></li>
+                        foreach (var view in ViewBag.Views)
+                        {
+                            <li><a href="#" onclick="javascript:changeViewType(@view.StatusId)"><i class="fa fa-envelope"></i>@view.StatusDesc</a></li>
+                        }
                     }
-                    <li class="divider"></li>
-                    <li><a href="@Url.Action("ExportExcel", "Excel")"><i class="fa fa-file-excel-o"></i> דו''ח חודשי</a></li>
+                    @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleOrgManager)))
+                    {
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("ExportExcel", "Excel")"><i class="fa fa-file-excel-o"></i>דו''ח חודשי</a></li>
+                    }
                 </ul>
             </div>
             <div class="btn-group">

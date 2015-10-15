@@ -14,10 +14,16 @@ namespace Michal.Project.DataModel
         {
             Discount = new HashSet<Discount>();
         }
+
+        public virtual Shipping Shipping { get; set; }
+        [ForeignKey("Shipping")]
+        public Guid? Shipping_ShippingId { get; set; }
+
         public string Name { get; set; }
         public string Desc { get; set; }
         // many to many
         public ICollection<Discount> Discount { get; set; }
+
         [Key]
         public Guid RequestShippingId { get; set; }
 

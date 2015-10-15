@@ -203,6 +203,7 @@
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\DAL\IAttachmentRepository.cs" />
+    <Compile Include="Contract\DAL\IOfferRepository.cs" />
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
@@ -266,82 +267,6 @@
     <Compile Include="Helper\Infrastructure\HelperAutorize.cs" />
     <Compile Include="Helper\Razor\RazorHelper.cs" />
     <Compile Include="Helper\Infrastructure\UserProfileActionFilter.cs" />
-    <Compile Include="Migrations\201508081739333_changescema.Designer.cs" />
-    <Compile Include="Migrations\201508081739333_changescema.Designer.Designer.cs">
-      <DependentUpon>201508081739333_changescema.Designer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509091147402_addressco3.cs" />
-    <Compile Include="Migrations\201509091147402_addressco3.Designer.cs">
-      <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509091745301_f.cs" />
-    <Compile Include="Migrations\201509091745301_f.Designer.cs">
-      <DependentUpon>201509091745301_f.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509091746550_latlang.cs" />
-    <Compile Include="Migrations\201509091746550_latlang.Designer.cs">
-      <DependentUpon>201509091746550_latlang.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509122238327_address.cs" />
-    <Compile Include="Migrations\201509122238327_address.Designer.cs">
-      <DependentUpon>201509122238327_address.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509122253203_address org and users.cs" />
-    <Compile Include="Migrations\201509122253203_address org and users.Designer.cs">
-      <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509130517177_remove city.cs" />
-    <Compile Include="Migrations\201509130517177_remove city.Designer.cs">
-      <DependentUpon>201509130517177_remove city.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509262247233_shipcompany.cs" />
-    <Compile Include="Migrations\201509262247233_shipcompany.Designer.cs">
-      <DependentUpon>201509262247233_shipcompany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509262316131_sla.cs" />
-    <Compile Include="Migrations\201509262316131_sla.Designer.cs">
-      <DependentUpon>201509262316131_sla.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509270655042_dicount.cs" />
-    <Compile Include="Migrations\201509270655042_dicount.Designer.cs">
-      <DependentUpon>201509270655042_dicount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509271434364_actualtarget.cs" />
-    <Compile Include="Migrations\201509271434364_actualtarget.Designer.cs">
-      <DependentUpon>201509271434364_actualtarget.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510011150090_xx.cs" />
-    <Compile Include="Migrations\201510011150090_xx.Designer.cs">
-      <DependentUpon>201510011150090_xx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510020509288_attachment.cs" />
-    <Compile Include="Migrations\201510020509288_attachment.Designer.cs">
-      <DependentUpon>201510020509288_attachment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510031647158_remove table.cs" />
-    <Compile Include="Migrations\201510031647158_remove table.Designer.cs">
-      <DependentUpon>201510031647158_remove table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510032010449_add desc.cs" />
-    <Compile Include="Migrations\201510032010449_add desc.Designer.cs">
-      <DependentUpon>201510032010449_add desc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510032109303_add desc2.cs" />
-    <Compile Include="Migrations\201510032109303_add desc2.Designer.cs">
-      <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510060716414_date.cs" />
-    <Compile Include="Migrations\201510060716414_date.Designer.cs">
-      <DependentUpon>201510060716414_date.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510082105373_direction.cs" />
-    <Compile Include="Migrations\201510082105373_direction.Designer.cs">
-      <DependentUpon>201510082105373_direction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510150741122_removepricelist.cs" />
-    <Compile Include="Migrations\201510150741122_removepricelist.Designer.cs">
-      <DependentUpon>201510150741122_removepricelist.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201510151116522_ffer.cs" />
     <Compile Include="Migrations\201510151116522_ffer.Designer.cs">
       <DependentUpon>201510151116522_ffer.cs</DependentUpon>
@@ -353,6 +278,10 @@
     <Compile Include="Migrations\201510151148068_add more2.cs" />
     <Compile Include="Migrations\201510151148068_add more2.Designer.cs">
       <DependentUpon>201510151148068_add more2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510151324312_requestship.cs" />
+    <Compile Include="Migrations\201510151324312_requestship.Designer.cs">
+      <DependentUpon>201510151324312_requestship.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -608,63 +537,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508081739333_changescema.Designer.resx">
-      <DependentUpon>201508081739333_changescema.Designer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509091147402_addressco3.resx">
-      <DependentUpon>201509091147402_addressco3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509091745301_f.resx">
-      <DependentUpon>201509091745301_f.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509091746550_latlang.resx">
-      <DependentUpon>201509091746550_latlang.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509122238327_address.resx">
-      <DependentUpon>201509122238327_address.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509122253203_address org and users.resx">
-      <DependentUpon>201509122253203_address org and users.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509130517177_remove city.resx">
-      <DependentUpon>201509130517177_remove city.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509262247233_shipcompany.resx">
-      <DependentUpon>201509262247233_shipcompany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509262316131_sla.resx">
-      <DependentUpon>201509262316131_sla.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509270655042_dicount.resx">
-      <DependentUpon>201509270655042_dicount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509271434364_actualtarget.resx">
-      <DependentUpon>201509271434364_actualtarget.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510011150090_xx.resx">
-      <DependentUpon>201510011150090_xx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510020509288_attachment.resx">
-      <DependentUpon>201510020509288_attachment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510031647158_remove table.resx">
-      <DependentUpon>201510031647158_remove table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510032010449_add desc.resx">
-      <DependentUpon>201510032010449_add desc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510032109303_add desc2.resx">
-      <DependentUpon>201510032109303_add desc2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510060716414_date.resx">
-      <DependentUpon>201510060716414_date.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510082105373_direction.resx">
-      <DependentUpon>201510082105373_direction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510150741122_removepricelist.resx">
-      <DependentUpon>201510150741122_removepricelist.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510151116522_ffer.resx">
       <DependentUpon>201510151116522_ffer.cs</DependentUpon>
     </EmbeddedResource>
@@ -673,6 +545,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510151148068_add more2.resx">
       <DependentUpon>201510151148068_add more2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151324312_requestship.resx">
+      <DependentUpon>201510151324312_requestship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

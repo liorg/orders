@@ -1,0 +1,9 @@
+﻿<li><a  href="@Url.Action("index", "F")"><i class="fa fa-eye"></i> מעקב אחרי משלוחים שלי </a></li>
+<li class="divider"></li>
+@foreach (var view in ViewBag.Views)
+{
+    <li><a href="@Url.Action("Index", "S", new { viewType = @view.StatusId })"><i class="fa fa-envelope"></i> @view.StatusDesc</a></li>
+}
+<li class="divider"></li>
+<li><a href="#"><i class="fa fa-file-excel-o"></i> דו''ח חודשי</a></li>
+

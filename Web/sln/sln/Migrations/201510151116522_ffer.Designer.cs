@@ -7,13 +7,13 @@ namespace Michal.Project.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class address : IMigrationMetadata
+    public sealed partial class ffer : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(address));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ffer));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509122238327_address"; }
+            get { return "201510151116522_ffer"; }
         }
         
         string IMigrationMetadata.Source

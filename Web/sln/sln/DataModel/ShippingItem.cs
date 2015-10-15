@@ -13,10 +13,9 @@ namespace Michal.Project.DataModel
     {
         public ShippingItem()
         {
-        //    ShippingItemPrices = new HashSet<ShippingItemPrice>();
-
+       
         }
-       // public ICollection<ShippingItemPrice> ShippingItemPrices { get; set; }
+   
 
         public virtual Product Product { get; set; }
         [ForeignKey("Product")]
@@ -25,7 +24,6 @@ namespace Michal.Project.DataModel
         public virtual Shipping Shipping { get; set; }
         [ForeignKey("Shipping")]
         public Guid? Shipping_ShippingId { get; set; }
-
 
         [Key]
         public Guid ShippingItemId { get; set; }

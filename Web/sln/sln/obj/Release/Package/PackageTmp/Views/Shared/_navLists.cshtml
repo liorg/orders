@@ -1,0 +1,22 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <input type="hidden" value="@ViewBag.StatusId" id="viewType" name="viewType" />
+        <input type="hidden" value="@ViewBag.ShowAll" id="viewAll" name="viewAll" />
+        <div style="background-color: #18bc9c" class="well carousel-search hidden-sm">
+
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">@(ViewBag.Selected != null ? ViewBag.Selected : ViewBag.Label)<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a  href="@Url.Action("index", "F")"><i class="fa fa-eye"></i> מעקב אחרי משלוחים שלי</a></li>
+                    <li class="divider"></li>
+                    <li><a  href="@Url.Action("index", "S")"><i class="fa fa-bar-chart"></i> תצוגות המערכת</a></li>
+
+                    <li class="divider"></li>
+                    <li><a href="#" ><i class="fa fa-file-excel-o"></i> דו''ח חודשי</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
