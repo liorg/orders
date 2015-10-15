@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\FollowLogic.cs" />
+    <Compile Include="Bll\OfferLogic.cs" />
     <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\OfferController.cs" />
     <Compile Include="Controllers\OrgController.cs" />
     <Compile Include="Controllers\FController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
+    <Compile Include="Dal\OfferRepository.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
     <Compile Include="Dal\ShippingRepository.cs" />
@@ -592,6 +595,7 @@
     <Content Include="Views\Excel\ExportExcel.cshtml" />
     <Content Include="Views\Shared\_StatusArrivedGet.cshtml" />
     <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
+    <Content Include="Views\Offer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

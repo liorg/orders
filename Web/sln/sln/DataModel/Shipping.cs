@@ -175,9 +175,6 @@ namespace Michal.Project.DataModel
         public DateTime? TimeWaitStartSGet { get; set; }
 
         public DateTime? TimeWaitEndGet { get; set; }
-
-
-
     }
-  //  public enum SigBackType { None=0,Pad=1,
+
 }
