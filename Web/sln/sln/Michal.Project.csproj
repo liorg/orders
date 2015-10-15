@@ -231,9 +231,9 @@
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
-    <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\RequestShipping.cs" />
     <Compile Include="DataModel\ShippingCompany.cs" />
     <Compile Include="DataModel\ShipType.cs" />
