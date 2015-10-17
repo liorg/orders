@@ -35,5 +35,7 @@ namespace Michal.Project.Dal
         public DbSet<TableTest> TableTest { get; set; }
         public DbSet<AttachmentShipping> AttachmentShipping { get; set; }
         public DbSet<ProductSystem> ProductSystem { get; set; }
+        public DbSet<RequestItemShip> RequestItemShip { get; set; }
+
     }
 }

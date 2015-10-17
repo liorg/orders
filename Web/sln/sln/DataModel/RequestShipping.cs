@@ -12,7 +12,8 @@ namespace Michal.Project.DataModel
     {
         public RequestShipping()
         {
-            Discount = new HashSet<Discount>();
+          //  Discount = new HashSet<Discount>();
+            RequestItemShip = new HashSet<RequestItemShip>();
         }
 
         public virtual Shipping Shipping { get; set; }
@@ -22,8 +23,9 @@ namespace Michal.Project.DataModel
         public string Name { get; set; }
         public string Desc { get; set; }
         // many to many
-        public ICollection<Discount> Discount { get; set; }
-
+        //public ICollection<Discount> Discount { get; set; }
+        public ICollection<RequestItemShip> RequestItemShip { get; set; }
+        
         [Key]
         public Guid RequestShippingId { get; set; }
 

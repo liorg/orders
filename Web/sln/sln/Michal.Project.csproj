@@ -238,6 +238,7 @@
     <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
+    <Compile Include="DataModel\RequestItemShip.cs" />
     <Compile Include="DataModel\RequestShipping.cs" />
     <Compile Include="DataModel\ShippingCompany.cs" />
     <Compile Include="DataModel\ShipType.cs" />
@@ -290,6 +291,10 @@
     <Compile Include="Migrations\201510151539379_requestship33.cs" />
     <Compile Include="Migrations\201510151539379_requestship33.Designer.cs">
       <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510171910179_requestship42.cs" />
+    <Compile Include="Migrations\201510171910179_requestship42.Designer.cs">
+      <DependentUpon>201510171910179_requestship42.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -575,6 +580,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510151539379_requestship33.resx">
       <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510171910179_requestship42.resx">
+      <DependentUpon>201510171910179_requestship42.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

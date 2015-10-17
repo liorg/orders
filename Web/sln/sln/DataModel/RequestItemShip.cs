@@ -8,24 +8,32 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
-
-    public class Discount : IModifieder
+    public class RequestItemShip : IModifieder  
     {
-        public Discount()
+        public RequestItemShip()
         {
-          //  RequestShipping = new HashSet<RequestShipping>();
+
         }
-        // many to many
-        //public ICollection<RequestShipping> RequestShipping { get; set; }
+      
 
+        [ForeignKey("RequestShipping")]
+        public Guid? RequestShipping_RequestShippingId { get; set; }
+        public RequestShipping RequestShipping { get; set; }
         [Key]
-        public Guid DiscountId { get; set; }
-
+        public Guid RequestItemShipId { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
 
         [Required]
-        public bool IsSweeping { get; set; }
+        public int StatusCode { get; set; } // 1= request,2=requestByClient, ,3=OkResponse,4=CancelResponse
+
+        public int ReqeustType { get; set; }//1= add (),2=discount
+
+        public int PriceValueType { get; set; } //1 =fixed,2=%present
+        public decimal? PriceValue { get; set; }
+
+        public int PriceClientValueType { get; set; } //1 =fixed,2=%present
+        public decimal? PriceClientValue { get; set; }
 
         public DateTime? CreatedOn
         {
@@ -56,6 +64,5 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
-
     }
 }
