@@ -56,7 +56,12 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
-
+        //when not implemtent product set to true and get his default value
+        public bool? SetDefaultValue
+        {
+            get;
+            set;
+        }
         //  public bool IsCalculatingShippingInclusive { get; set; }
 
 

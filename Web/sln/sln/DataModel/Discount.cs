@@ -17,7 +17,24 @@ namespace Michal.Project.DataModel
         }
         // many to many
         //public ICollection<RequestShipping> RequestShipping { get; set; }
+        public DateTime BeginDate
+        {
+            get;
+            set;
+        }
 
+        public DateTime? EndDate
+        {
+            get;
+            set;
+        }
+        public virtual Organization Organizations { get; set; }
+        [ForeignKey("Organizations")]
+        public Guid? Organizations_OrgId { get; set; }
+
+        [ForeignKey("ShippingCompany")]
+        public Guid? ShippingCompany_ShippingCompanyId { get; set; }
+        public ShippingCompany ShippingCompany { get; set; }
         [Key]
         public Guid DiscountId { get; set; }
 

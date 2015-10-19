@@ -32,7 +32,7 @@ namespace Michal.Project.DataModel
         [Key]
         public Guid PriceListId { get; set; }
 
-        public decimal PriceValue { get; set; } 
+        public decimal? PriceValue { get; set; } 
 
         //public decimal PriceType { get; set; } //1 =fixed,2=%present
 

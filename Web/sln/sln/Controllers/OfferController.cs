@@ -44,6 +44,20 @@ namespace Michal.Project.Controllers
             }
         }
 
+
+        public async Task<ActionResult> CreateOrder()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                OrderDetail order = new OrderDetail();
+                var user = new UserContext(AuthenticationManager);
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+
+                Guid orgId = cache.GetOrg(context);
+                return View(order);
+            }
+        }
+
         public async Task<ActionResult> CreateOffer()
         {
             using (var context = new ApplicationDbContext())
