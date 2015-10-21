@@ -69,6 +69,7 @@
                             <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
                         </li>
                     }
+                      @RenderSection("ordernumber", required: false)
                     @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleOrgManager)))
                     {
                         <li class="dropdown">

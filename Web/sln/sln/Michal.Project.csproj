@@ -191,6 +191,7 @@
   <ItemGroup>
     <Compile Include="Agent\LocationAgent.cs" />
     <Compile Include="Api\AddressController.cs" />
+    <Compile Include="Api\OfferServiceController.cs" />
     <Compile Include="Api\OrdersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -268,41 +269,9 @@
     <Compile Include="Helper\Infrastructure\HelperAutorize.cs" />
     <Compile Include="Helper\Razor\RazorHelper.cs" />
     <Compile Include="Helper\Infrastructure\UserProfileActionFilter.cs" />
-    <Compile Include="Migrations\201510151116522_ffer.cs" />
-    <Compile Include="Migrations\201510151116522_ffer.Designer.cs">
-      <DependentUpon>201510151116522_ffer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510151127250_add more.cs" />
-    <Compile Include="Migrations\201510151127250_add more.Designer.cs">
-      <DependentUpon>201510151127250_add more.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510151148068_add more2.cs" />
-    <Compile Include="Migrations\201510151148068_add more2.Designer.cs">
-      <DependentUpon>201510151148068_add more2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510151324312_requestship.cs" />
-    <Compile Include="Migrations\201510151324312_requestship.Designer.cs">
-      <DependentUpon>201510151324312_requestship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510151409569_requestship2.cs" />
-    <Compile Include="Migrations\201510151409569_requestship2.Designer.cs">
-      <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510151539379_requestship33.cs" />
-    <Compile Include="Migrations\201510151539379_requestship33.Designer.cs">
-      <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510171910179_requestship42.cs" />
-    <Compile Include="Migrations\201510171910179_requestship42.Designer.cs">
-      <DependentUpon>201510171910179_requestship42.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510181254086_requestship46.cs" />
-    <Compile Include="Migrations\201510181254086_requestship46.Designer.cs">
-      <DependentUpon>201510181254086_requestship46.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510191058023_requestship49.cs" />
-    <Compile Include="Migrations\201510191058023_requestship49.Designer.cs">
-      <DependentUpon>201510191058023_requestship49.cs</DependentUpon>
+    <Compile Include="Migrations\201510210720051_new.cs" />
+    <Compile Include="Migrations\201510210720051_new.Designer.cs">
+      <DependentUpon>201510210720051_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -461,6 +430,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\myadmin.js" />
@@ -560,6 +531,7 @@
     <Content Include="Views\Shared\_StatusArrivedGet.cshtml" />
     <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
+    <Content Include="Views\Offer\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />
@@ -572,32 +544,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510151116522_ffer.resx">
-      <DependentUpon>201510151116522_ffer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151127250_add more.resx">
-      <DependentUpon>201510151127250_add more.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151148068_add more2.resx">
-      <DependentUpon>201510151148068_add more2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151324312_requestship.resx">
-      <DependentUpon>201510151324312_requestship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151409569_requestship2.resx">
-      <DependentUpon>201510151409569_requestship2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510151539379_requestship33.resx">
-      <DependentUpon>201510151539379_requestship33.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510171910179_requestship42.resx">
-      <DependentUpon>201510171910179_requestship42.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510181254086_requestship46.resx">
-      <DependentUpon>201510181254086_requestship46.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510191058023_requestship49.resx">
-      <DependentUpon>201510191058023_requestship49.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510210720051_new.resx">
+      <DependentUpon>201510210720051_new.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

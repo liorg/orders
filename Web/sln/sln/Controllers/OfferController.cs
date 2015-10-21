@@ -45,46 +45,64 @@ namespace Michal.Project.Controllers
         }
 
 
-        public async Task<ActionResult> CreateOrder()
+        public async Task<ActionResult> CreateOrder(Guid shipId)
         {
             using (var context = new ApplicationDbContext())
             {
                 OrderDetail order = new OrderDetail();
                 var user = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
+                var ship = await context.Shipping.FindAsync(shipId);
+                order.OrderName = ship.Name;
+                order.TargetAddress = new AddressEditorViewModel();
+                order.TargetAddress.City = ship.Target.CityName;
+                order.TargetAddress.Citycode = ship.Target.CityCode;
+                order.TargetAddress.ExtraDetail = ship.Target.ExtraDetail;
+                order.TargetAddress.Num = ship.Target.StreetNum;
+                order.TargetAddress.Street = ship.Target.StreetName;
+                order.TargetAddress.Streetcode = ship.Target.StreetCode;
+
+
+                order.SourceAddress = new AddressEditorViewModel();
+                order.SourceAddress.City = ship.Source.CityName;
+                order.SourceAddress.Citycode = ship.Source.CityCode;
+                order.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
+                order.SourceAddress.Num = ship.Source.StreetNum;
+                order.SourceAddress.Street = ship.Source.StreetName;
+                order.SourceAddress.Streetcode = ship.Source.StreetCode;
 
                 Guid orgId = cache.GetOrg(context);
                 return View(order);
             }
         }
 
-        public async Task<ActionResult> CreateOffer()
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                OfferDetail offer = new OfferDetail();
-                var user = new UserContext(AuthenticationManager);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
+        //public async Task<ActionResult> CreateOffer()
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        OfferDetail offer = new OfferDetail();
+        //        var user = new UserContext(AuthenticationManager);
+        //        MemeryCacheDataService cache = new MemeryCacheDataService();
 
-                Guid orgId = cache.GetOrg(context);
-                return View(offer);
-            }
-        }
+        //        Guid orgId = cache.GetOrg(context);
+        //        return View(offer);
+        //    }
+        //}
 
-        [HttpPost]
-        public async Task<ActionResult> CreateOffer(OfferItemVm offerItemVm)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                var user = new UserContext(AuthenticationManager);
-                Guid orgId = Guid.Empty;
-                MemeryCacheDataService cache = new MemeryCacheDataService();
+        //[HttpPost]
+        //public async Task<ActionResult> CreateOffer(OfferItemVm offerItemVm)
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        var user = new UserContext(AuthenticationManager);
+        //        Guid orgId = Guid.Empty;
+        //        MemeryCacheDataService cache = new MemeryCacheDataService();
 
-                orgId = cache.GetOrg(context);
-                await context.SaveChangesAsync();
-                return RedirectToAction("Index", "F");
-            }
+        //        orgId = cache.GetOrg(context);
+        //        await context.SaveChangesAsync();
+        //        return RedirectToAction("Index", "F");
+        //    }
           
-        }
+        //}
     }
 }
