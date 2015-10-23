@@ -1,0 +1,69 @@
+﻿@model Michal.Project.Models.OrderDetail
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <span class="label label-success">@Html.Partial("_addressView", Model.SourceAddress)</span>
+                <span class="prefix  pull-right">כתובת השולח:</span>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="label label-danger">@Html.Partial("_addressView", Model.TargetAddress) </span>
+                <span class="prefix  pull-right">כתובת היעד:</span>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <table class=" table table-striped table-hover">
+
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Items">
+                <tr>
+                    <td data-bind="text: Name"></td>
+                    <td data-bind="text: PriceValue"></td>
+                    <td><a href="#" data-bind="click: $parent.cancelOffer">Cancel</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Guid.NewGuid())
+    <script src="~/Scripts/knockout-3.3.0.js"></script>
+    <script>
+        var vm = new AppViewModel(offerClient);
+        function AppViewModel(vmData) {
+            var self = this;
+            self.Items = ko.observableArray(vmData.Items);
+
+            self.cancelOffer = function (f) {
+                alert(f.Id);
+            };
+        };
+
+        ko.applyBindings(vm);
+
+    </script>
+}

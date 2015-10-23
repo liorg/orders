@@ -191,7 +191,9 @@
   <ItemGroup>
     <Compile Include="Agent\LocationAgent.cs" />
     <Compile Include="Api\AddressController.cs" />
-    <Compile Include="Api\OfferServiceController.cs" />
+    <Compile Include="Api\OfferServiceController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Api\OrdersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
+    <Compile Include="Contract\View\IShipView.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />
     <Compile Include="Contract\View\IViewType.cs" />
@@ -272,6 +275,10 @@
     <Compile Include="Migrations\201510210720051_new.cs" />
     <Compile Include="Migrations\201510210720051_new.Designer.cs">
       <DependentUpon>201510210720051_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510230541490_requestitem.cs" />
+    <Compile Include="Migrations\201510230541490_requestitem.Designer.cs">
+      <DependentUpon>201510230541490_requestitem.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -458,6 +465,7 @@
     <Content Include="Test\s.html" />
     <Content Include="Test\t1.html" />
     <Content Include="Test\tl.html" />
+    <Content Include="Views\Offer\CreateOrder.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -531,7 +539,6 @@
     <Content Include="Views\Shared\_StatusArrivedGet.cshtml" />
     <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
-    <Content Include="Views\Offer\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />
@@ -546,6 +553,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510210720051_new.resx">
       <DependentUpon>201510210720051_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510230541490_requestitem.resx">
+      <DependentUpon>201510230541490_requestitem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

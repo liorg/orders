@@ -14,7 +14,9 @@ namespace Michal.Project.DataModel
         {
 
         }
-      
+
+        public Guid? ObjectTypeId { get; set; }
+        public int? ObjectTypeIdCode { get; set; }  //discount=1, addprise=2
 
         [ForeignKey("RequestShipping")]
         public Guid? RequestShipping_RequestShippingId { get; set; }

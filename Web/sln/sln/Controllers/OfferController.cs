@@ -53,7 +53,8 @@ namespace Michal.Project.Controllers
                 var user = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 var ship = await context.Shipping.FindAsync(shipId);
-                order.OrderName = ship.Name;
+                order.Id = shipId;
+                order.Name = ship.Name;
                 order.TargetAddress = new AddressEditorViewModel();
                 order.TargetAddress.City = ship.Target.CityName;
                 order.TargetAddress.Citycode = ship.Target.CityCode;
