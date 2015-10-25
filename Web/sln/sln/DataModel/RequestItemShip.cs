@@ -37,6 +37,8 @@ namespace Michal.Project.DataModel
         public int PriceClientValueType { get; set; } //1 =fixed,2=%present
         public decimal? PriceClientValue { get; set; }
 
+        public int Amount { get; set; }
+
         public DateTime? CreatedOn
         {
             get;
