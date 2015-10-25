@@ -16,7 +16,7 @@
     $('#calc').click(function () {
         var url = $(this).attr("data-url");
         // alert(url);
-        // changeUrl(url);
+        changeUrl(url);
     });
     $('#end').click(function () {
         var url = $(this).attr("data-url");

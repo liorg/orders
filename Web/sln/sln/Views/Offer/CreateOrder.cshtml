@@ -3,6 +3,241 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    /*
+        http://bootsnipp.com/snippets/featured/bootstrap-loan-calculator
+        */
+
+    .price-box {
+        margin: 0 auto;
+        background: #E9E9E9;
+        border-radius: 10px;
+        padding: 40px 15px;
+        /*width: 500px;*/
+    }
+
+    .price, .lead p {
+        font-weight: 600;
+        font-size: 32px;
+        display: inline-block;
+        line-height: 60px;
+        border: 0;
+        width: 245px;
+    }
+
+    h4.great {
+        background: #00ac98;
+        margin: 0 0 25px -60px;
+        padding: 7px 15px;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 5px;
+        display: inline-block;
+        -moz-box-shadow: 2px 4px 5px 0 #ccc;
+        -webkit-box-shadow: 2px 4px 5px 0 #ccc;
+        box-shadow: 2px 4px 5px 0 #ccc;
+    }
+
+    .total {
+        border-bottom: 1px solid #7f8c8d;
+        /*display: inline;
+  padding: 10px 5px;*/
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+        .total:before {
+            content: "";
+            display: inline;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+            width: 100%;
+            height: 3px;
+            background: #7f8c8d;
+            opacity: 0.5;
+        }
+
+    .price-slider {
+        margin-bottom: 70px;
+    }
+
+        .price-slider span {
+            font-weight: 200;
+            display: inline-block;
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+    .form-pricing {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 4px;
+    }
+
+    .price-form {
+        background: #ffffff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border: 1px solid #eeeeee;
+        min-height: 520px;
+        border-radius: 4px;
+        /*-moz-box-shadow:    0 5px 5px 0 #ccc;
+    -webkit-box-shadow: 0 5px 5px 0 #ccc;
+    box-shadow:         0 5px 5px 0 #ccc;*/
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+        .form-group span.price {
+            font-weight: 200;
+            display: inline-block;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+    .help-text {
+        display: block;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        color: #737373;
+        /*position: absolute;*/
+        /*margin-left: 20px;*/
+        font-weight: 200;
+        /*text-align: right;*/
+        width: 188px;
+    }
+
+    .price-form label {
+        font-weight: 200;
+        font-size: 21px;
+    }
+
+    img.payment {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ui-slider-range-min {
+        background: #2980b9;
+    }
+
+    .active-month,
+    .active-term {
+        background: #3276b1;
+    }
+
+    /* HR */
+
+    hr.style {
+        margin-top: 0;
+        border: 0;
+        border-bottom: 1px dashed #ccc;
+        background: #999;
+    }
+</style>
+<div class="price-box">
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="price-form">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/additem32green.png" />
+                                Annually ($):
+                            </label>
+                            <span class="help-text">Amount that you need to pay</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <!-- <p class="price lead" id="total"></p> -->
+                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" style="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/discount32green.png" />
+                                Monthly ($):
+                            </label>
+                            <span class="help-text">Amount that you need to pay</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <!-- <p class="price lead" id="total12"></p> -->
+                            <input class="price lead" name="totalprice12" type="text" id="total12" disabled="disabled" style="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/sum32green.png" />
+                                Total ($):
+                            </label>
+                            <span class="help-text">Amount that you need to pay</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <!-- <p class="price lead" id="total52"></p> -->
+                            <input class="price lead" name="totalprice52" type="text" id="total52" disabled="disabled" style="">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 30px"></div>
+                <hr class="style">
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <div class="col-sm-6">
+
+            <form class="form-horizontal form-pricing" role="form">
+                <h2>Show Items</h2>
+                <div style="margin-top: 30px"></div>
+                <hr class="style">
+                <div class="price-slider">
+                    <h4 style="width: 100%" class="great">
+                        <img src="~/Content/img/additem32.png" />
+                        add    <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">5 %</span></h4>
+                    <div>Minimum $100K is required</div>
+                    <div ><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+
+                </div>
+                <div class="price-slider">
+                    <h4 class="great">
+                        <img src="~/Content/img/sales32.png" />Duration</h4>
+                    <DIV>Please choose one</DIV>
+                    <div ><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+
+                </div>
+
+            </form>
+        </div>
+
+        <p class="text-center" style="padding-top: 10px; font-size: 12px; color: #2c3e50; font-style: italic;">Created by <a href="https://twitter.com/AmirolAhmad" target="_blank">AmirolAhmad</a></p>
+    </div>
+
+</div>
+
 
 <div class="row">
     <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">

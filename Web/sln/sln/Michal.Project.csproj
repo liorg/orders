@@ -344,6 +344,8 @@
     <Content Include="Content\css\timeline.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\add32x32.png" />
+    <Content Include="Content\img\additem32.png" />
+    <Content Include="Content\img\additem32green.png" />
     <Content Include="Content\img\adduser32x32.png" />
     <Content Include="Content\img\back32x32.png" />
     <Content Include="Content\img\back_to.png" />
@@ -353,6 +355,7 @@
     <Content Include="Content\img\calc32x32.png" />
     <Content Include="Content\img\delete32x32.png" />
     <Content Include="Content\img\delivery.png" />
+    <Content Include="Content\img\discount32green.png" />
     <Content Include="Content\img\location32x32.png" />
     <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png" />
     <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png" />
@@ -365,11 +368,15 @@
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
+    <Content Include="Content\img\sales32.png" />
     <Content Include="Content\img\save32x32.png" />
     <Content Include="Content\img\sign2_32x32.png" />
     <Content Include="Content\img\sign32x32.png" />
     <Content Include="Content\img\stage32x32.png" />
+    <Content Include="Content\img\sum32green.png" />
+    <Content Include="Content\img\sum64green.png" />
     <Content Include="Content\img\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\img\UP24.png" />
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
@@ -551,7 +558,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
