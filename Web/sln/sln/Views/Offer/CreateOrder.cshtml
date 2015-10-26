@@ -163,6 +163,29 @@
         content: "₪";
     }
 </style>
+<div class="row">
+    <div class="  col-md-12 well well-lg ">
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="btnEdit"  data-toggle="tooltip"  title="שמור" data-placement="top" 
+                class="btn btn-success btn-circle btn-xl">
+                <img src="~/Content/img/ok32x32.png" />
+            </button>
+        </div>
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="btnCancel" data-toggle="tooltip"  title="ביטול" data-placement="top"
+                  data-url="@Url.Action("Index", "F")"  
+                class="btn btn-danger btn-circle btn-xl">
+                <img src="~/Content/img/delete32x32.png" />
+            </button>
+        </div>
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="btnBack"   data-toggle="tooltip"  title="חזרה" data-placement="top"  data-url="@Url.Action("Index", "F")" 
+            class="btn btn-primary btn-circle btn-xl">
+                <img src="~/Content/img/back32x32.png" />
+            </button>
+        </div>
+    </div>
+</div>
 <div class="price-box">
     <div class="row">
         <div class="col-sm-6">
@@ -219,7 +242,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <button type="submit" data-bind="click: function () { showDialog(true) }" class="btn btn-primary btn-lg btn-block">
                             <img src="~/Content/img/sales32.png" />הוסף הנחה</button>
                     </div>
                 </div>
@@ -249,7 +272,12 @@
                         <!-- /ko -->
                     </h4>
                     <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span><br />
-                        <span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span>
+                        <span class="btn-group">
+                            <a class="xcrud-action btn btn-info btn-sm" <a href="#" data-bind="click: $parent.cancelOffer"
+                                title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a>
+                                
+                                
+                                <a class="xcrud-action btn btn-warning btn-sm" title="Edit" data-bind="click: $parent.openModal" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span>
 
 
                     </div>
@@ -335,13 +363,49 @@
 
 </div>
 @section Scripts {
+
     @Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Guid.NewGuid())
     <script src="~/Scripts/knockout-3.3.0.js"></script>
     <script>
+
+        ko.bindingHandlers.modal = {
+            init: function (element, valueAccessor) {
+                $(element).modal({
+                    show: false
+                });
+
+                var value = valueAccessor();
+                if (ko.isObservable(value)) {
+                    $(element).on('hide.bs.modal', function () {
+                        value(false);
+                    });
+                }
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $(element).modal("destroy");
+                });
+
+            },
+            update: function (element, valueAccessor) {
+                var value = valueAccessor();
+                if (ko.utils.unwrapObservable(value)) {
+                    $(element).modal('show');
+                } else {
+                    $(element).modal('hide');
+                }
+            }
+        }
+    </script>
+    <script>
+        var ItemViewModel = function (data, initiallySelected) {
+            this.isSelected = ko.observable(!!initiallySelected);
+            this.txt = ko.observable(data);
+        };
+
         var vm = new AppViewModel(offerClient);
         function AppViewModel(vmData) {
             var self = this;
             self.Items = ko.observableArray(vmData.Items);
+            self.currentModalItem = ko.observable(null);
             //self.TotalPrice=
             self.cancelOffer = function (f) {
                 alert(f.Id);
@@ -351,16 +415,61 @@
                 return 212;
             });
             self.TotalPrice = ko.computed(function () {
-             
+
                 return 100;
             });
             self.Total = ko.computed(function () {
 
                 return 1050;
             });
+
+            //this.showDialog = ko.observable(false);
+
+            self.openModal = function (item) {
+                self.currentModalItem(item);
+            };
+            self.submit = function () {
+                alert('submit');
+                //self.showDialog(false);
+            }
         };
 
         ko.applyBindings(vm);
 
     </script>
 }
+@*<div class="modal fade" tabindex="-1" role="dialog" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">title</h4>
+
+            </div>
+            <div class="modal-body">
+                body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-bind="click: submit">Close</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem">
+  <div class="modal-dialog">
+    <div class="modal-content"><div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title" data-bind="text: Name"></h4>
+
+            </div>
+      <div class="modal-body">
+        <p><i data-bind="text: PriceValue"></i></p>
+      </div>
+         <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.submit">Close</button>
+            </div>
+    </div>
+  </div>
+</div>
+

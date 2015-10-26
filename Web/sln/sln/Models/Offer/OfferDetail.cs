@@ -1,4 +1,5 @@
 ﻿using Michal.Project.Contract.View;
+using Michal.Project.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,25 +10,48 @@ namespace Michal.Project.Models
 {
     public class OfferDetail
     {
-        public List<ItemPrice> Items{ get; set; }
+        public List<ItemPrice> Items { get; set; }
         public List<DiscountItem> DiscountItems { get; set; }
-        
+
         public OfferItemVm OfferItemVm { get; set; }
     }
 
     public class OfferClient : IShipView
     {
-        
+
         public Guid Id { get; set; }
         public Guid OfferId { get; set; }
-       
+
         public string Name { get; set; }
 
         public List<OfferClientItem> Discounts { get; set; }
         public List<OfferClientItem> AddItems { get; set; }
         public OfferClient()
         {
-            
+
+        }
+        public bool AllowAddDiscount
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)
+                    || HttpContext.Current.User.IsInRole(HelperAutorize.RoleOrgManager)
+                    ))
+                    return true;
+                return false;
+            }
+        }
+
+        public bool AllowAddItem
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                    return true;
+                return false;
+            }
         }
         //public double? Total { get; set; }
 
@@ -41,7 +65,7 @@ namespace Michal.Project.Models
         public double? PriceValue { get; set; }
         public bool IsPresent { get; set; }
         public bool IsDiscount { get; set; }
-        public int StatusRecord { get; set; } // 1 =addbysystem,2=remove,3=add,4=edit
+        public int StatusRecord { get; set; } // 1 =addbysystem,2=remove,3=addnew,4=edit
         public int Amount { get; set; }
         public bool HasPrice
         {
@@ -50,6 +74,38 @@ namespace Michal.Project.Models
                 return PriceValue.HasValue;
             }
         }
+        public bool AllowEdit
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                    return true;
+                return false;
+            }
+        }
+
+        public bool AllowRemove
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                    return true;
+                return false;
+            }
+        }
+        public bool AllowCancel
+        {
+            get
+            {
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                    return true;
+                return false;
+            }
+        }
+       
     }
 
     public class OfferItem : OfferClientItem
@@ -69,19 +125,31 @@ namespace Michal.Project.Models
             Discounts.Add(new OfferClientItem
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                Name = "d1",
+                Name = "הנחה שניה",
+                Desc = "הנחה שניה...",
                 IsDiscount = true,
-                IsPresent = false,
+                IsPresent = true,
                 PriceValue = 1,
                 StatusRecord = 1
             });
             Discounts.Add(new OfferClientItem
             {
                 Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                Name = "d2",
+                Name = "הנחה שלישית",
+                Desc = "הנחה שלישית...",
                 IsDiscount = true,
                 IsPresent = false,
-                PriceValue = 2,
+                PriceValue = 22,
+                StatusRecord = 1
+            });
+            Discounts.Add(new OfferClientItem
+            {
+                Id = Guid.Parse("00000000-0000-0000-0000-000000000023"),
+                Name = "הנחה רביעית",
+                Desc = "הנחה רביעית...",
+                IsDiscount = true,
+                IsPresent = false,
+                PriceValue = 1,
                 StatusRecord = 1
             });
             AddItems = new List<OfferClientItem>();
