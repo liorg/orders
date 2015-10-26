@@ -179,7 +179,7 @@
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
                             <!-- <p class="price lead" id="total"></p> -->
-                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" value="112" style="">
+                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled"  data-bind="value: TotalPrice" style="">
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
                             <!-- <p class="price lead" id="total12"></p> -->
-                            <input class="price lead" name="totalprice12" type="text" id="total12" value="22" disabled="disabled" style="">
+                            <input class="price lead" name="totalprice12" type="text" id="total12" data-bind="value: TotalDiscount" disabled="disabled" style="">
                         </div>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
-                            <input class="price lead" name="totalprice52" type="text" id="total52" value="33" disabled="disabled" style="">
+                            <input class="price lead" name="totalprice52" type="text" id="total52" data-bind="value: Total" disabled="disabled" style="">
                         </div>
                     </div>
                 </div>
@@ -228,7 +228,6 @@
             </div>
         </div>
         <div class="col-sm-6">
-
             <form class="form-horizontal form-pricing" role="form">
                 <h4>הצג פריטים</h4>
                 <div style="margin-top: 10px"></div>
@@ -249,9 +248,15 @@
                         <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent == true, 'addsimbol': IsPresent == false }"></span>
                         <!-- /ko -->
                     </h4>
-                    <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span></div>
+                    <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span><br />
+                        <span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span>
 
-                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+
+                    </div>
+
+                    <div>
+                        
+                    </div>
                 </div>
             </form>
         </div>
@@ -337,10 +342,22 @@
         function AppViewModel(vmData) {
             var self = this;
             self.Items = ko.observableArray(vmData.Items);
-
+            //self.TotalPrice=
             self.cancelOffer = function (f) {
                 alert(f.Id);
             };
+            self.TotalDiscount = ko.computed(function () {
+
+                return 212;
+            });
+            self.TotalPrice = ko.computed(function () {
+             
+                return 100;
+            });
+            self.Total = ko.computed(function () {
+
+                return 1050;
+            });
         };
 
         ko.applyBindings(vm);
