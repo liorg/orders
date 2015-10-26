@@ -26,6 +26,7 @@ namespace Michal.Project.DataModel
         public Guid ProductId { get; set; }
 
         public string Name { get; set; }
+        public string Desc { get; set; }
 
         public string ProductNumber { get; set; }
 

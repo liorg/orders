@@ -12,7 +12,7 @@
         margin: 0 auto;
         background: #E9E9E9;
         border-radius: 10px;
-        padding: 40px 15px;
+        padding: 20px 1px;
         /*width: 500px;*/
     }
 
@@ -60,7 +60,7 @@
         }
 
     .price-slider {
-        margin-bottom: 70px;
+        margin-bottom: 30px;
     }
 
         .price-slider span {
@@ -139,26 +139,33 @@
         border-bottom: 1px dashed #ccc;
         background: #999;
     }
+
+    /*my*/
+    .priceb {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        background-color: yellowgreen;
+    }
 </style>
 <div class="price-box">
     <div class="row">
 
         <div class="col-sm-6">
             <div class="price-form">
-
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="amount_amirol" class="control-label">
                                 <img src="~/Content/img/additem32green.png" />
-                                Annually ($):
+                                מחיר לפני הנחה (₪):
                             </label>
-                            <span class="help-text">Amount that you need to pay</span>
+                            <span class="help-text">המחיר לפני הנחה לא כולל זמני המתנהy</span>
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
                             <!-- <p class="price lead" id="total"></p> -->
-                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" style="">
+                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" value="112" style="">
                         </div>
                     </div>
                 </div>
@@ -167,14 +174,14 @@
                         <div class="col-sm-6">
                             <label for="amount_amirol" class="control-label">
                                 <img src="~/Content/img/discount32green.png" />
-                                Monthly ($):
+                                הנחה (₪):
                             </label>
-                            <span class="help-text">Amount that you need to pay</span>
+                            <span class="help-text">הנחה כולל עבור הפריטים</span>
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
                             <!-- <p class="price lead" id="total12"></p> -->
-                            <input class="price lead" name="totalprice12" type="text" id="total12" disabled="disabled" style="">
+                            <input class="price lead" name="totalprice12" type="text" id="total12" value="22" disabled="disabled" style="">
                         </div>
                     </div>
                 </div>
@@ -183,14 +190,14 @@
                         <div class="col-sm-6">
                             <label for="amount_amirol" class="control-label">
                                 <img src="~/Content/img/sum32green.png" />
-                                Total ($):
+                                סה"ג (₪):
                             </label>
-                            <span class="help-text">Amount that you need to pay</span>
+                            <span class="help-text">סה"כ המחיר</span>
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
                             <!-- <p class="price lead" id="total52"></p> -->
-                            <input class="price lead" name="totalprice52" type="text" id="total52" disabled="disabled" style="">
+                            <input class="price lead" name="totalprice52" type="text" id="total52" value="33" disabled="disabled" style="">
                         </div>
                     </div>
                 </div>
@@ -198,92 +205,123 @@
                 <hr class="style">
 
                 <div class="form-group">
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <img src="~/Content/img/sales32.png" />הוסף הנחה</button>
                     </div>
                 </div>
 
 
             </div>
-
-
         </div>
         <div class="col-sm-6">
 
             <form class="form-horizontal form-pricing" role="form">
-                <h2>Show Items</h2>
-                <div style="margin-top: 30px"></div>
+                <h4>הצג פריטים</h4>
+                <div style="margin-top: 10px"></div>
                 <hr class="style">
                 <div class="price-slider">
                     <h4 style="width: 100%" class="great">
                         <img src="~/Content/img/additem32.png" />
-                        add    <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">5 %</span></h4>
+                        add    <span class="badge pull-left priceb">5 %</span></h4>
                     <div>Minimum $100K is required</div>
-                    <div ><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
 
                 </div>
                 <div class="price-slider">
-                    <h4 class="great">
-                        <img src="~/Content/img/sales32.png" />Duration</h4>
-                    <DIV>Please choose one</DIV>
-                    <div ><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+                    <h4 style="width: 100%" class="great">
+                        <img src="~/Content/img/sales32.png" />
+                        add    <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left">5 %</span></h4>
+                    <div>Minimum $100K is required</div>
+                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+
+                </div>
+                <div class="price-slider">
+                    <h4 style="width: 100%" class="great">
+                        <img src="~/Content/img/sales32.png" />
+                        add    <span class="badge pull-left priceb">5 %</span></h4>
+                    <div>Minimum $100K is required</div>
+                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
 
                 </div>
 
             </form>
         </div>
-
         <p class="text-center" style="padding-top: 10px; font-size: 12px; color: #2c3e50; font-style: italic;">Created by <a href="https://twitter.com/AmirolAhmad" target="_blank">AmirolAhmad</a></p>
     </div>
-
 </div>
-
-
+<div style="margin-top: 30px"></div>
 <div class="row">
-    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-        <ul class="list-group">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. כתובת</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <ul class="list-group">
 
-            <li class="list-group-item">
-                <span class="label label-success">@Html.Partial("_addressView", Model.SourceAddress)</span>
-                <span class="prefix  pull-right">כתובת השולח:</span>
-            </li>
+                                <li class="list-group-item">
+                                    <span class="label label-success">@Html.Partial("_addressView", Model.SourceAddress)</span>
+                                    <span class="prefix  pull-right">כתובת השולח:</span>
+                                </li>
 
-        </ul>
-    </div>
-    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="label label-danger">@Html.Partial("_addressView", Model.TargetAddress) </span>
-                <span class="prefix  pull-right">כתובת היעד:</span>
-            </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="label label-danger">@Html.Partial("_addressView", Model.TargetAddress) </span>
+                                    <span class="prefix  pull-right">כתובת היעד:</span>
+                                </li>
 
-        </ul>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. חישוב מחיר</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">
+                            <table class=" table table-striped table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: Items">
+                                    <tr>
+                                        <td data-bind="text: Name"></td>
+                                        <td data-bind="text: PriceValue"></td>
+                                        <td><a href="#" data-bind="click: $parent.cancelOffer">Cancel</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-9">
-        <table class=" table table-striped table-hover">
-
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: Items">
-                <tr>
-                    <td data-bind="text: Name"></td>
-                    <td data-bind="text: PriceValue"></td>
-                    <td><a href="#" data-bind="click: $parent.cancelOffer">Cancel</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
 @section Scripts {
     @Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Guid.NewGuid())
     <script src="~/Scripts/knockout-3.3.0.js"></script>

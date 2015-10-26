@@ -32,6 +32,7 @@ namespace Michal.Project.DataModel
         public Guid DistanceId { get; set; }
 
         public string Name { get; set; }
+        public string Desc { get; set; }
 
         public DateTime? CreatedOn
         {

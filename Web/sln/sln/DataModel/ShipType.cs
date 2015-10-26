@@ -28,7 +28,7 @@ namespace Michal.Project.DataModel
         public Guid ShipTypeId { get; set; }
 
         public string Name { get; set; }
-
+        public string Desc { get; set; }
         public DateTime? CreatedOn
         {
             get;
