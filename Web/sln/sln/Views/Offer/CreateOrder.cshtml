@@ -39,6 +39,13 @@
         box-shadow: 2px 4px 5px 0 #ccc;
     }
 
+        h4.great span {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
     .total {
         border-bottom: 1px solid #7f8c8d;
         /*display: inline;
@@ -60,7 +67,7 @@
         }
 
     .price-slider {
-        margin-bottom: 30px;
+        margin-bottom: 70px;
     }
 
         .price-slider span {
@@ -147,10 +154,17 @@
         font-weight: 600;
         background-color: yellowgreen;
     }
+
+    .addpresent::after {
+        content: "%";
+    }
+
+    .addsimbol::after {
+        content: "₪";
+    }
 </style>
 <div class="price-box">
     <div class="row">
-
         <div class="col-sm-6">
             <div class="price-form">
                 <div class="form-group">
@@ -160,7 +174,7 @@
                                 <img src="~/Content/img/additem32green.png" />
                                 מחיר לפני הנחה (₪):
                             </label>
-                            <span class="help-text">המחיר לפני הנחה לא כולל זמני המתנהy</span>
+                            <span class="help-text">המחיר לפני הנחה לא כולל זמני המתנה</span>
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
@@ -196,7 +210,6 @@
                         </div>
                         <div class="col-sm-6">
                             <input type="hidden" id="amount_amirol" class="form-control">
-                            <!-- <p class="price lead" id="total52"></p> -->
                             <input class="price lead" name="totalprice52" type="text" id="total52" value="33" disabled="disabled" style="">
                         </div>
                     </div>
@@ -220,34 +233,28 @@
                 <h4>הצג פריטים</h4>
                 <div style="margin-top: 10px"></div>
                 <hr class="style">
-                <div class="price-slider">
+                <div class="price-slider" data-bind="foreach: Items">
                     <h4 style="width: 100%" class="great">
+                        <!-- ko if: IsDiscount ==false -->
                         <img src="~/Content/img/additem32.png" />
-                        add    <span class="badge pull-left priceb">5 %</span></h4>
-                    <div>Minimum $100K is required</div>
-                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
-
-                </div>
-                <div class="price-slider">
-                    <h4 style="width: 100%" class="great">
+                        <!-- /ko -->
+                        <!-- ko if: IsDiscount ==true -->
                         <img src="~/Content/img/sales32.png" />
-                        add    <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left">5 %</span></h4>
-                    <div>Minimum $100K is required</div>
-                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
+                        <!-- /ko -->
+                        <span data-bind="text: Name"></span>
+                        <!-- ko if: HasPrice==false -->
+                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left" >אן מחיר</span>
+                        <!-- /ko -->
+                        <!-- ko if: HasPrice==true -->
+                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent == true, 'addsimbol': IsPresent == false }"></span>
+                        <!-- /ko -->
+                    </h4>
+                    <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span></div>
 
+                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
                 </div>
-                <div class="price-slider">
-                    <h4 style="width: 100%" class="great">
-                        <img src="~/Content/img/sales32.png" />
-                        add    <span class="badge pull-left priceb">5 %</span></h4>
-                    <div>Minimum $100K is required</div>
-                    <div><span class="btn-group"><a class="xcrud-action btn btn-info btn-sm" title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-search"></i></a><a class="xcrud-action btn btn-warning btn-sm" title="Edit" href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span></div>
-
-                </div>
-
             </form>
         </div>
-        <p class="text-center" style="padding-top: 10px; font-size: 12px; color: #2c3e50; font-style: italic;">Created by <a href="https://twitter.com/AmirolAhmad" target="_blank">AmirolAhmad</a></p>
     </div>
 </div>
 <div style="margin-top: 30px"></div>
@@ -259,7 +266,7 @@
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. כתובת</a>
                 </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
+            <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">

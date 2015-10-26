@@ -46,22 +46,35 @@ namespace Michal.Project.Api
           offerClient.AddItems = demo.AddItems;
           offerClient.Discounts = demo.Discounts;
 
-          offerClient.Items = new List<OfferClientItem>();
-          offerClient.Items.Add(new OfferClientItem
+          offerClient.Items = new List<OfferItem>();
+          offerClient.Items.Add(new OfferItem
           {
               Id = Guid.NewGuid(),
-              Name="x1",
-              IsDiscount = true,
+              Name=" פריט מסוים",
+              Desc = "מתוך המערכת פריט",
+              IsDiscount = false,
               IsPresent = false,
               PriceValue = 1,
               StatusRecord = 1
           });
-          offerClient.Items.Add(new OfferClientItem
+          offerClient.Items.Add(new OfferItem
           {
               Id = Guid.NewGuid(),
-              Name = "x2",
+              Name = " פריט מסוים2",
+              Desc = "מתוך המערכת פריט2",
               IsDiscount = false,
-              IsPresent = false,
+              IsPresent = true,
+              PriceValue = null,
+              StatusRecord = 1
+          });
+          offerClient.Items.Add(new OfferItem
+          {
+              Id = Guid.NewGuid(),
+              Name = "הנחה שניה",
+              Desc="מתוך המערכת הנחה שניה",
+              IsDiscount = true,
+              IsPresent = true,
+              Amount=1,
               PriceValue = 10,
               StatusRecord = 1
           });
