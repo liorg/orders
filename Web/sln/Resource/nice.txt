@@ -33,3 +33,40 @@ http://www.jqueryrain.com/?56sC0nJR
 
 
 http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progressbar-details
+
+
+
+
+
+
+ <form class="form-horizontal form-pricing" role="form">
+                <h4>הצג פריטים</h4>
+                <div style="margin-top: 10px"></div>
+                <hr class="style">
+                <div class="price-slider" data-bind="foreach: Items">
+                    <h4 style="width: 100%" class="great">
+                        <!-- ko if: IsDiscount() ==false -->
+                        <img src="~/Content/img/additem32.png" />
+                        <!-- /ko -->
+                        <!-- ko if: IsDiscount() ==true -->
+                        <img src="~/Content/img/sales32.png" />
+                        <!-- /ko -->
+                        <span data-bind="text: Name"></span>
+                        <!-- ko if: HasPrice()==false -->
+                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left" >אן מחיר</span>
+                        <!-- /ko -->
+                        <!-- ko if: HasPrice()==true -->
+                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
+                        <!-- /ko -->
+                    </h4>
+                    <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span><br />
+                        <span class="btn-group">
+                            <a class="xcrud-action btn btn-info btn-sm" <a href="#" data-bind="click: $parent.cancelOffer"
+                                title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a>
+                                <a class="xcrud-action btn btn-warning btn-sm" title="Edit" 
+                                    data-bind="click: $parent.openModal" 
+                                    href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span>
+                    </div>
+
+                </div>
+            </form>	

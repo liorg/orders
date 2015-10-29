@@ -56,6 +56,7 @@ namespace Michal.Project.Api
                 IsPresent = false,
                 PriceValue = 1,
                 StatusRecord = 1,
+                Amount=23,
                 ObjectId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
                 ObjectIdType = 1
             });
