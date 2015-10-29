@@ -404,7 +404,7 @@
                 </div>
             </div>
         </div>
-  
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -677,28 +677,39 @@
                 <h4 class="modal-title" data-bind="text: Name"></h4>
             </div>
             <div class="modal-body">
-                <p>
-                    בחר סוג
-                       <!-- ko if: IsDiscount() ==true && StatusRecord() ==3-->
-                    <select data-bind=" options: $parent.Discounts,
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="DistanceId">שם:</label>
+                        <div class="col-md-6">
+
+                            <!-- ko if: IsDiscount() ==true && StatusRecord() ==3-->
+                            <select class="form-control" data-bind=" options: $parent.Discounts,
     optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
     optionsCaption: 'בחר הנחה...'">
-                    </select>
-                    <!-- /ko -->
-
-                    <!-- ko if: StatusRecord() !=3-->
-
-                    <i data-bind="text: Name"></i>
-                    <!-- /ko -->
-                </p>
-                <br />
-                <p><i data-bind="text: PriceValue"></i></p>
-                <p>
-                    מחיר:
-                        <input data-bind="textInput: PriceValue" />
-                </p>
-                <p><i data-bind="text: Desc"></i></p>
-                <p><i data-bind="text: ObjectId"></i></p>
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: StatusRecord() !=3-->
+                            <input type="text" data-bind="textInput: Name" />
+                            <i></i>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="DistanceId">מחיר:</label>
+                        <div class="col-md-6">
+                            <input data-bind="textInput: PriceValue" /></div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-2 control-label" for="DistanceId">כמות:</label>
+                        <div class="col-md-6">
+                            <input data-bind="textInput: Amount" /></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="DistanceId">תיאור:</label>
+                        <div class="col-md-6">
+                            <input data-bind="textInput: Desc" /></div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>

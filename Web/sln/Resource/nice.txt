@@ -36,7 +36,43 @@ http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progre
 
 
 
+<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" data-bind="text: Name"></h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    בחר סוג
+                       <!-- ko if: IsDiscount() ==true && StatusRecord() ==3-->
+                    <select data-bind=" options: $parent.Discounts,
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר הנחה...'">
+                    </select>
+                    <!-- /ko -->
 
+                    <!-- ko if: StatusRecord() !=3-->
+
+                    <i data-bind="text: Name"></i>
+                    <!-- /ko -->
+                </p>
+                <br />
+                <p><i data-bind="text: PriceValue"></i></p>
+                <p>
+                    מחיר:
+                        <input data-bind="textInput: PriceValue" />
+                </p>
+                <p><i data-bind="text: Desc"></i></p>
+                <p><i data-bind="text: ObjectId"></i></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
  <form class="form-horizontal form-pricing" role="form">
