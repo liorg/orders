@@ -4,6 +4,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
+    /*start :my*/
+    .priceb {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        background-color: yellowgreen;
+    }
+
+    .addpresent::after {
+        content: "%";
+    }
+
+    .addplus:after {
+        content: "x";
+    }
+
+    .addsimbol::after {
+        content: "₪";
+    }
+    /* end :my*/
     /*
       start:  http://bootsnipp.com/snippets/featured/bootstrap-loan-calculator
         */
@@ -99,7 +119,7 @@
         margin-bottom: 0;
     }
 
-    .form-group span.price {
+        .form-group span.price {
             font-weight: 200;
             display: inline-block;
             color: #7f8c8d;
@@ -145,24 +165,6 @@
         border: 0;
         border-bottom: 1px dashed #ccc;
         background: #999;
-    }
-
-    /*my*/
-    .priceb {
-        color: white;
-        font-size: 18px;
-        font-weight: 600;
-        background-color: yellowgreen;
-    }
-
-    .addpresent::after {
-        content: "%";
-    }
-    .addplus:after {
-          content: "x";
-    }
-    .addsimbol::after {
-        content: "₪";
     }
 
     /*
@@ -240,11 +242,13 @@
 
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
+
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">הצג מחיר מומלץ לצרכן</a>
             </h4>
         </div>
+
         <div id="collapseOrder" class="panel-collapse collapse in">
             <div class="panel-body">
                 <div class="row">
@@ -321,17 +325,21 @@
                                                         <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
                                                     </button>
                                                     <ul class="dropdown-menu slidedown">
-                                                        <li><a href="#"  data-bind="click: openModal"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
+                                                        <li><a href="#" data-bind="click: openModal"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="panel-body">
                                             <ul class="list-group" data-bind="foreach: Items">
-                                                <li class="list-group-item"> <!-- ko if: IsDiscount() ==true -->
-                                                         <img class="pull-right" src="~/Content/img/percent16.png" />
-                                                      <!-- /ko --><i data-bind="text: Name"></i>
-                                                     <!-- ko if: Amount()>1--><B class="addplus" data-bind="text: Amount"></B> <!-- /ko -->
+                                                <li class="list-group-item">
+                                                    <!-- ko if: IsDiscount() ==true -->
+                                                    <img class="pull-right" src="~/Content/img/percent16.png" />
+                                                    <!-- /ko -->
+                                                    <i data-bind="text: Name"></i>
+                                                    <!-- ko if: Amount()>1-->
+                                                    <b class="addplus" data-bind="text: Amount"></b>
+                                                    <!-- /ko -->
                                                     @*<span class="pull-right badge">5</span>*@
                                                     <!-- ko if: HasPrice()==false -->
                                                     <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">אן מחיר</span>
@@ -340,7 +348,7 @@
                                                     <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
                                                     <!-- /ko -->
                                                     <div class="pull-left action-buttons">
-                                                        <a href="#"data-bind="click: $parent.openModal" ><span class="glyphicon glyphicon-pencil"></span></a>
+                                                        <a href="#" data-bind="click: $parent.openModal"><span class="glyphicon glyphicon-pencil"></span></a>
                                                         <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
                                                     </div>
                                                 </li>
@@ -353,37 +361,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @* <form class="form-horizontal form-pricing" role="form">
-                <h4>הצג פריטים</h4>
-                <div style="margin-top: 10px"></div>
-                <hr class="style">
-                <div class="price-slider" data-bind="foreach: Items">
-                    <h4 style="width: 100%" class="great">
-                        <!-- ko if: IsDiscount() ==false -->
-                        <img src="~/Content/img/additem32.png" />
-                        <!-- /ko -->
-                        <!-- ko if: IsDiscount() ==true -->
-                        <img src="~/Content/img/sales32.png" />
-                        <!-- /ko -->
-                        <span data-bind="text: Name"></span>
-                        <!-- ko if: HasPrice()==false -->
-                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left" >אן מחיר</span>
-                        <!-- /ko -->
-                        <!-- ko if: HasPrice()==true -->
-                        <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
-                        <!-- /ko -->
-                    </h4>
-                    <div class="help-text"><span style="top: 0px" data-bind="text: Desc"></span><br />
-                        <span class="btn-group">
-                            <a class="xcrud-action btn btn-info btn-sm" <a href="#" data-bind="click: $parent.cancelOffer"
-                                title="View" href="javascript:;" data-primary="6" data-task="view"><i class="glyphicon glyphicon-trash"></i></a>
-                                <a class="xcrud-action btn btn-warning btn-sm" title="Edit" 
-                                    data-bind="click: $parent.openModal" 
-                                    href="javascript:;" data-primary="6" data-task="edit"><i class="glyphicon glyphicon-edit "></i></a><a class="xcrud-action btn btn-danger btn-sm" title="Remove" href="javascript:;" data-primary="6" data-task="remove" data-confirm="Do you really want remove this entry?"><i class="glyphicon glyphicon-remove"></i></a></span>
-                    </div>
 
-                </div>
-            </form>*@
                                     </div>
                                 </div>
                             </div>
@@ -426,10 +404,11 @@
                 </div>
             </div>
         </div>
+  
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> שדות חישוב</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">שדות חישוב</a>
                 </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
@@ -457,10 +436,11 @@
                 </div>
             </div>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTree"> מוצרי המשלוח</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTree">מוצרי המשלוח</a>
                 </h4>
             </div>
             <div id="collapseTree" class="panel-collapse collapse">
@@ -489,238 +469,240 @@
             </div>
         </div>
     </div>
+</div>
 
-    @section Scripts {
+@section Scripts {
 
-        @Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Guid.NewGuid())
-        <script src="~/Scripts/knockout-3.3.0.js"></script>
-        <script src="~/Scripts/knockout.mapping-latest.js"></script>
-        <script>
-            ko.bindingHandlers.modal = {
-                init: function (element, valueAccessor) {
-                    $(element).modal({
-                        show: false
+    @Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Guid.NewGuid())
+    <script src="~/Scripts/knockout-3.3.0.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.js"></script>
+
+    <script>
+        ko.bindingHandlers.modal = {
+            init: function (element, valueAccessor) {
+                $(element).modal({
+                    show: false
+                });
+
+                var value = valueAccessor();
+                if (ko.isObservable(value)) {
+                    $(element).on('hide.bs.modal', function () {
+                        value(false);
                     });
+                }
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $(element).modal("destroy");
+                });
 
-                    var value = valueAccessor();
-                    if (ko.isObservable(value)) {
-                        $(element).on('hide.bs.modal', function () {
-                            value(false);
-                        });
-                    }
-                    ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                        $(element).modal("destroy");
-                    });
-
-                },
-                update: function (element, valueAccessor, allBindingsAccessor) {
-                    var value = valueAccessor();
-                    //http://jsfiddle.net/YmQTW/1/
-                    var shouldBeOpen = ko.utils.unwrapObservable(allBindingsAccessor().dialogVisible);
-                    //if (ko.utils.unwrapObservable(value)) 
-                    if (shouldBeOpen) {
-                        $(element).modal('show');
-                    } else {
-                        $(element).modal('hide');
-                    }
+            },
+            update: function (element, valueAccessor, allBindingsAccessor) {
+                var value = valueAccessor();
+                //http://jsfiddle.net/YmQTW/1/
+                var shouldBeOpen = ko.utils.unwrapObservable(allBindingsAccessor().dialogVisible);
+                //if (ko.utils.unwrapObservable(value)) 
+                if (shouldBeOpen) {
+                    $(element).modal('show');
+                } else {
+                    $(element).modal('hide');
                 }
             }
+        }
 
-            function generateUUID() {
-                var d = new Date().getTime();
-                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = (d + Math.random() * 16) % 16 | 0;
-                    d = Math.floor(d / 16);
-                    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-                });
-                return uuid;
-            };
-        </script>
+        function generateUUID() {
+            var d = new Date().getTime();
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            return uuid;
+        };
+    </script>
 
-        <script>
-            function OfferItem(id, name, desc, priceValue,
-                isPresent, isDiscount, statusRecord, amount,
-                hasPrice, allowEdit, allowRemove, allowCancel,
-                objectId, objectIdType
-                ) {
-                this.Id = ko.observable(id);
-                this.Name = ko.observable(name);
-                this.Desc = ko.observable(desc);
-                this.PriceValue = ko.observable(priceValue);
+    <script>
+        function OfferItem(id, name, desc, priceValue,
+            isPresent, isDiscount, statusRecord, amount,
+            hasPrice, allowEdit, allowRemove, allowCancel,
+            objectId, objectIdType
+            ) {
+            this.Id = ko.observable(id);
+            this.Name = ko.observable(name);
+            this.Desc = ko.observable(desc);
+            this.PriceValue = ko.observable(priceValue);
 
-                this.IsPresent = ko.observable(isPresent);
-                this.IsDiscount = ko.observable(isDiscount);
-                this.StatusRecord = ko.observable(statusRecord);
-                this.Amount = ko.observable(amount);
+            this.IsPresent = ko.observable(isPresent);
+            this.IsDiscount = ko.observable(isDiscount);
+            this.StatusRecord = ko.observable(statusRecord);
+            this.Amount = ko.observable(amount);
 
-                this.HasPrice = ko.observable(hasPrice);
-                this.AllowEdit = ko.observable(allowEdit);
-                this.AllowRemove = ko.observable(allowRemove);
-                this.AllowCancel = ko.observable(allowCancel);
+            this.HasPrice = ko.observable(hasPrice);
+            this.AllowEdit = ko.observable(allowEdit);
+            this.AllowRemove = ko.observable(allowRemove);
+            this.AllowCancel = ko.observable(allowCancel);
 
-                this.ObjectId = ko.observable(objectId);
-                this.ObjectIdType = ko.observable(objectIdType);
+            this.ObjectId = ko.observable(objectId);
+            this.ObjectIdType = ko.observable(objectIdType);
 
-                this.ObjectId.subscribe(function (newId) {
-                    // debugger;
-                    var newProduct = null;
+            this.ObjectId.subscribe(function (newId) {
+                // debugger;
+                var newProduct = null;
 
-                    if (this.IsDiscount()) {
-                        newProduct = ko.utils.arrayFirst(vm.Discounts(), function (item) {
-                            return item.Id == newId;
-                        });
-                    }
-
-                    if (newProduct != null) {
-                        this.Name(newProduct.Name);
-                        this.Desc(newProduct.Desc);
-                    }
-                }.bind(this));
-            };
-
-            var vm = new AppViewModel(offerClient);
-            function AppViewModel(vmData) {
-                //debugger;
-                var self = this;
-                self.isOpen = ko.observable(false);
-                self.Items = ko.mapping.fromJS(vmData.Items);
-                self.Discounts = ko.observableArray(vmData.Discounts);
-                self.DirtyDiscounts = ko.observableArray();
-
-                self.currentModalItem = ko.observable(null);
-
-                self.cancelOffer = function (f) {
-                    alert(f.Id);
-                };
-
-                self.TotalDiscount = ko.computed(function () {
-
-                    return 212;
-                });
-
-                self.TotalPrice = ko.computed(function () {
-
-                    return 100;
-                });
-
-                self.Total = ko.computed(function () {
-
-                    return 1050;
-                });
-
-
-                self.openModal = function (item) {
-                    self.isOpen(true);
-                    if (item instanceof AppViewModel) {
-                        //var it = { "ObjectId": "00000000-0000-0000-0000-000000000000", "ObjectIdType": 2, "Id": "00000000-0000-0000-0000-000000000000", "Name": "...", "Desc": "....", "PriceValue": 10.0, "IsPresent": false, "IsDiscount": true, "StatusRecord": 3, "Amount": 1, "HasPrice": true, "AllowEdit": true, "AllowRemove": true, "AllowCancel": true };
-                        var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "new desc", null,
-                            true, true, 3, 1,
-                            false, true, true, true, "00000000-0000-0000-0000-000000000000", "1");
-                        self.currentModalItem(newt);
-                    }
-                    else {
-                        var editt = new OfferItem(item.Id(), item.Name(), item.Desc(), item.PriceValue(),
-                            item.IsPresent(), item.IsDiscount(), item.StatusRecord(), item.Amount(),
-                            item.HasPrice(), item.AllowEdit(), item.AllowRemove(), item.AllowCancel(),
-                            item.ObjectId(), item.ObjectIdType());
-
-                        self.currentModalItem(editt);
-                    }
-
-                };
-                self.save = function () {
-                    //debugger;
-                    var current = self.currentModalItem();
-                    if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
-                        product = ko.utils.arrayFirst(vm.Items(), function (item) {
-                            return item.Id() == current.Id();
-                        });
-                        if (product != null) {
-                            product.PriceValue(current.PriceValue());
-                            product.HasPrice(true);
-                        }
-                    }
-                    else {
-                        var item = {};
-                        item.Id = generateUUID();
-                        item.Name = current.Name();
-                        item.Desc = current.Desc();
-                        item.PriceValue = current.PriceValue();
-                        item.IsPresent = current.IsPresent();
-                        item.IsDiscount = current.IsDiscount();
-                        item.StatusRecord = 4;
-                        item.Amount = current.Amount();
-
-                        item.HasPrice = current.PriceValue() != null && current.PriceValue() != "";
-                        item.AllowEdit = current.AllowEdit();
-                        item.AllowRemove = current.AllowRemove();
-                        item.AllowCancel = current.AllowCancel();
-
-                        item.ObjectId = current.ObjectId();
-                        item.ObjectIdType = current.ObjectIdType();
-                        var ob = ko.mapping.fromJS(item);
-
-                        //  debugger;
-                        var dd = self.Items;
-                        dd.push(ob);
-                        // var dd = vm.Items;
-                        //dd.push(ob);
-
-                        var discount = ko.utils.arrayFirst(vm.Discounts(), function (discountItem) {
-                            return discountItem.Id == item.ObjectId;
-                        });
-                        if (discount != null) {
-                            var disounts = self.Discounts;
-
-                            var dirtydis = self.DirtyDiscounts;
-                            dirtydis.push(discount);
-                            disounts.remove(discount);
-                        }
-
-                    }
-                    self.isOpen(false);
+                if (this.IsDiscount()) {
+                    newProduct = ko.utils.arrayFirst(vm.Discounts(), function (item) {
+                        return item.Id == newId;
+                    });
                 }
+
+                if (newProduct != null) {
+                    this.Name(newProduct.Name);
+                    this.Desc(newProduct.Desc);
+                }
+            }.bind(this));
+        };
+
+        var vm = new AppViewModel(offerClient);
+        function AppViewModel(vmData) {
+            //debugger;
+            var self = this;
+            self.isOpen = ko.observable(false);
+            self.Items = ko.mapping.fromJS(vmData.Items);
+            self.Discounts = ko.observableArray(vmData.Discounts);
+            self.DirtyDiscounts = ko.observableArray();
+
+            self.currentModalItem = ko.observable(null);
+
+            self.cancelOffer = function (f) {
+                alert(f.Id);
             };
 
-            ko.applyBindings(vm);
+            self.TotalDiscount = ko.computed(function () {
 
-        </script>
-    }
-    <!--http://jsfiddle.net/YmQTW/1/ -->
-    <div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" data-bind="text: Name"></h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        בחר סוג
+                return 212;
+            });
+
+            self.TotalPrice = ko.computed(function () {
+
+                return 100;
+            });
+
+            self.Total = ko.computed(function () {
+
+                return 1050;
+            });
+
+
+            self.openModal = function (item) {
+                self.isOpen(true);
+                if (item instanceof AppViewModel) {
+                    //var it = { "ObjectId": "00000000-0000-0000-0000-000000000000", "ObjectIdType": 2, "Id": "00000000-0000-0000-0000-000000000000", "Name": "...", "Desc": "....", "PriceValue": 10.0, "IsPresent": false, "IsDiscount": true, "StatusRecord": 3, "Amount": 1, "HasPrice": true, "AllowEdit": true, "AllowRemove": true, "AllowCancel": true };
+                    var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "new desc", null,
+                        true, true, 3, 1,
+                        false, true, true, true, "00000000-0000-0000-0000-000000000000", "1");
+                    self.currentModalItem(newt);
+                }
+                else {
+                    var editt = new OfferItem(item.Id(), item.Name(), item.Desc(), item.PriceValue(),
+                        item.IsPresent(), item.IsDiscount(), item.StatusRecord(), item.Amount(),
+                        item.HasPrice(), item.AllowEdit(), item.AllowRemove(), item.AllowCancel(),
+                        item.ObjectId(), item.ObjectIdType());
+
+                    self.currentModalItem(editt);
+                }
+
+            };
+            self.save = function () {
+                //debugger;
+                var current = self.currentModalItem();
+                if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
+                    product = ko.utils.arrayFirst(vm.Items(), function (item) {
+                        return item.Id() == current.Id();
+                    });
+                    if (product != null) {
+                        product.PriceValue(current.PriceValue());
+                        product.HasPrice(true);
+                    }
+                }
+                else {
+                    var item = {};
+                    item.Id = generateUUID();
+                    item.Name = current.Name();
+                    item.Desc = current.Desc();
+                    item.PriceValue = current.PriceValue();
+                    item.IsPresent = current.IsPresent();
+                    item.IsDiscount = current.IsDiscount();
+                    item.StatusRecord = 4;
+                    item.Amount = current.Amount();
+
+                    item.HasPrice = current.PriceValue() != null && current.PriceValue() != "";
+                    item.AllowEdit = current.AllowEdit();
+                    item.AllowRemove = current.AllowRemove();
+                    item.AllowCancel = current.AllowCancel();
+
+                    item.ObjectId = current.ObjectId();
+                    item.ObjectIdType = current.ObjectIdType();
+                    var ob = ko.mapping.fromJS(item);
+
+                    //  debugger;
+                    var dd = self.Items;
+                    dd.push(ob);
+                    // var dd = vm.Items;
+                    //dd.push(ob);
+
+                    var discount = ko.utils.arrayFirst(vm.Discounts(), function (discountItem) {
+                        return discountItem.Id == item.ObjectId;
+                    });
+                    if (discount != null) {
+                        var disounts = self.Discounts;
+
+                        var dirtydis = self.DirtyDiscounts;
+                        dirtydis.push(discount);
+                        disounts.remove(discount);
+                    }
+
+                }
+                self.isOpen(false);
+            }
+        };
+
+        ko.applyBindings(vm);
+
+    </script>
+}
+<!--http://jsfiddle.net/YmQTW/1/ -->
+<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" data-bind="text: Name"></h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    בחר סוג
                        <!-- ko if: IsDiscount() ==true && StatusRecord() ==3-->
-                        <select data-bind=" options: $parent.Discounts,
+                    <select data-bind=" options: $parent.Discounts,
     optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
     optionsCaption: 'בחר הנחה...'">
-                        </select>
-                        <!-- /ko -->
+                    </select>
+                    <!-- /ko -->
 
-                        <!-- ko if: StatusRecord() !=3-->
+                    <!-- ko if: StatusRecord() !=3-->
 
-                        <i data-bind="text: Name"></i>
-                        <!-- /ko -->
-                    </p>
-                    <br />
-                    <p><i data-bind="text: PriceValue"></i></p>
-                    <p>
-                        מחיר:
+                    <i data-bind="text: Name"></i>
+                    <!-- /ko -->
+                </p>
+                <br />
+                <p><i data-bind="text: PriceValue"></i></p>
+                <p>
+                    מחיר:
                         <input data-bind="textInput: PriceValue" />
-                    </p>
-                    <p><i data-bind="text: Desc"></i></p>
-                    <p><i data-bind="text: ObjectId"></i></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>
-                </div>
+                </p>
+                <p><i data-bind="text: Desc"></i></p>
+                <p><i data-bind="text: ObjectId"></i></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>
             </div>
         </div>
     </div>
+</div>
