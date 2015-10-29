@@ -388,9 +388,14 @@
                 });
 
             },
-            update: function (element, valueAccessor) {
+            update: function (element, valueAccessor, allBindingsAccessor) {
+                debugger;
                 var value = valueAccessor();
-                if (ko.utils.unwrapObservable(value)) {
+                var d = allBindingsAccessor();
+                var shouldBeOpen = ko.utils.unwrapObservable(allBindingsAccessor().dialogVisible);
+                alert(shouldBeOpen);
+                //if (ko.utils.unwrapObservable(value)) 
+                if (shouldBeOpen) {
                     $(element).modal('show');
                 } else {
                     $(element).modal('hide');
@@ -444,7 +449,13 @@
         function AppViewModel(vmData) {
             debugger;
             var self = this;
-            self.Items = ko.mapping.fromJS(vmData.Items);
+            self.isOpen = ko.observable(false),
+            self.Items = ko.observableArray(null);
+            for (var i = 0; i < vmData.Items.length; i++) {
+                var c = ko.mapping.fromJS(vmData.Items[i]);
+                self.Items.push(c);
+            }
+            //self.Items = ko.mapping.fromJS(vmData.Items);
 
             //self.Items = ko.observableArray(items);
             self.Discounts = ko.observableArray(vmData.Discounts);
@@ -471,6 +482,7 @@
 
             self.openModal = function (item) {
                 // debugger;
+                self.isOpen(true);
                 if (item instanceof AppViewModel) {
                     //var it = { "ObjectId": "00000000-0000-0000-0000-000000000000", "ObjectIdType": 2, "Id": "00000000-0000-0000-0000-000000000000", "Name": "...", "Desc": "....", "PriceValue": 10.0, "IsPresent": false, "IsDiscount": true, "StatusRecord": 3, "Amount": 1, "HasPrice": true, "AllowEdit": true, "AllowRemove": true, "AllowCancel": true };
                     var it = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "new desc", null,
@@ -517,23 +529,26 @@
                     item.StatusRecord = current.StatusRecord();
                     item.Amount = current.Amount();
 
-                    item.HasPrice = current.HasPrice();
+                    item.HasPrice = current.PriceValue() != null;//current.HasPrice();
                     item.AllowEdit = current.AllowEdit();
                     item.AllowRemove = current.AllowRemove();
                     item.AllowCancel = current.AllowCancel();
 
                     item.ObjectId = current.ObjectId();
                     item.ObjectIdType = current.ObjectIdType();
-                   var ob= ko.mapping.fromJS(item);
+                    var ob = ko.mapping.fromJS(item);
                     ////get the underlying array
-                   // var myUnderlyingArray = self.Items();
-                  //  myUnderlyingArray.push(ob);
-                    vm.Items().push(ob);
+                    //  self.Items().push(ob);
+                    var dd = self.Items;
+                    dd.push(ob);
+                    // var dd = vm.Items;
+                    //dd.push(ob);
                 }
+                self.isOpen(false);
                 //alert('submit');
-                self.openModal(null);
+                //self.openModal(null);
             }
-           
+
 
         };
 
@@ -541,8 +556,8 @@
 
     </script>
 }
-
-<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem">
+<!--http://jsfiddle.net/YmQTW/1/ -->
+<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
