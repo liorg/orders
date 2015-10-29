@@ -84,7 +84,6 @@ namespace Michal.Project.Models
                 return false;
             }
         }
-
         public bool AllowRemove
         {
             get
@@ -105,7 +104,6 @@ namespace Michal.Project.Models
                 return false;
             }
         }
-       
     }
 
     public class OfferItem : OfferClientItem
