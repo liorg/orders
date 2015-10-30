@@ -303,7 +303,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @*<div style="margin-top: 30px"></div>
+                                    @*<div style="margin-top: 5px"></div>
                                     <hr class="style">
                                     <div class="form-group">
                                         <div class="col-sm-6">
@@ -327,6 +327,7 @@
                                                     <ul class="dropdown-menu slidedown">
                                                         <li><a href="#" data-bind="click: openModal"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
                                                     </ul>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -348,8 +349,12 @@
                                                     <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
                                                     <!-- /ko -->
                                                     <div class="pull-left action-buttons">
+                                                        <!-- ko if: AllowEdit() ==true -->
                                                         <a href="#" data-bind="click: $parent.openModal"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                        <!-- /ko -->
+                                                        <!-- ko if: AllowRemove() ==true -->
                                                         <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        <!-- /ko -->
                                                     </div>
                                                 </li>
 
@@ -562,7 +567,6 @@
 
         var vm = new AppViewModel(offerClient);
         function AppViewModel(vmData) {
-            //debugger;
             var self = this;
             self.isOpen = ko.observable(false);
             self.Items = ko.mapping.fromJS(vmData.Items);
@@ -576,17 +580,14 @@
             };
 
             self.TotalDiscount = ko.computed(function () {
-
                 return 212;
             });
 
             self.TotalPrice = ko.computed(function () {
-
                 return 100;
             });
 
             self.Total = ko.computed(function () {
-
                 return 1050;
             });
 
@@ -697,17 +698,20 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="DistanceId">מחיר:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: PriceValue" /></div>
+                            <input data-bind="textInput: PriceValue" />
+                        </div>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="col-md-2 control-label" for="DistanceId">כמות:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: Amount" /></div>
+                            <input data-bind="textInput: Amount" />
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="DistanceId">תיאור:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: Desc" /></div>
+                            <input data-bind="textInput: Desc" />
+                        </div>
                     </div>
                 </form>
             </div>
