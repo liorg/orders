@@ -580,15 +580,67 @@
             };
 
             self.TotalDiscount = ko.computed(function () {
-                return 212;
+                var count = getTotalDiscount();
+                if (count != null) return count.toFixed(2);
+                return count;
             });
 
             self.TotalPrice = ko.computed(function () {
-                return 100;
+                var count = getTotalPrice();
+                if (count != null) return count.toFixed(2);
+                return count;
+                // return 100;
             });
+            function getTotalPrice() {
+                var count = 0;
+                for (var i = 0; i < self.Items().length; i++) {
+
+                    if (self.Items()[i].IsDiscount() == true) continue;
+                    if (self.Items()[i].PriceValue() == null) {
+                        count = null;
+                        break;
+                    }
+                    count += parseFloat(self.Items()[i].PriceValue());
+
+                }
+                return count;
+            }
+
+            function getTotalDiscount(total) {
+                var total =total || getTotalPrice();
+                var count = 0;
+                var countPersent = 0;
+                var result = 0;
+                if (total == null)  return null;
+
+                for (var i = 0; i < self.Items().length; i++) {
+                    var item = self.Items()[i];
+                    if (item.IsDiscount() == false) continue;
+                    if (item.PriceValue() == null) {
+                        count = null;
+                        break;
+                    }
+                    if (item.IsPresent() == true) {
+                        countPersent += parseFloat(item.PriceValue());
+                    }
+                    else {
+                        count += parseFloat(item.PriceValue());
+                    }
+
+                }
+                if (countPersent == null && count == null)
+                    return null;
+                result = ((total * (countPersent / 100)) + count);
+
+                return result;
+            }
 
             self.Total = ko.computed(function () {
-                return 1050;
+                var totalPrice = getTotalPrice();
+                if (totalPrice == null) return null;
+                var totalDiscount = getTotalDiscount(totalPrice);
+                if (totalDiscount == null) return null;
+                return totalPrice - totalDiscount;
             });
 
 
