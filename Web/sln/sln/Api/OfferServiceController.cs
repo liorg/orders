@@ -44,12 +44,18 @@ namespace Michal.Project.Api
             {
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
+
                 var organid = cache.GetOrg(context);
-                var distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
+                var distances = cache.GetDistancesPerOrg(context, organid); 
                 var priceList = cache.GetPriceList(context);
                 var shiptypeLists = cache.GetShipType(context);
                 var discountLists = cache.GetDiscount(context);
                 var products = cache.GetProducts(context, organid);
+
+                var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
+
+                var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
+
                 var user = new UserContext(userContext);
                 decimal? priceValue = null;
                 PriceList price = null;
@@ -68,8 +74,6 @@ namespace Michal.Project.Api
                         Name = discount.Name,
                         ProductPrice = null,
                         StatusRecord = 1,
-
-
                     });
                 }
 
@@ -145,7 +149,9 @@ namespace Michal.Project.Api
                                              on d.DiscountId equals sd.Id
                                              where d.IsSweeping == false
                                              select sd).ToList();
+
                     var discountsSweep = discountLists.Where(ds => ds.IsSweeping == true).ToList();
+
                     foreach (var discountSweep in discountsSweep)
                     {
                         offerClient.Items.Add(new OfferItem
@@ -154,6 +160,7 @@ namespace Michal.Project.Api
                             IsDiscount = true,
                             IsPresent = false,
                             Desc=discountSweep.Desc,
+                            StatusRecord=1,
                             Name = discountSweep.Name,
                             ObjectId = discountSweep.DiscountId,
                             ObjectIdType = (int)ObjectTypeCode.Discount,
@@ -161,15 +168,12 @@ namespace Michal.Project.Api
                             Amount = 1
                         });
                     }
-                    //discounts.Where(d => discountLists.Contains(ds => d.Id).Any());
-                    var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
-                    foreach (var item in ship.ShippingItems)
+                     foreach (var item in ship.ShippingItems)
                     {
                         priceValue = null;
                         var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
                         if (price2 != null)
                             priceValue = price2.PriceValue;
-
 
                         offerClient.Items.Add(new OfferItem
                         {
@@ -206,9 +210,8 @@ namespace Michal.Project.Api
                     priceValue = null;
                     price = priceList.Where(p => p.ObjectId == ship.Distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
                     if (price != null)
-                    {
-                        priceValue = price.PriceValue;
-                    }
+                      priceValue = price.PriceValue;
+                    
                     offerClient.Items.Add(new OfferItem
                     {
                         Id = Guid.NewGuid(),
@@ -234,9 +237,9 @@ namespace Michal.Project.Api
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-
                     Content = new StringContent(responseBody, Encoding.UTF8, "application/javascript")
                 };
+
                 response.Headers.CacheControl = new CacheControlHeaderValue();
                 response.Headers.CacheControl.NoStore = true;
                 return response;

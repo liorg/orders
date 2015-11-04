@@ -65,7 +65,7 @@ namespace Michal.Project.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
-
+        public Guid StatusShipping { get; set; }
         public decimal? PriceValue
         {
             get

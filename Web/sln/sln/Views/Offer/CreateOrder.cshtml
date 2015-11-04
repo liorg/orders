@@ -303,15 +303,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @*<div style="margin-top: 5px"></div>
-                                    <hr class="style">
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <button data-bind="click: openModal"
-                                                class="btn btn-primary btn-lg btn-block">
-                                                <img src="~/Content/img/sales32.png" />הוסף הנחה</button>
-                                        </div>
-                                    </div>*@
+                                  
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -325,7 +317,9 @@
                                                         <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
                                                     </button>
                                                     <ul class="dropdown-menu slidedown">
-                                                        <li><a href="#" data-bind="click: openModal"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
+                                                         <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
+                                                  
+                                                        <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
                                                     </ul>
 
                                                 </div>
@@ -419,24 +413,7 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-9">
-                            <table class=" table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Author</th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: Items">
-                                    <tr>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: PriceValue"></td>
-                                        <td><a href="#" data-bind="click: $parent.cancelOffer">Cancel</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -460,11 +437,10 @@
                                         <th>Author</th>
                                     </tr>
                                 </thead>
-                                <tbody data-bind="foreach: Items">
+                                <tbody>
                                     <tr>
-                                        <td data-bind="text: Name"></td>
-                                        <td data-bind="text: PriceValue"></td>
-                                        <td><a href="#" data-bind="click: $parent.cancelOffer">Cancel</a></td>
+                                   <td></td>
+                                    <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -566,6 +542,7 @@
         };
 
         var vm = new AppViewModel(offerClient);
+
         function AppViewModel(vmData) {
             var self = this;
             self.isOpen = ko.observable(false);
@@ -601,17 +578,16 @@
                         break;
                     }
                     count += parseFloat(self.Items()[i].PriceValue());
-
                 }
                 return count;
             }
 
             function getTotalDiscount(total) {
-                var total =total || getTotalPrice();
+                var total = total || getTotalPrice();
                 var count = 0;
                 var countPersent = 0;
                 var result = 0;
-                if (total == null)  return null;
+                if (total == null) return null;
 
                 for (var i = 0; i < self.Items().length; i++) {
                     var item = self.Items()[i];
@@ -643,6 +619,21 @@
                 return totalPrice - totalDiscount;
             });
 
+            self.createNewItem = function (item) {
+                self.isOpen(true);
+                var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
+                        false, false, 3, 1,
+                        false, true, true, true, "00000000-0000-0000-0000-000000000000", "1");
+                self.currentModalItem(newt);
+            };
+
+            self.createNewDiscount = function (item) {
+                self.isOpen(true);
+                var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
+                    true, true, 3, 1,
+                    false, true, true, true, "00000000-0000-0000-0000-000000000000", "99");
+                self.currentModalItem(newt);
+            };
 
             self.openModal = function (item) {
                 self.isOpen(true);
@@ -663,8 +654,9 @@
                 }
 
             };
+
             self.save = function () {
-                //debugger;
+                debugger;
                 var current = self.currentModalItem();
                 if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
                     product = ko.utils.arrayFirst(vm.Items(), function (item) {
