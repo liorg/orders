@@ -13,9 +13,11 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-
+using System.Data.Entity;
+using Michal.Project.DataModel;
 
 
 namespace Michal.Project.Api
@@ -36,7 +38,7 @@ namespace Michal.Project.Api
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public HttpResponseMessage GetOffer(Guid shipid, Guid offerId)
+        public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -46,20 +48,20 @@ namespace Michal.Project.Api
                 var distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 var priceList = cache.GetPriceList(context);
                 var shiptypeLists = cache.GetShipType(context);
-                var products = cache.GetProducts(context,organid);
+                var products = cache.GetProducts(context, organid);
                 var user = new UserContext(userContext);
-
+                decimal? priceValue = null;
+                PriceList price = null;
                 OfferClient offerClient = new OfferClient();
 
                 offerClient.Distance = new List<OfferClientItem>();
                 foreach (var distance in distances)
                 {
-                    decimal? priceValue=null;
-                    var  price=priceList.Where(p=>p.ObjectId==distance.DistanceId && p.ObjectTypeCode==(int)ObjectTypeCode.Distance).FirstOrDefault();
-                    if(price!=null){
-                    priceValue=price.PriceValue;
-                    }
-
+                    priceValue = null;
+                    price = priceList.Where(p => p.ObjectId == distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
+                    if (price != null)
+                       priceValue = price.PriceValue;
+                    
                     offerClient.Distance.Add(new OfferClientItem
                     {
                         Amount = 1,
@@ -68,7 +70,7 @@ namespace Michal.Project.Api
                         IsDiscount = false,
                         IsPresent = false,
                         Name = distance.Name,
-                        ProductPrice= priceValue,
+                        ProductPrice = priceValue,
                         StatusRecord = 1
                     });
                 }
@@ -76,13 +78,11 @@ namespace Michal.Project.Api
                 offerClient.ShipType = new List<OfferClientItem>();
                 foreach (var shiptypeItem in shiptypeLists)
                 {
-                    decimal? priceValue = null;
-                    var price = priceList.Where(p => p.ObjectId == shiptypeItem.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
+                    priceValue = null;
+                    price = priceList.Where(p => p.ObjectId == shiptypeItem.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
                     if (price != null)
-                    {
-                        priceValue = price.PriceValue;
-                    }
-
+                       priceValue = price.PriceValue;
+                    
                     offerClient.ShipType.Add(new OfferClientItem
                     {
                         Amount = 1,
@@ -98,12 +98,10 @@ namespace Michal.Project.Api
                 offerClient.Products = new List<OfferClientItem>();
                 foreach (var productItem in products)
                 {
-                    decimal? priceValue = null;
-                    var price = priceList.Where(p => p.ObjectId == productItem.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
+                    priceValue = null;
+                    price = priceList.Where(p => p.ObjectId == productItem.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
                     if (price != null)
-                    {
                         priceValue = price.PriceValue;
-                    }
 
                     offerClient.Products.Add(new OfferClientItem
                     {
@@ -118,33 +116,77 @@ namespace Michal.Project.Api
                     });
                 }
                 var demo = new OfferDemo();
-             
+
                 offerClient.Items = new List<OfferItem>();
-                offerClient.Items.Add(new OfferItem
+                if (offerId == Guid.Empty)
                 {
-                    Id = Guid.NewGuid(),
-                    Name = " פריט מסוים",
-                    Desc = "מתוך המערכת פריט",
-                    IsDiscount = false,
-                    IsPresent = false,
-                    ProductPrice = 1,
-                    StatusRecord = 1,
-                    Amount = 23,
-                    ObjectId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    ObjectIdType = 1
-                });
-                offerClient.Items.Add(new OfferItem
-                {
-                    Id = Guid.NewGuid(),
-                    Name = " פריט מסוים2",
-                    Desc = "מתוך המערכת פריט2",
-                    IsDiscount = false,
-                    IsPresent = false,
-                    ProductPrice = null,
-                    StatusRecord = 1,
-                    ObjectId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                    ObjectIdType = 1
-                });
+
+                    var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
+                    foreach (var item in ship.ShippingItems)
+                    {
+                        priceValue = null; 
+                        var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
+                        if (price2 != null)
+                            priceValue = price2.PriceValue;
+                        
+
+                        offerClient.Items.Add(new OfferItem
+                        {
+                            Id = Guid.NewGuid(),
+                            IsDiscount = false,
+                            IsPresent = false,
+                            Name = item.Product.Name,
+                            ObjectId = item.Product.ProductId,
+                            ObjectIdType = (int)ObjectTypeCode.Product,
+                            ProductPrice = priceValue,
+                            Amount = Convert.ToInt32(item.Quantity)
+                        });
+                    }
+                    priceValue = null;
+                    price = priceList.Where(p => p.ObjectId == ship.ShipType.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
+                    if (price != null)
+                    {
+                        priceValue = price.PriceValue;
+                    }
+                    offerClient.Items.Add(new OfferItem
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = ship.ShipType.Name,
+                        Desc = ship.ShipType.Desc,
+                        IsDiscount = false,
+                        IsPresent = false,
+                        ProductPrice = 1,
+                        StatusRecord = 1,
+                        Amount = 1,
+                        ObjectId = ship.ShipType.ShipTypeId,
+                        ObjectIdType = (int)ObjectTypeCode.ShipType
+                    });
+                }
+                //offerClient.Items.Add(new OfferItem
+                //{
+                //    Id = Guid.NewGuid(),
+                //    Name = " פריט מסוים",
+                //    Desc = "מתוך המערכת פריט",
+                //    IsDiscount = false,
+                //    IsPresent = false,
+                //    ProductPrice = 1,
+                //    StatusRecord = 1,
+                //    Amount = 23,
+                //    ObjectId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                //    ObjectIdType = 1
+                //});
+                //offerClient.Items.Add(new OfferItem
+                //{
+                //    Id = Guid.NewGuid(),
+                //    Name = " פריט מסוים2",
+                //    Desc = "מתוך המערכת פריט2",
+                //    IsDiscount = false,
+                //    IsPresent = false,
+                //    ProductPrice = null,
+                //    StatusRecord = 1,
+                //    ObjectId = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                //    ObjectIdType = 1
+                //});
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
@@ -168,7 +210,7 @@ namespace Michal.Project.Api
                                         select d).ToList();
                 var data = JsonConvert.SerializeObject(offerClient);
                 var responseBody = @"var offerClient = " + data + ";";
-               
+
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
 
@@ -179,5 +221,7 @@ namespace Michal.Project.Api
                 return response;
             }
         }
+
+    
     }
 }

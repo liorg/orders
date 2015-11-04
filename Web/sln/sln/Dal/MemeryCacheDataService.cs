@@ -287,5 +287,18 @@ namespace Michal.Project.Dal
             }
             return lists;
         }
+
+        public List<ProductSystem> GetProductsSystem(ApplicationDbContext context)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<ProductSystem> lists = null;
+            cacheMemoryProvider.Get("GetProductsSystem", out lists);
+            if (lists == null)
+            {
+                lists = context.ProductSystem.Where(s => s.IsActive==true).ToList();
+                cacheMemoryProvider.Set("GetProductsSystem", lists);
+            }
+            return lists;
+        }
     }
 }
