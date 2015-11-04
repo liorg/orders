@@ -25,14 +25,16 @@ namespace Michal.Project.Models
         public string Name { get; set; }
 
         public List<OfferClientItem> Discounts { get; set; }
-        public List<OfferClientItem> AddItems { get; set; }
+       // public List<OfferClientItem> AddItems { get; set; }
         public List<OfferClientItem> Distance { get; set; }
         public List<OfferClientItem> ShipType { get; set; }
         public List<OfferClientItem> Products { get; set; }
+
         public OfferClient()
         {
 
         }
+
         public bool AllowAddDiscount
         {
             get
@@ -88,33 +90,39 @@ namespace Michal.Project.Models
         }
         public bool AllowEdit
         {
-            get
-            {
-                if (HttpContext.Current != null && HttpContext.Current.User != null &&
-                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-                    return true;
-                return false;
-            }
+            get;
+            set;
+            //get
+            //{
+            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
+            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+            //        return true;
+            //    return false;
+            //}
         }
         public bool AllowRemove
         {
-            get
-            {
-                if (HttpContext.Current != null && HttpContext.Current.User != null &&
-                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-                    return true;
-                return false;
-            }
+            get;
+            set;
+            //get
+            //{
+            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
+            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+            //        return true;
+            //    return false;
+            //}
         }
         public bool AllowCancel
         {
-            get
-            {
-                if (HttpContext.Current != null && HttpContext.Current.User != null &&
-                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-                    return true;
-                return false;
-            }
+            get;
+            set;
+            //get
+            //{
+            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
+            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+            //        return true;
+            //    return false;
+            //}
         }
     }
 

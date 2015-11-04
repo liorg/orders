@@ -42,11 +42,21 @@ namespace Michal.Project.Api
         {
             using (var context = new ApplicationDbContext())
             {
+                bool allowRemove = false;
+            //    bool allowAdd = false;
+                bool allowEdit = false;
+
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                   (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                {
+                    allowRemove = true;
+                  //  allowAdd = true;
+                    allowEdit = true;
+                }
                 var organid = cache.GetOrg(context);
-                var distances = cache.GetDistancesPerOrg(context, organid); 
+                var distances = cache.GetDistancesPerOrg(context, organid);
                 var priceList = cache.GetPriceList(context);
                 var shiptypeLists = cache.GetShipType(context);
                 var discountLists = cache.GetDiscount(context);
@@ -60,7 +70,7 @@ namespace Michal.Project.Api
                 decimal? priceValue = null;
                 PriceList price = null;
                 OfferClient offerClient = new OfferClient();
-
+           
                 var discounts = new List<OfferClientItem>();
                 foreach (var discount in discountLists)
                 {
@@ -74,6 +84,8 @@ namespace Michal.Project.Api
                         Name = discount.Name,
                         ProductPrice = null,
                         StatusRecord = 1,
+                        AllowEdit=allowEdit,
+                        AllowRemove=allowRemove
                     });
                 }
 
@@ -94,7 +106,9 @@ namespace Michal.Project.Api
                         IsPresent = false,
                         Name = distance.Name,
                         ProductPrice = priceValue,
-                        StatusRecord = 1
+                        StatusRecord = 1,
+                        AllowEdit = allowEdit,
+                        AllowRemove = false
                     });
                 }
 
@@ -115,7 +129,9 @@ namespace Michal.Project.Api
                         IsPresent = false,
                         Name = shiptypeItem.Name,
                         ProductPrice = priceValue,
-                        StatusRecord = 1
+                        StatusRecord = 1,
+                        AllowEdit = allowEdit,
+                        AllowRemove = false
                     });
                 }
                 offerClient.Products = new List<OfferClientItem>();
@@ -135,10 +151,11 @@ namespace Michal.Project.Api
                         IsPresent = false,
                         Name = productItem.Name,
                         ProductPrice = priceValue,
-                        StatusRecord = 1
+                        StatusRecord = 1,
+                        AllowEdit = allowEdit,
+                        AllowRemove = false
                     });
                 }
-                //var demo = new OfferDemo();
 
                 offerClient.Items = new List<OfferItem>();
                 if (offerId == Guid.Empty)
@@ -159,16 +176,18 @@ namespace Michal.Project.Api
                             Id = Guid.NewGuid(),
                             IsDiscount = true,
                             IsPresent = false,
-                            Desc=discountSweep.Desc,
-                            StatusRecord=1,
+                            Desc = discountSweep.Desc,
+                            StatusRecord = 1,
                             Name = discountSweep.Name,
                             ObjectId = discountSweep.DiscountId,
                             ObjectIdType = (int)ObjectTypeCode.Discount,
                             ProductPrice = null,
-                            Amount = 1
+                            Amount = 1,
+                            AllowEdit = allowEdit,
+                            AllowRemove = allowRemove
                         });
                     }
-                     foreach (var item in ship.ShippingItems)
+                    foreach (var item in ship.ShippingItems)
                     {
                         priceValue = null;
                         var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
@@ -184,7 +203,10 @@ namespace Michal.Project.Api
                             ObjectId = item.Product.ProductId,
                             ObjectIdType = (int)ObjectTypeCode.Product,
                             ProductPrice = priceValue,
-                            Amount = Convert.ToInt32(item.Quantity)
+                            StatusRecord = 1,
+                            Amount = Convert.ToInt32(item.Quantity),
+                            AllowEdit = allowEdit,
+                            AllowRemove = false
                         });
                     }
                     priceValue = null;
@@ -204,14 +226,16 @@ namespace Michal.Project.Api
                         StatusRecord = 1,
                         Amount = 1,
                         ObjectId = ship.ShipType.ShipTypeId,
-                        ObjectIdType = (int)ObjectTypeCode.ShipType
+                        ObjectIdType = (int)ObjectTypeCode.ShipType,
+                        AllowEdit = allowEdit,
+                        AllowRemove = false
                     });
 
                     priceValue = null;
                     price = priceList.Where(p => p.ObjectId == ship.Distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
                     if (price != null)
-                      priceValue = price.PriceValue;
-                    
+                        priceValue = price.PriceValue;
+
                     offerClient.Items.Add(new OfferItem
                     {
                         Id = Guid.NewGuid(),
@@ -223,14 +247,15 @@ namespace Michal.Project.Api
                         StatusRecord = 1,
                         Amount = 1,
                         ObjectId = ship.Distance.DistanceId,
-                        ObjectIdType = (int)ObjectTypeCode.ShipType
+                        ObjectIdType = (int)ObjectTypeCode.ShipType,
+                        AllowEdit = allowEdit,
+                        AllowRemove = false
                     });
                 }
 
                 //offerClient.Discounts = (from d in demo.Discounts
                 //                         where !offerClient.Items.Any(o => o.ObjectIdType == (int)ObjectTypeCode.Discount && o.ObjectId == d.Id)
                 //                         select d).ToList();
-
 
                 var data = JsonConvert.SerializeObject(offerClient);
                 var responseBody = @"var offerClient = " + data + ";";

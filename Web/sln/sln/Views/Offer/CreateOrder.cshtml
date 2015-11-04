@@ -311,19 +311,24 @@
                                     <div class="panel panel-primary ">
                                         <div class="panel-heading">
                                             הצג פרטי ההזמנה 
+                                            <!-- ko if: AllowAddDiscount() == true ||  AllowAddItem() ==true -->
                                             <div class="pull-right action-buttons">
                                                 <div class="btn-group pull-right">
                                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                                         <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
                                                     </button>
                                                     <ul class="dropdown-menu slidedown">
+                                                        <!-- ko if: AllowAddDiscount() == true -->
                                                          <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
-                                                  
+                                                        <!-- /ko -->
+                                                        <!-- ko if: AllowAddItem() ==true -->
                                                         <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
-                                                    </ul>
+                                                        <!-- /ko -->
+                                                     </ul>
 
                                                 </div>
                                             </div>
+                                        <!-- /ko -->
                                         </div>
                                         <div class="panel-body">
                                             <ul class="list-group" data-bind="foreach: Items">
@@ -549,6 +554,8 @@
             self.Items = ko.mapping.fromJS(vmData.Items);
             self.Discounts = ko.observableArray(vmData.Discounts);
             self.DirtyDiscounts = ko.observableArray();
+            self.AllowAddItem = ko.observable(vmData.AllowAddItem);
+            self.AllowAddDiscount = ko.observable(vmData.AllowAddDiscount);
 
             self.currentModalItem = ko.observable(null);
 
@@ -566,8 +573,8 @@
                 var count = getTotalPrice();
                 if (count != null) return count.toFixed(2);
                 return count;
-                // return 100;
             });
+
             function getTotalPrice() {
                 var count = 0;
                 for (var i = 0; i < self.Items().length; i++) {
