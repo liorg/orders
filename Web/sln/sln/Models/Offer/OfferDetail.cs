@@ -26,6 +26,8 @@ namespace Michal.Project.Models
 
         public List<OfferClientItem> Discounts { get; set; }
         public List<OfferClientItem> AddItems { get; set; }
+        public List<OfferClientItem> Distance { get; set; }
+        public List<OfferClientItem> ShipType { get; set; }
         public OfferClient()
         {
 
@@ -62,11 +64,20 @@ namespace Michal.Project.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
-        public double? PriceValue { get; set; }
+
+        public decimal? PriceValue
+        {
+            get
+            {
+                return ProductPrice.HasValue ? ProductPrice.Value * Amount : ProductPrice;
+            }
+        }
         public bool IsPresent { get; set; }
         public bool IsDiscount { get; set; }
         public int StatusRecord { get; set; } // 1 =addbysystem,2=remove,3=addnew,4=edit
         public int Amount { get; set; }
+        public decimal? ProductPrice { get; set; }
+
         public bool HasPrice
         {
             get
@@ -127,7 +138,7 @@ namespace Michal.Project.Models
                 Desc = "הנחה שניה...",
                 IsDiscount = true,
                 IsPresent = true,
-                PriceValue = 1,
+                ProductPrice = 1,
                 StatusRecord = 1
             });
             Discounts.Add(new OfferClientItem
@@ -137,7 +148,7 @@ namespace Michal.Project.Models
                 Desc = "הנחה שלישית...",
                 IsDiscount = true,
                 IsPresent = false,
-                PriceValue = 22,
+                ProductPrice = 22,
                 StatusRecord = 1
             });
             Discounts.Add(new OfferClientItem
@@ -147,7 +158,7 @@ namespace Michal.Project.Models
                 Desc = "הנחה רביעית...",
                 IsDiscount = true,
                 IsPresent = false,
-                PriceValue = 1,
+                ProductPrice = 1,
                 StatusRecord = 1
             });
             AddItems = new List<OfferClientItem>();
@@ -157,7 +168,7 @@ namespace Michal.Project.Models
                 Name = "a1",
                 IsDiscount = false,
                 IsPresent = false,
-                PriceValue = 100,
+                ProductPrice = 100,
                 StatusRecord = 1
             });
             AddItems.Add(new OfferClientItem
@@ -166,7 +177,7 @@ namespace Michal.Project.Models
                 Name = "a2",
                 IsDiscount = false,
                 IsPresent = false,
-                PriceValue = 100,
+                ProductPrice = 100,
                 StatusRecord = 1
             });
         }

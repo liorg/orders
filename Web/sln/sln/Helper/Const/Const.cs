@@ -6,14 +6,21 @@ using System.Web;
 namespace Michal.Project.Helper
 {
     public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5 };
-    
+    //1 =product,2=productsystem,3=distance,4=shiptype
+
+    public enum ObjectTypeCode
+    {
+        Product = 1, ProductSystem=2,Distance=3,ShipType=4
+    }
     public enum AlertStyle
     {
         Default=0,
         Success=4,
         Warning=3,
         Info=1,
-        Error=2
+        Error=2,
+        WaitingGet = 5,//timewait on get delievry
+        WaitingSet=6//timewait on set delievry
     }
     public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 

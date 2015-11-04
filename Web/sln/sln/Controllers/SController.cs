@@ -236,9 +236,7 @@ namespace Michal.Project.Controllers
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
                 ViewBag.Directions = new SelectList(directions, "Key", "Value");
-                //if (String.IsNullOrEmpty(orgid))
-                //    orgid = userContext.OrgId.ToString();
-                //var organid = Guid.Parse(orgid);
+             
                 var organid = cache.GetOrg(context);
                 distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
 

@@ -240,5 +240,40 @@ namespace Michal.Project.Dal
             return lists;
 
         }
+
+        public List<PriceList> GetPriceList(ApplicationDbContext context)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<PriceList> lists = null;
+            cacheMemoryProvider.Get("GetPriceList", out lists);
+            if (lists == null)
+            {
+                lists = (from pr in context.PriceList
+                         where pr.IsActive == true && !pr.EndDate.HasValue
+                         select pr
+                              ).ToList();
+                cacheMemoryProvider.Set("GetPriceList", lists);
+            }
+            return lists;
+
+        }
+
+
+        public List<Discount> GetDiscount(ApplicationDbContext context)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<Discount> lists = null;
+            cacheMemoryProvider.Get("GetDiscount", out lists);
+            if (lists == null)
+            {
+                lists = (from pr in context.Discount
+                         where pr.IsActive == true && !pr.EndDate.HasValue
+                         select pr
+                              ).ToList();
+                cacheMemoryProvider.Set("GetDiscount", lists);
+            }
+            return lists;
+
+        }
     }
 }
