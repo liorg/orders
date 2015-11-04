@@ -258,7 +258,6 @@ namespace Michal.Project.Dal
 
         }
 
-
         public List<Discount> GetDiscount(ApplicationDbContext context)
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
@@ -274,6 +273,19 @@ namespace Michal.Project.Dal
             }
             return lists;
 
+        }
+
+        public List<Product> GetProducts(ApplicationDbContext context, Guid orgId)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<Product> lists = null;
+            cacheMemoryProvider.Get("GetProducts", out lists);
+            if (lists == null)
+            {
+                lists = context.Product.Where(s => s.Organizations.Any(e =>  e.OrgId == orgId)).ToList();
+                cacheMemoryProvider.Set("GetProducts", lists);
+            }
+            return lists;
         }
     }
 }

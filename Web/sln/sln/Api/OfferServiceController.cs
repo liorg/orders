@@ -46,6 +46,7 @@ namespace Michal.Project.Api
                 var distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
                 var priceList = cache.GetPriceList(context);
                 var shiptypeLists = cache.GetShipType(context);
+                var products = cache.GetProducts(context,organid);
                 var user = new UserContext(userContext);
 
                 OfferClient offerClient = new OfferClient();
@@ -82,7 +83,7 @@ namespace Michal.Project.Api
                         priceValue = price.PriceValue;
                     }
 
-                    offerClient.Distance.Add(new OfferClientItem
+                    offerClient.ShipType.Add(new OfferClientItem
                     {
                         Amount = 1,
                         Desc = shiptypeItem.Desc,
@@ -90,6 +91,28 @@ namespace Michal.Project.Api
                         IsDiscount = false,
                         IsPresent = false,
                         Name = shiptypeItem.Name,
+                        ProductPrice = priceValue,
+                        StatusRecord = 1
+                    });
+                }
+                offerClient.Products = new List<OfferClientItem>();
+                foreach (var productItem in products)
+                {
+                    decimal? priceValue = null;
+                    var price = priceList.Where(p => p.ObjectId == productItem.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
+                    if (price != null)
+                    {
+                        priceValue = price.PriceValue;
+                    }
+
+                    offerClient.Products.Add(new OfferClientItem
+                    {
+                        Amount = 1,
+                        Desc = productItem.Desc,
+                        Id = productItem.ProductId,
+                        IsDiscount = false,
+                        IsPresent = false,
+                        Name = productItem.Name,
                         ProductPrice = priceValue,
                         StatusRecord = 1
                     });

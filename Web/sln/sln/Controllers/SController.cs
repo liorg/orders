@@ -257,10 +257,7 @@ namespace Michal.Project.Controllers
                 UserContext userContext = new UserContext(AuthenticationManager);
                   MemeryCacheDataService cache = new MemeryCacheDataService();
                   shipping.Organization_OrgId = cache.GetOrg(context);
-                //if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                //    shipping.Organization_OrgId = userContext.OrgId;
-                //else
-                //    shipping.Organization_OrgId = shippingVm.OrgId;
+            
 
                 var userid = userContext.UserId;
                 shipping.ShippingId = Guid.NewGuid();

@@ -68,12 +68,14 @@ namespace Michal.Project.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                var cache = new MemeryCacheDataService();
+               var orgid=cache.GetOrg(context);
                 var model = new ShippingItemVm();
                 model.ShipId = Guid.Parse(id);
                 model.Total = 1;
 
                 var ship = await context.Shipping.FindAsync(model.ShipId);
-                var products = await context.Product.Where(s => s.Organizations.Any(e => ship.Organization_OrgId.HasValue && e.OrgId == ship.Organization_OrgId.Value)).ToListAsync();
+                var products = cache.GetProducts(context, orgid); //await context.Product.Where(s => s.Organizations.Any(e => ship.Organization_OrgId.HasValue && e.OrgId == ship.Organization_OrgId.Value)).ToListAsync();
                 model.OrderNumber = ship.Name;
                 ViewBag.Products = new SelectList(products, "ProductId", "Name");
                 ViewBag.ShipId = id;
@@ -113,6 +115,7 @@ namespace Michal.Project.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                var cache = new MemeryCacheDataService();
                 var model = new ShippingItemVm();
                 model.ShipId = Guid.Parse(id);
 
@@ -121,7 +124,8 @@ namespace Michal.Project.Controllers
                     throw new ArgumentNullException("shipItem");
                 var ship = shipItem.Shipping;
                 var org = ship.Organization_OrgId;
-                var products = await context.Product.Where(s => s.Organizations.Any(e => org.HasValue && e.OrgId == org.Value)).ToListAsync();
+                var orgid = cache.GetOrg(context);
+                var products = cache.GetProducts(context, orgid);//await context.Product.Where(s => s.Organizations.Any(e => org.HasValue && e.OrgId == org.Value)).ToListAsync();
                 model.OrderNumber = ship.Name;
                 model.Id = shipItem.ShippingItemId;
                 model.ProductId = shipItem.Product_ProductId.GetValueOrDefault();
@@ -141,18 +145,12 @@ namespace Michal.Project.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                Guid userid = Guid.Empty;
                 var shippingItem = await context.ShippingItem.FindAsync(shippingItemVm.Id);
-
-                ClaimsIdentity claimsIdentity = AuthenticationManager.User.Identity as ClaimsIdentity;
-                foreach (var claim in claimsIdentity.Claims)
-                {
-                    if (claim.Type == ClaimTypes.NameIdentifier)
-                        userid = Guid.Parse(claim.Value);
-                }
-
+                UserContext userContext = new UserContext(AuthenticationManager);
+                
+                var userid = userContext.UserId;
                 shippingItem.Quantity = shippingItemVm.Total;
-
+                shippingItem.Product_ProductId = shippingItemVm.ProductId;
                 shippingItem.ModifiedOn = DateTime.Now;
                 shippingItem.ModifiedBy = userid;
 

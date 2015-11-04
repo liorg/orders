@@ -28,6 +28,7 @@ namespace Michal.Project.Models
         public List<OfferClientItem> AddItems { get; set; }
         public List<OfferClientItem> Distance { get; set; }
         public List<OfferClientItem> ShipType { get; set; }
+        public List<OfferClientItem> Products { get; set; }
         public OfferClient()
         {
 
