@@ -509,7 +509,7 @@
         function OfferItem(id, name, desc, priceValue,
             isPresent, isDiscount, statusRecord, amount,
             hasPrice, allowEdit, allowRemove, allowCancel,
-            objectId, objectIdType
+            objectId, objectIdType, productPrice
             ) {
             this.Id = ko.observable(id);
             this.Name = ko.observable(name);
@@ -529,19 +529,51 @@
             this.ObjectId = ko.observable(objectId);
             this.ObjectIdType = ko.observable(objectIdType);
 
+            this.ProductPrice = ko.observable(productPrice);
+
+            this.Total = ko.computed(function () {
+                return this.ProductPrice() * this.Amount();
+            }.bind(this));
+
             this.ObjectId.subscribe(function (newId) {
                 // debugger;
                 var newProduct = null;
+                var objectType = this.ObjectIdType();
+                debugger;
+                switch (objectType) {
+                    case 99:
+                        newProduct = ko.utils.arrayFirst(vm.Discounts(), function (item) {
+                            return item.Id == newId;
+                        });
+                        break;
+                    case 1:
+                        newProduct = ko.utils.arrayFirst(vm.Products(), function (item) {
+                            return item.Id == newId;
+                        });
+                        break;
+                    case 3:
+                        newProduct = ko.utils.arrayFirst(vm.Distances(), function (item) {
+                            return item.Id == newId;
+                        });
+                        break;
+                    case 4:
+                        newProduct = ko.utils.arrayFirst(vm.ShipTypes(), function (item) {
+                            return item.Id == newId;
+                        });
+                        break;
+                    default:
+                        newProduct = null;
+                        break;
 
-                if (this.IsDiscount()) {
-                    newProduct = ko.utils.arrayFirst(vm.Discounts(), function (item) {
-                        return item.Id == newId;
-                    });
                 }
-
+                
                 if (newProduct != null) {
                     this.Name(newProduct.Name);
                     this.Desc(newProduct.Desc);
+                    this.Amount(newProduct.Amount);
+                    this.ProductPrice(newProduct.ProductPrice);
+                    this.IsPresent(newProduct.IsPresent);
+
                 }
             }.bind(this));
         };
@@ -551,9 +583,16 @@
         function AppViewModel(vmData) {
             var self = this;
             self.isOpen = ko.observable(false);
+
             self.Items = ko.mapping.fromJS(vmData.Items);
+
             self.Discounts = ko.observableArray(vmData.Discounts);
+            self.Products = ko.observableArray(vmData.Products);
+            self.ShipTypes = ko.observableArray(vmData.ShipTypes);
+            self.Distances = ko.observableArray(vmData.Distances);
+
             self.DirtyDiscounts = ko.observableArray();
+
             self.AllowAddItem = ko.observable(vmData.AllowAddItem);
             self.AllowAddDiscount = ko.observable(vmData.AllowAddDiscount);
 
@@ -630,7 +669,7 @@
                 self.isOpen(true);
                 var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
                         false, false, 3, 1,
-                        false, true, true, true, "00000000-0000-0000-0000-000000000000", "1");
+                        false, true, true, true, "00000000-0000-0000-0000-000000000000", 1,0);
                 self.currentModalItem(newt);
             };
 
@@ -638,28 +677,20 @@
                 self.isOpen(true);
                 var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
                     true, true, 3, 1,
-                    false, true, true, true, "00000000-0000-0000-0000-000000000000", "99");
+                    false, true, true, true, "00000000-0000-0000-0000-000000000000", 99,null);
                 self.currentModalItem(newt);
             };
 
             self.openModal = function (item) {
                 self.isOpen(true);
-                if (item instanceof AppViewModel) {
-                    //var it = { "ObjectId": "00000000-0000-0000-0000-000000000000", "ObjectIdType": 2, "Id": "00000000-0000-0000-0000-000000000000", "Name": "...", "Desc": "....", "PriceValue": 10.0, "IsPresent": false, "IsDiscount": true, "StatusRecord": 3, "Amount": 1, "HasPrice": true, "AllowEdit": true, "AllowRemove": true, "AllowCancel": true };
-                    var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "new desc", null,
-                        true, true, 3, 1,
-                        false, true, true, true, "00000000-0000-0000-0000-000000000000", "99");
-                    self.currentModalItem(newt);
-                }
-                else {
-                    var editt = new OfferItem(item.Id(), item.Name(), item.Desc(), item.PriceValue(),
-                        item.IsPresent(), item.IsDiscount(), item.StatusRecord(), item.Amount(),
-                        item.HasPrice(), item.AllowEdit(), item.AllowRemove(), item.AllowCancel(),
-                        item.ObjectId(), item.ObjectIdType());
 
-                    self.currentModalItem(editt);
-                }
+                var editt = new OfferItem(item.Id(), item.Name(), item.Desc(), item.PriceValue(),
+                    item.IsPresent(), item.IsDiscount(), item.StatusRecord(), item.Amount(),
+                    item.HasPrice(), item.AllowEdit(), item.AllowRemove(), item.AllowCancel(),
+                    item.ObjectId(), item.ObjectIdType(), item.ProductPrice());
 
+                self.currentModalItem(editt);
+               
             };
 
             self.save = function () {
@@ -670,7 +701,15 @@
                         return item.Id() == current.Id();
                     });
                     if (product != null) {
-                        product.PriceValue(current.PriceValue());
+                      //  product.PriceValue(current.PriceValue());
+                        product.Name(current.Name());
+                        product.Desc(current.Desc());
+                        product.IsPresent(current.IsPresent());
+                        product.IsDiscount(current.IsDiscount());
+                        product.Amount(current.Amount());
+                        product.ObjectId(current.ObjectId());
+                        product.ObjectIdType(current.ObjectIdType());
+                        product.PriceValue(current.Total());
                         product.HasPrice(true);
                     }
                 }
@@ -679,7 +718,7 @@
                     item.Id = generateUUID();
                     item.Name = current.Name();
                     item.Desc = current.Desc();
-                    item.PriceValue = current.PriceValue();
+                    item.PriceValue = current.Total();
                     item.IsPresent = current.IsPresent();
                     item.IsDiscount = current.IsDiscount();
                     item.StatusRecord = 4;
@@ -734,34 +773,58 @@
                         <label class="col-md-2 control-label" for="DistanceId">שם:</label>
                         <div class="col-md-6">
 
-                            <!-- ko if: IsDiscount() ==true && StatusRecord() ==3-->
+                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() ==3-->
                             <select class="form-control" data-bind=" options: $parent.Discounts,
-    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-    optionsCaption: 'בחר הנחה...'">
+                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                                optionsCaption: 'בחר הנחה...'">
                             </select>
                             <!-- /ko -->
-                            <!-- ko if: StatusRecord() !=3-->
-                            <input type="text" data-bind="textInput: Name" />
+                            <!-- ko if: ObjectIdType() ==1 -->
+                            <select class="form-control" data-bind=" options: $parent.Products,
+                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                                optionsCaption: 'בחר פריט...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==4 -->
+                            <select class="form-control" data-bind=" options: $parent.ShipTypes,
+                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                                optionsCaption: 'בחר סוג משלוח...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==3 -->
+                            <select class="form-control" data-bind=" options: $parent.Distances,
+                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                                optionsCaption: 'בחר מרחק...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() !=3-->
+                            <input class="form-control" type="text" data-bind="textInput: Name" />
                             <i></i>
                             <!-- /ko -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">מחיר:</label>
+                        <label class="col-md-2 control-label" for="DistanceId">מחיר ליחידה:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: PriceValue" />
+                            <input class="form-control" data-bind="textInput: ProductPrice" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="DistanceId">כמות:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: Amount" />
+                            <input class="form-control" data-bind="textInput: Amount" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="DistanceId">סה"כ:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" data-bind="textInput: Total" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="DistanceId">תיאור:</label>
                         <div class="col-md-6">
-                            <input data-bind="textInput: Desc" />
+                            <input class="form-control" data-bind="textInput: Desc" />
                         </div>
                     </div>
                 </form>

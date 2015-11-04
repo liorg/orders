@@ -192,11 +192,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\LocationAgent.cs" />
-    <Compile Include="Api\AddressController.cs" />
-    <Compile Include="Api\OfferServiceController.cs">
+    <Compile Include="Agent\Api\AddressController.cs" />
+    <Compile Include="Agent\Api\OfferServiceController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Api\OrdersController.cs" />
+    <Compile Include="Agent\Api\OrdersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

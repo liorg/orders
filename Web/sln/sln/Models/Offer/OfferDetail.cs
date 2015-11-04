@@ -26,8 +26,8 @@ namespace Michal.Project.Models
 
         public List<OfferClientItem> Discounts { get; set; }
        // public List<OfferClientItem> AddItems { get; set; }
-        public List<OfferClientItem> Distance { get; set; }
-        public List<OfferClientItem> ShipType { get; set; }
+        public List<OfferClientItem> Distances { get; set; }
+        public List<OfferClientItem> ShipTypes { get; set; }
         public List<OfferClientItem> Products { get; set; }
 
         public OfferClient()
@@ -62,12 +62,14 @@ namespace Michal.Project.Models
 
         public List<OfferItem> Items { get; set; }
     }
+
     public class OfferClientItem
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
         public Guid StatusShipping { get; set; }
+
         public decimal? PriceValue
         {
             get
@@ -92,37 +94,16 @@ namespace Michal.Project.Models
         {
             get;
             set;
-            //get
-            //{
-            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
-            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-            //        return true;
-            //    return false;
-            //}
         }
         public bool AllowRemove
         {
             get;
             set;
-            //get
-            //{
-            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
-            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-            //        return true;
-            //    return false;
-            //}
         }
         public bool AllowCancel
         {
             get;
             set;
-            //get
-            //{
-            //    if (HttpContext.Current != null && HttpContext.Current.User != null &&
-            //        (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-            //        return true;
-            //    return false;
-            //}
         }
     }
 
@@ -132,65 +113,65 @@ namespace Michal.Project.Models
         public int ObjectIdType { get; set; }
     }
 
-    public class OfferDemo
-    {
-        public List<OfferClientItem> Discounts { get; set; }
-        public List<OfferClientItem> AddItems { get; set; }
+    //public class OfferDemo
+    //{
+    //    public List<OfferClientItem> Discounts { get; set; }
+    //    public List<OfferClientItem> AddItems { get; set; }
 
-        public OfferDemo()
-        {
-            Discounts = new List<OfferClientItem>();
-            Discounts.Add(new OfferClientItem
-            {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                Name = "הנחה שניה",
-                Desc = "הנחה שניה...",
-                IsDiscount = true,
-                IsPresent = true,
-                ProductPrice = 1,
-                StatusRecord = 1
-            });
-            Discounts.Add(new OfferClientItem
-            {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                Name = "הנחה שלישית",
-                Desc = "הנחה שלישית...",
-                IsDiscount = true,
-                IsPresent = false,
-                ProductPrice = 22,
-                StatusRecord = 1
-            });
-            Discounts.Add(new OfferClientItem
-            {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000023"),
-                Name = "הנחה רביעית",
-                Desc = "הנחה רביעית...",
-                IsDiscount = true,
-                IsPresent = false,
-                ProductPrice = 1,
-                StatusRecord = 1
-            });
-            AddItems = new List<OfferClientItem>();
-            AddItems.Add(new OfferClientItem
-            {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                Name = "a1",
-                IsDiscount = false,
-                IsPresent = false,
-                ProductPrice = 100,
-                StatusRecord = 1
-            });
-            AddItems.Add(new OfferClientItem
-            {
-                Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                Name = "a2",
-                IsDiscount = false,
-                IsPresent = false,
-                ProductPrice = 100,
-                StatusRecord = 1
-            });
-        }
-    }
+    //    public OfferDemo()
+    //    {
+    //        Discounts = new List<OfferClientItem>();
+    //        Discounts.Add(new OfferClientItem
+    //        {
+    //            Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+    //            Name = "הנחה שניה",
+    //            Desc = "הנחה שניה...",
+    //            IsDiscount = true,
+    //            IsPresent = true,
+    //            ProductPrice = 1,
+    //            StatusRecord = 1
+    //        });
+    //        Discounts.Add(new OfferClientItem
+    //        {
+    //            Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+    //            Name = "הנחה שלישית",
+    //            Desc = "הנחה שלישית...",
+    //            IsDiscount = true,
+    //            IsPresent = false,
+    //            ProductPrice = 22,
+    //            StatusRecord = 1
+    //        });
+    //        Discounts.Add(new OfferClientItem
+    //        {
+    //            Id = Guid.Parse("00000000-0000-0000-0000-000000000023"),
+    //            Name = "הנחה רביעית",
+    //            Desc = "הנחה רביעית...",
+    //            IsDiscount = true,
+    //            IsPresent = false,
+    //            ProductPrice = 1,
+    //            StatusRecord = 1
+    //        });
+    //        AddItems = new List<OfferClientItem>();
+    //        AddItems.Add(new OfferClientItem
+    //        {
+    //            Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+    //            Name = "a1",
+    //            IsDiscount = false,
+    //            IsPresent = false,
+    //            ProductPrice = 100,
+    //            StatusRecord = 1
+    //        });
+    //        AddItems.Add(new OfferClientItem
+    //        {
+    //            Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+    //            Name = "a2",
+    //            IsDiscount = false,
+    //            IsPresent = false,
+    //            ProductPrice = 100,
+    //            StatusRecord = 1
+    //        });
+    //    }
+    //}
 
 
 }
