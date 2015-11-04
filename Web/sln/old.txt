@@ -1,25 +1,48 @@
 1.  follow ups /remove add
+@@@@@@@@@@@1.1 add
+1.2 remove
 2.  camera
 3.  upload
-4.  signture
-5.  report excel
-6.  close order
+@@@@@@@@@@@  4.  signture
+@@@@@@@@@@@  5.  report excel
+XXXXX 6.  close order
 7.  previous order
-8.  search 
-9.  price 
+@@@@@@@@@@@  8.  search 
+XXXXX 9.  price 
 10. lead 
-11. whatsup
+@@@@@@@@@@@  11. whatsup
 12. jwt json token-done
-13. auto complete city and adress
-14. google map
-15. accept money
+@@@@@@@@@@@12.1 jwt simple
+12.2 jwt expired
+@@@@@@@@@@@  13. auto complete city and adress
+@@@@@@@@@@@  14. google map
+XXXXX 15. accept money
 
 -------------------------------------------------
 
-1. address
+1. address fill lat and lang batch file
 2. layers
 3. attachments
 4. close/previous buck order
 5. followby
-6. 404/401/500 handler
-7. ui styles
+@@@@@@@@@@@  6. 404/401/500 handler
+@@@@@@@@@@@  7. ui styles
+--------------------------------------------------
+offer
+1. price
+2. close mission
+3 workflow
+
+--------------------------------------------------
+mission pricing
+1. remove
+2. edit
+2.1 edit shiptype
+2.2 edit distance
+3. add
+3.1 add item product
+4. autocomlete
+4. server side 
+4.1 fill current items (on new or on current offer)
+4.2 update current items
+5 discount client and server
