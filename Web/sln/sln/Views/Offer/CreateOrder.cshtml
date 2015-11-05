@@ -594,6 +594,7 @@
 
             self.Items = ko.mapping.fromJS(vmData.Items);
 
+
             self.Discounts = ko.observableArray(vmData.Discounts);
             self.Products = ko.observableArray(vmData.Products);
             self.ShipTypes = ko.observableArray(vmData.ShipTypes);
@@ -732,11 +733,11 @@
                     item.StatusRecord = 4;
                     item.Amount = current.Amount();
 
-                    item.HasPrice = current.PriceValue() != null && current.PriceValue() != "";
+                    item.HasPrice = current.Total() != null && current.Total() != "";
                     item.AllowEdit = current.AllowEdit();
                     item.AllowRemove = current.AllowRemove();
                     item.AllowCancel = current.AllowCancel();
-
+                    item.ProductPrice = current.ProductPrice();
                     item.ObjectId = current.ObjectId();
                     item.ObjectIdType = current.ObjectIdType();
                     var ob = ko.mapping.fromJS(item);
