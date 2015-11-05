@@ -5,6 +5,12 @@
 }
 <style>
     /*start :my*/
+        .truncate {
+          width: 25px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
     .priceb {
         color: white;
         font-size: 18px;
@@ -336,10 +342,12 @@
                                                     <!-- ko if: IsDiscount() ==true -->
                                                     <img class="pull-right" src="~/Content/img/percent16.png" />
                                                     <!-- /ko -->
-                                                    <i data-bind="text: Name"></i>
+                                                   
+                                                    <i  style=" display: inline-block;max-width: 100px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" data-bind="text: Name"> </i>
                                                     <!-- ko if: Amount()>1-->
-                                                    <b class="addplus" data-bind="text: Amount"></b>
+                                                    <i class="addplus pull-right badge" data-bind="text: Amount"></i>
                                                     <!-- /ko -->
+                                                   
                                                     @*<span class="pull-right badge">5</span>*@
                                                     <!-- ko if: HasPrice()==false -->
                                                     <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">אן מחיר</span>
@@ -418,7 +426,7 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                        
+                        ddd
                     </div>
                 </div>
             </div>
