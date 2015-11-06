@@ -234,7 +234,7 @@
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         <div class="btn-group" style="margin-left: 4px">
-            <button type="button" id="btnEdit" data-toggle="tooltip" title="שמור" data-placement="top"
+            <button type="button" id="btnEditPrice" data-toggle="tooltip" title="שמור" data-placement="top"
                 class="btn btn-success btn-circle btn-xl">
                 <img src="~/Content/img/ok32x32.png" />
             </button>
@@ -829,7 +829,11 @@
     </script>
 
     <script>
-        
+        $(document).ready(function () {
+            $('#btnEditPrice').click(function () {
+                alert(1);
+            });
+        });
     </script>
 }
 <!--http://jsfiddle.net/YmQTW/1/ -->
