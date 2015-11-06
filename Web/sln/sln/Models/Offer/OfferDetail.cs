@@ -15,14 +15,25 @@ namespace Michal.Project.Models
 
         public OfferItemVm OfferItemVm { get; set; }
     }
-
-    public class OfferClient : IShipView
+    public class Offer : IShipView
     {
 
         public Guid Id { get; set; }
         public Guid OfferId { get; set; }
-
         public string Name { get; set; }
+       
+    }
+    public class OfferUpload : Offer,IShipView
+    {
+        public List<OfferItem> DataItems { get; set; }
+    }
+    public class OfferClient :Offer, IShipView
+    {
+
+        //public Guid Id { get; set; }
+        //public Guid OfferId { get; set; }
+
+        //public string Name { get; set; }
 
         public List<OfferClientItem> Discounts { get; set; }
         public List<OfferClientItem> DirtyDiscounts { get; set; }

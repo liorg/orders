@@ -43,7 +43,7 @@ namespace Michal.Project.Api
             using (var context = new ApplicationDbContext())
             {
                 bool allowRemove = false;
-            //    bool allowAdd = false;
+                //    bool allowAdd = false;
                 bool allowEdit = false;
                 bool isPresent = false;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
@@ -52,7 +52,7 @@ namespace Michal.Project.Api
                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
                 {
                     allowRemove = true;
-                  //  allowAdd = true;
+                    //  allowAdd = true;
                     allowEdit = true;
                 }
                 var organid = cache.GetOrg(context);
@@ -70,16 +70,16 @@ namespace Michal.Project.Api
                 decimal? priceValue = null;
                 PriceList price = null;
                 OfferClient offerClient = new OfferClient();
-           
+
                 var discounts = new List<OfferClientItem>();
                 foreach (var discount in discountLists)
                 {
-                    priceValue = null; 
+                    priceValue = null;
                     isPresent = false;
                     price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
                     if (price != null)
                     {
-                        priceValue = price.PriceValue.HasValue?(decimal?) price.PriceValue.Value*-1:null;
+                        priceValue = price.PriceValue.HasValue ? (decimal?)price.PriceValue.Value * -1 : null;
                         isPresent = price.PriceValueType == 2 ? true : false;
                     }
 
@@ -93,8 +93,8 @@ namespace Michal.Project.Api
                         Name = discount.Name,
                         ProductPrice = priceValue,
                         StatusRecord = 1,
-                        AllowEdit=allowEdit,
-                        AllowRemove=allowRemove
+                        AllowEdit = allowEdit,
+                        AllowRemove = allowRemove
                     });
                 }
 
@@ -164,7 +164,7 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-                       
+
                         AllowRemove = false
                     });
                 }
@@ -182,10 +182,10 @@ namespace Michal.Project.Api
                     //var discountsSweep = discountLists.Where(ds => ds.IsSweeping == true).ToList();
 
                     offerClient.DirtyDiscounts = (from d in discountLists
-                                            join sd in discounts
-                                            on d.DiscountId equals sd.Id
-                                            where d.IsSweeping == true
-                                            select sd).ToList();
+                                                  join sd in discounts
+                                                  on d.DiscountId equals sd.Id
+                                                  where d.IsSweeping == true
+                                                  select sd).ToList();
 
                     foreach (var discountSweep in offerClient.DirtyDiscounts)
                     {
@@ -206,7 +206,7 @@ namespace Michal.Project.Api
                         });
 
                     }
-                  
+
                     foreach (var item in ship.ShippingItems)
                     {
                         priceValue = null;
@@ -220,7 +220,7 @@ namespace Michal.Project.Api
                             IsDiscount = false,
                             IsPresent = false,
                             Name = item.Product.Name,
-                            Desc=item.Product.Desc,
+                            Desc = item.Product.Desc,
                             ObjectId = item.Product.ProductId,
                             ObjectIdType = (int)ObjectTypeCode.Product,
                             ProductPrice = priceValue,
@@ -292,6 +292,22 @@ namespace Michal.Project.Api
             }
         }
 
+        [System.Web.Http.AcceptVerbs("POST")]
+        [Route("EditOffer")]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<HttpResponseMessage> EditOffer([FromBody] OfferUpload offer)
+        {
+            var result = new Result<Guid>();
+            result.Model = Guid.NewGuid();
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+
+                Content = new ObjectContent<Result<Guid>>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
 
     }
 }

@@ -831,7 +831,30 @@
     <script>
         $(document).ready(function () {
             $('#btnEditPrice').click(function () {
-                alert(1);
+                debugger;
+                var items=ko.mapping.toJS(vm.Items);
+                var offer = {
+                    'Id': offerClient.Id,
+                    'OfferId': offerClient.OfferId,
+                    'DataItems': items
+                };
+                
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/api/OfferService/EditOffer",
+                    data: offer,
+                    success: function (data) {
+                        debugger;
+                        alert(data);
+                    },
+                    error: function (error) {
+                        debugger;
+                        jsonValue = jQuery.parseJSON(error.responseText);
+                        //jError('An error has occurred while saving the new part source: ' + jsonValue, { TimeShown: 3000 });
+                    }
+                });
             });
         });
     </script>

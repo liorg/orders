@@ -329,6 +329,7 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\View\base\Result.cs" />
     <Compile Include="Models\View\UsersView.cs" />
     <Compile Include="Models\View\FollowsView.cs" />
     <Compile Include="Models\View\SpecialView.cs" />
