@@ -25,15 +25,15 @@
 
     .addpresent::after {
         content: "%";
-    }   
+    }
 
     .addsimbol::after {
         content: "₪";
     }
 
-.addpresent2::after {
+    .addpresent2::after {
         content: "(%)";
-    }   
+    }
 
     .addsimbol2::after {
         content: "(₪)";
@@ -336,7 +336,7 @@
                                                         <!-- ko if: AllowAddDiscount() == true -->
                                                          <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
                                                         <!-- /ko -->
-                                                        <!-- ko if: AllowAddItem() ==true -->
+                                                        <!-- ko if: AllowAddItem() ==true  -->
                                                         <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
                                                         <!-- /ko -->
                                                      </ul>
@@ -555,10 +555,9 @@
             }.bind(this));
 
             this.ObjectId.subscribe(function (newId) {
-                // debugger;
+
                 var newProduct = null;
                 var objectType = this.ObjectIdType();
-                debugger;
                 switch (objectType) {
                     case 99:
                         newProduct = ko.utils.arrayFirst(vm.Discounts(), function (item) {
@@ -609,21 +608,20 @@
             self.ShipTypes = ko.observableArray(vmData.ShipTypes);
             self.Distances = ko.observableArray(vmData.Distances);
 
-            self.DirtyDiscounts = ko.observableArray();
+            self.DirtyDiscounts = ko.observableArray(vmData.DirtyDiscounts);
+
             var pricesType = [
                         { "key": false, "value": "₪" },
                         { "key": true, "value": "%" }];
+
             self.priceTypeList = ko.observableArray(pricesType);
-
-            selectedCountry: ko.observable() // Nothing selected by default
-
             self.AllowAddItem = ko.observable(vmData.AllowAddItem);
             self.AllowAddDiscount = ko.observable(vmData.AllowAddDiscount);
 
             self.currentModalItem = ko.observable(null);
 
             self.cancelOffer = function (f) {
-                alert(f.Id());
+                var items = vm.Items;
                 var id = f.Id();
                 var r = confirm("האם את/ה בטוח/ה רוצה להסיר פריט?");
                 if (r == false) return;
@@ -631,11 +629,31 @@
                 var item = ko.utils.arrayFirst(vm.Items(), function (fitem) {
                     return fitem.Id() == id;
                 });
-                if (item == null) return;
-                alert(item.ObjectIdType());
+                if (item == null)
+                    return;
+
                 if (item.ObjectIdType() == 99) {
-                    alert("de");
+                   
+                    var disounts = self.Discounts;
+                    var dirtydis = self.DirtyDiscounts;
+
+                    var dirty = ko.utils.arrayFirst(self.DirtyDiscounts(), function (dirtyItem) {
+                        return dirtyItem.Id == item.ObjectId();
+                    });
+                    var discount = ko.utils.arrayFirst(self.Discounts(), function (discountItem) {
+                        return discountItem.Id == item.ObjectId();
+                    });
+                    if (discount == null) {
+                        if (dirty != null)
+                            disounts.push(dirty);
+                        //else {
+                        //}
+                    }
+                    if (dirty != null) {
+                        dirtydis.remove(dirty);
+                    }
                 }
+                items.remove(item);
             };
 
             self.TotalDiscount = ko.computed(function () {
@@ -742,7 +760,7 @@
             };
 
             self.save = function () {
-                debugger;
+
                 var current = self.currentModalItem();
                 if (current.ObjectId() == null || current.ObjectId() == guidEmpty) {
                     alert("יש לבחור סוג");
@@ -785,7 +803,6 @@
                     item.ObjectIdType = current.ObjectIdType();
                     var ob = ko.mapping.fromJS(item);
 
-                    //  debugger;
                     var dd = self.Items;
                     dd.push(ob);
                     // var dd = vm.Items;
@@ -810,6 +827,10 @@
         ko.applyBindings(vm);
 
     </script>
+
+    <script>
+        
+    </script>
 }
 <!--http://jsfiddle.net/YmQTW/1/ -->
 <div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
@@ -826,13 +847,13 @@
                         <div class="col-md-6">
 
                             <!-- ko if: ObjectIdType() ==99 && StatusRecord() ==3 -->
-                            <select class="form-control" data-bind="disable:!AllowEdit(), options: $parent.Discounts,
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Discounts,
     optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
     optionsCaption: 'בחר הנחה...'">
                             </select>
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==1 -->
-                            <select class="form-control" data-bind="disable:!AllowEdit(), options: $parent.Products,
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Products,
     optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
     optionsCaption: 'בחר פריט...'">
                             </select>

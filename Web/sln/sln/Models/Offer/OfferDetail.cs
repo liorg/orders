@@ -25,7 +25,7 @@ namespace Michal.Project.Models
         public string Name { get; set; }
 
         public List<OfferClientItem> Discounts { get; set; }
-       // public List<OfferClientItem> AddItems { get; set; }
+        public List<OfferClientItem> DirtyDiscounts { get; set; }
         public List<OfferClientItem> Distances { get; set; }
         public List<OfferClientItem> ShipTypes { get; set; }
         public List<OfferClientItem> Products { get; set; }

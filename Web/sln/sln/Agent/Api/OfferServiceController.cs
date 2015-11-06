@@ -179,26 +179,34 @@ namespace Michal.Project.Api
                                              where d.IsSweeping == false
                                              select sd).ToList();
 
-                    var discountsSweep = discountLists.Where(ds => ds.IsSweeping == true).ToList();
+                    //var discountsSweep = discountLists.Where(ds => ds.IsSweeping == true).ToList();
 
-                    foreach (var discountSweep in discountsSweep)
+                    offerClient.DirtyDiscounts = (from d in discountLists
+                                            join sd in discounts
+                                            on d.DiscountId equals sd.Id
+                                            where d.IsSweeping == true
+                                            select sd).ToList();
+
+                    foreach (var discountSweep in offerClient.DirtyDiscounts)
                     {
                         offerClient.Items.Add(new OfferItem
                         {
                             Id = Guid.NewGuid(),
                             IsDiscount = true,
-                            IsPresent = false,
+                            IsPresent = discountSweep.IsPresent,
                             Desc = discountSweep.Desc,
                             StatusRecord = 1,
                             Name = discountSweep.Name,
-                            ObjectId = discountSweep.DiscountId,
+                            ObjectId = discountSweep.Id,
                             ObjectIdType = (int)ObjectTypeCode.Discount,
-                            ProductPrice = null,
+                            ProductPrice = discountSweep.ProductPrice,
                             Amount = 1,
                             AllowEdit = allowEdit,
                             AllowRemove = allowRemove
                         });
+
                     }
+                  
                     foreach (var item in ship.ShippingItems)
                     {
                         priceValue = null;
