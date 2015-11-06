@@ -5,12 +5,13 @@
 }
 <style>
     /*start :my*/
-        .truncate {
-          width: 25px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
+    .truncate {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .priceb {
         color: white;
         font-size: 18px;
@@ -18,16 +19,24 @@
         background-color: yellowgreen;
     }
 
-    .addpresent::after {
-        content: "%";
-    }
-
     .addplus:after {
         content: "x";
     }
 
+    .addpresent::after {
+        content: "%";
+    }   
+
     .addsimbol::after {
         content: "₪";
+    }
+
+.addpresent2::after {
+        content: "(%)";
+    }   
+
+    .addsimbol2::after {
+        content: "(₪)";
     }
     /* end :my*/
     /*
@@ -343,7 +352,7 @@
                                                     <img class="pull-right" src="~/Content/img/percent16.png" />
                                                     <!-- /ko -->
                                                    
-                                                    <i  style=" display: inline-block;max-width: 100px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" data-bind="text: Name"> </i>
+                                                    <a href="#" data-bind="click: $parent.viewModal"><i  style=" display: inline-block;max-width: 100px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" data-bind="    text: Name"> </i></a>
                                                     <!-- ko if: Amount()>1-->
                                                     <i class="addplus pull-right badge" data-bind="text: Amount"></i>
                                                     <!-- /ko -->
@@ -360,7 +369,7 @@
                                                         <a href="#" data-bind="click: $parent.openModal"><span class="glyphicon glyphicon-pencil"></span></a>
                                                         <!-- /ko -->
                                                         <!-- ko if: AllowRemove() ==true -->
-                                                        <a href="#" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                                                        <a href="#" data-bind="click: $parent.cancelOffer" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
                                                         <!-- /ko -->
                                                     </div>
                                                 </li>
@@ -514,6 +523,8 @@
     </script>
 
     <script>
+        var guidEmpty = "00000000-0000-0000-0000-000000000000";
+
         function OfferItem(id, name, desc, priceValue,
             isPresent, isDiscount, statusRecord, amount,
             hasPrice, allowEdit, allowRemove, allowCancel,
@@ -572,9 +583,8 @@
                     default:
                         newProduct = null;
                         break;
-
                 }
-                
+
                 if (newProduct != null) {
                     this.Name(newProduct.Name);
                     this.Desc(newProduct.Desc);
@@ -594,13 +604,18 @@
 
             self.Items = ko.mapping.fromJS(vmData.Items);
 
-
             self.Discounts = ko.observableArray(vmData.Discounts);
             self.Products = ko.observableArray(vmData.Products);
             self.ShipTypes = ko.observableArray(vmData.ShipTypes);
             self.Distances = ko.observableArray(vmData.Distances);
 
             self.DirtyDiscounts = ko.observableArray();
+            var pricesType = [
+                        { "key": false, "value": "₪" },
+                        { "key": true, "value": "%" }];
+            self.priceTypeList = ko.observableArray(pricesType);
+
+            selectedCountry: ko.observable() // Nothing selected by default
 
             self.AllowAddItem = ko.observable(vmData.AllowAddItem);
             self.AllowAddDiscount = ko.observable(vmData.AllowAddDiscount);
@@ -608,7 +623,19 @@
             self.currentModalItem = ko.observable(null);
 
             self.cancelOffer = function (f) {
-                alert(f.Id);
+                alert(f.Id());
+                var id = f.Id();
+                var r = confirm("האם את/ה בטוח/ה רוצה להסיר פריט?");
+                if (r == false) return;
+
+                var item = ko.utils.arrayFirst(vm.Items(), function (fitem) {
+                    return fitem.Id() == id;
+                });
+                if (item == null) return;
+                alert(item.ObjectIdType());
+                if (item.ObjectIdType() == 99) {
+                    alert("de");
+                }
             };
 
             self.TotalDiscount = ko.computed(function () {
@@ -676,17 +703,17 @@
 
             self.createNewItem = function (item) {
                 self.isOpen(true);
-                var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
+                var newt = new OfferItem(guidEmpty, "", "", null,
                         false, false, 3, 1,
-                        false, true, true, true, "00000000-0000-0000-0000-000000000000", 1,0);
+                        false, true, true, true, guidEmpty, 1, 0);
                 self.currentModalItem(newt);
             };
 
             self.createNewDiscount = function (item) {
                 self.isOpen(true);
-                var newt = new OfferItem("00000000-0000-0000-0000-000000000000", "new", "", null,
+                var newt = new OfferItem(guidEmpty, "", "", null,
                     true, true, 3, 1,
-                    false, true, true, true, "00000000-0000-0000-0000-000000000000", 99,null);
+                    false, true, true, true, guidEmpty, 99, null);
                 self.currentModalItem(newt);
             };
 
@@ -699,18 +726,34 @@
                     item.ObjectId(), item.ObjectIdType(), item.ProductPrice());
 
                 self.currentModalItem(editt);
-               
+
+            };
+
+            self.viewModal = function (item) {
+                self.isOpen(true);
+
+                var editt = new OfferItem(item.Id(), item.Name(), item.Desc(), item.PriceValue(),
+                    item.IsPresent(), item.IsDiscount(), item.StatusRecord(), item.Amount(),
+                    item.HasPrice(), false, item.AllowRemove(), item.AllowCancel(),
+                    item.ObjectId(), item.ObjectIdType(), item.ProductPrice());
+
+                self.currentModalItem(editt);
+
             };
 
             self.save = function () {
                 debugger;
                 var current = self.currentModalItem();
+                if (current.ObjectId() == null || current.ObjectId() == guidEmpty) {
+                    alert("יש לבחור סוג");
+                    return;
+                }
                 if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
                     product = ko.utils.arrayFirst(vm.Items(), function (item) {
                         return item.Id() == current.Id();
                     });
                     if (product != null) {
-                      //  product.PriceValue(current.PriceValue());
+                        //  product.PriceValue(current.PriceValue());
                         product.Name(current.Name());
                         product.Desc(current.Desc());
                         product.IsPresent(current.IsPresent());
@@ -779,67 +822,81 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">שם:</label>
+                        <label class="col-md-4 control-label" for="DistanceId">שם:</label>
                         <div class="col-md-6">
 
-                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() ==3-->
+                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() ==3 -->
                             <select class="form-control" data-bind=" options: $parent.Discounts,
-                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-                                optionsCaption: 'בחר הנחה...'">
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר הנחה...'">
                             </select>
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==1 -->
                             <select class="form-control" data-bind=" options: $parent.Products,
-                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-                                optionsCaption: 'בחר פריט...'">
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר פריט...'">
                             </select>
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==4 -->
                             <select class="form-control" data-bind=" options: $parent.ShipTypes,
-                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-                                optionsCaption: 'בחר סוג משלוח...'">
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר סוג משלוח...'">
                             </select>
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==3 -->
                             <select class="form-control" data-bind=" options: $parent.Distances,
-                                optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-                                optionsCaption: 'בחר מרחק...'">
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר מרחק...'">
                             </select>
                             <!-- /ko -->
-                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() !=3-->
+                           <!-- ko if: ObjectIdType() ==99 && StatusRecord() !=3-->
                             <input class="form-control" type="text" data-bind="textInput: Name" />
                             <i></i>
                             <!-- /ko -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">מחיר ליחידה:</label>
+                        <label class="col-md-4 control-label" data-bind="css: { 'addpresent2': IsPresent() == true, 'addsimbol2': IsPresent() == false }" for="DistanceId">מחיר ליחידה:</label>
                         <div class="col-md-6">
                             <input class="form-control" data-bind="textInput: ProductPrice" />
                         </div>
-                    </div>
+                    </div> 
+                    <!-- ko if: ObjectIdType() ==99  -->
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">כמות:</label>
+                        <label class="col-md-4 control-label" for="DistanceId">סוג המחיר:</label>
+                        <div class="col-md-6">
+                             <select class="form-control" data-bind=" options: $parent.priceTypeList,
+    optionsText: 'value', optionsValue: 'key', value: IsPresent,
+    optionsCaption: 'סוג מחיר...'">
+                                                        </select>
+                        </div>
+                    </div>
+                     <!-- /ko -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">כמות:</label>
                         <div class="col-md-6">
                             <input class="form-control" data-bind="textInput: Amount" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">סה"כ:</label>
+                        <label class="col-md-4 control-label" for="DistanceId">סה"כ:</label>
                         <div class="col-md-6">
                             <input class="form-control" data-bind="textInput: Total" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="DistanceId">תיאור:</label>
+                        <label class="col-md-4 control-label" for="DistanceId">תיאור:</label>
                         <div class="col-md-6">
-                            <input class="form-control" data-bind="textInput: Desc" />
+                                <div style="overflow-y:scroll;height:70px;width:100%;border-width:thin;border-bottom-style:solid"  ><span data-bind="text: Desc"></span></div>
+                           
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
+                <!-- ko if: AllowEdit() ==true -->
                 <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>
+                  <!-- /ko -->
             </div>
         </div>
     </div>

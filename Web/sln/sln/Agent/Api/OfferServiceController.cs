@@ -45,7 +45,7 @@ namespace Michal.Project.Api
                 bool allowRemove = false;
             //    bool allowAdd = false;
                 bool allowEdit = false;
-
+                bool isPresent = false;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
@@ -74,15 +74,24 @@ namespace Michal.Project.Api
                 var discounts = new List<OfferClientItem>();
                 foreach (var discount in discountLists)
                 {
+                    priceValue = null; 
+                    isPresent = false;
+                    price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
+                    if (price != null)
+                    {
+                        priceValue = price.PriceValue.HasValue?(decimal?) price.PriceValue.Value*-1:null;
+                        isPresent = price.PriceValueType == 2 ? true : false;
+                    }
+
                     discounts.Add(new OfferClientItem
                     {
                         Amount = 1,
                         Desc = discount.Desc,
                         Id = discount.DiscountId,
                         IsDiscount = true,
-                        IsPresent = false,
+                        IsPresent = isPresent,
                         Name = discount.Name,
-                        ProductPrice = null,
+                        ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit=allowEdit,
                         AllowRemove=allowRemove
@@ -118,7 +127,9 @@ namespace Michal.Project.Api
                     priceValue = null;
                     price = priceList.Where(p => p.ObjectId == shiptypeItem.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
                     if (price != null)
+                    {
                         priceValue = price.PriceValue;
+                    }
 
                     offerClient.ShipTypes.Add(new OfferClientItem
                     {
@@ -201,13 +212,14 @@ namespace Michal.Project.Api
                             IsDiscount = false,
                             IsPresent = false,
                             Name = item.Product.Name,
+                            Desc=item.Product.Desc,
                             ObjectId = item.Product.ProductId,
                             ObjectIdType = (int)ObjectTypeCode.Product,
                             ProductPrice = priceValue,
                             StatusRecord = 1,
                             Amount = Convert.ToInt32(item.Quantity),
                             AllowEdit = allowEdit,
-                            AllowRemove = false
+                            AllowRemove = allowRemove
                         });
                     }
                     priceValue = null;
