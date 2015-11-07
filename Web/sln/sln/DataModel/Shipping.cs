@@ -25,6 +25,7 @@ namespace Michal.Project.DataModel
         }
         public ICollection<RequestShipping> RequestShipping { get; set; }
 
+        public Guid? OfferId { get; set; }
         [ForeignKey("ShippingCompany")]
         public Guid? ShippingCompany_ShippingCompanyId { get; set; }
         public ShippingCompany ShippingCompany { get; set; }

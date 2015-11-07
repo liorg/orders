@@ -37,6 +37,8 @@ namespace Michal.Project.DataModel
         //public decimal PriceType { get; set; } //1 =fixed,2=%present
 
         public int  PriceValueType { get; set; } //1 =fixed,2=%present
+
+        public int QuntityType { get; set; } //0 =unit,1=min
         public string Name { get; set; }
 
         public string Desc { get; set; }
