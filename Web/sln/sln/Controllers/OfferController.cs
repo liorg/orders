@@ -31,20 +31,19 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public async Task<ActionResult> Index(int offerType, int state)//state=>1=New,2=InProccess, 3=End,4=Cancel
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                List<OfferVm> offers = new List<OfferVm>();
-                var user = new UserContext(AuthenticationManager);
-                Guid orgId = Guid.Empty;
-                MemeryCacheDataService cache = new MemeryCacheDataService();
+        //public async Task<ActionResult> Index(int offerType, int state)//state=>1=New,2=InProccess, 3=End,4=Cancel
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        List<OfferVm> offers = new List<OfferVm>();
+        //        var user = new UserContext(AuthenticationManager);
+        //        Guid orgId = Guid.Empty;
+        //        MemeryCacheDataService cache = new MemeryCacheDataService();
 
-                orgId = cache.GetOrg(context);
-                return View(offers);
-            }
-        }
-
+        //        orgId = cache.GetOrg(context);
+        //        return View(offers);
+        //    }
+        //}
 
         public async Task<ActionResult> CreateOrder(Guid shipId)
         {
@@ -58,6 +57,7 @@ namespace Michal.Project.Controllers
                 order.OfferId = Guid.Empty;
                 order.Name = ship.Name;
                 order.Title = "בקשת הזמנה";
+
                 order.TargetAddress = new AddressEditorViewModel();
                 order.TargetAddress.City = ship.Target.CityName;
                 order.TargetAddress.Citycode = ship.Target.CityCode;

@@ -301,19 +301,16 @@
     <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\NSStreet\LocationUi.cs" />
     <Compile Include="Models\NSStreet\StreetRequest.cs" />
-    <Compile Include="Models\Offer\DiscountItem.cs" />
-    <Compile Include="Models\Offer\ItemPrice.cs">
+    <Compile Include="Models\Offer\Offer.cs" />
+    <Compile Include="Models\Offer\OfferClient.cs" />
+    <Compile Include="Models\Offer\OfferClientItem.cs" />
+    <Compile Include="Models\Offer\OfferUpload.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Offer\OrderDetail.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Offer\OfferDetail.cs" />
-    <Compile Include="Models\Offer\OfferItemVm.cs" />
-    <Compile Include="Models\Offer\OfferVm.cs" />
-    <Compile Include="Models\Offer\OrderItemVm.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Models\Offer\OfferItem.cs" />
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
@@ -566,6 +563,9 @@
     <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
     <Content Include="Views\Shared\_dlgItemPrice.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\_priceBox.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
