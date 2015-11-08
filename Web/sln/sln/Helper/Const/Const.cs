@@ -30,13 +30,21 @@ namespace Michal.Project.Helper
         public const string Client = "לקוח";
         public const string DeliveryBoy = "שליח";
     }
+    public static class ProductSystemIds
+    {
+        public const int MinAmountTimeWaitInMIn = 15;
+        public enum ProductSystemType { TimeWait = 3, Back = 1, Direction = 2 };
+        public const string TimeWaitSet = "00000000-0000-0000-0000-000000000001";
+        public const string TimeWaitGet = "00000000-0000-0000-0000-000000000002";
 
+    }
     public static class General
     {
         public const int MaxRecordsPerSearch = 100;
         public const int MaxRecordsPerPage = 10;
         public const string OrgWWW = "www";
         public const string OrgIDWWW = "00000000-0000-0000-0000-000000000002";
+       
     }
 
     public static class CustomClaimTypes

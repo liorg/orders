@@ -21,6 +21,7 @@ namespace Michal.Project.Models
         public Guid Id { get; set; }
         public Guid OfferId { get; set; }
         public string Name { get; set; }
+        public bool HasDirty { get; set; }
        
     }
     public class OfferUpload : Offer,IShipView
@@ -88,6 +89,8 @@ namespace Michal.Project.Models
                 return ProductPrice.HasValue ? ProductPrice.Value * Amount : ProductPrice;
             }
         }
+        public string QuntityType { get; set; }
+
         public bool IsPresent { get; set; }
         public bool IsDiscount { get; set; }
         public int StatusRecord { get; set; } // 1 =addbysystem,2=remove,3=addnew,4=edit

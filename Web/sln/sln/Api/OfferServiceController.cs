@@ -42,10 +42,13 @@ namespace Michal.Project.Api
         {
             using (var context = new ApplicationDbContext())
             {
+                string unitMin = "דק'";
+                string unit = "יח'";
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
                 bool isPresent = false;
+                int qunitityType=0;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
@@ -61,6 +64,7 @@ namespace Michal.Project.Api
                 var shiptypeLists = cache.GetShipType(context);
                 var discountLists = cache.GetDiscount(context);
                 var products = cache.GetProducts(context, organid);
+                var productsSystem = cache.GetProductsSystem(context);
 
                 var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
 
@@ -76,11 +80,14 @@ namespace Michal.Project.Api
                 {
                     priceValue = null;
                     isPresent = false;
+                    qunitityType=0;
                     price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
                     if (price != null)
                     {
                         priceValue = price.PriceValue.HasValue ? (decimal?)price.PriceValue.Value * -1 : null;
                         isPresent = price.PriceValueType == 2 ? true : false;
+                        qunitityType=price.QuntityType;
+                        
                     }
 
                     discounts.Add(new OfferClientItem
@@ -94,10 +101,11 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-                        AllowRemove = allowRemove
+                        AllowRemove = allowRemove,
+                        QuntityType = qunitityType == 0 ? unit : unitMin
                     });
                 }
-
+                qunitityType = 0;
                 offerClient.Distances = new List<OfferClientItem>();
                 foreach (var distance in distances)
                 {
@@ -117,7 +125,8 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-                        AllowRemove = false
+                        AllowRemove = false,
+                        QuntityType = qunitityType == 0 ? unit : unitMin
                     });
                 }
 
@@ -142,7 +151,8 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-                        AllowRemove = false
+                        AllowRemove = false,
+                        QuntityType = qunitityType == 0 ? unit : unitMin
                     });
                 }
                 offerClient.Products = new List<OfferClientItem>();
@@ -164,7 +174,7 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-
+                        QuntityType = qunitityType == 0 ? unit : unitMin,
                         AllowRemove = false
                     });
                 }
@@ -172,7 +182,7 @@ namespace Michal.Project.Api
                 offerClient.Items = new List<OfferItem>();
                 if (offerId == Guid.Empty)
                 {
-
+                    offerClient.HasDirty = true;
                     offerClient.Discounts = (from d in discountLists
                                              join sd in discounts
                                              on d.DiscountId equals sd.Id
@@ -202,7 +212,8 @@ namespace Michal.Project.Api
                             ProductPrice = discountSweep.ProductPrice,
                             Amount = 1,
                             AllowEdit = allowEdit,
-                            AllowRemove = allowRemove
+                            AllowRemove = allowRemove,
+                            QuntityType = discountSweep.QuntityType
                         });
 
                     }
@@ -227,7 +238,8 @@ namespace Michal.Project.Api
                             StatusRecord = 1,
                             Amount = Convert.ToInt32(item.Quantity),
                             AllowEdit = allowEdit,
-                            AllowRemove = allowRemove
+                            AllowRemove = allowRemove,
+                            QuntityType = qunitityType == 0 ? unit : unitMin
                         });
                     }
                     priceValue = null;
@@ -249,6 +261,7 @@ namespace Michal.Project.Api
                         ObjectId = ship.ShipType.ShipTypeId,
                         ObjectIdType = (int)ObjectTypeCode.ShipType,
                         AllowEdit = allowEdit,
+                        QuntityType = qunitityType == 0 ? unit : unitMin,
                         AllowRemove = false
                     });
 
@@ -270,9 +283,65 @@ namespace Michal.Project.Api
                         ObjectId = ship.Distance.DistanceId,
                         ObjectIdType = (int)ObjectTypeCode.Distance,
                         AllowEdit = allowEdit,
-                        AllowRemove = false
+                        AllowRemove = false,
+                        QuntityType = qunitityType == 0 ? unit : unitMin
                     });
                 }
+                priceValue = null; qunitityType = 0;
+                var twSetId=Guid.Parse(ProductSystemIds.TimeWaitSet);
+                var timeWaitSetProduct=productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+
+                price = priceList.Where(p => p.ObjectId == twSetId && p.ObjectTypeCode == (int)ObjectTypeCode.ProductSystem).FirstOrDefault();
+                if (price != null)
+                {
+                    priceValue = price.PriceValue;
+                    qunitityType = price.QuntityType;
+                }
+
+                offerClient.Items.Add(new OfferItem
+                {
+                    Id = Guid.NewGuid(),
+                    IsDiscount = false,
+                    IsPresent = false,
+                    Desc = timeWaitSetProduct.Name,
+                    StatusRecord = 1,
+                    Name = timeWaitSetProduct.Name,
+                    ObjectId = timeWaitSetProduct.ProductSystemId,
+                    ObjectIdType = (int)ObjectTypeCode.ProductSystem,
+                    ProductPrice = priceValue,
+                    Amount = ProductSystemIds.MinAmountTimeWaitInMIn,
+                    AllowEdit = allowEdit,
+                    AllowRemove = allowRemove,
+                    QuntityType = qunitityType == 0 ? unit : unitMin
+                });
+
+                priceValue = null; qunitityType = 0;
+                var twGetId = Guid.Parse(ProductSystemIds.TimeWaitGet);
+                var timeWaitGetProduct = productsSystem.Where(ps => ps.ProductSystemId == twGetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+
+                price = priceList.Where(p => p.ObjectId == twGetId && p.ObjectTypeCode == (int)ObjectTypeCode.ProductSystem).FirstOrDefault();
+                if (price != null)
+                {
+                    priceValue = price.PriceValue;
+                    qunitityType = price.QuntityType;
+                }
+
+                offerClient.Items.Add(new OfferItem
+                {
+                    Id = Guid.NewGuid(),
+                    IsDiscount = false,
+                    IsPresent = false,
+                    Desc = timeWaitSetProduct.Name,
+                    StatusRecord = 1,
+                    Name = timeWaitSetProduct.Name,
+                    ObjectId = timeWaitSetProduct.ProductSystemId,
+                    ObjectIdType = (int)ObjectTypeCode.ProductSystem,
+                    ProductPrice = priceValue,
+                    Amount = ProductSystemIds.MinAmountTimeWaitInMIn,
+                    AllowEdit = allowEdit,
+                    AllowRemove = allowRemove,
+                    QuntityType = qunitityType == 0 ? unit : unitMin
+                });
 
                 //offerClient.Discounts = (from d in demo.Discounts
                 //                         where !offerClient.Items.Any(o => o.ObjectIdType == (int)ObjectTypeCode.Discount && o.ObjectId == d.Id)
