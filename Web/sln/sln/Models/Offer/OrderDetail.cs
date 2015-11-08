@@ -9,11 +9,16 @@ namespace Michal.Project.Models
 {
     public class OrderDetail : IShipView
     {
-        [Display(Name = "מזהה")]
+        [Display(Name = "מזהה משלוח")]
         public Guid Id { get; set; }
+        [Display(Name = "מזהה הצעה")]
+        public Guid OfferId { get; set; }
 
-        [Display(Name = "שם")]
+        [Display(Name = "מספר משלוח")]
         public string Name { get; set; }
+
+        [Display(Name = " כותרת")]
+        public string Title { get; set; }
 
         [Display(Name = "כתובת יעד")]
         public AddressEditorViewModel TargetAddress { get; set; }

@@ -393,6 +393,7 @@
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
     <Content Include="Content\img\whatsapp32x32.png" />
+    <Content Include="Content\offer.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -466,6 +467,7 @@
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\myadmin.js" />
+    <Content Include="Scripts\offer.js" />
     <Content Include="Scripts\popover.js" />
     <Content Include="Scripts\rantoolbx.js" />
     <Content Include="Scripts\respond.js" />
@@ -563,6 +565,9 @@
     <Content Include="Views\Shared\_StatusArrivedGet.cshtml" />
     <Content Include="Views\Shared\_questionIsArrivedGet.cshtml" />
     <Content Include="Views\Offer\Index.cshtml" />
+    <Content Include="Views\Shared\_dlgItemPrice.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Temp\" />

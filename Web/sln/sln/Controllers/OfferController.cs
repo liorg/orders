@@ -55,7 +55,9 @@ namespace Michal.Project.Controllers
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 var ship = await context.Shipping.FindAsync(shipId);
                 order.Id = shipId;
+                order.OfferId = Guid.Empty;
                 order.Name = ship.Name;
+                order.Title = "בקשת הזמנה";
                 order.TargetAddress = new AddressEditorViewModel();
                 order.TargetAddress.City = ship.Target.CityName;
                 order.TargetAddress.Citycode = ship.Target.CityCode;
