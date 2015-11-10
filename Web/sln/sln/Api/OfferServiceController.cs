@@ -34,7 +34,6 @@ namespace Michal.Project.Api
             return Ok(Order.CreateOrders());
         }
 
-
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
