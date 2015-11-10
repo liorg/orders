@@ -22,7 +22,6 @@ function getIdb() {
 }
 
 function showNotification(title, body, icon, data) {
-    debugger;
   var notificationOptions = {
     body: body,
     icon: icon ? icon : 'images/touch/chrome-touch-icon-192x192.png',
@@ -38,15 +37,8 @@ function showNotification(title, body, icon, data) {
 
 self.addEventListener('push', function (event) {
     debugger;
-    //var title = "xx";
   console.log('Received a push message', event);
-//  event.waitUntil(
-// self.registration.showNotification(title, {
-//     body: body,
-//     icon: icon,
-//     tag: tag
-// })
-//);
+
   // Since this is no payload data with the first version
   // of Push notifications, here we'll grab some data from
   // an API and use it to populate a notification
@@ -67,7 +59,7 @@ self.addEventListener('push', function (event) {
             throw new Error();
           }
 
-          var title = 'lior!!!!?';
+          var title = 'What\'s the weather like in London?';
           var message = data.query.results.channel.item.condition.text;
           var icon = data.query.results.channel.image.url ||
             'images/touch/chrome-touch-icon-192x192.png';

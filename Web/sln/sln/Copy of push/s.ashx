@@ -6,7 +6,7 @@ using System.Net;
 using System.IO;
 public class s : IHttpHandler
 {
-
+   // static string deviceid = "";
     public void ProcessRequest(HttpContext context)
     {
         context.Response.ContentType = "application/json";
@@ -27,11 +27,15 @@ public class s : IHttpHandler
         tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
         tRequest.Headers.Add(string.Format("Authorization: key={0}", SERVER_API_KEY));
         var deviceid = "";
-        // var deviceid = "APA91bFdjYC0m0jBOqaQMlfH-8deBXWXopwAH9XXbntcl6wxsV2A5WVMv4gAx4yOJWhHs1s2KAQYZ3g1YKjAmFDs0hdukCpKR3EADWZLv99adSUIFW8lQfdJTrnt4vfZKU4TV0i3ToNHlYY1vdTGAU2_HlOWNMlcMjAReEN2ybCqxYZY2YJX10wchh7Oqmb3HwEz6UzQDr98";
-        if (context.Request["d"] != null && !String.IsNullOrEmpty(context.Request["d"].ToString()))
+        if (deviceid == "")
         {
-            deviceid = context.Request["d"].ToString(); //"APA91bEySCtvj53PBy2QgoxAgqlgfrIoN6cqQenbEn_2g7Sl_bSa_Uopp1eRe4m7VlleXJ4Jul5bj11Uz6oR1-3sN_XHDI00oNgebtFJlbqo5AjjxHgysegZ1jqsJIOmQja-akvxJ5GJlAJdaXgLl0FO9Dy_3EHVRLeQL0q2L-y5yvtxuQontlU";
+            // var deviceid = "APA91bFdjYC0m0jBOqaQMlfH-8deBXWXopwAH9XXbntcl6wxsV2A5WVMv4gAx4yOJWhHs1s2KAQYZ3g1YKjAmFDs0hdukCpKR3EADWZLv99adSUIFW8lQfdJTrnt4vfZKU4TV0i3ToNHlYY1vdTGAU2_HlOWNMlcMjAReEN2ybCqxYZY2YJX10wchh7Oqmb3HwEz6UzQDr98";
+            if (context.Request["d"] != null && !String.IsNullOrEmpty(context.Request["d"].ToString()))
+            {
+                deviceid = context.Request["d"].ToString(); //"APA91bEySCtvj53PBy2QgoxAgqlgfrIoN6cqQenbEn_2g7Sl_bSa_Uopp1eRe4m7VlleXJ4Jul5bj11Uz6oR1-3sN_XHDI00oNgebtFJlbqo5AjjxHgysegZ1jqsJIOmQja-akvxJ5GJlAJdaXgLl0FO9Dy_3EHVRLeQL0q2L-y5yvtxuQontlU";
+            }
         }
+        
         tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));
 
         string postData = "collapse_key=score_update&time_to_live=108&delay_while_idle=1&data.message=" + value + "&data.time=" + System.DateTime.Now.ToString() + "&registration_id=" + deviceid + "";

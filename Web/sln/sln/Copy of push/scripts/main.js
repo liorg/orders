@@ -21,7 +21,7 @@
 var gsubscriptionId = "";
 var API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
 //var PUSH_SERVER_URL = 'https://simple-push-demo.appspot.com';
-var PUSH_SERVER_URL = 'http://imaot.co.il/t/';
+var PUSH_SERVER_URL = 'https://imaot.co.il/t/';
 
 function onPushSubscription(pushSubscription) {
   console.log('pushSubscription = ', pushSubscription.endpoint);

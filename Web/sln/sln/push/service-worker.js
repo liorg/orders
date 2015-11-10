@@ -59,7 +59,7 @@ self.addEventListener('push', function (event) {
             throw new Error();
           }
 
-          var title = 'lior!!!!?';
+          var title = 'What\'s the weather like in London?';
           var message = data.query.results.channel.item.condition.text;
           var icon = data.query.results.channel.image.url ||
             'images/touch/chrome-touch-icon-192x192.png';

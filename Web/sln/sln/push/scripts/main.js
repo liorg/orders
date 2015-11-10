@@ -21,7 +21,7 @@
 var gsubscriptionId = "";
 var API_KEY = 'AIzaSyBBh4ddPa96rQQNxqiq_qQj7sq1JdsNQUQ';
 //var PUSH_SERVER_URL = 'https://simple-push-demo.appspot.com';
-var PUSH_SERVER_URL = 'http://imaot.co.il/t/';
+var PUSH_SERVER_URL = 'https://imaot.co.il/t/';
 
 function onPushSubscription(pushSubscription) {
   console.log('pushSubscription = ', pushSubscription.endpoint);
@@ -329,7 +329,7 @@ function setUpNotificationPermission() {
 }
 
 // Once the service worker is registered set the initial state
-function initialiseState() {
+function initialiseState(req) {
     debugger;
   // Check if push messaging is supported
   if (!('PushManager' in window)) {
@@ -339,7 +339,9 @@ function initialiseState() {
       'demo is probably broken.');
     return;
   }
-
+    //
+ 
+    //
   // Is the Permissions API supported
   if ('permissions' in navigator) {
     setUpPushPermission();
@@ -347,6 +349,7 @@ function initialiseState() {
   } else {
     setUpNotificationPermission();
   }
+   
 }
 
 window.addEventListener('UIReady', function () {
@@ -366,7 +369,8 @@ window.addEventListener('UIReady', function () {
   // Check that service workers are supported
   if ('serviceWorker' in navigator) {
       debugger;
-    navigator.serviceWorker.register('service-worker.js')
+      navigator.serviceWorker.register('sw3.js')
+    //navigator.serviceWorker.register('service-worker.js')
     .then(initialiseState);
   } else {
     // Service Workers aren't supported so you should hide the push UI
