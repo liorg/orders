@@ -17,7 +17,7 @@ namespace Michal.Project.Api
     {
         [Route("Register")]
         [AcceptVerbs("GET")]
-        public HttpResponseMessage Register(Guid userid, string deviceid)
+        public HttpResponseMessage Register(string userid, string deviceid)
         {
             Result result = new Result();
             var dt=DateTime.Now;
@@ -26,13 +26,14 @@ namespace Michal.Project.Api
             {
                 try
                 {
-                    context.UserNotification.Add(new DataModel.UserNotification
+                    context.UserNotify.Add(new DataModel.UserNotify
                     {
+                        UserNotifyId=Guid.NewGuid(),
                         CreatedOn = dt,
                         DeviceId = deviceid,
                         IsActive = true,
                         ModifiedOn = dt,
-                        UserId = userid
+                        UserId =Guid.Parse( userid)
                     });
                     context.SaveChanges();
                 }

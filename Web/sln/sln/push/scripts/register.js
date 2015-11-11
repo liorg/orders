@@ -95,6 +95,7 @@ function onPushSubscription(pushSubscription) {
           method: 'get'
 
       }).then(function (response) {
+          debugger;
           if (response !=null && response.IsError) {
               alert(response.ErrDesc);
             }

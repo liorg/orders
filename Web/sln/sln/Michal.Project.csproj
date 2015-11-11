@@ -242,6 +242,7 @@
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\UserNotify.cs" />
     <Compile Include="DataModel\NotifyMessage.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -310,6 +311,18 @@
     <Compile Include="Migrations\201511111534471_notif3.cs" />
     <Compile Include="Migrations\201511111534471_notif3.Designer.cs">
       <DependentUpon>201511111534471_notif3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111634538_notif4.cs" />
+    <Compile Include="Migrations\201511111634538_notif4.Designer.cs">
+      <DependentUpon>201511111634538_notif4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111637031_notif5.cs" />
+    <Compile Include="Migrations\201511111637031_notif5.Designer.cs">
+      <DependentUpon>201511111637031_notif5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111641060_dddd.cs" />
+    <Compile Include="Migrations\201511111641060_dddd.Designer.cs">
+      <DependentUpon>201511111641060_dddd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Notify.cs" />
@@ -759,6 +772,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511111534471_notif3.resx">
       <DependentUpon>201511111534471_notif3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111634538_notif4.resx">
+      <DependentUpon>201511111634538_notif4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111637031_notif5.resx">
+      <DependentUpon>201511111637031_notif5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111641060_dddd.resx">
+      <DependentUpon>201511111641060_dddd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
