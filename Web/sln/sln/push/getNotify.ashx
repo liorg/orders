@@ -1,10 +1,10 @@
-﻿<%@ WebHandler Language="C#" Class="s" %>
+﻿<%@ WebHandler Language="C#" Class="getNotify" %>
 
 using System;
 using System.Web;
 using System.Net;
 using System.IO;
-public class s : IHttpHandler
+public class getNotify : IHttpHandler
 {
    // static string deviceid = "";
     public void ProcessRequest(HttpContext context)

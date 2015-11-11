@@ -18,6 +18,7 @@ using System.Web;
 using System.Web.Http;
 using System.Data.Entity;
 using Michal.Project.DataModel;
+using Michal.Project.Fasade;
 
 
 namespace Michal.Project.Api
@@ -47,7 +48,7 @@ namespace Michal.Project.Api
                 //    bool allowAdd = false;
                 bool allowEdit = false;
                 bool isPresent = false;
-                int qunitityType=0;
+                int qunitityType = 0;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
@@ -66,27 +67,28 @@ namespace Michal.Project.Api
                 var productsSystem = cache.GetProductsSystem(context);
 
                 var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
-
+             
                 var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
 
                 var user = new UserContext(userContext);
                 decimal? priceValue = null;
                 PriceList price = null;
                 OfferClient offerClient = new OfferClient();
-
+                offerClient.Id = ship.ShippingId;
+                offerClient.Name = ship.Name;
                 var discounts = new List<OfferClientItem>();
                 foreach (var discount in discountLists)
                 {
                     priceValue = null;
                     isPresent = false;
-                    qunitityType=0;
+                    qunitityType = 0;
                     price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
                     if (price != null)
                     {
                         priceValue = price.PriceValue.HasValue ? (decimal?)price.PriceValue.Value * -1 : null;
                         isPresent = price.PriceValueType == 2 ? true : false;
-                        qunitityType=price.QuntityType;
-                        
+                        qunitityType = price.QuntityType;
+
                     }
 
                     discounts.Add(new OfferClientItem
@@ -287,8 +289,8 @@ namespace Michal.Project.Api
                     });
                 }
                 priceValue = null; qunitityType = 0;
-                var twSetId=Guid.Parse(ProductSystemIds.TimeWaitSet);
-                var timeWaitSetProduct=productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+                var twSetId = Guid.Parse(ProductSystemIds.TimeWaitSet);
+                var timeWaitSetProduct = productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
 
                 price = priceList.Where(p => p.ObjectId == twSetId && p.ObjectTypeCode == (int)ObjectTypeCode.ProductSystem).FirstOrDefault();
                 if (price != null)
@@ -367,9 +369,24 @@ namespace Michal.Project.Api
         {
             var result = new Result<Guid>();
             result.Model = Guid.NewGuid();
+
+             var userContext = HttpContext.Current.GetOwinContext().Authentication;
+            var user = new UserContext(userContext);
+            using (var context = new ApplicationDbContext())
+            {
+                var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
+                var orderName=ship.Name;
+                NotificationManager manager = new NotificationManager();
+                var notifyItem = new NotifyItem
+                {
+                    Title = "הזמנה חדשה",
+                    Body = " אישור הזמנה" + orderName,
+                    Url = ""
+                };
+               await manager.Send(context, user,notifyItem);
+            }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-
                 Content = new ObjectContent<Result<Guid>>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))

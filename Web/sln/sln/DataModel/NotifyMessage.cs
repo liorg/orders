@@ -23,9 +23,10 @@ namespace Michal.Project.DataModel
         public string Title { get; set; }
         [Required]
         public string Body { get; set; }
+
         public string ToUrl { get; set; }
         [Required]
-        public Guid userId { get; set; }
+        public Guid UserId { get; set; }
 
         public DateTime? CreatedOn
         {
@@ -56,6 +57,9 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
+
+        [Required]
+        public bool IsRead { get; set; }
 
     }
 }

@@ -27,14 +27,7 @@ public class SendNotify : IHttpHandler
         tRequest.Method = "post";
         tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
         tRequest.Headers.Add(string.Format("Authorization: key={0}", SERVER_API_KEY));
-        var deviceid = ""; var userid = "";
-        //if (deviceid == "")
-        //{
-        // var deviceid = "APA91bFdjYC0m0jBOqaQMlfH-8deBXWXopwAH9XXbntcl6wxsV2A5WVMv4gAx4yOJWhHs1s2KAQYZ3g1YKjAmFDs0hdukCpKR3EADWZLv99adSUIFW8lQfdJTrnt4vfZKU4TV0i3ToNHlYY1vdTGAU2_HlOWNMlcMjAReEN2ybCqxYZY2YJX10wchh7Oqmb3HwEz6UzQDr98";
-        userid = context.Request["u"].ToString();
-        //if (context.Request["d"] != null && !String.IsNullOrEmpty(context.Request["d"].ToString()))
-        //    {
-
+        var deviceid = ""; 
         deviceid = context.Request["d"].ToString(); //"APA91bEySCtvj53PBy2QgoxAgqlgfrIoN6cqQenbEn_2g7Sl_bSa_Uopp1eRe4m7VlleXJ4Jul5bj11Uz6oR1-3sN_XHDI00oNgebtFJlbqo5AjjxHgysegZ1jqsJIOmQja-akvxJ5GJlAJdaXgLl0FO9Dy_3EHVRLeQL0q2L-y5yvtxuQontlU";
         //  }
         //}
