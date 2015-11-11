@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -28,8 +29,13 @@ namespace Michal.Project.Models
     public class NotifyItem
     {
         public Guid Id { get; set; }
+        [Display(Name = "כותרת")]
         public string Title { get; set; }
+        [Display(Name = "תוכן")]
         public string Body { get; set; }
+        [Display(Name = "לינק")]
         public string Url { get; set; }
+        [Display(Name = "הודעה נצפתה")]
+        public bool  IsRead { get; set; }
     }
 }

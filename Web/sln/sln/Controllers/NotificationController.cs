@@ -32,9 +32,21 @@ namespace Michal.Project.Controllers
         }
         public async Task<ActionResult> Index()
         {
+            var user = new UserContext(AuthenticationManager);
             using (var context = new ApplicationDbContext())
             {
-                List<NotifyItem> items = new List<NotifyItem>();
+                ViewBag.UserId = user.UserId;
+                List<NotifyItem> items = context.NotifyMessage.Where(u => u.UserId == user.UserId && u.IsActive == true).Select(
+                     m => new NotifyItem
+                     {
+                         Id = m.NotifyMessageId,
+                         Title=m.Title,
+                         IsRead=m.IsRead,
+                         Body = m.Body,
+                         Url = m.ToUrl
+
+                     }).ToList();
+
                 return View(items);
             }
         }
