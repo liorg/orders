@@ -36,6 +36,7 @@ namespace Michal.Project.Dal
         public DbSet<AttachmentShipping> AttachmentShipping { get; set; }
         public DbSet<ProductSystem> ProductSystem { get; set; }
         public DbSet<RequestItemShip> RequestItemShip { get; set; }
-
+        public DbSet<NotifyMessage> NotifyMessage { get; set; }
+        public DbSet<UserNotification> UserNotification { get; set; }
     }
 }

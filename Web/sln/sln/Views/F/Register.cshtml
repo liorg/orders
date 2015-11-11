@@ -1,0 +1,20 @@
+﻿@model Michal.Project.Models.View.FollowsView
+
+@{
+    ViewBag.Title = "רישום";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("_navLists")
+
+<div class="row">
+    <div class="col-md-12">
+        <h3><b class="centered">@ViewBag.Title</b> </h3>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary" role="button" href="https://www.imaot.co.il/t/register.html?u=@(ViewBag.UserId==null?Guid.Empty:ViewBag.UserId)">קישור לרישום הודעות</a>
+    </div>
+
+</div>

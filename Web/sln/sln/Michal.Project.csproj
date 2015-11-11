@@ -193,6 +193,7 @@
   <ItemGroup>
     <Compile Include="Agent\LocationAgent.cs" />
     <Compile Include="Api\AddressController.cs" />
+    <Compile Include="Api\NotifcationServiceController.cs" />
     <Compile Include="Api\OfferServiceController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -241,6 +242,10 @@
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\NotifyMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataModel\UserNotification.cs" />
     <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
@@ -294,7 +299,20 @@
     <Compile Include="Migrations\201511071830528_order99.Designer.cs">
       <DependentUpon>201511071830528_order99.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511111429513_notif.cs" />
+    <Compile Include="Migrations\201511111429513_notif.Designer.cs">
+      <DependentUpon>201511111429513_notif.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111433074_notif2.cs" />
+    <Compile Include="Migrations\201511111433074_notif2.Designer.cs">
+      <DependentUpon>201511111433074_notif2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111534471_notif3.cs" />
+    <Compile Include="Migrations\201511111534471_notif3.Designer.cs">
+      <DependentUpon>201511111534471_notif3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />
     <Compile Include="Models\JobTitleVm.cs" />
@@ -426,78 +444,13 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="Copy of push\images\icons\icons.svg" />
-    <Content Include="Copy of push\images\icons\placeholder--medium.png" />
-    <Content Include="Copy of push\images\icons\placeholder--small.png" />
-    <Content Include="Copy of push\images\icons\placeholder--wide.png" />
-    <Content Include="Copy of push\images\matt.png" />
-    <Content Include="Copy of push\images\touch\apple-touch-icon.png" />
-    <Content Include="Copy of push\images\touch\chrome-touch-icon-192x192.png" />
-    <Content Include="Copy of push\images\touch\icon-128x128.png" />
-    <Content Include="Copy of push\images\touch\ms-touch-icon-144x144-precomposed.png" />
-    <Content Include="Copy of push\notify.html" />
-    <Content Include="Copy of push\parent.html" />
-    <Content Include="Copy of push\s.html" />
-    <Content Include="Copy of push\scripts\indexdbwrapper.js" />
-    <Content Include="Copy of push\scripts\main.js" />
-    <Content Include="Copy of push\scripts\mainweb.js" />
-    <Content Include="Copy of push\scripts\ui-handler.js" />
-    <Content Include="Copy of push\service-worker.js" />
-    <Content Include="Copy of push\styleguide.html" />
-    <Content Include="Copy of push\styleguide\animation\animation.js" />
-    <Content Include="Copy of push\styleguide\animation\demo.html" />
-    <Content Include="Copy of push\styleguide\button\button.js" />
-    <Content Include="Copy of push\styleguide\button\demo.html" />
-    <Content Include="Copy of push\styleguide\card\demo.html" />
-    <Content Include="Copy of push\styleguide\checkbox\checkbox.js" />
-    <Content Include="Copy of push\styleguide\checkbox\demo.html" />
-    <Content Include="Copy of push\styleguide\checkbox\tick-mask.svg" />
-    <Content Include="Copy of push\styleguide\checkbox\tick.svg" />
-    <Content Include="Copy of push\styleguide\column-layout\column-layout.js" />
-    <Content Include="Copy of push\styleguide\column-layout\demo.html" />
-    <Content Include="Copy of push\styleguide\dropdown-menu\demo.html" />
-    <Content Include="Copy of push\styleguide\footer\demo.html" />
-    <Content Include="Copy of push\styleguide\footer\images\down_arrow.svg" />
-    <Content Include="Copy of push\styleguide\footer\images\up_arrow.svg" />
-    <Content Include="Copy of push\styleguide\icon-toggle\demo.html" />
-    <Content Include="Copy of push\styleguide\icon-toggle\icon-toggle.js" />
-    <Content Include="Copy of push\styleguide\icons\demo.html" />
-    <Content Include="Copy of push\styleguide\item\demo.html" />
-    <Content Include="Copy of push\styleguide\item\item.js" />
-    <Content Include="Copy of push\styleguide\layout\demo.html" />
-    <Content Include="Copy of push\styleguide\layout\images\app-icon.png" />
-    <Content Include="Copy of push\styleguide\layout\images\desktop-handsfree-hero.jpg" />
-    <Content Include="Copy of push\styleguide\layout\layout.js" />
-    <Content Include="Copy of push\styleguide\list\demo.html" />
-    <Content Include="Copy of push\styleguide\list\images\avatar.png" />
-    <Content Include="Copy of push\styleguide\palette\demo.html" />
-    <Content Include="Copy of push\styleguide\radio\demo.html" />
-    <Content Include="Copy of push\styleguide\radio\radio.js" />
-    <Content Include="Copy of push\styleguide\ripple\ripple.js" />
-    <Content Include="Copy of push\styleguide\shadow\demo.html" />
-    <Content Include="Copy of push\styleguide\slider\demo.html" />
-    <Content Include="Copy of push\styleguide\slider\slider.js" />
-    <Content Include="Copy of push\styleguide\spinner\demo.html" />
-    <Content Include="Copy of push\styleguide\spinner\spinner.js" />
-    <Content Include="Copy of push\styleguide\styles\main.css" />
-    <Content Include="Copy of push\styleguide\switch\demo.html" />
-    <Content Include="Copy of push\styleguide\switch\switch.js" />
-    <Content Include="Copy of push\styleguide\tabs\demo.html" />
-    <Content Include="Copy of push\styleguide\tabs\tabs.js" />
-    <Content Include="Copy of push\styleguide\textfield\demo.html" />
-    <Content Include="Copy of push\styleguide\textfield\textfield.js" />
-    <Content Include="Copy of push\styleguide\third_party\rAF.js" />
-    <Content Include="Copy of push\styleguide\tooltip\demo.html" />
-    <Content Include="Copy of push\styleguide\tooltip\tooltip.js" />
-    <Content Include="Copy of push\styleguide\typography\demo.html" />
-    <Content Include="Copy of push\styleguide\typography\images\img-1.png" />
-    <Content Include="Copy of push\styleguide\typography\images\img-2.png" />
-    <Content Include="Copy of push\styleguide\wskComponentHandler.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="push\Register.html" />
+    <Content Include="push\scripts\ui-handlerEvent.js" />
+    <Content Include="push\scripts\register.js" />
     <Content Include="push\sw.js" />
-    <Content Include="push\sw3.js" />
     <Content Include="push\images\icons\icons.svg" />
     <Content Include="push\images\icons\placeholder--medium.png" />
     <Content Include="push\images\icons\placeholder--small.png" />
@@ -564,6 +517,7 @@
     <Content Include="push\styleguide\wskComponentHandler.js" />
     <Content Include="push\styleguide\styles\main.css" />
     <Content Include="push\styles\main.css" />
+    <Content Include="push\sw3.js" />
     <Content Include="Scripts\affix.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\AutocmpleteCascade.js" />
@@ -577,66 +531,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Copy of push\images\icons\icons-hinted.ttf" />
-    <Content Include="Copy of push\images\icons\icons.eot" />
-    <Content Include="Copy of push\images\icons\icons.ttf" />
-    <Content Include="Copy of push\images\icons\icons.woff" />
-    <Content Include="Copy of push\images\icons\icons.woff2" />
-    <Content Include="Copy of push\manifest.json" />
-    <Content Include="Copy of push\manifest.webapp" />
-    <Content Include="Copy of push\s.ashx" />
-    <Content Include="Copy of push\styleguide\_colors.scss" />
-    <Content Include="Copy of push\styleguide\_styleguide_demo_bp.scss" />
-    <Content Include="Copy of push\styleguide\animation\_animation.scss" />
-    <Content Include="Copy of push\styleguide\animation\demo.scss" />
-    <Content Include="Copy of push\styleguide\button\_button.scss" />
-    <Content Include="Copy of push\styleguide\button\demo.scss" />
-    <Content Include="Copy of push\styleguide\card\_card.scss" />
-    <Content Include="Copy of push\styleguide\card\demo.scss" />
-    <Content Include="Copy of push\styleguide\checkbox\_checkbox.scss" />
-    <Content Include="Copy of push\styleguide\checkbox\demo.scss" />
-    <Content Include="Copy of push\styleguide\column-layout\_column-layout.scss" />
-    <Content Include="Copy of push\styleguide\column-layout\demo.scss" />
-    <Content Include="Copy of push\styleguide\dropdown-menu\_dropdown-menu.scss" />
-    <Content Include="Copy of push\styleguide\dropdown-menu\demo.scss" />
-    <Content Include="Copy of push\styleguide\footer\_mega_footer.scss" />
-    <Content Include="Copy of push\styleguide\footer\_mini_footer.scss" />
-    <Content Include="Copy of push\styleguide\footer\demo.scss" />
-    <Content Include="Copy of push\styleguide\icon-toggle\_icon-toggle.scss" />
-    <Content Include="Copy of push\styleguide\icon-toggle\demo.scss" />
-    <Content Include="Copy of push\styleguide\icons\_icons.scss" />
-    <Content Include="Copy of push\styleguide\icons\demo.scss" />
-    <Content Include="Copy of push\styleguide\item\_item.scss" />
-    <Content Include="Copy of push\styleguide\item\demo.scss" />
-    <Content Include="Copy of push\styleguide\layout\_layout.scss" />
-    <Content Include="Copy of push\styleguide\layout\demo.scss" />
-    <Content Include="Copy of push\styleguide\layout\README.md" />
-    <Content Include="Copy of push\styleguide\list\_list.scss" />
-    <Content Include="Copy of push\styleguide\list\demo.scss" />
-    <Content Include="Copy of push\styleguide\palette\_palette.scss" />
-    <Content Include="Copy of push\styleguide\palette\demo.scss" />
-    <Content Include="Copy of push\styleguide\radio\_radio.scss" />
-    <Content Include="Copy of push\styleguide\radio\demo.scss" />
-    <Content Include="Copy of push\styleguide\resets\_h5bp.scss" />
-    <Content Include="Copy of push\styleguide\ripple\_ripple.scss" />
-    <Content Include="Copy of push\styleguide\shadow\_shadow.scss" />
-    <Content Include="Copy of push\styleguide\shadow\demo.scss" />
-    <Content Include="Copy of push\styleguide\slider\_slider.scss" />
-    <Content Include="Copy of push\styleguide\slider\demo.scss" />
-    <Content Include="Copy of push\styleguide\spinner\_spinner.scss" />
-    <Content Include="Copy of push\styleguide\spinner\demo.scss" />
-    <Content Include="Copy of push\styleguide\styleguide.scss" />
-    <Content Include="Copy of push\styleguide\styles\main.scss" />
-    <Content Include="Copy of push\styleguide\switch\_switch.scss" />
-    <Content Include="Copy of push\styleguide\switch\demo.scss" />
-    <Content Include="Copy of push\styleguide\tabs\_tabs.scss" />
-    <Content Include="Copy of push\styleguide\tabs\demo.scss" />
-    <Content Include="Copy of push\styleguide\textfield\_textfield.scss" />
-    <Content Include="Copy of push\styleguide\textfield\demo.scss" />
-    <Content Include="Copy of push\styleguide\tooltip\_tooltip.scss" />
-    <Content Include="Copy of push\styleguide\tooltip\demo.scss" />
-    <Content Include="Copy of push\styleguide\typography\_typography.scss" />
-    <Content Include="Copy of push\styleguide\typography\demo.scss" />
     <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
     <None Include="Properties\PublishProfiles\realse.pubxml" />
     <Content Include="push\s.ashx" />
@@ -701,6 +595,9 @@
     <Content Include="push\images\icons\icons.woff2" />
     <Content Include="push\styles\main.scss" />
     <Content Include="push\getNotify.ashx" />
+    <Content Include="push\Ping.ashx" />
+    <Content Include="push\SendNotify.ashx" />
+    <Content Include="push\Register.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\carousel-rtl.js" />
@@ -823,8 +720,10 @@
     <Content Include="Views\Shared\_priceBox.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\F\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\BaseController\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
@@ -851,6 +750,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511071830528_order99.resx">
       <DependentUpon>201511071830528_order99.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111429513_notif.resx">
+      <DependentUpon>201511111429513_notif.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111433074_notif2.resx">
+      <DependentUpon>201511111433074_notif2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111534471_notif3.resx">
+      <DependentUpon>201511111534471_notif3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

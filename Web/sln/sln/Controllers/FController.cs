@@ -83,7 +83,7 @@ namespace Michal.Project.Controllers
                     u.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
 
                     u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
-                 
+
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
                     shippingsItems.Add(u);
@@ -109,5 +109,13 @@ namespace Michal.Project.Controllers
             }
         }
 
+
+        public ActionResult Register()
+        {
+            var user = new UserContext(AuthenticationManager);
+            @ViewBag.UserId = user.UserId;
+            return View();
+
+        }
     }
 }
