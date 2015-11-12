@@ -67,12 +67,26 @@ function onPushSubscription(pushSubscription) {
             }
         }
         debugger;
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            },
+            message: "מבצע בדיקה ,נא המתן"
+        });
         fetch(PUSH_SERVER_URL + 'Ping.ashx?d=' + gsubscriptionId, {
             method: 'get'
 
         }).then(function (response) {
+            $.unblockUI();
             console.log('Response = ', response);
         }).catch(function (err) {
+            $.unblockUI();
             console.log('Fetch Error :-S', err);
         });
     });
@@ -91,11 +105,25 @@ function onPushSubscription(pushSubscription) {
             }
         }
         debugger;
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            },
+            message:"מבצע רישום ,נא המתן"
+
+        });
         fetch(PUSH_SERVER_URL + 'Register.ashx?u=' + userid + '&d=' + gsubscriptionId, {
             method: 'get'
 
         }).then(function (response) {
             debugger;
+            $.unblockUI();
             if (response == null || (response != null && response.IsError)) {
                 var result = response == null ? "" : response.ErrDesc;
                 alert(response.ErrDesc);
@@ -105,6 +133,7 @@ function onPushSubscription(pushSubscription) {
 
             console.log('Response = ', response);
         }).catch(function (err) {
+            $.unblockUI();
             console.log('Fetch Error :-S', err);
         });
     });
