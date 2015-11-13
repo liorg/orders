@@ -6,12 +6,12 @@ using System.Net;
 using System.IO;
 public class getNotify2 : IHttpHandler
 {
-   // static string deviceid = "";
+    // static string deviceid = "";
     public void ProcessRequest(HttpContext context)
     {
-          var result = "";
+        var result = "";
         var url = "5.100.251.87";// "localhost";// "5.100.251.87";
-        var deviceid = ""; var userid = "";
+        var deviceid = "";
         deviceid = context.Request["d"].ToString(); //"APA91bEySCtvj53PBy2QgoxAgqlgfrIoN6cqQenbEn_2g7Sl_bSa_Uopp1eRe4m7VlleXJ4Jul5bj11Uz6oR1-3sN_XHDI00oNgebtFJlbqo5AjjxHgysegZ1jqsJIOmQja-akvxJ5GJlAJdaXgLl0FO9Dy_3EHVRLeQL0q2L-y5yvtxuQontlU";
 
         context.Response.ContentType = "application/json";
@@ -44,10 +44,10 @@ public class getNotify2 : IHttpHandler
                 result = Newtonsoft.Json.JsonConvert.SerializeObject(new
                 {
                     IsError = false,
-                    ErrDesc = "",
-                    Title=data.Title.Value,
-                    Body=data.Body.Value,
-                    Url=data.Url.Value
+                    ErrDesc = "s",
+                    Title = data.Model.Title.Value,
+                    Body = data.Model.Body.Value,
+                    Url = data.Model.Url.Value
                 });
             }
             tReader.Close();
@@ -59,14 +59,14 @@ public class getNotify2 : IHttpHandler
 
             result = Newtonsoft.Json.JsonConvert.SerializeObject(new
             {
-                IsError = false,
+                IsError = true,
                 ErrDesc = e.ToString()
             });
         }
-       
+
         context.Response.Write(result);
     }
-    }
+
 
     public bool IsReusable
     {
