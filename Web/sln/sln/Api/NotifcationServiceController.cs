@@ -63,16 +63,17 @@ namespace Michal.Project.Api
         [AcceptVerbs("GET")]
         public HttpResponseMessage GetNotify(string deviceid)
         {
-            Result<Notify> result = new Result<Notify>();
+            Result<NotifyItem> result = new Result<NotifyItem>();
             var dt = DateTime.Now;
             result.ErrDesc = "ok";
             var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
-            var path= "/Notification/";
+            var path = "/Notification/";
             using (var context = new ApplicationDbContext())
             {
-                result.Model = new Notify();
-                result.Model.Items = new List<NotifyItem>();
-                result.Model.Url = url+path;
+                result.Model = new NotifyItem();
+                var notify = new Notify();
+                notify.Items = new List<NotifyItem>();
+                result.Model.Url = url + path;
                 result.Model.Title = "מערכת הודעות זמן אמת";
                 try
                 {
@@ -91,11 +92,26 @@ namespace Michal.Project.Api
                                 Url = notifyMessage.ToUrl,
                                 Id = notifyMessage.NotifyMessageId
                             };
-                            result.Model.Items.Add(notifyItem);
+                            notify.Items.Add(notifyItem);
                             notifyMessage.IsRead = true;
-                            context.Entry<NotifyMessage>(notifyMessage).State = EntityState.Deleted;
+                            context.Entry<NotifyMessage>(notifyMessage).State = EntityState.Modified;
                         }
                         context.SaveChanges();
+                        if (notify.Items == null || notify.Items.Count == 0)
+                        {
+                            result.Model.Body = "אן הודעות";
+                        }
+                        else if (notify.Items != null && notify.Items.Count == 1)
+                        {
+                            result.Model.Body = notify.Items[0].Body;
+                            result.Model.Url = notify.Items[0].Url;
+                        }
+                        else if (notify.Items != null && notify.Items.Count > 1)
+                        {
+                            result.Model.Body = "יש לך מספר הודעות " + notify.Items.Count.ToString() + " חדשות "; ;
+                        }
+                        
+
                     }
                     else
                     {
@@ -113,7 +129,7 @@ namespace Michal.Project.Api
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = new ObjectContent<Result>(result,
+                    Content = new ObjectContent<Result<NotifyItem>>(result,
                                new JsonMediaTypeFormatter(),
                                 new MediaTypeWithQualityHeaderValue("application/json"))
                 };

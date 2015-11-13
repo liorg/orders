@@ -466,6 +466,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="push\swrealtime.js" />
     <Content Include="push\Register.ashx" />
     <Content Include="push\Register.html" />
     <Content Include="push\scripts\ui-handlerEvent.js" />
@@ -617,6 +618,7 @@
     <Content Include="push\getNotify.ashx" />
     <Content Include="push\Ping.ashx" />
     <Content Include="push\SendNotify.ashx" />
+    <Content Include="push\getNotify2.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\carousel-rtl.js" />

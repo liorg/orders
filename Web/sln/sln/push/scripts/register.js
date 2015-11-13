@@ -436,7 +436,7 @@ window.addEventListener('UIReady', function () {
     // Check that service workers are supported
     if ('serviceWorker' in navigator) {
         debugger;
-        navigator.serviceWorker.register('sw3.js')
+        navigator.serviceWorker.register('swrealtime.js')
       //navigator.serviceWorker.register('service-worker.js')
       .then(initialiseState);
     } else {
