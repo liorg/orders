@@ -1,9 +1,11 @@
-﻿using Michal.Project.Dal;
+﻿
+using Michal.Project.Dal;
 using Michal.Project.DataModel;
 using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -65,29 +67,31 @@ namespace Michal.Project.Api
             var dt = DateTime.Now;
             result.ErrDesc = "ok";
             var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
+            var path= "/Notification/";
             using (var context = new ApplicationDbContext())
             {
+                result.Model = new Notify();
+                result.Model.Items = new List<NotifyItem>();
+                result.Model.Url = url+path;
+                result.Model.Title = "מערכת הודעות זמן אמת";
                 try
                 {
                     var user = context.UserNotify.Where(d => d.DeviceId == deviceid).Select(s => s.UserId).FirstOrDefault();
                     if (user != null && user != Guid.Empty)
                     {
-                        var notify = new Notify();
-                        notify.Items = new List<NotifyItem>();
-                        notify.Url = url + "Notification/";
-                        notify.Title = "מערכת זמן אמת";
-                        notify.Body = "שים לב יש לך הודעות חדשות";
+
+                        result.Model.Body = "שים לב יש לך הודעות חדשות";
                         var notifyMessages = context.NotifyMessage.Where(u => u.UserId == user && u.IsActive == true && u.IsRead == false).ToList();
                         foreach (var notifyMessage in notifyMessages)
                         {
                             var notifyItem = new NotifyItem
                             {
                                 Body = notifyMessage.Body,
-                                Title = notify.Title,
+                                Title = result.Model.Title,
                                 Url = notifyMessage.ToUrl,
                                 Id = notifyMessage.NotifyMessageId
                             };
-                            notify.Items.Add(notifyItem);
+                            result.Model.Items.Add(notifyItem);
                             notifyMessage.IsRead = true;
                             context.Entry<NotifyMessage>(notifyMessage).State = EntityState.Deleted;
                         }
@@ -95,6 +99,9 @@ namespace Michal.Project.Api
                     }
                     else
                     {
+
+                        result.Model.Body = "אן לך הודעות חדשות";
+
                     }
 
                 }

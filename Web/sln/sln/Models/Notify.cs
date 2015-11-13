@@ -13,17 +13,19 @@ namespace Michal.Project.Models
 
         public string Title { get; set; }
         public string Body { get; set; }
-        public bool MoreThenOne
+
+        public bool ShowParent
         {
             get
             {
-                if (Items != null && Items.Any() && Items.Count > 1)
+                if ((Items != null && Items.Any() && Items.Count > 1) || (Items==null) || (Items!=null && Items.Count==0))
                 {
                     return true;
                 }
                 return false;
             }
         }
+        
     }
 
     public class NotifyItem

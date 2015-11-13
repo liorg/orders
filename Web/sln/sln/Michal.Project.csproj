@@ -741,6 +741,7 @@
     </Content>
     <Content Include="Views\F\Register.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Home\Version.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\BaseController\" />

@@ -9,6 +9,7 @@ public class Register : IHttpHandler
     // static string deviceid = "";
     public void ProcessRequest(HttpContext context)
     {
+        
         var result = "";
         var url = "5.100.251.87";// "localhost";// "5.100.251.87";
         var deviceid = ""; var userid = "";
@@ -19,40 +20,51 @@ public class Register : IHttpHandler
         context.Response.AppendHeader("Access-Control-Allow-Origin", "*");
         context.Response.AppendHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, HEAD");
         context.Response.AppendHeader("Access-Control-Allow-Headers", "X-Requested-With");
-
-        WebRequest tRequest;
-        //http://5.100.251.87:4545/Test/m.html
-        tRequest = WebRequest.Create("http://" + url + ":4545/api/Notifcation/Register?userid=" + userid + "&deviceid=" + deviceid);
-        tRequest.Method = "get";
-        tRequest.ContentType = "application/json;charset=UTF-8";
-
-
-        WebResponse tResponse = tRequest.GetResponse();
-        var dataStream = tResponse.GetResponseStream();
-
-        StreamReader tReader = new StreamReader(dataStream);
-        String sResponseFromServer = tReader.ReadToEnd();
-        dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(sResponseFromServer);
-        if (data.IsError.Value)
+        try
         {
-            result = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            WebRequest tRequest;
+            //http://5.100.251.87:4545/Test/m.html
+            tRequest = WebRequest.Create("http://" + url + ":4545/api/Notifcation/Register?userid=" + userid + "&deviceid=" + deviceid);
+            tRequest.Method = "get";
+            tRequest.ContentType = "application/json;charset=UTF-8";
+
+
+            WebResponse tResponse = tRequest.GetResponse();
+            var dataStream = tResponse.GetResponseStream();
+
+            StreamReader tReader = new StreamReader(dataStream);
+            String sResponseFromServer = tReader.ReadToEnd();
+            dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(sResponseFromServer);
+            if (data.IsError.Value)
             {
-                IsError = true,
-                ErrDesc = data.ErrDesc.Value
-            });
+                result = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    IsError = true,
+                    ErrDesc = data.ErrDesc.Value
+                });
+            }
+            else
+            {
+                result = Newtonsoft.Json.JsonConvert.SerializeObject(new
+                {
+                    IsError = false,
+                    ErrDesc = data.ErrDesc.Value
+                });
+            }
+            tReader.Close();
+            dataStream.Close();
+            tResponse.Close();
         }
-        else
+        catch (Exception e)
         {
+
             result = Newtonsoft.Json.JsonConvert.SerializeObject(new
             {
                 IsError = false,
-                ErrDesc = data.ErrDesc.Value
+                ErrDesc = e.ToString()
             });
         }
-        tReader.Close();
-        dataStream.Close();
-        tResponse.Close();
-
+       
         context.Response.Write(result);
     }
 

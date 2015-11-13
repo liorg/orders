@@ -12,6 +12,11 @@ namespace Michal.Project.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult Version()
+        {
+            ViewBag.Version = "1.0.0.0";
+            return View();
         }  
 
        

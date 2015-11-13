@@ -70,17 +70,24 @@
                         </li>
                     }
                       @RenderSection("ordernumber", required: false)
-                    @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleOrgManager)))
-                    {
+                    
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ניהול <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ראשי  <span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                            @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleOrgManager)))
+                            {
                                 <li><a href="/Account/"><i class="fa fa-user-plus"></i>ניהול משתמשים </a></li>
+                            }
+                            @if (Request.IsAuthenticated && User.IsInRole(HelperAutorize.RoleAdmin))
+                            {
                                 <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache </a></li>
+                            }
                                 <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i>הודעות </a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i>פרטי מוצר </a></li>
                             </ul>
                         </li>
-                    }
+                    
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bar-chart"></i>תצוגות <span class="caret"></span></a>
                         <ul class="dropdown-menu">

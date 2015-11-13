@@ -369,7 +369,8 @@ namespace Michal.Project.Api
         {
             var result = new Result<Guid>();
             result.Model = Guid.NewGuid();
-
+            var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
+            var path = "/Offer/CreateOrder?shipId="+offer.Id.ToString();
              var userContext = HttpContext.Current.GetOwinContext().Authentication;
             var user = new UserContext(userContext);
             using (var context = new ApplicationDbContext())
@@ -381,7 +382,7 @@ namespace Michal.Project.Api
                 {
                     Title = "הזמנה חדשה",
                     Body = " אישור הזמנה" + orderName,
-                    Url = ""
+                    Url = url+path
                 };
                await manager.Send(context, user,notifyItem);
             }

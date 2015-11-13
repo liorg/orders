@@ -107,6 +107,7 @@ self.addEventListener('push', function (event) {
       })
     );
 });
+
 self.addEventListener('notificationclick', function (event) {
     debugger;
     var url = event.notification.data.url;
