@@ -46,3 +46,33 @@ mission pricing
 4.1 fill current items (on new or on current offer)
 4.2 update current items
 5 discount client and server
+
+
+-------------------------------------------------
+1. offer
+1.1 offer sections
+1.1.1 proudcts items
+1.1.2 time wait and refresh button
+1.1.3 product systems items
+1.1.4 add signture price 
+1.2 offer view
+1.2.1 offer lists (type of list)
+1.2.2 order lists (type of list)
+1.3 workflow 
+1.3.1 send notifcation by follow by
+1.3.2  
+1.5 close order
+
+
+2. navigator 
+2.1 navigator on top menu
+2.2 step view on ship details http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progressbar-details
+
+
+3. sla
+3.1 sla table
+3.2 bussines closure 
+3.2.1 batch of holiday
+3.2.2 fill days on table
+3.3 do calc
+3.4 show in view timecountdown http://www.jqueryrain.com/?56sC0nJR
