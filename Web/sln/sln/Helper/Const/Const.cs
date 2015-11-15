@@ -44,6 +44,9 @@ namespace Michal.Project.Helper
         public const int MaxRecordsPerPage = 10;
         public const string OrgWWW = "www";
         public const string OrgIDWWW = "00000000-0000-0000-0000-000000000002";
+
+        public const string UnitMin = "דק'";
+        public const string Unit = "יח'";
        
     }
 

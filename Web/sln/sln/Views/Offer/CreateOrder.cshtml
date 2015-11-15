@@ -45,6 +45,21 @@
         </div>
     </div>
 
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTimewait">שדות זמן המתנה</a>
+                </h4>
+            </div>
+            <div id="collapseTimewait" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        ddd
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -88,7 +103,24 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                        ddd
+                        <ul class="list-group"> 
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.DirectionText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.DirectionText)</span>
+                            </li>
+                             <li class="list-group-item">
+                                <span class="label label-primary">@Model.SigTypeText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.SigTypeText): </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.ShipTypeText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.ShipTypeText): </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.DistanceText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.DistanceText): </span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -103,21 +135,35 @@
             <div id="collapseTree" class="panel-collapse collapse">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <table class=" table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Author</th>
+                           
+                                 <tr>
+                                        <th>
+                                        מוצר
+                                        </th>
+                                        <th>
+                                            סה"כ
+                                        </th>
+                                      <th></th><th></th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                @if( !Model.ShippingItems.Any() )
+                                {
+                                 <tr>
+                                        <td colspan="2" ><h4 class="text-center">אן פריטים למשלוח</h4> </td>
+                                </tr>
+                                }
+                                @foreach (var item in Model.ShippingItems) {
                                     <tr>
-                                   <td></td>
-                                    <td></td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Total)
+                                        </td>
+        
                                     </tr>
-                                </tbody>
+                                }
                             </table>
                         </div>
                     </div>

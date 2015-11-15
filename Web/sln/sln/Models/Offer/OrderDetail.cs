@@ -28,5 +28,18 @@ namespace Michal.Project.Models
         [Display(Name = "כתובת מקור")]
         public AddressEditorViewModel SourceAddress { get; set; }
 
+        public List<ShippingItemVm> ShippingItems { get; set; }
+
+        [Display(Name = "כיוון משלוח")]
+        public string DirectionText { get; set; }
+
+        [Display(Name = "החזרת אסמכתא")]
+        public string SigTypeText { get; set; }
+
+        [Display(Name = "סוג משלוח")]
+        public string ShipTypeText { get; set; }
+
+        [Display(Name = "מרחק")]
+        public string DistanceText { get; set; }
     }
 }

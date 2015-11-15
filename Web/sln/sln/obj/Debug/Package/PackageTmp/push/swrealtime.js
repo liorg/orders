@@ -2,7 +2,7 @@
 
 importScripts('scripts/indexdbwrapper.js');
 
-var API_ENDPOINT = 'https://imaot.co.il/t/getNotify.ashx?d=';
+var API_ENDPOINT = 'https://imaot.co.il/t/getNotify2.ashx?d=';
 var KEY_VALUE_STORE_NAME = 'key-value-store';
 debugger;
 var idb;
@@ -51,14 +51,23 @@ self.addEventListener('push', function (event) {
               return response.json().then(function (data) {
                   debugger;
 
-                  var title = data.query.Title;
-                  var message = data.query.Body + "=>"+data.query.DeviceId;
+                  var title = "שרות הודעות";//data.query.Title;
+                  var message = "";//data.query.Body + "=>" + data.query.DeviceId;
+                  // Add this to the data of the notification
+                  var urlToOpen = "http://5.100.251.87:4545/";// data.query.Url;
+
+                  if (data.IsError) {
+                      message = data.ErrDesc;
+                  }
+                  else {
+                      title = data.Title;
+                      message = data.Body;
+                       urlToOpen = data.Url;
+                  }
                   var icon = 'images/touch/chrome-touch-icon-192x192.png';
                   var notificationTag = 'simple-push-demo-notification';
 
-                  // Add this to the data of the notification
-                  var urlToOpen = data.query.Url;
-
+                  
                   if (!Notification.prototype.hasOwnProperty('data')) {
                       // Since Chrome doesn't support data at the moment
                       // Store the URL in IndexDB
@@ -98,7 +107,6 @@ self.addEventListener('push', function (event) {
                               ' weather updates.';
                             notificationData.notificationCount = notificationCount;
                         }
-
                         return showNotification(title, message, icon, notificationData);
                     });
               });

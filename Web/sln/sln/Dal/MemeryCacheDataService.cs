@@ -21,7 +21,7 @@ namespace Michal.Project.Dal
         static List<KeyValuePair<int, string>> _getDirection = null;
         static StreetsGeoLocation _locationDes = null;
         static Guid _orgId = Guid.Empty;
-
+        static Organization _organization = null;
         public MemeryCacheDataService()
         {
 
@@ -46,6 +46,27 @@ namespace Michal.Project.Dal
                 }
             }
             return _orgId;
+        }
+
+        public Organization GetOrgEntity(ApplicationDbContext context)
+        {
+            if (_organization == null)
+            {
+                lock (lockObj)
+                {
+                    if (_organization == null)
+                    {
+                        var orgconfig = System.Configuration.ConfigurationManager.AppSettings["org"].ToString();
+                        var org = context.Organization.Where(o => o.Name == orgconfig).FirstOrDefault();
+                        if (org != null)
+                        {
+                            _organization = org;
+                        }
+
+                    }
+                }
+            }
+            return _organization;
         }
 
         public List<KeyValuePair<int, string>> GetDirection()

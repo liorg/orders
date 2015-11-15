@@ -42,8 +42,7 @@ namespace Michal.Project.Api
         {
             using (var context = new ApplicationDbContext())
             {
-                string unitMin = "דק'";
-                string unit = "יח'";
+             
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
@@ -69,6 +68,7 @@ namespace Michal.Project.Api
                 var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
              
                 var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
+                
 
                 var user = new UserContext(userContext);
                 decimal? priceValue = null;
@@ -76,6 +76,21 @@ namespace Michal.Project.Api
                 OfferClient offerClient = new OfferClient();
                 offerClient.Id = ship.ShippingId;
                 offerClient.Name = ship.Name;
+
+                offerClient.TimeWaitGet = 15;
+                offerClient.TimeWaitSend = 15;
+
+                if (ship.TimeWaitStartSend.HasValue && ship.TimeWaitEndSend.HasValue)
+                {
+                    var resultTimeWaitSend = ship.TimeWaitEndSend.Value - ship.TimeWaitStartSend.Value;
+                    offerClient.TimeWaitSend= resultTimeWaitSend.Minutes > 15? resultTimeWaitSend.Minutes:15;
+                }
+                if (ship.TimeWaitEndGet.HasValue && ship.TimeWaitStartSGet.HasValue)
+                {
+                    var resultTimeWaitGet = ship.TimeWaitEndGet.Value - ship.TimeWaitStartSGet.Value;
+                    offerClient.TimeWaitGet = resultTimeWaitGet.Minutes > 15? resultTimeWaitGet.Minutes:15;
+                }
+
                 var discounts = new List<OfferClientItem>();
                 foreach (var discount in discountLists)
                 {
@@ -103,7 +118,7 @@ namespace Michal.Project.Api
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
                         AllowRemove = allowRemove,
-                        QuntityType = qunitityType == 0 ? unit : unitMin
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                     });
                 }
                 qunitityType = 0;
@@ -127,7 +142,7 @@ namespace Michal.Project.Api
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
                         AllowRemove = false,
-                        QuntityType = qunitityType == 0 ? unit : unitMin
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                     });
                 }
 
@@ -153,7 +168,7 @@ namespace Michal.Project.Api
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
                         AllowRemove = false,
-                        QuntityType = qunitityType == 0 ? unit : unitMin
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                     });
                 }
                 offerClient.Products = new List<OfferClientItem>();
@@ -175,7 +190,7 @@ namespace Michal.Project.Api
                         ProductPrice = priceValue,
                         StatusRecord = 1,
                         AllowEdit = allowEdit,
-                        QuntityType = qunitityType == 0 ? unit : unitMin,
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin,
                         AllowRemove = false
                     });
                 }
@@ -240,7 +255,7 @@ namespace Michal.Project.Api
                             Amount = Convert.ToInt32(item.Quantity),
                             AllowEdit = allowEdit,
                             AllowRemove = allowRemove,
-                            QuntityType = qunitityType == 0 ? unit : unitMin
+                            QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                         });
                     }
                     priceValue = null;
@@ -262,7 +277,7 @@ namespace Michal.Project.Api
                         ObjectId = ship.ShipType.ShipTypeId,
                         ObjectIdType = (int)ObjectTypeCode.ShipType,
                         AllowEdit = allowEdit,
-                        QuntityType = qunitityType == 0 ? unit : unitMin,
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin,
                         AllowRemove = false
                     });
 
@@ -285,7 +300,7 @@ namespace Michal.Project.Api
                         ObjectIdType = (int)ObjectTypeCode.Distance,
                         AllowEdit = allowEdit,
                         AllowRemove = false,
-                        QuntityType = qunitityType == 0 ? unit : unitMin
+                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                     });
                 }
                 priceValue = null; qunitityType = 0;
@@ -313,7 +328,7 @@ namespace Michal.Project.Api
                     Amount = ProductSystemIds.MinAmountTimeWaitInMIn,
                     AllowEdit = allowEdit,
                     AllowRemove = allowRemove,
-                    QuntityType = qunitityType == 0 ? unit : unitMin
+                    QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                 });
 
                 priceValue = null; qunitityType = 0;
@@ -341,7 +356,7 @@ namespace Michal.Project.Api
                     Amount = ProductSystemIds.MinAmountTimeWaitInMIn,
                     AllowEdit = allowEdit,
                     AllowRemove = allowRemove,
-                    QuntityType = qunitityType == 0 ? unit : unitMin
+                    QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                 });
 
                 //offerClient.Discounts = (from d in demo.Discounts
