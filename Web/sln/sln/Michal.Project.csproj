@@ -471,7 +471,6 @@
     <Content Include="push\Register.html" />
     <Content Include="push\scripts\ui-handlerEvent.js" />
     <Content Include="push\scripts\register.js" />
-    <Content Include="push\sw.js" />
     <Content Include="push\images\icons\icons.svg" />
     <Content Include="push\images\icons\placeholder--medium.png" />
     <Content Include="push\images\icons\placeholder--small.png" />
@@ -538,7 +537,6 @@
     <Content Include="push\styleguide\wskComponentHandler.js" />
     <Content Include="push\styleguide\styles\main.css" />
     <Content Include="push\styles\main.css" />
-    <Content Include="push\sw3.js" />
     <Content Include="Scripts\affix.js" />
     <Content Include="Scripts\alert.js" />
     <Content Include="Scripts\AutocmpleteCascade.js" />
@@ -615,7 +613,6 @@
     <Content Include="push\images\icons\icons.woff" />
     <Content Include="push\images\icons\icons.woff2" />
     <Content Include="push\styles\main.scss" />
-    <Content Include="push\getNotify.ashx" />
     <Content Include="push\Ping.ashx" />
     <Content Include="push\SendNotify.ashx" />
     <Content Include="push\getNotify2.ashx" />
