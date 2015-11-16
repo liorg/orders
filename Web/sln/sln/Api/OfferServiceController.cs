@@ -402,10 +402,14 @@ namespace Michal.Project.Api
                 var notifyItem = new NotifyItem
                 {
                     Title = "הזמנה חדשה",
-                    Body = " אישור הזמנה" + orderName,
+                    Body = "בקשת הזמנה עבור " + orderName,
                     Url = url+path
                 };
-               await manager.Send(context, user,notifyItem);
+               Task sendMessage= manager.Send(context, user,notifyItem);
+
+
+
+
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
