@@ -1,0 +1,24 @@
+﻿@model Michal.Project.Models.OrderDetail
+
+       <div class="row"> 
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        <ul class="list-group"> 
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.DirectionText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.DirectionText)</span>
+                            </li>
+                             <li class="list-group-item">
+                                <span class="label label-primary">@Model.SigTypeText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.SigTypeText): </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.ShipTypeText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.ShipTypeText): </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Model.DistanceText</span>
+                                <span class="prefix pull-right">@Html.LabelFor(m => m.DistanceText): </span>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>

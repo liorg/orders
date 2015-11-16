@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         <div class="btn-group" style="margin-left: 4px">
@@ -22,6 +22,7 @@
         </div>
     </div>
 </div>
+<h4>@ViewBag.Title</h4>
 <div class="row">
     <div class="  col-md-12 ">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))

@@ -411,6 +411,7 @@
     <Content Include="Content\img\ok32x32.png" />
     <Content Include="Content\img\percent16.png" />
     <Content Include="Content\img\printer32x32.png" />
+    <Content Include="Content\img\refresh32x32tw.png" />
     <Content Include="Content\img\register.png" />
     <Content Include="Content\img\return.jpg" />
     <Content Include="Content\img\run2.png" />
@@ -480,11 +481,7 @@
     <Content Include="push\images\touch\chrome-touch-icon-192x192.png" />
     <Content Include="push\images\touch\icon-128x128.png" />
     <Content Include="push\images\touch\ms-touch-icon-144x144-precomposed.png" />
-    <Content Include="push\s.html" />
     <Content Include="push\scripts\indexdbwrapper.js" />
-    <Content Include="push\scripts\main.js" />
-    <Content Include="push\scripts\mainweb.js" />
-    <Content Include="push\scripts\ui-handler.js" />
     <Content Include="push\service-worker.js" />
     <Content Include="push\styleguide.html" />
     <Content Include="push\styleguide\animation\animation.js" />
@@ -552,7 +549,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
     <None Include="Properties\PublishProfiles\realse.pubxml" />
-    <Content Include="push\s.ashx" />
     <Content Include="push\manifest.webapp" />
     <Content Include="push\manifest.json" />
     <Content Include="push\styleguide\styles\main.scss" />
@@ -741,6 +737,10 @@
     <Content Include="Views\F\Register.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\Home\Version.cshtml" />
+    <Content Include="Views\Shared\_offerProducts.cshtml" />
+    <Content Include="Views\Shared\_offerCalcFields.cshtml" />
+    <Content Include="Views\Shared\_offerToolBox.cshtml" />
+    <Content Include="Views\Shared\_offerTw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\BaseController\" />

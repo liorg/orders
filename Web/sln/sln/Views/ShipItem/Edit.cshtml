@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>משלוח חדש  @ViewBag.OrderNumber  </h2>
+
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         <div class="btn-group" style="margin-left: 4px">
@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
+<h4>משלוח חדש  @ViewBag.OrderNumber  </h4>
 @using (Html.BeginForm("Edit", "ShipItem", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
 {
     @Html.AntiForgeryToken()

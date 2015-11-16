@@ -37,6 +37,10 @@ namespace Michal.Project.Helper
         public const string TimeWaitSet = "00000000-0000-0000-0000-000000000001";
         public const string TimeWaitGet = "00000000-0000-0000-0000-000000000002";
 
+        public const string NoBack = "00000000-0000-0000-0000-000000000005";
+        public const string NoBackSigAuto = "00000000-0000-0000-0000-000000000003";
+        public const string Back = "00000000-0000-0000-0000-000000000004";
+
     }
     public static class General
     {

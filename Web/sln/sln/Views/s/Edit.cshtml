@@ -13,7 +13,7 @@
                             </ul>
                         </li>
 }
-<h3>מספר משלוח @ViewBag.OrderNumber  </h3>
+
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         <div class="btn-group" style="margin-left: 4px">
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-
+<h4>מספר משלוח @ViewBag.OrderNumber  </h4>
 @using (Html.BeginForm("Edit", "S", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
 {
     @Html.AntiForgeryToken()

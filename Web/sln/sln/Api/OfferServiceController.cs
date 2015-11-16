@@ -77,18 +77,23 @@ namespace Michal.Project.Api
                 offerClient.Id = ship.ShippingId;
                 offerClient.Name = ship.Name;
 
-                offerClient.TimeWaitGet = 15;
-                offerClient.TimeWaitSend = 15;
+                offerClient.TimeWaitGet = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
+                offerClient.TimeWaitSend = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
+                offerClient.StatusId = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
+                ship.TimeWaitEndSend = DateTime.Now.AddMinutes(30);
+                ship.TimeWaitStartSend = DateTime.Now;
 
                 if (ship.TimeWaitStartSend.HasValue && ship.TimeWaitEndSend.HasValue)
                 {
                     var resultTimeWaitSend = ship.TimeWaitEndSend.Value - ship.TimeWaitStartSend.Value;
-                    offerClient.TimeWaitSend= resultTimeWaitSend.Minutes > 15? resultTimeWaitSend.Minutes:15;
+                    offerClient.TimeWaitSend= resultTimeWaitSend.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn? resultTimeWaitSend.Minutes:ProductSystemIds.MinAmountTimeWaitInMIn;
                 }
+                ship.TimeWaitEndGet = DateTime.Now.AddMinutes(20);
+                ship.TimeWaitStartSGet = DateTime.Now;
                 if (ship.TimeWaitEndGet.HasValue && ship.TimeWaitStartSGet.HasValue)
                 {
                     var resultTimeWaitGet = ship.TimeWaitEndGet.Value - ship.TimeWaitStartSGet.Value;
-                    offerClient.TimeWaitGet = resultTimeWaitGet.Minutes > 15? resultTimeWaitGet.Minutes:15;
+                    offerClient.TimeWaitGet = resultTimeWaitGet.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitGet.Minutes : ProductSystemIds.MinAmountTimeWaitInMIn;
                 }
 
                 var discounts = new List<OfferClientItem>();
@@ -313,7 +318,8 @@ namespace Michal.Project.Api
                     priceValue = price.PriceValue;
                     qunitityType = price.QuntityType;
                 }
-
+                offerClient.TimeWaitSetProductId = timeWaitSetProduct.ProductSystemId;
+               
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
@@ -341,7 +347,7 @@ namespace Michal.Project.Api
                     priceValue = price.PriceValue;
                     qunitityType = price.QuntityType;
                 }
-
+                offerClient.TimeWaitGetProductId = timeWaitGetProduct.ProductSystemId;
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
@@ -350,7 +356,7 @@ namespace Michal.Project.Api
                     Desc = timeWaitSetProduct.Name,
                     StatusRecord = 1,
                     Name = timeWaitSetProduct.Name,
-                    ObjectId = timeWaitSetProduct.ProductSystemId,
+                    ObjectId = timeWaitGetProduct.ProductSystemId,
                     ObjectIdType = (int)ObjectTypeCode.ProductSystem,
                     ProductPrice = priceValue,
                     Amount = ProductSystemIds.MinAmountTimeWaitInMIn,

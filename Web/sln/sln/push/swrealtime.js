@@ -103,8 +103,7 @@ self.addEventListener('push', function (event) {
                                 }
                                 existingNotification.close();
                             }
-                            message = 'You have ' + notificationCount +
-                              ' weather updates.';
+                            message = 'You have ' + notificationCount + '  updates.';
                             notificationData.notificationCount = notificationCount;
                         }
                         return showNotification(title, message, icon, notificationData);

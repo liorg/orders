@@ -16,6 +16,7 @@ namespace Michal.Project.Models
         public List<OfferClientItem> Distances { get; set; }
         public List<OfferClientItem> ShipTypes { get; set; }
         public List<OfferClientItem> Products { get; set; }
+        public List<OfferClientItem> BackTypes { get; set; }
 
         public OfferClient()
         {
@@ -48,5 +49,9 @@ namespace Michal.Project.Models
         //public double? Total { get; set; }
 
         public List<OfferItem> Items { get; set; }
+
+        public Guid TimeWaitSetProductId { get; set; }
+
+        public Guid TimeWaitGetProductId { get; set; }
     }
 }

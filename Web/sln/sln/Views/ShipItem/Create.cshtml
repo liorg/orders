@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>פריט חדש עבור הזמנה @ViewBag.OrderNumber  </h2>
+
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         <div class="btn-group" style="margin-left: 4px">
@@ -19,10 +19,11 @@
                   data-url="@Url.Action("Index", "ShipItem", new { id = ViewBag.ShipId, order = @ViewBag.OrderNumber })"  
                 class="btn btn-danger btn-circle btn-xl">
                 <img src="~/Content/img/back32x32.png" />
-            </button>
+            </button> 
         </div>
     </div>
 </div>
+<h4>פריט חדש עבור הזמנה @ViewBag.OrderNumber  </h4>
 @using (Html.BeginForm("Create", "ShipItem", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "frm" }))
 {
     @Html.AntiForgeryToken()

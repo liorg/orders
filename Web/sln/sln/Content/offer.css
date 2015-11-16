@@ -16,7 +16,9 @@
     .addplus:after {
         content: "x";
     }
-
+     .addminute::after {
+        content: "דק'";
+    }
     .addpresent::after {
         content: "%";
     }

@@ -119,6 +119,10 @@ var vm = new AppViewModel(offerClient);
 function AppViewModel(vmData) {
     var self = this;
     self.isOpen = ko.observable(false);
+
+    self.TimeWaitSend = ko.observable(vmData.TimeWaitSend);
+    self.TimeWaitGet = ko.observable(vmData.TimeWaitGet);
+
     self.HasDirty = ko.observable(vmData.HasDirty);
     self.Items = ko.mapping.fromJS(vmData.Items);
     self.Discounts = ko.observableArray(vmData.Discounts);
@@ -227,8 +231,33 @@ function AppViewModel(vmData) {
         result = ((total * (countPersent / 100)) + count);
 
         return result;
-    }
+    };
+    self.refreshWatch = function () {
+        debugger;
+        var timeWaitSet = offerClient.TimeWaitSetProductId;
+        var timeWaitGet = offerClient.TimeWaitGetProductId;
+       
 
+       var twsend = ko.utils.arrayFirst(vm.Items(), function (item) {
+           return item.ObjectId() == timeWaitSet && item.ObjectIdType() == 2;
+       });
+       if (twsend != null) {
+           twsend.Amount(self.TimeWaitSend());
+           twsend.PriceValue(offerClient.TimeWaitSend * twsend.ProductPrice());
+           vm.HasDirty(true);
+           //twsend.ProductPrice(offerClient.TimeWaitSend);
+       }
+       var twget = ko.utils.arrayFirst(vm.Items(), function (item) {
+           return item.ObjectId() == timeWaitGet && item.ObjectIdType() == 2;
+       });
+       if (twget != null) {
+           twget.Amount(self.TimeWaitGet());
+           twget.PriceValue(offerClient.TimeWaitGet * twget.ProductPrice());
+           vm.HasDirty(true);
+       }
+
+        //offerClient.TimeWaitSend
+    };
     self.Total = ko.computed(function () {
         var totalPrice = getTotalPrice();
         if (totalPrice == null) return null;

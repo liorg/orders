@@ -1,10 +1,10 @@
-﻿@model Michal.Project.Models.OrderViewBase
+﻿@model OrderViewBase
 
 @{
     ViewBag.Title = " מפה של משלוח מספר " + @Model.ShippingVm.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h4>מפה של פרטי משלוח הזמנה @Model.ShippingVm.Name</h4>
+
 <div class="row">
     <div class="  col-md-12 well well-lg ">
 
@@ -28,6 +28,7 @@
         </div>
     </div>
 </div>
+<h4>מפה של פרטי משלוח הזמנה @Model.ShippingVm.Name</h4>
 @Html.Partial("_locations", Model.ShippingVm)
 
 <div class="row">

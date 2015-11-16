@@ -1,11 +1,10 @@
-﻿@model Michal.Project.Models.OrderView
+﻿@model OrderView
 
 @{
     ViewBag.Title = " פרטי משלוח " + Model.ShippingVm.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>אישור משלוח </h2>
 
 <div class="stepwizard">
     <div class="stepwizard-row setup-panel">
@@ -23,6 +22,8 @@
         </div>
     </div>
 </div>
+
+<h4>אישור משלוח  @Model.ShippingVm.Name</h4>
 
 @Html.Partial("_ShippingView")
 
