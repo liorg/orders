@@ -28,6 +28,7 @@
     }
 }
 
+
 function generateUUID() {
     var d = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -117,6 +118,7 @@ function OfferItem(id, name, desc, priceValue,
 var vm = new AppViewModel(offerClient);
 
 function AppViewModel(vmData) {
+
     var self = this;
     self.isOpen = ko.observable(false);
 
@@ -124,6 +126,16 @@ function AppViewModel(vmData) {
     self.TimeWaitGet = ko.observable(vmData.TimeWaitGet);
 
     self.HasDirty = ko.observable(vmData.HasDirty);
+
+    self.HasDirtyChange = function (b) {
+      
+        self.HasDirty(b);
+      
+        if (self.HasDirty()) {
+            $('#error_container').bs_alert('התבצעו שינויים ,יש לבצע שמירה', 'הערה');
+        }
+    };
+
     self.Items = ko.mapping.fromJS(vmData.Items);
     self.Discounts = ko.observableArray(vmData.Discounts);
     self.Products = ko.observableArray(vmData.Products);
@@ -232,8 +244,8 @@ function AppViewModel(vmData) {
 
         return result;
     };
+
     self.refreshWatch = function () {
-        debugger;
         var timeWaitSet = offerClient.TimeWaitSetProductId;
         var timeWaitGet = offerClient.TimeWaitGetProductId;
        
@@ -244,8 +256,7 @@ function AppViewModel(vmData) {
        if (twsend != null) {
            twsend.Amount(self.TimeWaitSend());
            twsend.PriceValue(offerClient.TimeWaitSend * twsend.ProductPrice());
-           vm.HasDirty(true);
-           //twsend.ProductPrice(offerClient.TimeWaitSend);
+           self.HasDirtyChange(true);
        }
        var twget = ko.utils.arrayFirst(vm.Items(), function (item) {
            return item.ObjectId() == timeWaitGet && item.ObjectIdType() == 2;
@@ -253,11 +264,12 @@ function AppViewModel(vmData) {
        if (twget != null) {
            twget.Amount(self.TimeWaitGet());
            twget.PriceValue(offerClient.TimeWaitGet * twget.ProductPrice());
-           vm.HasDirty(true);
+           self.HasDirtyChange(true);
        }
 
         //offerClient.TimeWaitSend
     };
+
     self.Total = ko.computed(function () {
         var totalPrice = getTotalPrice();
         if (totalPrice == null) return null;
@@ -321,7 +333,7 @@ function AppViewModel(vmData) {
                 var isdirty = current.Name() != product.Name() || current.Amount() != product.Amount() || product.PriceValue() != current.Total();
                 if (isdirty) {
                     //    alert("בוצע שינויים");
-                    vm.HasDirty(true);
+                    self.HasDirtyChange(true);
                 }
                 product.Name(current.Name());
                 product.Desc(current.Desc());
@@ -336,7 +348,7 @@ function AppViewModel(vmData) {
             }
         }
         else {
-            vm.HasDirty(true);
+            self.HasDirtyChange(true);
             var item = {};
             item.Id = generateUUID();
             item.Name = current.Name();
@@ -420,3 +432,37 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+(function ($) {
+    $.fn.extend({
+        bs_alert: function (message, title) {
+            var cls = 'alert-danger';
+            var html = '<div class="alert ' + cls + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+            if (typeof title !== 'undefined' && title !== '') {
+                html += '<h4>' + title + '</h4>';
+            }
+            html += '<span>' + message + '</span></div>';
+            $(this).html(html);
+        },
+        bs_warning: function (message, title) {
+            var cls = 'alert-warning';
+            var html = '<div class="alert ' + cls + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+            if (typeof title !== 'undefined' && title !== '') {
+                html += '<h4>' + title + '</h4>';
+            }
+            html += '<span>' + message + '</span></div>';
+            $(this).html(html);
+        },
+        bs_info: function (message, title) {
+            var cls = 'alert-info';
+            var html = '<div class="alert ' + cls + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+            if (typeof title !== 'undefined' && title !== '') {
+                html += '<h4>' + title + '</h4>';
+            }
+            html += '<span>' + message + '</span></div>';
+            $(this).html(html);
+        }
+    });
+})(jQuery);

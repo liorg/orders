@@ -80,16 +80,16 @@ namespace Michal.Project.Api
                 offerClient.TimeWaitGet = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
                 offerClient.TimeWaitSend = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
                 offerClient.StatusId = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
-                ship.TimeWaitEndSend = DateTime.Now.AddMinutes(30);
-                ship.TimeWaitStartSend = DateTime.Now;
+                //ship.TimeWaitEndSend = DateTime.Now.AddMinutes(30);
+                //ship.TimeWaitStartSend = DateTime.Now;
 
                 if (ship.TimeWaitStartSend.HasValue && ship.TimeWaitEndSend.HasValue)
                 {
                     var resultTimeWaitSend = ship.TimeWaitEndSend.Value - ship.TimeWaitStartSend.Value;
                     offerClient.TimeWaitSend= resultTimeWaitSend.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn? resultTimeWaitSend.Minutes:ProductSystemIds.MinAmountTimeWaitInMIn;
                 }
-                ship.TimeWaitEndGet = DateTime.Now.AddMinutes(20);
-                ship.TimeWaitStartSGet = DateTime.Now;
+                //ship.TimeWaitEndGet = DateTime.Now.AddMinutes(20);
+                //ship.TimeWaitStartSGet = DateTime.Now;
                 if (ship.TimeWaitEndGet.HasValue && ship.TimeWaitStartSGet.HasValue)
                 {
                     var resultTimeWaitGet = ship.TimeWaitEndGet.Value - ship.TimeWaitStartSGet.Value;
