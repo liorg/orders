@@ -17,16 +17,16 @@ namespace Michal.Project.Agent
         {
             _memeryCacheDataService = memeryCacheDataService;
         }
-        public void SetLocation(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
-        {
-            if (IsChanged(source))
-            {
-                var streetlan = _memeryCacheDataService.GetStreetsGeoLocation().StreetsItems.Where(st => st.CodeCity == source.Citycode && st.CodeAddr == source.Streetcode).FirstOrDefault();
-                if (streetlan != null)
-                    CallGoogle(streetlan, source);
-            }
-            Map(source, target);
-        }
+        //public void SetLocation(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
+        //{
+        //    if (IsChanged(source))
+        //    {
+        //        var streetlan = _memeryCacheDataService.GetStreetsGeoLocation().StreetsItems.Where(st => st.CodeCity == source.Citycode && st.CodeAddr == source.Streetcode).FirstOrDefault();
+        //        if (streetlan != null)
+        //            CallGoogle(streetlan, source);
+        //    }
+        //    Map(source, target);
+        //}
 
         public async Task SetLocationAsync(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
         {
@@ -92,52 +92,52 @@ namespace Michal.Project.Agent
         }
 
 
-        void CallGoogle(StreetLatAndLng streetLatAndLng, AddressEditorViewModel addr)
-        {
-            try
-            {
-                addr.UId = streetLatAndLng.UId;
-                addr.Lng = streetLatAndLng.Lng;
-                addr.Lat = streetLatAndLng.Lat;
+        //void CallGoogle(StreetLatAndLng streetLatAndLng, AddressEditorViewModel addr)
+        //{
+        //    try
+        //    {
+        //        addr.UId = streetLatAndLng.UId;
+        //        addr.Lng = streetLatAndLng.Lng;
+        //        addr.Lat = streetLatAndLng.Lat;
 
-                var httpClient = new HttpClient();
-                var url = String.Format(streetLatAndLng.GoogleFromatApiUrl, addr.Num);
-                var response = httpClient.GetAsync(url).Result;
-                //will throw an exception if not successful
-                response.EnsureSuccessStatusCode();
+        //        var httpClient = new HttpClient();
+        //        var url = String.Format(streetLatAndLng.GoogleFromatApiUrl, addr.Num);
+        //        var response = httpClient.GetAsync(url).Result;
+        //        //will throw an exception if not successful
+        //        response.EnsureSuccessStatusCode();
 
-                string content = response.Content.ReadAsStringAsync().Result;
-                dynamic o = JObject.Parse(content);
-                var result = o.results;
-                if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
-                {
-                    var loc = result[0].geometry.location;
+        //        string content = response.Content.ReadAsStringAsync().Result;
+        //        dynamic o = JObject.Parse(content);
+        //        var result = o.results;
+        //        if (result != null && result.Count > 0 && result[0] != null && result[0].geometry != null && result[0].geometry.location != null)
+        //        {
+        //            var loc = result[0].geometry.location;
 
-                    addr.Lat = loc.lat;
-                    addr.Lng = loc.lng;
-                    addr.IsSensor = true;
-                }
-                var status = o.status;
+        //            addr.Lat = loc.lat;
+        //            addr.Lng = loc.lng;
+        //            addr.IsSensor = true;
+        //        }
+        //        var status = o.status;
 
-                streetLatAndLng.Status = status.Value;
+        //        streetLatAndLng.Status = status.Value;
 
-                if (status.Value == "ZERO_RESULTS")
-                {
-                    Console.WriteLine("ZERO_RESULTS,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
-                    //continue;
-                }
-                if (status.Value == "OVER_QUERY_LIMIT")
-                {
-                    Console.WriteLine("OVER_QUERY_LIMIT,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+        //        if (status.Value == "ZERO_RESULTS")
+        //        {
+        //            Console.WriteLine("ZERO_RESULTS,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+        //            //continue;
+        //        }
+        //        if (status.Value == "OVER_QUERY_LIMIT")
+        //        {
+        //            Console.WriteLine("OVER_QUERY_LIMIT,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
 
-                    //continue;
-                }
+        //            //continue;
+        //        }
 
-            }
-            catch (Exception ee)
-            {
-            }
-        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //    }
+        //}
 
         void Map(AddressEditorViewModel source, Michal.Project.DataModel.Address target)
         {

@@ -7,11 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Data.Entity;
 namespace Michal.Project.Dal
 {
-    public class OfferRepository //: IAttachmentRepository
+    public class OfferRepository : IOfferRepository
     {
         ApplicationDbContext _context;
         public OfferRepository(ApplicationDbContext context)
@@ -19,6 +17,10 @@ namespace Michal.Project.Dal
             _context = context;
         }
 
+        public async Task Create()
+        {
+           
+        }
 
        
     }

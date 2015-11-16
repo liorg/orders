@@ -23,7 +23,7 @@ namespace Michal.Project.Controllers
     public class OrgController : Controller
     {
        
-        public async Task<ActionResult> CreateShipByOrg()
+        public ActionResult CreateShipByOrg()
         {
              using (var context = new ApplicationDbContext())
             {

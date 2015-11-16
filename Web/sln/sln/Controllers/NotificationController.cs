@@ -36,7 +36,7 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 ViewBag.UserId = user.UserId;
-                List<NotifyItem> items = context.NotifyMessage.Where(u => u.UserId == user.UserId && u.IsActive == true).Select(
+                List<NotifyItem> items = await context.NotifyMessage.Where(u => u.UserId == user.UserId && u.IsActive == true).Select(
                      m => new NotifyItem
                      {
                          Id = m.NotifyMessageId,
@@ -45,7 +45,7 @@ namespace Michal.Project.Controllers
                          Body = m.Body,
                          Url = m.ToUrl
 
-                     }).ToList();
+                     }).ToListAsync();
 
                 return View(items);
             }

@@ -14,29 +14,33 @@ namespace Michal.Project.Fasade
 {
     public class NotificationManager
     {
+      
         public NotificationManager()
         {
 
         }
 
-        public async Task Send(ApplicationDbContext context, UserContext user, NotifyItem notifyItem)
+        public async Task Send(ApplicationDbContext context, Guid? user, NotifyItem notifyItem)
         {
-            var userDevices = context.UserNotify.Where(u => u.UserId == user.UserId && u.IsActive == true).ToList();
+            if (!user.HasValue)
+                return;
+            var userDevices = context.UserNotify.Where(u => u.UserId == user.Value && u.IsActive == true).ToList();
             var dt = DateTime.Now;
+            
             context.NotifyMessage.Add(
                 new DataModel.NotifyMessage
                 {
                     Body = notifyItem.Body,
-                    CreatedBy = user.UserId,
+                    CreatedBy = user.Value,
                     CreatedOn = dt,
                     IsActive = true,
                     IsRead = true,
-                    ModifiedBy = user.UserId,
+                    ModifiedBy = user.Value,
                     ModifiedOn = dt,
                     NotifyMessageId = Guid.NewGuid(),
                     Title = notifyItem.Title,
                     ToUrl = notifyItem.Url,
-                    UserId = user.UserId
+                    UserId = user.Value
                 });
             await context.SaveChangesAsync();
 
@@ -46,7 +50,7 @@ namespace Michal.Project.Fasade
                 if (!isOk)
                 {
                     userDevice.IsActive = false;
-                    userDevice.ModifiedBy = user.UserId;
+                    userDevice.ModifiedBy = user.Value;
                     userDevice.ModifiedOn = dt;
                     context.Entry<UserNotify>(userDevice).State = System.Data.Entity.EntityState.Modified;
                 }

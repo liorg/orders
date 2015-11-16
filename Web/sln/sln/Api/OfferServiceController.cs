@@ -38,11 +38,11 @@ namespace Michal.Project.Api
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId,Guid shippingCompanyId)
+        public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId, Guid shippingCompanyId)
         {
             using (var context = new ApplicationDbContext())
             {
-             
+
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
@@ -66,9 +66,9 @@ namespace Michal.Project.Api
                 var productsSystem = cache.GetProductsSystem(context);
 
                 var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipid);
-             
+
                 var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
-                
+
 
                 var user = new UserContext(userContext);
                 decimal? priceValue = null;
@@ -86,7 +86,7 @@ namespace Michal.Project.Api
                 if (ship.TimeWaitStartSend.HasValue && ship.TimeWaitEndSend.HasValue)
                 {
                     var resultTimeWaitSend = ship.TimeWaitEndSend.Value - ship.TimeWaitStartSend.Value;
-                    offerClient.TimeWaitSend= resultTimeWaitSend.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn? resultTimeWaitSend.Minutes:ProductSystemIds.MinAmountTimeWaitInMIn;
+                    offerClient.TimeWaitSend = resultTimeWaitSend.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitSend.Minutes : ProductSystemIds.MinAmountTimeWaitInMIn;
                 }
                 //ship.TimeWaitEndGet = DateTime.Now.AddMinutes(20);
                 //ship.TimeWaitStartSGet = DateTime.Now;
@@ -319,7 +319,7 @@ namespace Michal.Project.Api
                     qunitityType = price.QuntityType;
                 }
                 offerClient.TimeWaitSetProductId = timeWaitSetProduct.ProductSystemId;
-               
+
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
@@ -391,21 +391,33 @@ namespace Michal.Project.Api
             var result = new Result<Guid>();
             result.Model = Guid.NewGuid();
             var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
-            var path = "/Offer/CreateOrder?shipId="+offer.Id.ToString();
-             var userContext = HttpContext.Current.GetOwinContext().Authentication;
+            var path = "/Offer/CreateOrder?shipId=" + offer.Id.ToString();
+            var userContext = HttpContext.Current.GetOwinContext().Authentication;
             var user = new UserContext(userContext);
             using (var context = new ApplicationDbContext())
             {
-                var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
-                var orderName=ship.Name;
+                //var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
+                //var managerShip = await context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
+                Task<Shipping> ship = context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
+                Task<ShippingCompany> managerShip = context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
+                Task[] tasks = { ship, managerShip };
+                Task.WaitAll(tasks);
+
+                //if(managerShip
+                var orderName = ship.Result.Name;
                 NotificationManager manager = new NotificationManager();
                 var notifyItem = new NotifyItem
                 {
                     Title = "הזמנה חדשה",
                     Body = " אישור הזמנה עבור " + orderName,
-                    Url = url+path
+                    Url = url + path
                 };
-               await manager.Send(context, user,notifyItem);
+                Task send1 = manager.Send(context, user.UserId, notifyItem);
+                Task send2 = manager.Send(context, managerShip.Result.ManagerId, notifyItem);
+                Task[] tasksenders = { send1, send2 };
+                Task.WaitAll(tasksenders);
+
+
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {

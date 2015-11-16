@@ -23,7 +23,7 @@ namespace Michal.Project.Controllers
     public class CacheController : Controller
     {
         [HttpPost]
-        public async Task<ActionResult> Index(string txtCache)
+        public ActionResult Index(string txtCache)
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
             cacheMemoryProvider.Refresh(txtCache);
@@ -31,7 +31,7 @@ namespace Michal.Project.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Index()
+        public  ActionResult Index()
         {
             return View();
         }

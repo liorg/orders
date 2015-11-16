@@ -8,5 +8,6 @@ namespace Michal.Project.Contract.DAL
 {
     public interface IOfferRepository
     {
+         Task Create();
     }
 }
