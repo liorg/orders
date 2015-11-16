@@ -91,52 +91,52 @@ function onPushSubscription(pushSubscription) {
         });
     });
 
-    registerButton.addEventListener('click', function (e) {
-        var userid = qs["u"];
-        //alert(userid);
-        var endpoint = pushSubscription.endpoint;
+    //registerButton.addEventListener('click', function (e) {
+    //    var userid = qs["u"];
+    //    //alert(userid);
+    //    var endpoint = pushSubscription.endpoint;
 
-        // This will no be needed in M44 / M45
-        if ('subscriptionId' in pushSubscription) {
-            // Make the endpoint always contain the subscriptionId
-            // so the server is always consistent
-            if (!endpoint.includes(pushSubscription.subscriptionId)) {
-                endpoint += '/' + pushSubscription.subscriptionId;
-            }
-        }
-        debugger;
-        $.blockUI({
-            css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-            },
-            message:"מבצע רישום ,נא המתן"
+    //    // This will no be needed in M44 / M45
+    //    if ('subscriptionId' in pushSubscription) {
+    //        // Make the endpoint always contain the subscriptionId
+    //        // so the server is always consistent
+    //        if (!endpoint.includes(pushSubscription.subscriptionId)) {
+    //            endpoint += '/' + pushSubscription.subscriptionId;
+    //        }
+    //    }
+    //    debugger;
+    //    $.blockUI({
+    //        css: {
+    //            border: 'none',
+    //            padding: '15px',
+    //            backgroundColor: '#000',
+    //            '-webkit-border-radius': '10px',
+    //            '-moz-border-radius': '10px',
+    //            opacity: .5,
+    //            color: '#fff'
+    //        },
+    //        message:"מבצע רישום ,נא המתן"
 
-        });
-        fetch(PUSH_SERVER_URL + 'Register.ashx?u=' + userid + '&d=' + gsubscriptionId, {
-            method: 'get'
+    //    });
+    //    fetch(PUSH_SERVER_URL + 'Register.ashx?u=' + userid + '&d=' + gsubscriptionId, {
+    //        method: 'get'
 
-        }).then(function (response) {
-            debugger;
-            $.unblockUI();
-            if (response == null || (response != null && response.IsError)) {
-                var result = response == null ? "" : response.ErrDesc;
-                alert(response.ErrDesc);
-            }
-            else
-                alert("הרישום בוצע");
+    //    }).then(function (response) {
+    //        debugger;
+    //        $.unblockUI();
+    //        if (response == null || (response != null && response.IsError)) {
+    //            var result = response == null ? "" : response.ErrDesc;
+    //            alert(response.ErrDesc);
+    //        }
+    //        else
+    //            alert("הרישום בוצע");
 
-            console.log('Response = ', response);
-        }).catch(function (err) {
-            $.unblockUI();
-            console.log('Fetch Error :-S', err);
-        });
-    });
+    //        console.log('Response = ', response);
+    //    }).catch(function (err) {
+    //        $.unblockUI();
+    //        console.log('Fetch Error :-S', err);
+    //    });
+    //});
 
     var curlEndpoint = pushSubscription.endpoint;
     var curlCommand = 'curl -I -X POST ' + pushSubscription.endpoint;
@@ -256,7 +256,7 @@ function unsubscribeDevice() {
 
                   // Set the state of the push switch
                   window.PushDemo.ui.setPushChecked(false);
-
+             
                   window.PushDemo.ui.showGCMPushOptions(false);
                   return;
               }
@@ -272,11 +272,15 @@ function unsubscribeDevice() {
                       // remove the subscriptionId from our server
                       // and notifications will stop
                       // This just may be in a bad state when the user returns
+
                       console.error('We were unable to unregister from push');
                   }
-
+                  gsubscriptionId = "";
+                  var curlCodeElement = document.getElementById('txtdeviceid');
+                  curlCodeElement.value = gsubscriptionId;
                   window.PushDemo.ui.setPushSwitchDisabled(false);
                   window.PushDemo.ui.showGCMPushOptions(false);
+               
               }).catch(function (e) {
                   console.log('Unsubscribtion error: ', e);
                   window.PushDemo.ui.setPushSwitchDisabled(false);
@@ -421,6 +425,59 @@ function initialiseState(req) {
 
 window.addEventListener('UIReady', function () {
     debugger;
+    var registerButton = document.querySelector('.js-register-button');
+    registerButton.addEventListener('click', function (e) {
+        var userid = qs["u"];
+        var curlCodeElement = document.getElementById('txtdeviceid');
+        var deviceid = deviceid = curlCodeElement.value;
+        if (deviceid == "") {
+            alert("לא זוהה DEVICEID");
+            return;
+        }
+        //alert(userid);
+        //var endpoint = pushSubscription.endpoint;
+
+        //// This will no be needed in M44 / M45
+        //if ('subscriptionId' in pushSubscription) {
+        //    // Make the endpoint always contain the subscriptionId
+        //    // so the server is always consistent
+        //    if (!endpoint.includes(pushSubscription.subscriptionId)) {
+        //        endpoint += '/' + pushSubscription.subscriptionId;
+        //    }
+        //}
+        debugger;
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            },
+            message: "מבצע רישום ,נא המתן"
+
+        });
+        fetch(PUSH_SERVER_URL + 'Register.ashx?u=' + userid + '&d=' + deviceid, {
+            method: 'get'
+
+        }).then(function (response) {
+            debugger;
+            $.unblockUI();
+            if (response == null || (response != null && response.IsError)) {
+                var result = response == null ? "" : response.ErrDesc;
+                alert(response.ErrDesc);
+            }
+            else
+                alert("הרישום בוצע");
+
+            console.log('Response = ', response);
+        }).catch(function (err) {
+            $.unblockUI();
+            console.log('Fetch Error :-S', err);
+        });
+    });
     // When the toggle switch changes, enabled / disable push
     // messaging
     var enablePushSwitch = document.querySelector('.js-enable-push');
