@@ -57,19 +57,26 @@ namespace Michal.Project.Controllers
                 order.OfferId = Guid.Empty;
                 order.Name = ship.Name;
                 order.Title = "בקשת הזמנה";
+                var org = cache.GetOrgEntity(context);
+                var companies = cache.GetShippingCompaniesByOrgId(context, org.OrgId);
+                if (companies.Any())
+                {
+                    order.ShippingCompanyId = companies.First().ShippingCompanyId;
+                }
+                
 
                 order.ShippingItems = new List<ShippingItemVm>();
                 foreach (var shipItem in ship.ShippingItems)
-                   order.ShippingItems.Add(new ShippingItemVm { ProductName = shipItem.Product.Name, Total = Convert.ToInt32(shipItem.Quantity) });
-                
+                    order.ShippingItems.Add(new ShippingItemVm { ProductName = shipItem.Product.Name, Total = Convert.ToInt32(shipItem.Quantity) });
+
                 order.SigTypeText = "ללא חזרה";
                 if (ship.SigBackType.HasValue)
-                 order.SigTypeText = cache.GetBackOrder().Where(ds => ds.Key == ship.SigBackType.Value).Select(s => s.Value).FirstOrDefault();
-                
+                    order.SigTypeText = cache.GetBackOrder().Where(ds => ds.Key == ship.SigBackType.Value).Select(s => s.Value).FirstOrDefault();
+
                 order.DirectionText = cache.GetDirection().Where(d => d.Key == ship.Direction).Select(s => s.Value).FirstOrDefault();
                 order.DistanceText = ship.Distance != null ? ship.Distance.Name : "";
-                order.ShipTypeText = ship.ShipType !=null?ship.ShipType.Name:"";
- 
+                order.ShipTypeText = ship.ShipType != null ? ship.ShipType.Name : "";
+
                 order.TargetAddress = new AddressEditorViewModel();
                 order.TargetAddress.City = ship.Target.CityName;
                 order.TargetAddress.Citycode = ship.Target.CityCode;

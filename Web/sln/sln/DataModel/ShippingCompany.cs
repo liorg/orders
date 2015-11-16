@@ -65,5 +65,7 @@ namespace Michal.Project.DataModel
             set;
         }
 
+        public Guid? ManagerId { get; set; }
+
     }
 }

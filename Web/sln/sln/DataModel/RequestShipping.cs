@@ -55,6 +55,8 @@ namespace Michal.Project.DataModel
         [Column(TypeName = "Money")]
         public decimal DiscountPrice { get; set; }
 
+        [Column(TypeName = "Money")]
+        public decimal Total { get; set; }
 
         public DateTime? CreatedOn
         {

@@ -85,6 +85,10 @@ namespace Michal.Project.DataModel
             set;
         }
 
-
+        public bool IsPublish
+        {
+            get;
+            set;
+        }
     }
 }

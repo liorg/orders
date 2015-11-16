@@ -34,8 +34,8 @@ namespace Michal.Project.DataModel
         public int PriceValueType { get; set; } //1 =fixed,2=%present
         public decimal? PriceValue { get; set; }
 
-        public int PriceClientValueType { get; set; } //1 =fixed,2=%present
-        public decimal? PriceClientValue { get; set; }
+        //public int PriceClientValueType { get; set; } //1 =fixed,2=%present
+        //public decimal? PriceClientValue { get; set; }
 
         public int Amount { get; set; }
 

@@ -53,5 +53,10 @@ namespace Michal.Project.Models
         public Guid TimeWaitSetProductId { get; set; }
 
         public Guid TimeWaitGetProductId { get; set; }
+
+        public int TimeWaitSend { get; set; }
+        public int TimeWaitGet { get; set; }
+
+      
     }
 }

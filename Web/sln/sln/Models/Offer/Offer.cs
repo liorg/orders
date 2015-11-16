@@ -18,8 +18,10 @@ namespace Michal.Project.Models
         public bool StateCode { get; set; } //1, new,2=checkin,3=checkout , 3=approval
         public Guid StatusId { get; set; }
 
-        public int TimeWaitSend { get; set; }
-        public int TimeWaitGet { get; set; }
+        public Guid ShippingCompanyId { get; set; }
+       
+
+
 
     }
 

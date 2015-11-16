@@ -242,12 +242,11 @@
     <Compile Include="Dal\ShippingRepository.cs" />
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
-    <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\BussinessClosure.cs" />
     <Compile Include="DataModel\UserNotify.cs" />
     <Compile Include="DataModel\NotifyMessage.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataModel\UserNotification.cs" />
     <Compile Include="DataModel\ProductSystem.cs" />
     <Compile Include="DataModel\Comment.cs" />
     <Compile Include="DataModel\AttachmentShipping.cs" />
@@ -264,7 +263,6 @@
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
     <Compile Include="DataModel\StatusShipping.cs" />
-    <Compile Include="DataModel\PriceCalc.cs" />
     <Compile Include="DataModel\ShippingItem.cs" />
     <Compile Include="DataModel\Shipping.cs" />
     <Compile Include="DataModel\Discount.cs" />
@@ -329,6 +327,14 @@
     <Compile Include="Migrations\201511112052331_dddxxs.cs" />
     <Compile Include="Migrations\201511112052331_dddxxs.Designer.cs">
       <DependentUpon>201511112052331_dddxxs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511161428061_dddd1.cs" />
+    <Compile Include="Migrations\201511161428061_dddd1.Designer.cs">
+      <DependentUpon>201511161428061_dddd1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511161439518_bc.cs" />
+    <Compile Include="Migrations\201511161439518_bc.Designer.cs">
+      <DependentUpon>201511161439518_bc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Notify.cs" />
@@ -793,6 +799,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511112052331_dddxxs.resx">
       <DependentUpon>201511112052331_dddxxs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161428061_dddd1.resx">
+      <DependentUpon>201511161428061_dddd1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161439518_bc.resx">
+      <DependentUpon>201511161439518_bc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

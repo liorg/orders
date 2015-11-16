@@ -38,7 +38,7 @@ namespace Michal.Project.Api
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId)
+        public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId,Guid shippingCompanyId)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -76,7 +76,7 @@ namespace Michal.Project.Api
                 OfferClient offerClient = new OfferClient();
                 offerClient.Id = ship.ShippingId;
                 offerClient.Name = ship.Name;
-
+                offerClient.ShippingCompanyId = shippingCompanyId;
                 offerClient.TimeWaitGet = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
                 offerClient.TimeWaitSend = ProductSystemIds.MinAmountTimeWaitInMIn;// 15;
                 offerClient.StatusId = ship.StatusShipping_StatusShippingId.GetValueOrDefault();

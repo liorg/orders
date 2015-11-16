@@ -398,6 +398,7 @@ $(document).ready(function () {
             'Id': offerClient.Id,
             'HasDirty': vm.HasDirty(),
             'OfferId': offerClient.OfferId,
+            'ShippingCompanyId': offerClient.ShippingCompanyId,
             'DataItems': items
         };
         $.blockUI({
@@ -432,8 +433,6 @@ $(document).ready(function () {
         });
     });
 });
-
-
 
 (function ($) {
     $.fn.extend({

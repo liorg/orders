@@ -107,10 +107,10 @@ namespace Michal.Project.DataModel
         [Column(TypeName = "Money")]
         public decimal ActualPrice { get; set; }
 
-        public decimal TimeWait { get; set; }
+        //public decimal TimeWait { get; set; }
 
-        [Column(TypeName = "Money")]
-        public decimal EstimatedPrice { get; set; }
+        //[Column(TypeName = "Money")]
+        //public decimal EstimatedPrice { get; set; }
 
         public long FastSearchNumber { get; set; }
 
@@ -120,7 +120,7 @@ namespace Michal.Project.DataModel
 
         public Guid? GrantRunner { get; set; }
 
-        public Guid? Runner { get; set; }
+        //public Guid? Runner { get; set; }
 
         public Guid? BroughtShippingSender { get; set; }
 
@@ -158,7 +158,7 @@ namespace Michal.Project.DataModel
 
         public string ActualNameTarget { get; set; }
 
-        public string CloseDesc { get; set; }
+        //public string CloseDesc { get; set; }
 
         public string EndDesc { get; set; }
        
@@ -178,6 +178,7 @@ namespace Michal.Project.DataModel
         public DateTime? TimeWaitStartSGet { get; set; }
 
         public DateTime? TimeWaitEndGet { get; set; }
+
     }
 
 }

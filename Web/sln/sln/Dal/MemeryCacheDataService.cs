@@ -321,5 +321,18 @@ namespace Michal.Project.Dal
             }
             return lists;
         }
+
+        public List<ShippingCompany> GetShippingCompaniesByOrgId(ApplicationDbContext context,Guid orgId)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<ShippingCompany> lists = null;
+            cacheMemoryProvider.Get("GetShippingCompaniesByOrgId", out lists);
+            if (lists == null)
+            {
+                lists = context.ShippingCompany.Where(s => s.IsActive == true && s.Organizations.Any(o=>o.OrgId==orgId)).ToList();
+                cacheMemoryProvider.Set("GetShippingCompaniesByOrgId", lists);
+            }
+            return lists;
+        }
     }
 }

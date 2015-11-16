@@ -13,7 +13,8 @@ namespace Michal.Project.Models
         public Guid Id { get; set; }
         [Display(Name = "מזהה הצעה")]
         public Guid OfferId { get; set; }
-
+        [Display(Name = " חברת משלוחים")]
+        public Guid ShippingCompanyId { get; set; }
         [Display(Name = "מספר משלוח")]
         public string Name { get; set; }
 
