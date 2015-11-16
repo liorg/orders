@@ -401,6 +401,7 @@
     <Content Include="Content\img\delete32x32.png" />
     <Content Include="Content\img\delivery.png" />
     <Content Include="Content\img\discount32green.png" />
+    <Content Include="Content\img\error128.png" />
     <Content Include="Content\img\location32x32.png" />
     <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png" />
     <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png" />
@@ -741,6 +742,7 @@
     <Content Include="Views\Shared\_offerCalcFields.cshtml" />
     <Content Include="Views\Shared\_offerToolBox.cshtml" />
     <Content Include="Views\Shared\_offerTw.cshtml" />
+    <Content Include="Views\Shared\HomepageBasic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\BaseController\" />
