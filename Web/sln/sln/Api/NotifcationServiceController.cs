@@ -82,7 +82,7 @@ namespace Michal.Project.Api
                     {
 
                         result.Model.Body = "שים לב יש לך הודעות חדשות";
-                        var notifyMessages = context.NotifyMessage.Where(u => u.UserId == user && u.IsActive == true && u.IsRead == false).ToList();
+                        var notifyMessages = context.NotifyMessage.Where(u => u.UserId == user && u.IsActive == true && u.IsRead == true).ToList();
                         foreach (var notifyMessage in notifyMessages)
                         {
                             var notifyItem = new NotifyItem
@@ -99,7 +99,7 @@ namespace Michal.Project.Api
                         context.SaveChanges();
                         if (notify.Items == null || notify.Items.Count == 0)
                         {
-                            result.Model.Body = "אן הודעות";
+                            result.Model.Body = "אן הודעות מהמערכת";
                         }
                         else if (notify.Items != null && notify.Items.Count == 1)
                         {

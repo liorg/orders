@@ -396,15 +396,15 @@ namespace Michal.Project.Api
             var user = new UserContext(userContext);
             using (var context = new ApplicationDbContext())
             {
-                //var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
-                //var managerShip = await context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
-                Task<Shipping> ship = context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
-                Task<ShippingCompany> managerShip = context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
-                Task[] tasks = { ship, managerShip };
-                Task.WaitAll(tasks);
+                var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
+                var managerShip = await context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
+                //Task<Shipping> ship = context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
+                //Task<ShippingCompany> managerShip = context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
+                //Task[] tasks = { ship, managerShip };
+                //Task.WaitAll(tasks);
 
                 //if(managerShip
-                var orderName = ship.Result.Name;
+                var orderName = ship.Name;
                 NotificationManager manager = new NotificationManager();
                 var notifyItem = new NotifyItem
                 {
@@ -412,10 +412,12 @@ namespace Michal.Project.Api
                     Body = " אישור הזמנה עבור " + orderName,
                     Url = url + path
                 };
-                Task send1 = manager.Send(context, user.UserId, notifyItem);
-                Task send2 = manager.Send(context, managerShip.Result.ManagerId, notifyItem);
-                Task[] tasksenders = { send1, send2 };
-                Task.WaitAll(tasksenders);
+                await manager.Send(context, user.UserId, notifyItem);
+                await manager.Send(context, managerShip.ManagerId, notifyItem);
+                //Task send1 = manager.Send(context, user.UserId, notifyItem);
+                //Task send2 = manager.Send(context, managerShip.Result.ManagerId, notifyItem);
+                //Task[] tasksenders = { send1, send2 };
+                //Task.WaitAll(tasksenders);
 
 
             }
