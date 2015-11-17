@@ -208,7 +208,9 @@
     <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
+    <Compile Include="Contract\DAL\IShippingRepository.cs" />
     <Compile Include="Contract\DAL\IAttachmentRepository.cs" />
+    <Compile Include="Contract\DAL\IGeneralAgent\IOrgDetailRepostory.cs" />
     <Compile Include="Contract\DAL\IOfferRepository.cs" />
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IModifieder.cs" />
@@ -236,6 +238,8 @@
     <Compile Include="Dal\ApplicationDbContext.cs" />
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
+    <Compile Include="Contract\DAL\IGeneralAgent\IOfferPriceRepostory.cs" />
+    <Compile Include="Dal\GeneralAgentRepository.cs" />
     <Compile Include="Dal\OfferRepository.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
@@ -259,6 +263,7 @@
     <Compile Include="DataModel\Sla.cs" />
     <Compile Include="DataModel\TableTest.cs" />
     <Compile Include="Fasade\NotificationManager.cs" />
+    <Compile Include="Fasade\OfferManager.cs" />
     <Compile Include="fonts\XbzCounter.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />

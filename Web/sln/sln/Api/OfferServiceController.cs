@@ -409,17 +409,12 @@ namespace Michal.Project.Api
                 var notifyItem = new NotifyItem
                 {
                     Title = "הזמנה חדשה",
-                    Body = " אישור הזמנה עבור " + orderName,
+                    Body = " בקשת אישור הזמנה עבור " + orderName,
                     Url = url + path
                 };
                 await manager.Send(context, user.UserId, notifyItem);
                 await manager.Send(context, managerShip.ManagerId, notifyItem);
-                //Task send1 = manager.Send(context, user.UserId, notifyItem);
-                //Task send2 = manager.Send(context, managerShip.Result.ManagerId, notifyItem);
-                //Task[] tasksenders = { send1, send2 };
-                //Task.WaitAll(tasksenders);
-
-
+               
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {

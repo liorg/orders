@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michal.Project.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Michal.Project.Contract.DAL
 {
     public interface IOfferRepository
     {
-         Task Create();
+        Task Create(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips);
+        Task ChangeStatus(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens);
     }
 }
