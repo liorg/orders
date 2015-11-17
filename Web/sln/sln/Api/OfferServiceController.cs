@@ -19,6 +19,8 @@ using System.Web.Http;
 using System.Data.Entity;
 using Michal.Project.DataModel;
 using Michal.Project.Fasade;
+using Michal.Project.Bll;
+using Michal.Project.Contract.DAL;
 
 
 namespace Michal.Project.Api
@@ -34,11 +36,62 @@ namespace Michal.Project.Api
         {
             return Ok(Order.CreateOrders());
         }
-
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId, Guid shippingCompanyId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+
+                bool allowRemove = false;
+                //    bool allowAdd = false;
+                bool allowEdit = false;
+                bool isPresent = false;
+                int qunitityType = 0;
+                var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                   (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                {
+                    allowRemove = true;
+                    //  allowAdd = true;
+                    allowEdit = true;
+                }
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+                var ship =await shippingRepository.GetShipIncludeItems(shipid);
+                var user = new UserContext(userContext);
+                OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                OfferClient offerClient = await logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
+                if (offerId == Guid.Empty)
+                {
+                    await logic.AppendNewOffer(offerClient, ship,allowRemove, allowEdit);
+                }
+               
+                //offerClient.Discounts = (from d in demo.Discounts
+                //                         where !offerClient.Items.Any(o => o.ObjectIdType == (int)ObjectTypeCode.Discount && o.ObjectId == d.Id)
+                //                         select d).ToList();
+
+                var data = JsonConvert.SerializeObject(offerClient);
+                var responseBody = @"var offerClient = " + data + ";";
+
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(responseBody, Encoding.UTF8, "application/javascript")
+                };
+
+                response.Headers.CacheControl = new CacheControlHeaderValue();
+                response.Headers.CacheControl.NoStore = true;
+                return response;
+            }
+        }
+
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [Route("GetOfferOld")]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<HttpResponseMessage> GetOfferOld(Guid shipid, Guid offerId, Guid shippingCompanyId)
         {
             using (var context = new ApplicationDbContext())
             {
@@ -414,7 +467,7 @@ namespace Michal.Project.Api
                 };
                 await manager.Send(context, user.UserId, notifyItem);
                 await manager.Send(context, managerShip.ManagerId, notifyItem);
-               
+
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
