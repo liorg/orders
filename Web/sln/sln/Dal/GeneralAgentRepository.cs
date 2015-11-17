@@ -8,115 +8,77 @@ namespace Michal.Project.Dal
 {
     public class GeneralAgentRepository : IOfferPriceRepostory, IOrgDetailRepostory
     {
-        public GeneralAgentRepository()
+        ApplicationDbContext _context;
+        
+        public GeneralAgentRepository(ApplicationDbContext context)
         {
-
+            _context = context;//ok
+           
         }
 
-        public List<DataModel.Discount> GetDiscount(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.PriceList> GetPriceList(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.Product> GetProducts(ApplicationDbContext context, Guid orgId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.ProductSystem> GetProductsSystem(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public List<DataModel.Discount> GetDiscount()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory=new MemeryCacheDataService();
+            return memory.GetDiscount(_context);
         }
 
         public List<DataModel.PriceList> GetPriceList()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.Product> GetProducts()
-        {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetPriceList(_context);
         }
 
         public List<DataModel.ProductSystem> GetProductsSystem()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetProductsSystem(_context);
         }
 
-        public List<DataModel.Distance> GetDistancesPerOrg(ApplicationDbContext context, Guid orgId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.ShippingCompany> GetShippingCompaniesByOrgId(ApplicationDbContext context, Guid orgId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.Organization> GetOrgs(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DataModel.ShipType> GetShipType(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Guid GetOrg(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataModel.Organization GetOrgEntity(ApplicationDbContext context)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public List<DataModel.Distance> GetDistancesPerOrg(Guid orgId)
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetDistancesPerOrg(_context, orgId);
         }
 
         public List<DataModel.ShippingCompany> GetShippingCompaniesByOrgId(Guid orgId)
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetShippingCompaniesByOrgId(_context, orgId);
         }
 
         public List<DataModel.Organization> GetOrgs()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetOrgs(_context);
         }
 
         public List<DataModel.ShipType> GetShipType()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetShipType(_context);
         }
 
         public Guid GetOrg()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetOrg(_context);
         }
 
         public DataModel.Organization GetOrgEntity()
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetOrgEntity(_context);
         }
 
 
         public List<DataModel.Product> GetProducts(Guid orgId)
         {
-            throw new NotImplementedException();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetProducts(_context, orgId);
         }
     }
 }
