@@ -16,6 +16,7 @@ using System.Data.Entity.Validation;
 using System.Data.Entity;
 using Michal.Project.Bll;
 using Michal.Project.Models.View;
+using Michal.Project.Contract.DAL;
 
 
 namespace Michal.Project.Controllers
@@ -63,7 +64,7 @@ namespace Michal.Project.Controllers
                 {
                     order.ShippingCompanyId = companies.First().ShippingCompanyId;
                 }
-                
+
 
                 order.ShippingItems = new List<ShippingItemVm>();
                 foreach (var shipItem in ship.ShippingItems)
@@ -101,5 +102,66 @@ namespace Michal.Project.Controllers
             }
         }
 
+        public async Task<ActionResult> OrderItem(Guid shipId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                OrderDetail order = new OrderDetail();
+                var user = new UserContext(AuthenticationManager);
+                //  MemeryCacheDataService cache = new MemeryCacheDataService();
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+                OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+
+                var ship = await logic.GetShipAsync(shipId); //context.Shipping.Include(s => s.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                order.Id = shipId;
+                order.OfferId = ship.OfferId.GetValueOrDefault();
+                var offer = await logic.GetOfferAsync(order.OfferId);
+                order.Name = ship.Name;
+
+                order.Title = logic.GetTitle(offer);
+                var org = generalRepo.GetOrgEntity();
+                var companies = generalRepo.GetShippingCompaniesByOrgId(org.OrgId);
+                if (companies.Any())
+                {
+                    order.ShippingCompanyId = companies.First().ShippingCompanyId;
+                }
+
+                order.ShippingItems = new List<ShippingItemVm>();
+                foreach (var shipItem in ship.ShippingItems)
+                    order.ShippingItems.Add(new ShippingItemVm { ProductName = shipItem.Product.Name, Total = Convert.ToInt32(shipItem.Quantity) });
+
+                order.SigTypeText = "ללא חזרה";
+                if (ship.SigBackType.HasValue)
+                    order.SigTypeText = generalRepo.GetBackOrder().Where(ds => ds.Key == ship.SigBackType.Value).Select(s => s.Value).FirstOrDefault();
+
+                order.DirectionText = generalRepo.GetDirection().Where(d => d.Key == ship.Direction).Select(s => s.Value).FirstOrDefault();
+                order.DistanceText = ship.Distance != null ? ship.Distance.Name : "";
+                order.ShipTypeText = ship.ShipType != null ? ship.ShipType.Name : "";
+
+                order.TargetAddress = new AddressEditorViewModel();
+                order.TargetAddress.City = ship.Target.CityName;
+                order.TargetAddress.Citycode = ship.Target.CityCode;
+                order.TargetAddress.ExtraDetail = ship.Target.ExtraDetail;
+                order.TargetAddress.Num = ship.Target.StreetNum;
+                order.TargetAddress.Street = ship.Target.StreetName;
+                order.TargetAddress.Streetcode = ship.Target.StreetCode;
+
+
+                order.SourceAddress = new AddressEditorViewModel();
+                order.SourceAddress.City = ship.Source.CityName;
+                order.SourceAddress.Citycode = ship.Source.CityCode;
+                order.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
+                order.SourceAddress.Num = ship.Source.StreetNum;
+                order.SourceAddress.Street = ship.Source.StreetName;
+                order.SourceAddress.Streetcode = ship.Source.StreetCode;
+
+
+
+                Guid orgId = generalRepo.GetOrg();
+                return View(order);
+            }
+        }
     }
 }

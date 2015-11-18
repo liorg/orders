@@ -9,7 +9,10 @@ namespace Michal.Project.Contract.DAL
 {
     public interface IOfferRepository
     {
-        Task Create(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips);
-        Task ChangeStatus(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens);
+        void Create(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips);
+        Task ChangeStatusAsync(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens);
+
+        Task<RequestShipping> GetOffer(Guid requestShippingId);
+        Task<RequestShipping> GetOfferAndHisChilds(Guid requestShippingId);
     }
 }

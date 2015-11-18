@@ -34,7 +34,12 @@ namespace Michal.Project.Dal
         public async Task<Shipping> GetShipIncludeItems(Guid shipId)
         {
             return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+        }
 
+
+        public void Update(Shipping ship)
+        {
+            _context.Entry<Shipping>(ship).State = EntityState.Modified;
         }
     }
 }

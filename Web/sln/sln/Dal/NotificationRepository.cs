@@ -1,4 +1,5 @@
-﻿using Michal.Project.Dal;
+﻿using Michal.Project.Contract.DAL;
+using Michal.Project.Dal;
 using Michal.Project.DataModel;
 using Michal.Project.Models;
 using System;
@@ -12,22 +13,22 @@ using System.Web;
 
 namespace Michal.Project.Fasade
 {
-    public class NotificationManager 
+    public class NotificationRepository : INotificationRepository
     {
-      
-        public NotificationManager()
+        ApplicationDbContext _context;
+        public NotificationRepository(ApplicationDbContext context)
         {
-
+            _context = context;
         }
 
-        public async Task SendAsync(ApplicationDbContext context, Guid? user, NotifyItem notifyItem)
+        public async Task SendAsync( Guid? user, NotifyItem notifyItem)
         {
             if (!user.HasValue)
                 return;
-            var userDevices = context.UserNotify.Where(u => u.UserId == user.Value && u.IsActive == true).ToList();
+            var userDevices = _context.UserNotify.Where(u => u.UserId == user.Value && u.IsActive == true).ToList();
             var dt = DateTime.Now;
             
-            context.NotifyMessage.Add(
+            _context.NotifyMessage.Add(
                 new DataModel.NotifyMessage
                 {
                     Body = notifyItem.Body,
@@ -42,7 +43,7 @@ namespace Michal.Project.Fasade
                     ToUrl = notifyItem.Url,
                     UserId = user.Value
                 });
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             foreach (var userDevice in userDevices)
             {
@@ -52,9 +53,9 @@ namespace Michal.Project.Fasade
                     userDevice.IsActive = false;
                     userDevice.ModifiedBy = user.Value;
                     userDevice.ModifiedOn = dt;
-                    context.Entry<UserNotify>(userDevice).State = System.Data.Entity.EntityState.Modified;
+                    _context.Entry<UserNotify>(userDevice).State = System.Data.Entity.EntityState.Modified;
                 }
-                await context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
         }
 

@@ -18,7 +18,7 @@ namespace Michal.Project.Dal
             _context = context;
         }
 
-        public async Task Create(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips)
+        public void Create(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips)
         {
             _context.RequestShipping.Add(request);
             foreach (var requestItem in requestItemShips)
@@ -28,9 +28,9 @@ namespace Michal.Project.Dal
             // await  _context.SaveChangesAsync();
         }
 
-        public async Task ChangeStatus(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens)
+        public async Task ChangeStatusAsync(Guid modifiedId, RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens)
         {
-            var model = await _context.RequestShipping.Include(s => s.RequestItemShip).FirstOrDefaultAsync(f => f.RequestShippingId == request.RequestShippingId);
+            var model = await GetOfferAndHisChilds(request.RequestShippingId); // _context.RequestShipping.Include(s => s.RequestItemShip).FirstOrDefaultAsync(f => f.RequestShippingId == request.RequestShippingId);
             model.StatusCode = request.StatusCode;
             if (deleteChildrens)
             {
@@ -49,5 +49,15 @@ namespace Michal.Project.Dal
             //  await _context.SaveChangesAsync();
         }
 
+
+        public async Task<RequestShipping> GetOfferAndHisChilds(Guid requestShippingId)
+        {
+            return await _context.RequestShipping.Include(s => s.RequestItemShip).FirstOrDefaultAsync(f => f.RequestShippingId == requestShippingId);
+        }
+
+        public async Task<RequestShipping> GetOffer(Guid requestShippingId)
+        {
+            return await _context.RequestShipping.FirstOrDefaultAsync(f => f.RequestShippingId == requestShippingId);
+        }
     }
 }

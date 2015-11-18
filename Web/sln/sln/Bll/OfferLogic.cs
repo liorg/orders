@@ -17,7 +17,7 @@ namespace Michal.Project.Bll
         readonly IShippingRepository _shippingRepository;
         readonly IOfferPriceRepostory _offerPrice;
         readonly IOrgDetailRepostory _orgDetailRep;
-
+       
         public OfferLogic(IOfferRepository offerRepository, IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
         {
             _offerRepository = offerRepository;
@@ -150,6 +150,7 @@ namespace Michal.Project.Bll
             int qunitityType = 0;
             decimal? priceValue;
             PriceList price;
+            offerClient.StateCode = (int)OfferVariables.OfferStateCode.New;
             var discountLists = _offerPrice.GetDiscount();
             var priceList = _offerPrice.GetPriceList();
             var productsSystem = _offerPrice.GetProductsSystem();
@@ -348,13 +349,83 @@ namespace Michal.Project.Bll
 
         }
       
-        public async Task Edit(OfferUpload request)
+        public async Task<Shipping> GetShipAsync(Guid shipId)
         {
-
-            //if (request.StateCode == 1)
-            //{
-
-            //}
+            return await _shippingRepository.GetShip(shipId);
         }
+
+        public async Task<RequestShipping> GetOfferAsync(Guid offerId)
+        {
+            if (offerId == null || offerId == Guid.Empty)
+                return null;
+            return await _offerRepository.GetOffer(offerId);
+        }
+      
+        public string GetTitle(RequestShipping offer)
+        {
+            var stateCode = 1;
+            if (offer != null)
+                stateCode = offer.StatusCode;
+
+            switch (stateCode)
+            {
+                case 1:
+                    return "בקשת הזמנה חדשה";
+                case 2:
+                    return "אישור הזמנה סופי";
+                default:
+                    return "אישור הזמנה סופי";
+                    
+            }
+        }
+
+        public void Create(OfferUpload offer, UserContext user, Shipping ship, ShippingCompany managerShip)
+        {
+            var dt=DateTime.Now;
+            Guid id = Guid.NewGuid();
+            RequestShipping request = new RequestShipping();
+            request.RequestShippingId = id;
+            request.StatusCode = 2;
+            request.StatusReasonCode = 1;
+            request.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
+            request.Shipping_ShippingId = ship.ShippingId;
+            List<RequestItemShip> items = new List<RequestItemShip>();
+            foreach (var dataItem in offer.DataItems)
+            {
+                items.Add(new RequestItemShip
+                {
+                    Amount = dataItem.Amount,
+                    CreatedBy = user.UserId,
+                    CreatedOn = dt,
+                    Desc = dataItem.Desc,
+                    IsActive = true,
+                    ModifiedBy = user.UserId,
+                    ModifiedOn = dt,
+                    Name = dataItem.Name,
+                    ObjectTypeId = dataItem.ObjectId,
+                    ObjectTypeIdCode = dataItem.ObjectIdType,
+                    PriceValue = dataItem.PriceValue,
+                    PriceValueType = dataItem.IsPresent ? 2 : 1,
+                    RequestItemShipId = Guid.NewGuid()
+                    // StatusCode=
+                });
+                   
+            }
+            ship.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
+            ship.OfferId = id;
+            ship.ModifiedBy = user.UserId;
+            ship.ModifiedOn = DateTime.Now;
+
+
+            _shippingRepository.Update(ship);
+           _offerRepository.Create(user.UserId, request, items);
+
+            
+
+        }
+
+
+
+
     }
 }

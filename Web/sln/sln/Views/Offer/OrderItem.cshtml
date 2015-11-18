@@ -1,0 +1,123 @@
+﻿@model OrderDetail
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ @Html.Partial("_offerToolBox") 
+
+
+<h4>@Model.Name - @Model.Title  </h4>
+<div id="error_container"></div>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">הצג מחיר מומלץ לצרכן</a>
+            </h4>
+        </div>
+        <div id="collapseOrder" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                        @Html.Partial("_priceBox")  
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTimewait">שדות זמן המתנה</a>
+            </h4>
+        </div>
+        <div id="collapseTimewait" class="panel-collapse collapse">
+            <div class="panel-body">
+                   @Html.Partial("_offertw")  
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">הצג כתובות יעד והמקור</a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="label label-success">@Html.Partial("_addressView", Model.SourceAddress)</span>
+                                <span class="prefix  pull-right">כתובת השולח:</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="label label-danger">@Html.Partial("_addressView", Model.TargetAddress) </span>
+                                <span class="prefix  pull-right">כתובת היעד:</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">שדות חישוב</a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        @Html.Partial("_offerCalcFields")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTree">מוצרי המשלוח</a>
+            </h4>
+        </div>
+        <div id="collapseTree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        @Html.Partial("_offerProducts")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+       <link href="~/Content/offer.css" rel="stylesheet" />
+
+@Scripts.Render("~/api/OfferService/GetOffer?shipid=" + Model.Id + "&offerId=" + Model.OfferId +"&shippingCompanyId="+Model.ShippingCompanyId)
+    <script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/knockout.mapping-latest.js"></script>
+<script src="~/Scripts/offer.js"></script>
+
+}
+@Html.Partial("_dlgItemPrice")

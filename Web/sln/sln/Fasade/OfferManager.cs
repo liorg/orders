@@ -1,5 +1,7 @@
 ﻿using Michal.Project.Contract.DAL;
 using Michal.Project.Dal;
+using Michal.Project.Mechanism;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,74 +11,8 @@ using System.Web;
 namespace Michal.Project.Fasade
 {
 
-    /// <summary>
-    /// The 'Handler' abstract class
-    /// </summary>
-    abstract class Handler
-    {
-        protected readonly IOfferRepository _offerRepository;
-        protected readonly IShippingRepository _shippingRepository;
-        protected readonly IOfferPriceRepostory _offerPrice;
-        protected readonly IOrgDetailRepostory _orgDetailRep;
-        protected Handler successor;
-        public Handler(IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
-        {
-            _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
-        }
-        public void SetSuccessor(Handler successor)
-        {
-            this.successor = successor;
-        }
+    
 
-        public abstract void HandleRequest(int status);
-    }
-
-
-    /// <summary>
-    /// The 'RequestOffer' class
-    /// </summary>
-    class RequestOffer : Handler
-    {
-        public RequestOffer(IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep):
-            base(offerRepository,shippingRepository,offerPrice,orgDetailRep)
-        {
-           
-        }
-        public override void HandleRequest(int status)
-        {
-            if (status==1)
-            {
-                
-            }
-            else if (successor != null)
-            {
-                successor.HandleRequest(status);
-            }
-        }
-    }
-
-    class CommitOffer : Handler
-    {
-        public CommitOffer(IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(offerRepository, shippingRepository, offerPrice, orgDetailRep)
-        {
-
-        }
-        public override void HandleRequest(int status)
-        {
-            if (status == 1)
-            {
-
-            }
-            else if (successor != null)
-            {
-                successor.HandleRequest(status);
-            }
-        }
-    }
     public class OfferManager
     {
         public OfferManager()
@@ -84,27 +20,20 @@ namespace Michal.Project.Fasade
 
         }
 
-        public void Excute(ApplicationDbContext context ){
+        public async Task ExcuteAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
+        {
+
             IOfferRepository offerRepository = new OfferRepository(context);
             IShippingRepository shippingRepository = new ShippingRepository(context);
             GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-            Handler requestOffer = new RequestOffer(offerRepository, shippingRepository, generalRepo, generalRepo);
-            Handler commitOffer = new CommitOffer(offerRepository, shippingRepository, generalRepo, generalRepo);
+            INotificationRepository notificationRepository = new NotificationRepository(context);
+            IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
+            Handler requestOffer = new RequestOffer(shipComapnyRepository,notificationRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+            Handler commitOffer = new CommitOffer(shipComapnyRepository,notificationRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
             requestOffer.SetSuccessor(commitOffer);
+
+            await requestOffer.HandleRequest(offer, user);
          
         }
-        //public async Task CreateOffer()
-        //{
-
-        //}
-        //public async Task Dismiss()
-        //{
-
-        //}
-        //public async Task Commit()
-        //{
-
-        //}
-
     }
 }

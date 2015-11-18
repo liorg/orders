@@ -80,5 +80,19 @@ namespace Michal.Project.Dal
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetProducts(_context, orgId);
         }
+
+
+        public List<KeyValuePair<int, string>> GetBackOrder()
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetBackOrder();
+        }
+
+
+        public List<KeyValuePair<int, string>> GetDirection()
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetDirection();
+        }
     }
 }

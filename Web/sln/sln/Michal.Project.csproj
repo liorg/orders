@@ -208,10 +208,14 @@
     <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
-    <Compile Include="Contract\DAL\IShippingRepository.cs" />
+    <Compile Include="Contract\DAL\INotificationRepository.cs" />
+    <Compile Include="Contract\DAL\IShipComapnyRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Contract\DAL\IAttachmentRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IOrgDetailRepostory.cs" />
     <Compile Include="Contract\DAL\IOfferRepository.cs" />
+    <Compile Include="Contract\DAL\IShippingRepository.cs" />
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
@@ -239,7 +243,9 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IOfferPriceRepostory.cs" />
+    <Compile Include="Dal\ShipComapnyRepository.cs" />
     <Compile Include="Dal\GeneralAgentRepository.cs" />
+    <Compile Include="Dal\NotificationRepository.cs" />
     <Compile Include="Dal\OfferRepository.cs" />
     <Compile Include="Dal\IdentityModels.cs" />
     <Compile Include="Dal\MemeryCacheDataService.cs" />
@@ -263,7 +269,9 @@
     <Compile Include="DataModel\Sla.cs" />
     <Compile Include="DataModel\TableTest.cs" />
     <Compile Include="Fasade\NotificationManager.cs" />
-    <Compile Include="Fasade\OfferManager.cs" />
+    <Compile Include="Fasade\OfferManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fonts\XbzCounter.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
@@ -285,6 +293,13 @@
     <Compile Include="Helper\Infrastructure\HelperAutorize.cs" />
     <Compile Include="Helper\Razor\RazorHelper.cs" />
     <Compile Include="Helper\Infrastructure\UserProfileActionFilter.cs" />
+    <Compile Include="Mechanism\CommitOffer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mechanism\RequestOffer.cs" />
+    <Compile Include="Mechanism\Handler.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Migrations\201510210720051_new.cs" />
     <Compile Include="Migrations\201510210720051_new.Designer.cs">
       <DependentUpon>201510210720051_new.cs</DependentUpon>
@@ -754,8 +769,10 @@
     <Content Include="Views\Shared\_offerToolBox.cshtml" />
     <Content Include="Views\Shared\_offerTw.cshtml" />
     <Content Include="Views\Shared\HomepageBasic.cshtml" />
+    <Content Include="Views\Offer\OrderItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
     <Folder Include="Temp\" />
   </ItemGroup>

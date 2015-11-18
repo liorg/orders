@@ -399,6 +399,7 @@ $(document).ready(function () {
             'HasDirty': vm.HasDirty(),
             'OfferId': offerClient.OfferId,
             'ShippingCompanyId': offerClient.ShippingCompanyId,
+            'StateCode':offerClient.StateCode,
             'DataItems': items
         };
         $.blockUI({
@@ -422,7 +423,11 @@ $(document).ready(function () {
             success: function (data) {
                 debugger;
                 $.unblockUI();
-                alert(data);
+                if (!data.IsError) {
+                    window.location.reload(true);
+                }
+                else
+                alert(data.ErrDesc);
             },
             error: function (error) {
                 debugger;

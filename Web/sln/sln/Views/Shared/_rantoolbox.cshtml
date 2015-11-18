@@ -22,7 +22,7 @@
     </div>
 
     <div class="btn-group" style="margin-left: 4px">
-        <button type="button" id="calc"  data-url="@Url.Action("CreateOrder", "Offer", new { shipId = @Model.ShippingVm.Id })" data-toggle="tooltip" title="מחשבון מחיר" data-placement="top" data-url="#" class="btn btn-success btn-circle btn-xl">
+        <button type="button" id="calc"  data-url="@Url.Action("OrderItem", "Offer", new { shipId = @Model.ShippingVm.Id })" data-toggle="tooltip" title="מחשבון מחיר" data-placement="top" data-url="#" class="btn btn-success btn-circle btn-xl">
             <img src="~/Content/img/calc32x32.png" />
         </button>
     </div>

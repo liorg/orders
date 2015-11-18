@@ -12,6 +12,7 @@ namespace Michal.Project.Helper
     {
         Product = 1, ProductSystem=2,Distance=3,ShipType=4,Discount=99
     }
+
     public enum AlertStyle
     {
         Default=0,
@@ -22,6 +23,7 @@ namespace Michal.Project.Helper
         WaitingGet = 5,//timewait on get delievry
         WaitingSet=6//timewait on set delievry
     }
+  
     public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 
     public static class JobTitle
@@ -30,6 +32,7 @@ namespace Michal.Project.Helper
         public const string Client = "לקוח";
         public const string DeliveryBoy = "שליח";
     }
+
     public static class ProductSystemIds
     {
         public const int MinAmountTimeWaitInMIn = 15;
@@ -42,6 +45,7 @@ namespace Michal.Project.Helper
         public const string Back = "00000000-0000-0000-0000-000000000004";
 
     }
+    
     public static class General
     {
         public const int MaxRecordsPerSearch = 100;
@@ -115,5 +119,10 @@ namespace Michal.Project.Helper
         //public const int Info = 3;
         //public const int Success = 4;
         public const string MessageConfirm = "יש לאשר את משלוח לפני קבלתו לחברת השליחים";
+    }
+
+    public class OfferVariables
+    {
+        public enum OfferStateCode { New = 1, Commit = 2 }
     }
 }
