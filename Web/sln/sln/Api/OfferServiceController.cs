@@ -47,8 +47,7 @@ namespace Michal.Project.Api
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
-                bool isPresent = false;
-                int qunitityType = 0;
+              
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
@@ -64,10 +63,10 @@ namespace Michal.Project.Api
                 var ship =await shippingRepository.GetShipIncludeItems(shipid);
                 var user = new UserContext(userContext);
                 OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
-                OfferClient offerClient = await logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
+                OfferClient offerClient =  logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
                 if (offerId == Guid.Empty)
                 {
-                    await logic.AppendNewOffer(offerClient, ship,allowRemove, allowEdit);
+                     logic.AppendNewOffer(offerClient, ship,allowRemove, allowEdit);
                 }
                
                 //offerClient.Discounts = (from d in demo.Discounts
@@ -465,8 +464,8 @@ namespace Michal.Project.Api
                     Body = " בקשת אישור הזמנה עבור " + orderName,
                     Url = url + path
                 };
-                await manager.Send(context, user.UserId, notifyItem);
-                await manager.Send(context, managerShip.ManagerId, notifyItem);
+                await manager.SendAsync(context, user.UserId, notifyItem);
+                await manager.SendAsync(context, managerShip.ManagerId, notifyItem);
 
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)

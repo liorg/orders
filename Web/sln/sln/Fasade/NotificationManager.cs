@@ -20,7 +20,7 @@ namespace Michal.Project.Fasade
 
         }
 
-        public async Task Send(ApplicationDbContext context, Guid? user, NotifyItem notifyItem)
+        public async Task SendAsync(ApplicationDbContext context, Guid? user, NotifyItem notifyItem)
         {
             if (!user.HasValue)
                 return;

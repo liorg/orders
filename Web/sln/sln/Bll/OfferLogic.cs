@@ -26,7 +26,7 @@ namespace Michal.Project.Bll
             _orgDetailRep = orgDetailRep;
         }
 
-        public async Task<OfferClient> GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
+        public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
         {
             OfferClient offerClient = new OfferClient();
             //bool isPresent = false;
@@ -144,7 +144,7 @@ namespace Michal.Project.Bll
             return offerClient;
         }
 
-        public async Task AppendNewOffer(OfferClient offerClient, Shipping ship, bool allowRemove, bool allowEdit)
+        public void AppendNewOffer(OfferClient offerClient, Shipping ship, bool allowRemove, bool allowEdit)
         {
             bool isPresent = false;
             int qunitityType = 0;
