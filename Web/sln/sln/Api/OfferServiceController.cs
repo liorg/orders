@@ -43,7 +43,6 @@ namespace Michal.Project.Api
         {
             using (var context = new ApplicationDbContext())
             {
-
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
@@ -63,12 +62,15 @@ namespace Michal.Project.Api
                 OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
 
                 var ship = await shippingRepository.GetShipIncludeItems(shipid);
-               
-
                 OfferClient offerClient =  logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
                 if (offerId == Guid.Empty)
                 {
-                     logic.AppendNewOffer(offerClient, ship,allowRemove, allowEdit);
+                    logic.AppendNewOffer(offerClient, ship, allowRemove, allowEdit);
+                }
+                else
+                {
+                    var offer = await offerRepository.GetOfferAndHisChilds(offerId);
+                    logic.AppendCurrentOffer(offerClient, ship,offer, allowRemove, allowEdit);
                 }
                
                 //offerClient.Discounts = (from d in demo.Discounts

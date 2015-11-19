@@ -17,7 +17,7 @@ namespace Michal.Project.Bll
         readonly IShippingRepository _shippingRepository;
         readonly IOfferPriceRepostory _offerPrice;
         readonly IOrgDetailRepostory _orgDetailRep;
-       
+
         public OfferLogic(IOfferRepository offerRepository, IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
         {
             _offerRepository = offerRepository;
@@ -146,7 +146,6 @@ namespace Michal.Project.Bll
 
         public void AppendNewOffer(OfferClient offerClient, Shipping ship, bool allowRemove, bool allowEdit)
         {
-            bool isPresent = false;
             int qunitityType = 0;
             decimal? priceValue;
             PriceList price;
@@ -154,142 +153,111 @@ namespace Michal.Project.Bll
             var discountLists = _offerPrice.GetDiscount();
             var priceList = _offerPrice.GetPriceList();
             var productsSystem = _offerPrice.GetProductsSystem();
-            var discounts = new List<OfferClientItem>();
-            foreach (var discount in discountLists)
+            var discounts = GetDiscounts(discountLists, priceList, allowRemove, allowEdit);
+
+            offerClient.HasDirty = true;
+            offerClient.Discounts = (from d in discountLists
+                                     join sd in discounts
+                                     on d.DiscountId equals sd.Id
+                                     where d.IsSweeping == false
+                                     select sd).ToList();
+
+            offerClient.DirtyDiscounts = (from d in discountLists
+                                          join sd in discounts
+                                          on d.DiscountId equals sd.Id
+                                          where d.IsSweeping == true
+                                          select sd).ToList();
+
+            foreach (var discountSweep in offerClient.DirtyDiscounts)
+            {
+                offerClient.Items.Add(new OfferItem
+                {
+                    Id = Guid.NewGuid(),
+                    IsDiscount = true,
+                    IsPresent = discountSweep.IsPresent,
+                    Desc = discountSweep.Desc,
+                    StatusRecord = 1,
+                    Name = discountSweep.Name,
+                    ObjectId = discountSweep.Id,
+                    ObjectIdType = (int)ObjectTypeCode.Discount,
+                    ProductPrice = discountSweep.ProductPrice,
+                    Amount = 1,
+                    AllowEdit = allowEdit,
+                    AllowRemove = allowRemove,
+                    QuntityType = discountSweep.QuntityType
+                });
+
+            }
+
+            foreach (var item in ship.ShippingItems)
             {
                 priceValue = null;
-                isPresent = false;
-                qunitityType = 0;
-                price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
-                if (price != null)
-                {
-                    priceValue = price.PriceValue.HasValue ? (decimal?)price.PriceValue.Value * -1 : null;
-                    isPresent = price.PriceValueType == 2 ? true : false;
-                    qunitityType = price.QuntityType;
-                }
+                var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
+                if (price2 != null)
+                    priceValue = price2.PriceValue;
 
-                discounts.Add(new OfferClientItem
+                offerClient.Items.Add(new OfferItem
                 {
-                    Amount = 1,
-                    Desc = discount.Desc,
-                    Id = discount.DiscountId,
-                    IsDiscount = true,
-                    IsPresent = isPresent,
-                    Name = discount.Name,
+                    Id = Guid.NewGuid(),
+                    IsDiscount = false,
+                    IsPresent = false,
+                    Name = item.Product.Name,
+                    Desc = item.Product.Desc,
+                    ObjectId = item.Product.ProductId,
+                    ObjectIdType = (int)ObjectTypeCode.Product,
                     ProductPrice = priceValue,
                     StatusRecord = 1,
+                    Amount = Convert.ToInt32(item.Quantity),
                     AllowEdit = allowEdit,
                     AllowRemove = allowRemove,
                     QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                 });
             }
-            //if (offerId == Guid.Empty)
+            priceValue = null;
+            price = priceList.Where(p => p.ObjectId == ship.ShipType.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
+            if (price != null)
             {
-                offerClient.HasDirty = true;
-                offerClient.Discounts = (from d in discountLists
-                                         join sd in discounts
-                                         on d.DiscountId equals sd.Id
-                                         where d.IsSweeping == false
-                                         select sd).ToList();
-
-                //var discountsSweep = discountLists.Where(ds => ds.IsSweeping == true).ToList();
-
-                offerClient.DirtyDiscounts = (from d in discountLists
-                                              join sd in discounts
-                                              on d.DiscountId equals sd.Id
-                                              where d.IsSweeping == true
-                                              select sd).ToList();
-
-                foreach (var discountSweep in offerClient.DirtyDiscounts)
-                {
-                    offerClient.Items.Add(new OfferItem
-                    {
-                        Id = Guid.NewGuid(),
-                        IsDiscount = true,
-                        IsPresent = discountSweep.IsPresent,
-                        Desc = discountSweep.Desc,
-                        StatusRecord = 1,
-                        Name = discountSweep.Name,
-                        ObjectId = discountSweep.Id,
-                        ObjectIdType = (int)ObjectTypeCode.Discount,
-                        ProductPrice = discountSweep.ProductPrice,
-                        Amount = 1,
-                        AllowEdit = allowEdit,
-                        AllowRemove = allowRemove,
-                        QuntityType = discountSweep.QuntityType
-                    });
-
-                }
-
-                foreach (var item in ship.ShippingItems)
-                {
-                    priceValue = null;
-                    var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
-                    if (price2 != null)
-                        priceValue = price2.PriceValue;
-
-                    offerClient.Items.Add(new OfferItem
-                    {
-                        Id = Guid.NewGuid(),
-                        IsDiscount = false,
-                        IsPresent = false,
-                        Name = item.Product.Name,
-                        Desc = item.Product.Desc,
-                        ObjectId = item.Product.ProductId,
-                        ObjectIdType = (int)ObjectTypeCode.Product,
-                        ProductPrice = priceValue,
-                        StatusRecord = 1,
-                        Amount = Convert.ToInt32(item.Quantity),
-                        AllowEdit = allowEdit,
-                        AllowRemove = allowRemove,
-                        QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
-                    });
-                }
-                priceValue = null;
-                price = priceList.Where(p => p.ObjectId == ship.ShipType.ShipTypeId && p.ObjectTypeCode == (int)ObjectTypeCode.ShipType).FirstOrDefault();
-                if (price != null)
-                {
-                    priceValue = price.PriceValue;
-                }
-                offerClient.Items.Add(new OfferItem
-                {
-                    Id = Guid.NewGuid(),
-                    Name = ship.ShipType.Name,
-                    Desc = ship.ShipType.Desc,
-                    IsDiscount = false,
-                    IsPresent = false,
-                    ProductPrice = priceValue,
-                    StatusRecord = 1,
-                    Amount = 1,
-                    ObjectId = ship.ShipType.ShipTypeId,
-                    ObjectIdType = (int)ObjectTypeCode.ShipType,
-                    AllowEdit = allowEdit,
-                    QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin,
-                    AllowRemove = false
-                });
-
-                priceValue = null;
-                price = priceList.Where(p => p.ObjectId == ship.Distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
-                if (price != null)
-                    priceValue = price.PriceValue;
-
-                offerClient.Items.Add(new OfferItem
-                {
-                    Id = Guid.NewGuid(),
-                    Name = ship.Distance.Name,
-                    Desc = ship.Distance.Desc,
-                    IsDiscount = false,
-                    IsPresent = false,
-                    ProductPrice = priceValue,
-                    StatusRecord = 1,
-                    Amount = 1,
-                    ObjectId = ship.Distance.DistanceId,
-                    ObjectIdType = (int)ObjectTypeCode.Distance,
-                    AllowEdit = allowEdit,
-                    AllowRemove = false,
-                    QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
-                });
+                priceValue = price.PriceValue;
             }
+            offerClient.Items.Add(new OfferItem
+            {
+                Id = Guid.NewGuid(),
+                Name = ship.ShipType.Name,
+                Desc = ship.ShipType.Desc,
+                IsDiscount = false,
+                IsPresent = false,
+                ProductPrice = priceValue,
+                StatusRecord = 1,
+                Amount = 1,
+                ObjectId = ship.ShipType.ShipTypeId,
+                ObjectIdType = (int)ObjectTypeCode.ShipType,
+                AllowEdit = allowEdit,
+                QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin,
+                AllowRemove = false
+            });
+
+            priceValue = null;
+            price = priceList.Where(p => p.ObjectId == ship.Distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
+            if (price != null)
+                priceValue = price.PriceValue;
+
+            offerClient.Items.Add(new OfferItem
+            {
+                Id = Guid.NewGuid(),
+                Name = ship.Distance.Name,
+                Desc = ship.Distance.Desc,
+                IsDiscount = false,
+                IsPresent = false,
+                ProductPrice = priceValue,
+                StatusRecord = 1,
+                Amount = 1,
+                ObjectId = ship.Distance.DistanceId,
+                ObjectIdType = (int)ObjectTypeCode.Distance,
+                AllowEdit = allowEdit,
+                AllowRemove = false,
+                QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
+            });
+
             priceValue = null; qunitityType = 0;
             var twSetId = Guid.Parse(ProductSystemIds.TimeWaitSet);
             var timeWaitSetProduct = productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
@@ -348,7 +316,107 @@ namespace Michal.Project.Bll
             });
 
         }
-      
+
+        public void AppendCurrentOffer(OfferClient offerClient, Shipping ship, RequestShipping offer, bool allowRemove, bool allowEdit)
+        {
+            offerClient.StateCode = offer.StatusCode;
+            var discountLists = _offerPrice.GetDiscount();
+            var priceList = _offerPrice.GetPriceList();
+            var productsSystem = _offerPrice.GetProductsSystem();
+            var discounts = GetDiscounts(discountLists, priceList, allowRemove, allowEdit);
+
+            offerClient.HasDirty = false;
+
+            offerClient.DirtyDiscounts = new List<OfferClientItem>();
+            foreach (var item in offer.RequestItemShip)
+            {
+                offerClient.Items.Add(new OfferItem
+                {
+                    Id = Guid.NewGuid(),
+                    IsDiscount = false,
+                    IsPresent = false,
+                    Name = item.Name,
+                    Desc = item.Desc,
+                    ObjectId = item.ObjectTypeId.GetValueOrDefault(),
+                    ObjectIdType = item.ObjectTypeIdCode.GetValueOrDefault(),
+                    ProductPrice = item.ProductValue,
+                    StatusRecord = 2,
+                    Amount = item.Amount,
+                    AllowEdit = allowEdit,
+                    AllowRemove = allowRemove,
+                    QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin
+                });
+                if (item.IsDiscount)
+                {
+                    offerClient.DirtyDiscounts.Add(new OfferClientItem
+                    {
+                        AllowRemove = allowRemove,
+                        Amount = item.Amount,
+                        AllowEdit = allowEdit,
+                        Desc = item.Desc,
+                        Id = item.ObjectTypeId.GetValueOrDefault(),
+                        IsDiscount = true,
+                        IsPresent = item.PriceValueType == 2,
+                        Name = item.Name,
+                        // PriceValue = item.PriceValue,
+                        ProductPrice = item.ProductValue,
+                        QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin,
+                        StatusRecord = 2
+                    });
+                }
+            }
+            offerClient.Discounts = (from d in discounts
+                                     where !offerClient.Items.Any(o => o.ObjectIdType == (int)ObjectTypeCode.Discount && o.ObjectId == d.Id)
+                                     select d).ToList();
+
+
+            var twSetId = Guid.Parse(ProductSystemIds.TimeWaitSet);
+            var timeWaitSetProduct = productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+            offerClient.TimeWaitSetProductId = timeWaitSetProduct.ProductSystemId;
+
+            var twGetId = Guid.Parse(ProductSystemIds.TimeWaitGet);
+            var timeWaitGetProduct = productsSystem.Where(ps => ps.ProductSystemId == twGetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+            offerClient.TimeWaitGetProductId = timeWaitGetProduct.ProductSystemId;
+        }
+
+        public List<OfferClientItem> GetDiscounts(List<Discount> discountLists, List<PriceList> priceList, bool allowRemove, bool allowEdit)
+        {
+            bool isPresent = false;
+            int qunitityType = 0;
+            decimal? priceValue;
+            PriceList price;
+            var discounts = new List<OfferClientItem>();
+            foreach (var discount in discountLists)
+            {
+                priceValue = null;
+                isPresent = false;
+                qunitityType = 0;
+                price = priceList.Where(p => p.ObjectId == discount.DiscountId && p.ObjectTypeCode == (int)ObjectTypeCode.Discount).FirstOrDefault();
+                if (price != null)
+                {
+                    priceValue = price.PriceValue.HasValue ? (decimal?)price.PriceValue.Value * -1 : null;
+                    isPresent = price.PriceValueType == 2 ? true : false;
+                    qunitityType = price.QuntityType;
+                }
+
+                discounts.Add(new OfferClientItem
+                {
+                    Amount = 1,
+                    Desc = discount.Desc,
+                    Id = discount.DiscountId,
+                    IsDiscount = true,
+                    IsPresent = isPresent,
+                    Name = discount.Name,
+                    ProductPrice = priceValue,
+                    StatusRecord = 1,
+                    AllowEdit = allowEdit,
+                    AllowRemove = allowRemove,
+                    QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
+                });
+            }
+            return discounts;
+        }
+
         public async Task<Shipping> GetShipAsync(Guid shipId)
         {
             return await _shippingRepository.GetShip(shipId);
@@ -360,7 +428,7 @@ namespace Michal.Project.Bll
                 return null;
             return await _offerRepository.GetAsync(offerId);
         }
-      
+
         public string GetTitle(RequestShipping offer)
         {
             var stateCode = 1;
@@ -375,17 +443,17 @@ namespace Michal.Project.Bll
                     return "אישור הזמנה סופי";
                 default:
                     return "אישור הזמנה סופי";
-                    
+
             }
         }
 
         public void Create(OfferUpload offer, UserContext user, Shipping ship, ShippingCompany managerShip)
         {
-            var dt=DateTime.Now;
+            var dt = DateTime.Now;
             Guid requestShippingId = Guid.NewGuid();
             RequestShipping request = new RequestShipping();
             request.RequestShippingId = requestShippingId;
-            request.StatusCode = 2;//next status
+            request.StatusCode = (int)OfferVariables.OfferStateCode.Request;//next status
             request.StatusReasonCode = 1;
             request.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
             request.Shipping_ShippingId = ship.ShippingId;
@@ -395,24 +463,25 @@ namespace Michal.Project.Bll
             request.CreatedOn = DateTime.Now;
 
             List<RequestItemShip> items = FillItems(offer, requestShippingId, user);
-           
+
             ship.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
             ship.OfferId = requestShippingId;
             ship.ModifiedBy = user.UserId;
             ship.ModifiedOn = DateTime.Now;
 
             _shippingRepository.Update(ship);
-           _offerRepository.Create( request, items);
+            _offerRepository.Create(request, items);
 
-            
+
 
         }
 
-        public void ChangeStatusOffer(int status,OfferUpload offerRequest, UserContext user, Shipping ship,RequestShipping offer)
-        {List<RequestItemShip> items =new List<RequestItemShip>();
+        public void ChangeStatusOffer(int status, OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
+        {
+            List<RequestItemShip> items = new List<RequestItemShip>();
             if (offerRequest.HasDirty)
             {
-                 items = FillItems(offerRequest, offer.RequestShippingId, user);
+                items = FillItems(offerRequest, offer.RequestShippingId, user);
             }
             offer.StatusCode = status;//next status
             offer.StatusReasonCode = 1;
@@ -427,7 +496,7 @@ namespace Michal.Project.Bll
             DateTime dt = DateTime.Now;
             List<RequestItemShip> items = new List<RequestItemShip>();
             if (offerRequest.HasDirty)
-            {
+            {//  QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
                 foreach (var dataItem in offerRequest.DataItems)
                 {
                     items.Add(new RequestItemShip
@@ -446,12 +515,16 @@ namespace Michal.Project.Bll
                         PriceValueType = dataItem.IsPresent ? 2 : 1,
                         RequestItemShipId = Guid.NewGuid(),
                         RequestShipping_RequestShippingId = requestShippingId,
-                        ProductValue=dataItem.ProductPrice
+                        ProductValue = dataItem.ProductPrice,
+                        IsDiscount = dataItem.IsDiscount,
+                        QuntityType = dataItem.QuntityType == General.UnitMin ? 1 : 0
+
                     });
                 }
             }
             return items;
 
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Michal.Project.Bll;
 using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
+using Michal.Project.Helper;
 using Michal.Project.Models;
 using Michal.Project.Models.Status;
 using System;
@@ -25,7 +26,7 @@ namespace Michal.Project.Mechanism
         }
         public override async Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user)
         {
-            if (offer.StateCode == 1)
+            if (offer.StateCode == (int)OfferVariables.OfferStateCode.New)
             {
                 var ship = await _shippingRepository.GetShipIncludeItems(offer.Id); //context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 var managerShip = await _shipComapnyRepository.GetAsync(offer.ShippingCompanyId);

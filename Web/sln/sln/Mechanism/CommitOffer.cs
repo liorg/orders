@@ -1,6 +1,7 @@
 ﻿using Michal.Project.Bll;
 using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
+using Michal.Project.Helper;
 using Michal.Project.Models;
 using Michal.Project.Models.Status;
 using System;
@@ -37,7 +38,7 @@ namespace Michal.Project.Mechanism
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request);
 
-                logic.ChangeStatusOffer(3, offer, user, ship, offerModel);
+                logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Commit, offer, user, ship, offerModel);
                 _shippingRepository.Update(ship);
                 // logic.Create(offer, user, ship, managerShip);
 

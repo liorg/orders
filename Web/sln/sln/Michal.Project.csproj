@@ -361,6 +361,10 @@
     <Compile Include="Migrations\201511191626151_requessted.Designer.cs">
       <DependentUpon>201511191626151_requessted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511191759255_requessted2.cs" />
+    <Compile Include="Migrations\201511191759255_requessted2.Designer.cs">
+      <DependentUpon>201511191759255_requessted2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
     <Compile Include="Models\Notify.cs" />
@@ -836,6 +840,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511191626151_requessted.resx">
       <DependentUpon>201511191626151_requessted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511191759255_requessted2.resx">
+      <DependentUpon>201511191759255_requessted2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

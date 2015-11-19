@@ -26,18 +26,13 @@ namespace Michal.Project.DataModel
         public string Name { get; set; }
         public string Desc { get; set; }
 
-       // [Required]
-        //public int StatusCode { get; set; } // 1= request,2=requestByClient, ,3=OkResponse,4=CancelResponse
-
-        //public int ReqeustType { get; set; }//1= add (),2=discount
-
         public int PriceValueType { get; set; } //1 =fixed,2=%present
         public decimal? PriceValue { get; set; }
         public decimal? ProductValue { get; set; }
-        //public int PriceClientValueType { get; set; } //1 =fixed,2=%present
-        //public decimal? PriceClientValue { get; set; }
 
         public int Amount { get; set; }
+        public bool IsDiscount { get; set; }
+        public int QuntityType { get; set; } //0 =unit,1=min
 
         public DateTime? CreatedOn
         {

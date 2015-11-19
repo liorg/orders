@@ -12,7 +12,6 @@ namespace Michal.Project.DataModel
     {
         public RequestShipping()
         {
-          //  Discount = new HashSet<Discount>();
             RequestItemShip = new HashSet<RequestItemShip>();
         }
 

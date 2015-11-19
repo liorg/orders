@@ -123,6 +123,6 @@ namespace Michal.Project.Helper
 
     public class OfferVariables
     {
-        public enum OfferStateCode { New = 1, Commit = 2 }
+        public enum OfferStateCode { New = 1, Request = 2,Commit=3 }
     }
 }
