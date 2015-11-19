@@ -18,14 +18,12 @@ namespace Michal.Project.Mechanism
         protected readonly IShippingRepository _shippingRepository;
         protected readonly IOfferPriceRepostory _offerPrice;
         protected readonly IOrgDetailRepostory _orgDetailRep;
-        //protected readonly INotificationRepository _notificationRepository;
         protected readonly IShipComapnyRepository _shipComapnyRepository;
         protected Handler successor;
         public Handler(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
         {
             _shipComapnyRepository = shipComapnyRepository;
-           // _notificationRepository = notificationRepository;
             _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
         }
         public void SetSuccessor(Handler successor)

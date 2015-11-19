@@ -24,6 +24,7 @@ namespace Michal.Project.Mechanism
         {
 
         }
+
         public override async Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user)
         {
             if (offer.StateCode == (int)OfferVariables.OfferStateCode.New)
@@ -65,22 +66,6 @@ namespace Michal.Project.Mechanism
             }
             return await Task.FromResult<MessageForUsers>(null);
         }
-
-        //async Task SendNotification(OfferUpload offer, Shipping ship, ShippingCompany managerShip, UserContext user)
-        //{
-        //    var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
-        //    var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
-        //    var orderName = ship.Name;
-        //    //NotificationManager manager = new NotificationManager();
-        //    var notifyItem = new NotifyItem
-        //    {
-        //        Title = "הזמנה חדשה",
-        //        Body = " בקשת אישור הזמנה עבור " + orderName,
-        //        Url = url + path
-        //    };
-        //    await _notificationRepository.SendAsync(user.UserId, notifyItem);
-        //    await _notificationRepository.SendAsync(managerShip.ManagerId, notifyItem);
-        //}
     }
 
 }
