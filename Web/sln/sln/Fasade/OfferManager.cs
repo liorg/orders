@@ -29,9 +29,9 @@ namespace Michal.Project.Fasade
             Handler requestOffer = new RequestOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
             Handler commitOffer = new CommitOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
             requestOffer.SetSuccessor(commitOffer);
-            await context.SaveChangesAsync();
-
             var messages = await requestOffer.HandleRequest(offer, user);
+
+            await context.SaveChangesAsync();
             if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
             {
                 NotificationManager manager = new NotificationManager();

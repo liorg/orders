@@ -324,7 +324,7 @@ namespace Michal.Project.Bll
             var priceList = _offerPrice.GetPriceList();
             var productsSystem = _offerPrice.GetProductsSystem();
             var discounts = GetDiscounts(discountLists, priceList, allowRemove, allowEdit);
-
+            offerClient.OfferId = offer.RequestShippingId;
             offerClient.HasDirty = false;
 
             offerClient.DirtyDiscounts = new List<OfferClientItem>();
