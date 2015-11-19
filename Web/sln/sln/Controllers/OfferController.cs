@@ -112,7 +112,7 @@ namespace Michal.Project.Controllers
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-                OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
 
                 var ship = await logic.GetShipAsync(shipId); //context.Shipping.Include(s => s.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 order.Id = shipId;

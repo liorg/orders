@@ -59,7 +59,7 @@ namespace Michal.Project.Api
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
-                OfferLogic logic = new OfferLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
 
                 var ship = await shippingRepository.GetShipIncludeItems(shipid);
                 OfferClient offerClient =  logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
@@ -94,9 +94,9 @@ namespace Michal.Project.Api
 
 
         [System.Web.Http.AcceptVerbs("POST")]
-        [Route("EditOffer")]
+        [Route("CommitOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
-        public async Task<HttpResponseMessage> EditOffer([FromBody] OfferUpload offer)
+        public async Task<HttpResponseMessage> CommitOffer([FromBody] OfferUpload offer)
         {
             var result = new Result<Guid>();
             result.Model = Guid.NewGuid();
@@ -107,7 +107,7 @@ namespace Michal.Project.Api
             using (var context = new ApplicationDbContext())
             {
                 OfferManager offermanager = new OfferManager();
-                await offermanager.ExcuteAsync(context, offer, user);
+                await offermanager.CommitAsync(context, offer, user);
                 
                 //var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 //var managerShip = await context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);

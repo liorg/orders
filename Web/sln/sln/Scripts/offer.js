@@ -418,7 +418,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/api/OfferService/EditOffer",
+            url: "/api/OfferService/CommitOffer",
             data: offer,
             success: function (data) {
                 debugger;

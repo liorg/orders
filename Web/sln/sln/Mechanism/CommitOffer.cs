@@ -22,14 +22,14 @@ namespace Michal.Project.Mechanism
         }
         public override async Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user)
         {
-            if (offer.StateCode == 2)
+            if (offer.StateCode == (int)OfferVariables.OfferStateCode.Request)
             {
                 var ship = await _shippingRepository.GetShipIncludeFollowsUsers(offer.Id);
                 var offerModel = await _offerRepository.GetAsync(offer.OfferId);
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
 
-                OfferLogic logic = new OfferLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
 
 
                 var request = new StatusRequestBase();

@@ -20,7 +20,7 @@ namespace Michal.Project.Fasade
 
         }
 
-        public async Task ExcuteAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
+        public async Task CommitAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
         {
             IOfferRepository offerRepository = new OfferRepository(context);
             IShippingRepository shippingRepository = new ShippingRepository(context);

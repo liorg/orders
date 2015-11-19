@@ -35,7 +35,7 @@ namespace Michal.Project.Mechanism
                 if (managerShip.ManagerId != null && managerShip.ManagerId.Value == Guid.Empty)
                  users.Add(managerShip.ManagerId.Value);
                 
-                OfferLogic logic = new OfferLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
