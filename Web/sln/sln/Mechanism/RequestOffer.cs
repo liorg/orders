@@ -2,6 +2,7 @@
 using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
 using Michal.Project.Models;
+using Michal.Project.Models.Status;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,13 +32,24 @@ namespace Michal.Project.Mechanism
                 List<Guid> users = new List<Guid>();
                 users.Add(ship.ShippingId);
                 if (managerShip.ManagerId != null && managerShip.ManagerId.Value == Guid.Empty)
-                {
-                    users.Add(managerShip.ManagerId.Value);
-                }
-                //await SendNotification(offer, ship, managerShip, user);
+                 users.Add(managerShip.ManagerId.Value);
+                
                 OfferLogic logic = new OfferLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
 
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic();
+                statusLogic.ApprovalRequest(request);
+
                 logic.Create(offer, user, ship, managerShip);
+
+                FollowByLogic follow = new FollowByLogic(_shippingRepository);
+                foreach (var userID in users)
+                {
+                   await follow.AddOwnerFollowBy(ship, userID);
+                }
+                
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 

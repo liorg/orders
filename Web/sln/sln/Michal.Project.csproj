@@ -203,6 +203,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bll\FollowByLogic.cs" />
     <Compile Include="Bll\FollowLogic.cs" />
     <Compile Include="Bll\OfferLogic.cs" />
     <Compile Include="Bll\PriceLogic.cs" />
@@ -355,6 +356,10 @@
     <Compile Include="Migrations\201511161439518_bc.cs" />
     <Compile Include="Migrations\201511161439518_bc.Designer.cs">
       <DependentUpon>201511161439518_bc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511191626151_requessted.cs" />
+    <Compile Include="Migrations\201511191626151_requessted.Designer.cs">
+      <DependentUpon>201511191626151_requessted.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
@@ -828,6 +833,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511161439518_bc.resx">
       <DependentUpon>201511161439518_bc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511191626151_requessted.resx">
+      <DependentUpon>201511191626151_requessted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

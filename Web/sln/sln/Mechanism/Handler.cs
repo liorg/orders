@@ -35,7 +35,7 @@ namespace Michal.Project.Mechanism
 
         public abstract Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user);
 
-        public async Task<MessageForUsers> SetNotification(List<Guid> users, string url, string title, string body)
+        public async Task<MessageForUsers> SetNotification(IEnumerable<Guid> users, string url, string title, string body)
         {
             MessageForUsers result = new MessageForUsers();
             result.NotifyItem = new NotifyItem
@@ -44,7 +44,7 @@ namespace Michal.Project.Mechanism
                 Body = body,
                 Url = url
             };
-            result.Users = users;
+            result.Users = users.ToList();
             return await Task.FromResult<MessageForUsers>(result);
         }
     }

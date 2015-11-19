@@ -29,6 +29,8 @@ namespace Michal.Project.DataModel
 
         public DateTime SpecialDate { get; set; }
 
+        [Required]
+        public int Year { get; set; }
 
         public string Name { get; set; }
 

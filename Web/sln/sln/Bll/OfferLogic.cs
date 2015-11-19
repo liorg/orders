@@ -358,7 +358,7 @@ namespace Michal.Project.Bll
         {
             if (offerId == null || offerId == Guid.Empty)
                 return null;
-            return await _offerRepository.GetOffer(offerId);
+            return await _offerRepository.GetAsync(offerId);
         }
       
         public string GetTitle(RequestShipping offer)
@@ -385,46 +385,73 @@ namespace Michal.Project.Bll
             Guid requestShippingId = Guid.NewGuid();
             RequestShipping request = new RequestShipping();
             request.RequestShippingId = requestShippingId;
-            request.StatusCode = 2;
+            request.StatusCode = 2;//next status
             request.StatusReasonCode = 1;
             request.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
             request.Shipping_ShippingId = ship.ShippingId;
-            List<RequestItemShip> items = new List<RequestItemShip>();
-            foreach (var dataItem in offer.DataItems)
-            {
-                items.Add(new RequestItemShip
-                {
-                    Amount = dataItem.Amount,
-                    CreatedBy = user.UserId,
-                    CreatedOn = dt,
-                    Desc = dataItem.Desc,
-                    IsActive = true,
-                    ModifiedBy = user.UserId,
-                    ModifiedOn = dt,
-                    Name = dataItem.Name,
-                    ObjectTypeId = dataItem.ObjectId,
-                    ObjectTypeIdCode = dataItem.ObjectIdType,
-                    PriceValue = dataItem.PriceValue,
-                    PriceValueType = dataItem.IsPresent ? 2 : 1,
-                    RequestItemShipId = Guid.NewGuid(),
-                    RequestShipping_RequestShippingId = requestShippingId
-                });
-                   
-            }
+            request.ModifiedBy = user.UserId;
+            request.ModifiedOn = DateTime.Now;
+            request.CreatedBy = user.UserId;
+            request.CreatedOn = DateTime.Now;
+
+            List<RequestItemShip> items = FillItems(offer, requestShippingId, user);
+           
             ship.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
             ship.OfferId = requestShippingId;
             ship.ModifiedBy = user.UserId;
             ship.ModifiedOn = DateTime.Now;
 
             _shippingRepository.Update(ship);
-           _offerRepository.Create(user.UserId, request, items);
+           _offerRepository.Create( request, items);
 
             
 
         }
 
+        public void ChangeStatusOffer(int status,OfferUpload offerRequest, UserContext user, Shipping ship,RequestShipping offer)
+        {List<RequestItemShip> items =new List<RequestItemShip>();
+            if (offerRequest.HasDirty)
+            {
+                 items = FillItems(offerRequest, offer.RequestShippingId, user);
+            }
+            offer.StatusCode = status;//next status
+            offer.StatusReasonCode = 1;
+            offer.ModifiedBy = user.UserId;
+            offer.ModifiedOn = DateTime.Now;
 
+            _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
+        }
 
+        public List<RequestItemShip> FillItems(OfferUpload offerRequest, Guid requestShippingId, UserContext user)
+        {
+            DateTime dt = DateTime.Now;
+            List<RequestItemShip> items = new List<RequestItemShip>();
+            if (offerRequest.HasDirty)
+            {
+                foreach (var dataItem in offerRequest.DataItems)
+                {
+                    items.Add(new RequestItemShip
+                    {
+                        Amount = dataItem.Amount,
+                        CreatedBy = user.UserId,
+                        CreatedOn = dt,
+                        Desc = dataItem.Desc,
+                        IsActive = true,
+                        ModifiedBy = user.UserId,
+                        ModifiedOn = dt,
+                        Name = dataItem.Name,
+                        ObjectTypeId = dataItem.ObjectId,
+                        ObjectTypeIdCode = dataItem.ObjectIdType,
+                        PriceValue = dataItem.PriceValue,
+                        PriceValueType = dataItem.IsPresent ? 2 : 1,
+                        RequestItemShipId = Guid.NewGuid(),
+                        RequestShipping_RequestShippingId = requestShippingId,
+                        ProductValue=dataItem.ProductPrice
+                    });
+                }
+            }
+            return items;
 
+        }
     }
 }

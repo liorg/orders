@@ -40,16 +40,16 @@ namespace Michal.Project.Bll
             ChangeStatus(request);
         }
 
-        public void ConfirmRequest(StatusRequestBase requestBase, Func<string,string> GetRunner)
+        public void ConfirmRequest(StatusRequestBase requestBase, Func<string, string> GetRunner)
         {
             StatusRequest request = new StatusRequest(requestBase);
             request.ActualStartDate = DateTime.Now;
             var grantToText = "";
             if (!String.IsNullOrEmpty(request.AssignTo))
             {
-               request.Ship.GrantRunner = Guid.Parse(request.AssignTo);
+                request.Ship.GrantRunner = Guid.Parse(request.AssignTo);
 
-               grantToText = GetRunner(request.AssignTo);  
+                grantToText = GetRunner(request.AssignTo);
 
             }
             else
@@ -74,20 +74,20 @@ namespace Michal.Project.Bll
         public void Accept(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
-            var user=request.UserContext;
+            var user = request.UserContext;
             var ship = request.Ship;
             var title = "המשלוח  נמצא " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
             var text = title + System.Environment.NewLine + " " + " מספר המשלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
-            
+
             request.Title = title;
-            request.TimeWaitEndGet= DateTime.Now;
+            request.TimeWaitEndGet = DateTime.Now;
             request.Desc = text;
             request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
             request.Status = TimeStatus.AcceptByRunner;
             request.StatusShipping = Guid.Parse(Helper.Status.AcceptByRunner);
 
             request.Ship.BroughtShipmentCustomer = request.UserContext.UserId;
-            
+
             ChangeStatus(request);
         }
 
@@ -107,6 +107,7 @@ namespace Michal.Project.Bll
             request.Ship.CancelByAdmin = request.UserContext.UserId;
             ChangeStatus(request);
         }
+
         public void ArrivedGet(StatusRequestBase requestBase)
         {
             var request = new StatusRequest(requestBase);
@@ -146,7 +147,7 @@ namespace Michal.Project.Bll
             ChangeStatus(request);
         }
 
-        public void Take(StatusRequestBase requestBase,string desc,string  recipient)
+        public void Take(StatusRequestBase requestBase, string desc, string recipient)
         {
             var request = new StatusRequest(requestBase);
             var user = request.UserContext;
@@ -179,7 +180,7 @@ namespace Michal.Project.Bll
             request.Desc = text;
             request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
             request.StatusShipping = Guid.Parse(Helper.Status.NoAcceptByClient);
-           
+
             request.Ship.NoBroughtShipmentCustomer = request.UserContext.UserId;
             ChangeStatus(request);
         }
@@ -195,7 +196,7 @@ namespace Michal.Project.Bll
             ship.ModifiedBy = user.UserId;
             ship.NotifyType = request.NotifyType;
             ship.NotifyText = request.Desc;
-            if(!String.IsNullOrEmpty(request.EndDesc))
+            if (!String.IsNullOrEmpty(request.EndDesc))
                 ship.EndDesc = request.EndDesc;
 
             if (request.TimeWaitStartGet.HasValue)
@@ -231,5 +232,29 @@ namespace Michal.Project.Bll
             };
             ship.TimeLines.Add(tl);
         }
+
+        public void ConfirmRequest(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            request.ActualStartDate = DateTime.Now;
+            var grantToText = "";
+
+            request.Ship.GrantRunner = request.UserContext.UserId;
+            grantToText = request.UserContext.FullName;
+
+
+            var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+
+            request.Title = title;
+            request.Desc = text;
+            request.NotifyType = (int)AlertStyle.Info;// Notification.Info;
+            request.Status = TimeStatus.Confirm;
+            request.StatusShipping = Guid.Parse(Helper.Status.Confirm);
+
+            request.Ship.ApprovalShip = request.UserContext.UserId;
+            ChangeStatus(request);
+        }
+
     }
 }

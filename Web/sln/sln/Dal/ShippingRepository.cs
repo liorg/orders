@@ -24,22 +24,33 @@ namespace Michal.Project.Dal
             ship.ModifiedBy = modifiedId;
             ship.ModifiedOn = DateTime.Now;
         }
+
         public async Task<Shipping> GetShip(Guid shipId)
         {
             return await _context.Shipping.FindAsync(shipId);
-
         }
-
 
         public async Task<Shipping> GetShipIncludeItems(Guid shipId)
         {
             return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
         }
 
+        public async Task AddOwnerFollowBy(Shipping ship, Guid userid)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());
+            ship.FollowsBy.Add(user);
+        }
 
         public void Update(Shipping ship)
         {
             _context.Entry<Shipping>(ship).State = EntityState.Modified;
+        }
+
+
+        public async Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId)
+        {
+            return await _context.Shipping.Include(ic => ic.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+      
         }
     }
 }
