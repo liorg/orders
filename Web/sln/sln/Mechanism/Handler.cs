@@ -18,14 +18,14 @@ namespace Michal.Project.Mechanism
         protected readonly IShippingRepository _shippingRepository;
         protected readonly IOfferPriceRepostory _offerPrice;
         protected readonly IOrgDetailRepostory _orgDetailRep;
-        protected readonly INotificationRepository _notificationRepository;
+        //protected readonly INotificationRepository _notificationRepository;
         protected readonly IShipComapnyRepository _shipComapnyRepository;
         protected Handler successor;
-        public Handler(IShipComapnyRepository shipComapnyRepository, INotificationRepository notificationRepository, IOfferRepository offerRepository,
+        public Handler(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
         {
             _shipComapnyRepository = shipComapnyRepository;
-            _notificationRepository = notificationRepository;
+           // _notificationRepository = notificationRepository;
             _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
         }
         public void SetSuccessor(Handler successor)
@@ -33,7 +33,20 @@ namespace Michal.Project.Mechanism
             this.successor = successor;
         }
 
-        public abstract Task HandleRequest(OfferUpload offer, UserContext user);
+        public abstract Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user);
+
+        public async Task<MessageForUsers> SetNotification(List<Guid> users, string url, string title, string body)
+        {
+            MessageForUsers result = new MessageForUsers();
+            result.NotifyItem = new NotifyItem
+            {
+                Title = title,
+                Body = body,
+                Url = url
+            };
+            result.Users = users;
+            return await Task.FromResult<MessageForUsers>(result);
+        }
     }
 
 }

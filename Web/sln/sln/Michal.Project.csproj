@@ -357,6 +357,7 @@
       <DependentUpon>201511161439518_bc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\MessageForUsers.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
     <Compile Include="Models\CommentVm.cs" />

@@ -11,22 +11,23 @@ namespace Michal.Project.Mechanism
 {
     internal class CommitOffer : Handler
     {
-        public CommitOffer(IShipComapnyRepository shipComapnyRepository, INotificationRepository notificationRepository, IOfferRepository offerRepository,
+        public CommitOffer(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(shipComapnyRepository, notificationRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+            base(shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
         {
 
         }
-        public override async Task HandleRequest(OfferUpload offer, UserContext user)
+        public override async Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user)
         {
             if (offer.StateCode == 2)
             {
-
+                return await Task.FromResult<MessageForUsers>(null);
             }
             else if (successor != null)
             {
-                await successor.HandleRequest(offer,user);
+                return await successor.HandleRequest(offer,user);
             }
+            return await Task.FromResult<MessageForUsers>(null);
         }
     }
 }

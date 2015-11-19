@@ -382,9 +382,9 @@ namespace Michal.Project.Bll
         public void Create(OfferUpload offer, UserContext user, Shipping ship, ShippingCompany managerShip)
         {
             var dt=DateTime.Now;
-            Guid id = Guid.NewGuid();
+            Guid requestShippingId = Guid.NewGuid();
             RequestShipping request = new RequestShipping();
-            request.RequestShippingId = id;
+            request.RequestShippingId = requestShippingId;
             request.StatusCode = 2;
             request.StatusReasonCode = 1;
             request.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
@@ -406,16 +406,15 @@ namespace Michal.Project.Bll
                     ObjectTypeIdCode = dataItem.ObjectIdType,
                     PriceValue = dataItem.PriceValue,
                     PriceValueType = dataItem.IsPresent ? 2 : 1,
-                    RequestItemShipId = Guid.NewGuid()
-                    // StatusCode=
+                    RequestItemShipId = Guid.NewGuid(),
+                    RequestShipping_RequestShippingId = requestShippingId
                 });
                    
             }
             ship.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
-            ship.OfferId = id;
+            ship.OfferId = requestShippingId;
             ship.ModifiedBy = user.UserId;
             ship.ModifiedOn = DateTime.Now;
-
 
             _shippingRepository.Update(ship);
            _offerRepository.Create(user.UserId, request, items);

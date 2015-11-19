@@ -106,7 +106,7 @@ namespace Michal.Project.Api
             {
                 OfferManager offermanager = new OfferManager();
                 await offermanager.ExcuteAsync(context, offer, user);
-                await context.SaveChangesAsync();
+                
                 //var ship = await context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 //var managerShip = await context.ShippingCompany.FirstOrDefaultAsync(c => c.ShippingCompanyId == offer.ShippingCompanyId);
                

@@ -11,7 +11,7 @@ using System.Web;
 namespace Michal.Project.Fasade
 {
 
-    
+
 
     public class OfferManager
     {
@@ -22,18 +22,21 @@ namespace Michal.Project.Fasade
 
         public async Task ExcuteAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
         {
-
             IOfferRepository offerRepository = new OfferRepository(context);
             IShippingRepository shippingRepository = new ShippingRepository(context);
             GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-            INotificationRepository notificationRepository = new NotificationRepository(context);
             IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-            Handler requestOffer = new RequestOffer(shipComapnyRepository,notificationRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-            Handler commitOffer = new CommitOffer(shipComapnyRepository,notificationRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+            Handler requestOffer = new RequestOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+            Handler commitOffer = new CommitOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
             requestOffer.SetSuccessor(commitOffer);
+            await context.SaveChangesAsync();
 
-            await requestOffer.HandleRequest(offer, user);
-         
+            var messages = await requestOffer.HandleRequest(offer, user);
+            if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
+            {
+                NotificationManager manager = new NotificationManager();
+                await manager.SendItemsAsync(context, messages);
+            }
         }
     }
 }

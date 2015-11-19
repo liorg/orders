@@ -20,6 +20,14 @@ namespace Michal.Project.Fasade
 
         }
 
+        public async Task SendItemsAsync(ApplicationDbContext context, MessageForUsers messageForUsers)
+        {
+            foreach (var user in messageForUsers.Users)
+            {
+                await SendAsync(context, user, messageForUsers.NotifyItem);
+            }
+        }
+
         public async Task SendAsync(ApplicationDbContext context, Guid? user, NotifyItem notifyItem)
         {
             if (!user.HasValue)
