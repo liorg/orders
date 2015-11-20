@@ -36,7 +36,7 @@ namespace Michal.Project.Mechanism
                 StatusLogic statusLogic = new StatusLogic();
                 statusLogic.ConfirmRequest(request);
 
-                logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Commit, offer, user, ship, offerModel);
+                logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.End, offer, user, ship, offerModel);
                 _shippingRepository.Update(ship);
 
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();

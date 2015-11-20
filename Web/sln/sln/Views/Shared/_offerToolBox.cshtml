@@ -4,7 +4,12 @@
         <div class="btn-group" style="margin-left: 4px">
             <button type="button" id="btnEditPrice" data-toggle="tooltip" title="שמור" data-placement="top"
                 class="btn btn-success btn-circle btn-xl">
-                <img src="~/Content/img/ok32x32.png" />
+                @if (Model.StateCode==1){
+                <img src="~/Content/img/send32x32.png" />
+                }
+                else{
+                <img src="~/Content/img/thumbs32x32.png" />
+                }
             </button>
         </div>
             <div class="btn-group" style="margin-left: 4px">
@@ -14,7 +19,12 @@
         </div>
         <div class="btn-group" style="margin-left: 4px">
             <button type="button" id="btnCancel" data-toggle="tooltip"  title="ביטול" data-placement="top" data-url="@Url.Action("Index", "F")"  class="btn btn-danger btn-circle btn-xl">
-                <img src="~/Content/img/delete32x32.png" />
+                @if (Model.StateCode==1){   
+             <img src="~/Content/img/delete32x32.png" />
+             }
+                else{
+                <img src="~/Content/img/thumbsdown32x32.png" />
+                }
             </button>
         </div>
         <div class="btn-group" style="margin-left: 4px">

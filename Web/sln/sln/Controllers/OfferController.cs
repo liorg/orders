@@ -118,6 +118,14 @@ namespace Michal.Project.Controllers
                 order.Id = shipId;
                 order.OfferId = ship.OfferId.GetValueOrDefault();
                 var offer = await logic.GetOfferAsync(order.OfferId);
+                if (offer != null)
+                {
+                    order.StateCode = offer.StatusCode;
+                }
+                else
+                {
+                    order.StateCode = (int)OfferVariables.OfferStateCode.New;
+                }
                 order.Name = ship.Name;
 
                 order.Title = logic.GetTitle(offer);

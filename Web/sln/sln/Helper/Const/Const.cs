@@ -10,20 +10,20 @@ namespace Michal.Project.Helper
 
     public enum ObjectTypeCode
     {
-        Product = 1, ProductSystem=2,Distance=3,ShipType=4,Discount=99
+        Product = 1, ProductSystem = 2, Distance = 3, ShipType = 4, Discount = 99
     }
 
     public enum AlertStyle
     {
-        Default=0,
-        Success=4,
-        Warning=3,
-        Info=1,
-        Error=2,
+        Default = 0,
+        Success = 4,
+        Warning = 3,
+        Info = 1,
+        Error = 2,
         WaitingGet = 5,//timewait on get delievry
-        WaitingSet=6//timewait on set delievry
+        WaitingSet = 6//timewait on set delievry
     }
-  
+
     public enum JobType { Admin = 1, Runner = 2, Client = 3 };
 
     public static class JobTitle
@@ -45,7 +45,7 @@ namespace Michal.Project.Helper
         public const string Back = "00000000-0000-0000-0000-000000000004";
 
     }
-    
+
     public static class General
     {
         public const int MaxRecordsPerSearch = 100;
@@ -55,7 +55,7 @@ namespace Michal.Project.Helper
 
         public const string UnitMin = "דק'";
         public const string Unit = "יח'";
-       
+
     }
 
     public static class CustomClaimTypes
@@ -123,6 +123,6 @@ namespace Michal.Project.Helper
 
     public class OfferVariables
     {
-        public enum OfferStateCode { New = 1, Request = 2,Commit=3 }
+        public enum OfferStateCode { New = 1, Request = 2, End = 3,  CancelOffer }
     }
 }

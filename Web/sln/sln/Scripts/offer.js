@@ -437,6 +437,52 @@ $(document).ready(function () {
             }
         });
     });
+    $('#btnCancelPrice').click(function () {
+        debugger;
+        var items = ko.mapping.toJS(vm.Items);
+        var offer = {
+            'Id': offerClient.Id,
+            'HasDirty': vm.HasDirty(),
+            'OfferId': offerClient.OfferId,
+            'ShippingCompanyId': offerClient.ShippingCompanyId,
+            'StateCode': offerClient.StateCode,
+            'DataItems': items
+        };
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            },
+            message: "מעבד את הבקשה,נא המתן"
+        });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/api/OfferService/CancelOffer",
+            data: offer,
+            success: function (data) {
+                debugger;
+                $.unblockUI();
+                if (!data.IsError) {
+                    window.location.reload(true);
+                }
+                else
+                    alert(data.ErrDesc);
+            },
+            error: function (error) {
+                debugger;
+                $.unblockUI();
+                jsonValue = jQuery.parseJSON(error.responseText);
+                //jError('An error has occurred while saving the new part source: ' + jsonValue, { TimeShown: 3000 });
+            }
+        });
+    });
 });
 
 (function ($) {

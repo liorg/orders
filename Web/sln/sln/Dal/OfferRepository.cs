@@ -44,7 +44,6 @@ namespace Michal.Project.Dal
 
                 foreach (var requestItem in requestItemShips)
                     _context.RequestItemShip.Add(requestItem);
-
             }
 
             //  await _context.SaveChangesAsync();

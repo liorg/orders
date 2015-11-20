@@ -112,5 +112,28 @@ namespace Michal.Project.Api
             };
             return response;
         }
+
+        [System.Web.Http.AcceptVerbs("POST")]
+        [Route("CancelOffer")]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<HttpResponseMessage> CancelOffer([FromBody] OfferUpload offer)
+        {
+            var result = new Result();
+            var userContext = HttpContext.Current.GetOwinContext().Authentication;
+            var user = new UserContext(userContext);
+            using (var context = new ApplicationDbContext())
+            {
+                OfferManager offermanager = new OfferManager();
+                result = await offermanager.CancelAsync(context, offer, user);
+
+            }
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<Result>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
     }
 }

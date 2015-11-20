@@ -21,6 +21,7 @@ namespace Michal.Project.Models
         [Display(Name = " כותרת")]
         public string Title { get; set; }
 
+        public int StateCode { get; set; }
         public Guid StatusId { get; set; }
 
         [Display(Name = "כתובת יעד")]

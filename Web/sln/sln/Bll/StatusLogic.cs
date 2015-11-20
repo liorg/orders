@@ -14,7 +14,7 @@ namespace Michal.Project.Bll
         public void RemoveOrder(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
-            var text = "המשלוח בוטלה ע''י" + " " + request.UserContext.FullName;
+            var text = "המשלוח בוטל ע''י" + " " + request.UserContext.FullName;
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.Cancel;

@@ -297,6 +297,8 @@
     <Compile Include="Mechanism\CommitOffer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mechanism\CanceClient.cs" />
+    <Compile Include="Mechanism\CancelOffer.cs" />
     <Compile Include="Mechanism\RequestOffer.cs" />
     <Compile Include="Mechanism\Handler.cs">
       <SubType>Code</SubType>
@@ -454,11 +456,14 @@
     <Content Include="Content\img\run2.png" />
     <Content Include="Content\img\sales32.png" />
     <Content Include="Content\img\save32x32.png" />
+    <Content Include="Content\img\send32x32.png" />
     <Content Include="Content\img\sign2_32x32.png" />
     <Content Include="Content\img\sign32x32.png" />
     <Content Include="Content\img\stage32x32.png" />
     <Content Include="Content\img\sum32green.png" />
     <Content Include="Content\img\sum64green.png" />
+    <Content Include="Content\img\thumbs32x32.png" />
+    <Content Include="Content\img\thumbsdown32x32.png" />
     <Content Include="Content\img\ui-anim_basic_16x16.gif" />
     <Content Include="Content\img\UP24.png" />
     <Content Include="Content\img\vespa-ran-bg.png" />
