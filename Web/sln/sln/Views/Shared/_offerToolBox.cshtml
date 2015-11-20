@@ -1,15 +1,20 @@
 ﻿@model OrderDetail
 <div class="row">
     <div class="  col-md-12 well well-lg ">
+         
         <div class="btn-group" style="margin-left: 4px">
             <button type="button" id="btnEditPrice" data-toggle="tooltip" title="שמור" data-placement="top"
                 class="btn btn-success btn-circle btn-xl">
                 @if (Model.StateCode==1){
                 <img src="~/Content/img/send32x32.png" />
                 }
-                else{
+                else  if (Model.StateCode==2) {
                 <img src="~/Content/img/thumbs32x32.png" />
                 }
+                else   {
+                <img src="~/Content/img/finish32x32.png" />
+                }
+
             </button>
         </div>
             <div class="btn-group" style="margin-left: 4px">
