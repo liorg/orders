@@ -29,7 +29,6 @@ namespace Michal.Project.Api
     [RoutePrefix("api/OfferService")]
     public class OfferServiceController : ApiController
     {
-
         [Authorize]
         [Route("")]
         public IHttpActionResult Get()
@@ -96,19 +95,18 @@ namespace Michal.Project.Api
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> CommitOffer([FromBody] OfferUpload offer)
         {
-            var result = new Result<Guid>();
-            result.Model = Guid.NewGuid();
+            var result = new Result();
             var userContext = HttpContext.Current.GetOwinContext().Authentication;
             var user = new UserContext(userContext);
             using (var context = new ApplicationDbContext())
             {
                 OfferManager offermanager = new OfferManager();
-                await offermanager.CommitAsync(context, offer, user);
+                result=await offermanager.CommitAsync(context, offer, user);
 
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<Result<Guid>>(result,
+                Content = new ObjectContent<Result>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };

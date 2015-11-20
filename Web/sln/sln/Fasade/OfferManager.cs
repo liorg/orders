@@ -20,23 +20,35 @@ namespace Michal.Project.Fasade
 
         }
 
-        public async Task CommitAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
+        public async Task<Result> CommitAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
         {
-            IOfferRepository offerRepository = new OfferRepository(context);
-            IShippingRepository shippingRepository = new ShippingRepository(context);
-            GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-            IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-            Handler requestOffer = new RequestOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-            Handler commitOffer = new CommitOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-            requestOffer.SetSuccessor(commitOffer);
-            var messages = await requestOffer.HandleRequest(offer, user);
-
-            await context.SaveChangesAsync();
-            if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
+            var response = new Result();
+            try
             {
-                NotificationManager manager = new NotificationManager();
-                await manager.SendItemsAsync(context, messages);
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+                IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
+                Handler requestOffer = new RequestOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler commitOffer = new CommitOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                requestOffer.SetSuccessor(commitOffer);
+                var messages = await requestOffer.HandleRequest(offer, user);
+
+                await context.SaveChangesAsync();
+                if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
+                {
+                    NotificationManager manager = new NotificationManager();
+                    await manager.SendItemsAsync(context, messages);
+                }
+            
             }
+            catch (Exception e)
+            {
+                response.IsError = true;
+                response.ErrCode = e.Message;
+            }
+            return response;
+           
         }
     }
 }
