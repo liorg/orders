@@ -42,7 +42,7 @@ namespace Michal.Project.Fasade
                     CreatedBy = user.Value,
                     CreatedOn = dt,
                     IsActive = true,
-                    IsRead = true,
+                    IsRead = false,
                     ModifiedBy = user.Value,
                     ModifiedOn = dt,
                     NotifyMessageId = Guid.NewGuid(),

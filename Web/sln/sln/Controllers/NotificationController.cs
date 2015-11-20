@@ -36,10 +36,9 @@ namespace Michal.Project.Controllers
             var user = new UserContext(AuthenticationManager);
             using (var context = new ApplicationDbContext())
             {
-
                 var notifyRepo = new NotificationRepository(context);
                 var logic = new NotifyLogic(notifyRepo);
-                var model = await logic.GetNotifiesUser(user, currentPage);
+                var model = await logic.GetNotifiesUserAsync(user, currentPage);
                 ViewBag.UserId = user.UserId;
                 return View(model);
             }

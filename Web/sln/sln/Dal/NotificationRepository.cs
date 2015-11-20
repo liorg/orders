@@ -23,7 +23,7 @@ namespace Michal.Project.Dal
             _context = context;
         }
 
-        public async Task<NotifiesView> GetNotifiesUser(Guid userId, int? currentPage)
+        public async Task<NotifiesView> GetNotifiesUserAsync(Guid userId, int? currentPage)
         {
             NotifiesView notifiesView = new NotifiesView();
             int page = currentPage.HasValue ? currentPage.Value : 1;
@@ -49,6 +49,20 @@ namespace Michal.Project.Dal
             notifiesView.Items = items;
             notifiesView.Total = total;
             return notifiesView;
+        }
+
+        public void Register(string userid, string deviceid)
+        {
+            var dt = DateTime.Now;
+            _context.UserNotify.Add(new DataModel.UserNotify
+            {
+                UserNotifyId = Guid.NewGuid(),
+                CreatedOn = dt,
+                DeviceId = deviceid,
+                IsActive = true,
+                ModifiedOn = dt,
+                UserId = Guid.Parse(userid)
+            });
         }
     }
 }

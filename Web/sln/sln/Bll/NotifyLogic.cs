@@ -19,11 +19,14 @@ namespace Michal.Project.Bll
             _notificationRepository = notificationRepository;
         }
 
-        public async Task<NotifiesView> GetNotifiesUser(UserContext user, int? currentPage)
+        public async Task<NotifiesView> GetNotifiesUserAsync(UserContext user, int? currentPage)
         {
-            return await _notificationRepository.GetNotifiesUser(user.UserId, currentPage);
+            return await _notificationRepository.GetNotifiesUserAsync(user.UserId, currentPage);
+        }
 
-
+        public void Register(string user, string deviceid)
+        {
+            _notificationRepository.Register(user, deviceid);
         }
     }
 }

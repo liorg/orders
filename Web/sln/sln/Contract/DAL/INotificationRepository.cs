@@ -11,7 +11,8 @@ namespace Michal.Project.Contract.DAL
 {
     public interface INotificationRepository
     {
-        Task<NotifiesView> GetNotifiesUser(Guid userId, int? currentPage);
+        Task<NotifiesView> GetNotifiesUserAsync(Guid userId, int? currentPage);
+        void Register(string userid, string deviceid);
        
     }
 }
