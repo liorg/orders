@@ -2,6 +2,7 @@
 using Michal.Project.Dal;
 using Michal.Project.DataModel;
 using Michal.Project.Models;
+using Michal.Project.Models.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +11,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-
-namespace Michal.Project.Fasade
+using System.Data.Entity;
+using Michal.Project.Helper;
+namespace Michal.Project.Dal
 {
     public class NotificationRepository : INotificationRepository
     {
@@ -21,117 +23,32 @@ namespace Michal.Project.Fasade
             _context = context;
         }
 
-        public async Task SendAsync( Guid? user, NotifyItem notifyItem)
+        public async Task<NotifiesView> GetNotifiesUser(Guid userId, int? currentPage)
         {
-            if (!user.HasValue)
-                return;
-            var userDevices = _context.UserNotify.Where(u => u.UserId == user.Value && u.IsActive == true).ToList();
-            var dt = DateTime.Now;
+            NotifiesView notifiesView = new NotifiesView();
+            int page = currentPage.HasValue ? currentPage.Value : 1;
+            var query = _context.NotifyMessage.Where(u => u.UserId == userId && u.IsActive == true).AsQueryable();
+            List<NotifyItem> items = await query.OrderByDescending(crt=>crt.CreatedOn).OrderByDescending(ord => ord.IsRead).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).Select(
+                 m => new NotifyItem
+                 {
+                     Id = m.NotifyMessageId,
+                     Title = m.Title,
+                     IsRead = m.IsRead,
+                     Body = m.Body,
+                     Url = m.ToUrl,
+                     CreatedOn= m.CreatedOn.HasValue? m.CreatedOn.Value:DateTime.MinValue
+
+                 }).ToListAsync();
+
+            var total = await query.CountAsync();
             
-            _context.NotifyMessage.Add(
-                new DataModel.NotifyMessage
-                {
-                    Body = notifyItem.Body,
-                    CreatedBy = user.Value,
-                    CreatedOn = dt,
-                    IsActive = true,
-                    IsRead = true,
-                    ModifiedBy = user.Value,
-                    ModifiedOn = dt,
-                    NotifyMessageId = Guid.NewGuid(),
-                    Title = notifyItem.Title,
-                    ToUrl = notifyItem.Url,
-                    UserId = user.Value
-                });
-            await _context.SaveChangesAsync();
-
-            foreach (var userDevice in userDevices)
-            {
-                bool isOk = await SendPushServerAsync(userDevice.DeviceId, notifyItem.Body); //SendPushServer(userDevice.DeviceId);
-                if (!isOk)
-                {
-                    userDevice.IsActive = false;
-                    userDevice.ModifiedBy = user.Value;
-                    userDevice.ModifiedOn = dt;
-                    _context.Entry<UserNotify>(userDevice).State = System.Data.Entity.EntityState.Modified;
-                }
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        async Task<bool> SendPushServerAsync(string deviceid, string body)
-        {
-            try
-            {
-
-                var url = System.Configuration.ConfigurationManager.AppSettings["NotificationServer"].ToString();
-                var formContent = new FormUrlEncodedContent(new[]
-                        {
-                            new KeyValuePair<string, string>("d", deviceid), 
-                            new KeyValuePair<string, string>("b", body) 
-                        });
-
-                using (var myHttpClient = new HttpClient())
-                {
-                    var response = await myHttpClient.PostAsync(url, formContent);
-                    var stringContent = await response.Content.ReadAsStringAsync();
-
-
-                    if (stringContent.Contains("Error"))
-                        return false;
-                    return true;
-                }
-               
-            }
-            catch (Exception e)
-            {
-
-                return false;
-            }
-
+            var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+            notifiesView.CurrentPage = page;
+            notifiesView.ClientViewType = ClientViewType.Views;
+            notifiesView.MoreRecord = hasMoreRecord;
+            notifiesView.Items = items;
+            notifiesView.Total = total;
+            return notifiesView;
         }
     }
 }
-
-//bool SendPushServer(string deviceid)
-//{
-//    try
-//    {
-//        var url = System.Configuration.ConfigurationManager.AppSettings["NotificationServer"].ToString();// +"?d=" + deviceid;
-//       // url = "https://imaot.co.il/t/SendNotify.ashx";
-//        WebRequest tRequest;
-//        //http://5.100.251.87:4545/Test/m.html
-//        tRequest = WebRequest.Create(new Uri(url));
-//        tRequest.Method = "Post";
-//        tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
-//        string postData = "d=" + deviceid + "";
-
-
-//        Byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(postData);
-//        tRequest.ContentLength = byteArray.Length;
-
-
-//        Stream dataStream = tRequest.GetRequestStream();
-//        dataStream.Write(byteArray, 0, byteArray.Length);
-//        dataStream.Close();
-
-//        WebResponse tResponse = tRequest.GetResponse();
-//        dataStream = tResponse.GetResponseStream();
-//        StreamReader tReader = new StreamReader(dataStream);
-//        String sResponseFromServer = tReader.ReadToEnd();
-
-//        tReader.Close();
-//        dataStream.Close();
-//        tResponse.Close();
-
-//        if (sResponseFromServer.Contains("Error"))
-//            return false;
-//        return true;
-//    }
-//    catch (Exception e)
-//    {
-
-//        return false;
-//    }
-
-//}

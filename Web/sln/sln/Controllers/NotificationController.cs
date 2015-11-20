@@ -16,6 +16,7 @@ using System.Data.Entity.Validation;
 using System.Data.Entity;
 using Michal.Project.Bll;
 using Kipodeal.Helper.Cache;
+using Michal.Project.Fasade;
 
 namespace Michal.Project.Controllers
 {
@@ -30,24 +31,17 @@ namespace Michal.Project.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? currentPage)
         {
             var user = new UserContext(AuthenticationManager);
             using (var context = new ApplicationDbContext())
             {
+
+                var notifyRepo = new NotificationRepository(context);
+                var logic = new NotifyLogic(notifyRepo);
+                var model = await logic.GetNotifiesUser(user, currentPage);
                 ViewBag.UserId = user.UserId;
-                List<NotifyItem> items = await context.NotifyMessage.Where(u => u.UserId == user.UserId && u.IsActive == true).Select(
-                     m => new NotifyItem
-                     {
-                         Id = m.NotifyMessageId,
-                         Title=m.Title,
-                         IsRead=m.IsRead,
-                         Body = m.Body,
-                         Url = m.ToUrl
-
-                     }).ToListAsync();
-
-                return View(items);
+                return View(model);
             }
         }
     }

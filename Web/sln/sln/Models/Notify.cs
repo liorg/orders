@@ -39,5 +39,20 @@ namespace Michal.Project.Models
         public string Url { get; set; }
         [Display(Name = "הודעה נצפתה")]
         public bool  IsRead { get; set; }
+        
+        public DateTime CreatedOn { get; set; }
+        [Display(Name = "ת. יצירה")]
+        public string CreatedOnTxt
+        {
+            get
+            {
+                if (CreatedOn != DateTime.MinValue)
+                {
+                    return CreatedOn.ToString("dd-MM-yy hh:mm");
+                }
+                return "";
+            }
+        }
+
     }
 }

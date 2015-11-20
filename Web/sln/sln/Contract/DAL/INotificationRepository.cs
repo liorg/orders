@@ -1,5 +1,6 @@
 ﻿using Michal.Project.DataModel;
 using Michal.Project.Models;
+using Michal.Project.Models.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Michal.Project.Contract.DAL
 {
     public interface INotificationRepository
     {
-        Task SendAsync(Guid? user, NotifyItem notifyItem);
+        Task<NotifiesView> GetNotifiesUser(Guid userId, int? currentPage);
        
     }
 }

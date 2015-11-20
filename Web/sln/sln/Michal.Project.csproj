@@ -205,6 +205,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\FollowByLogic.cs" />
     <Compile Include="Bll\FollowLogic.cs" />
+    <Compile Include="Bll\NotifyLogic.cs" />
     <Compile Include="Bll\OrderLogic.cs" />
     <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
@@ -406,6 +407,7 @@
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
     <Compile Include="Models\View\base\Result.cs" />
+    <Compile Include="Models\View\NotifiesView.cs" />
     <Compile Include="Models\View\UsersView.cs" />
     <Compile Include="Models\View\FollowsView.cs" />
     <Compile Include="Models\View\SpecialView.cs" />
@@ -460,6 +462,8 @@
     <Content Include="Content\img\sign2_32x32.png" />
     <Content Include="Content\img\sign32x32.png" />
     <Content Include="Content\img\stage32x32.png" />
+    <Content Include="Content\img\star32x32nobold.png" />
+    <Content Include="Content\img\star32x32bold.png" />
     <Content Include="Content\img\sum32green.png" />
     <Content Include="Content\img\sum64green.png" />
     <Content Include="Content\img\thumbs32x32.png" />
@@ -696,7 +700,6 @@
     <Content Include="Test\sr.html" />
     <Content Include="Test\t1.html" />
     <Content Include="Test\tl.html" />
-    <Content Include="Views\Offer\CreateOrder.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

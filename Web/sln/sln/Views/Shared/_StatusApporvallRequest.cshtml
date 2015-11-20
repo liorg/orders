@@ -27,8 +27,8 @@
                 </div>*@
                 <div class="btn-group">
                     <a class="btn btn-lg btn-danger"
-                         href="@Url.Action("OrderItem", "Offer", new { id = Model.ShipId })">
-                        <span class="visible-md visible-lg"><i class="fa  fa-paper-plane fa-2x pull-right"></i>אישור המשלוח</span><i class="visible-xs  visible-sm fa  fa-thumbs-o-down  fa-2x pull-right"></i>  </a>
+                         href="@Url.Action("OrderItem", "Offer", new { shipId = Model.ShipId })">
+                        <span class="visible-md visible-lg"><i class="fa  fa-paper-plane fa-2x pull-right"></i>אישור המשלוח</span><i class="visible-xs  visible-sm fa  fa-paper-plane   fa-2x pull-right"></i>  </a>
                 </div>
                 @Html.Partial("_editOrder")
             </div>
