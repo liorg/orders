@@ -5,9 +5,8 @@ using System.Web;
 
 namespace Michal.Project.Helper
 {
-    public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5 };
-    //1 =product,2=productsystem,3=distance,4=shiptype
-
+    public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5,Notify=6,Order=7 };
+    
     public enum ObjectTypeCode
     {
         Product = 1, ProductSystem = 2, Distance = 3, ShipType = 4, Discount = 99

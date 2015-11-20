@@ -28,7 +28,7 @@ namespace Michal.Project.Dal
             NotifiesView notifiesView = new NotifiesView();
             int page = currentPage.HasValue ? currentPage.Value : 1;
             var query = _context.NotifyMessage.Where(u => u.UserId == userId && u.IsActive == true).AsQueryable();
-            List<NotifyItem> items = await query.OrderByDescending(crt=>crt.CreatedOn).OrderByDescending(ord => ord.IsRead).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).Select(
+            List<NotifyItem> items = await query.OrderByDescending(crt=>crt.CreatedOn).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).Select(
                  m => new NotifyItem
                  {
                      Id = m.NotifyMessageId,
@@ -44,7 +44,7 @@ namespace Michal.Project.Dal
             
             var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
             notifiesView.CurrentPage = page;
-            notifiesView.ClientViewType = ClientViewType.Views;
+            notifiesView.ClientViewType = ClientViewType.Notify;
             notifiesView.MoreRecord = hasMoreRecord;
             notifiesView.Items = items;
             notifiesView.Total = total;

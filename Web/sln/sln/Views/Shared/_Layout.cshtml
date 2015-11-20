@@ -254,6 +254,10 @@
                 case "Views":
                     viewer(null, null, page, null, null);
                     break;
+                case "Notify":
+                    notifyView(page);
+                    break;
+                    
                 default:
                     changePage(page);
             }
@@ -276,7 +280,9 @@
                 case "Views":
                     viewer(null, null, page, null, null);
                     break;
-
+                case "Notify":
+                    notifyView(page);
+                    break;
                 default:
                     changePage(page);
             }
@@ -299,7 +305,13 @@
             var viewUrl = "/Account?&currentPage=" + page;
             changeUrl(viewUrl);
         }
+        function notifyView(page, prevDay, nextDay) {
+            if (page == null)
+                page = $('#currentPage').val();
 
+            var viewUrl = "/Notification?&currentPage=" + page;
+            changeUrl(viewUrl);
+        }
         function clickToOrder(url) {
             changeUrl(url);
         }
