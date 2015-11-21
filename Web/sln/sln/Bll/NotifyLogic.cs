@@ -28,5 +28,10 @@ namespace Michal.Project.Bll
         {
             _notificationRepository.Register(user, deviceid);
         }
+
+        public  async Task<NotifyItem> GetNotifyForCloudMessage( string deviceid)
+        {
+            return  await _notificationRepository.GetNotifyForCloudMessage(deviceid);
+        }
     }
 }

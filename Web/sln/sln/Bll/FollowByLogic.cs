@@ -25,7 +25,7 @@ namespace Michal.Project.Bll
 
         public IEnumerable<Guid> GetUsersByShip(Shipping shipIncludeFollows)
         {
-            List<Guid> users = new List<Guid>();
+            HashSet<Guid> users = new HashSet<Guid>();
             
             foreach (var follow in shipIncludeFollows.FollowsBy)
             {

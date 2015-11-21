@@ -35,7 +35,7 @@ namespace Michal.Project.Api
                     var notifyRepo = new NotificationRepository(context);
                     var logic = new NotifyLogic(notifyRepo);
                     logic.Register(userid, deviceid);
-                    
+
                     await context.SaveChangesAsync();
                 }
                 catch (Exception e)
@@ -57,6 +57,43 @@ namespace Michal.Project.Api
         }
 
         [Route("GetNotify")]
+        [AcceptVerbs("GET")]
+        public async Task<HttpResponseMessage> GetNotify(string deviceid)
+        {
+            Result<NotifyItem> result = new Result<NotifyItem>();
+            using (var context = new ApplicationDbContext())
+            {
+                try
+                {
+                    var notifyRepo = new NotificationRepository(context);
+                    var logic = new NotifyLogic(notifyRepo);
+                    result.Model = await logic.GetNotifyForCloudMessage(deviceid);
+                }
+                catch (Exception e)
+                {
+                    result.IsError = true;
+                    result.ErrDesc = e.ToString();
+                }
+
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ObjectContent<Result<NotifyItem>>(result,
+                               new JsonMediaTypeFormatter(),
+                                new MediaTypeWithQualityHeaderValue("application/json"))
+                };
+                response.Headers.CacheControl = new CacheControlHeaderValue();
+                response.Headers.CacheControl.NoStore = true;
+                return response;
+            }
+        }
+
+    }
+}
+
+/*
+ * 
+
+   [Route("GetNotify")]
         [AcceptVerbs("GET")]
         public async Task<HttpResponseMessage> GetNotify(string deviceid)
         {
@@ -106,7 +143,8 @@ namespace Michal.Project.Api
                         else if (notify.Items != null && notify.Items.Count > 1)
                         {
                             result.Model.Body = "יש לך מספר הודעות " + notify.Items.Count.ToString() + " חדשות "; ;
-                        }
+
+ * }
 
 
                     }
@@ -135,11 +173,6 @@ namespace Michal.Project.Api
                 return response;
             }
         }
-
-    }
-}
-
-/*
    [Route("Register")]
         [AcceptVerbs("GET")]
         public HttpResponseMessage Register(string userid, string deviceid)

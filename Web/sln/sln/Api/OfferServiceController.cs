@@ -71,11 +71,6 @@ namespace Michal.Project.Api
                     var offer = await offerRepository.GetOfferAndHisChilds(offerId);
                     logic.AppendCurrentOffer(offerClient, ship, offer, allowRemove, allowEdit);
                 }
-
-                //offerClient.Discounts = (from d in demo.Discounts
-                //                         where !offerClient.Items.Any(o => o.ObjectIdType == (int)ObjectTypeCode.Discount && o.ObjectId == d.Id)
-                //                         select d).ToList();
-
                 var data = JsonConvert.SerializeObject(offerClient);
                 var responseBody = @"var offerClient = " + data + ";";
 

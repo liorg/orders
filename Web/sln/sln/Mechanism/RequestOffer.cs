@@ -31,27 +31,34 @@ namespace Michal.Project.Mechanism
             {
                 var ship = await _shippingRepository.GetShipIncludeItems(offer.Id); //context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 var managerShip = await _shipComapnyRepository.GetAsync(offer.ShippingCompanyId);
-                List<Guid> users = new List<Guid>();
-                users.Add(ship.ShippingId);
+                HashSet<Guid> users = new HashSet<Guid>();
+                if (ship.OwnerId.HasValue)
+                {
+                    users.Add(ship.OwnerId.Value);
+                }
                 if (managerShip.ManagerId != null && managerShip.ManagerId.Value == Guid.Empty)
-                 users.Add(managerShip.ManagerId.Value);
-                
+                {
+
+                    users.Add(managerShip.ManagerId.Value);
+                }
+                users.Add(user.UserId);
+
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.ApprovalRequest(request);
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.ApprovalRequest2(request);
 
                 logic.Create(offer, user, ship, managerShip);
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 foreach (var userID in users)
                 {
-                   await follow.AddOwnerFollowBy(ship, userID);
+                    await follow.AddOwnerFollowBy(ship, userID);
                 }
-                
+
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 

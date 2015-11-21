@@ -33,12 +33,11 @@ namespace Michal.Project.Mechanism
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.CancelRequest(request);
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.CancelRequest2(request);
 
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.CancelOffer, offer, user, ship, offerModel);
-                _shippingRepository.Update(ship);
-
+              
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 

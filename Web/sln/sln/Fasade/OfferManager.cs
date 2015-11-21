@@ -45,6 +45,7 @@ namespace Michal.Project.Fasade
             catch (Exception e)
             {
                 response.IsError = true;
+                response.ErrDesc = "נוצרה שגיאה";
                 response.ErrCode = e.Message;
             }
             return response;
@@ -76,6 +77,7 @@ namespace Michal.Project.Fasade
             catch (Exception e)
             {
                 response.IsError = true;
+                response.ErrDesc = "נוצרה שגיאה";
                 response.ErrCode = e.Message;
             }
             return response;

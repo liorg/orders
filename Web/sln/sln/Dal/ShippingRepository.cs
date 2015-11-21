@@ -38,6 +38,10 @@ namespace Michal.Project.Dal
         public async Task AddOwnerFollowBy(Shipping ship, Guid userid)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());
+            if (ship.FollowsBy == null || ship.FollowsBy.Count == 0)
+            {
+                ship= await _context.Shipping.Include(f => f.FollowsBy).Where(s => s.ShippingId == ship.ShippingId).FirstAsync();
+            }
             ship.FollowsBy.Add(user);
         }
 

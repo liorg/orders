@@ -26,15 +26,14 @@ namespace Michal.Project.Mechanism
             {
                 var ship = await _shippingRepository.GetShipIncludeFollowsUsers(offer.Id);
                
-
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.RemoveOrder(request);
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.RemoveOrder2(request);
 
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();

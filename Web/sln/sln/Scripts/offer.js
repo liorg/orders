@@ -424,7 +424,20 @@ $(document).ready(function () {
                 debugger;
                 $.unblockUI();
                 if (!data.IsError) {
-                    window.location.reload(true);
+                    alert("התהליך בוצע");
+                    $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        },
+                        message: "מרענן דף,נא המתן"
+                    });
+                    window.location.reload(false);
                 }
                 else
                 alert(data.ErrDesc);
@@ -470,7 +483,20 @@ $(document).ready(function () {
                 debugger;
                 $.unblockUI();
                 if (!data.IsError) {
-                    window.location.reload(true);
+                    alert("התהליך בוצע");
+                    $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: .5,
+                            color: '#fff'
+                        },
+                        message: "מרענן את הדף,נא המתן"
+                    });
+                    window.location.reload(false);
                 }
                 else
                     alert(data.ErrDesc);

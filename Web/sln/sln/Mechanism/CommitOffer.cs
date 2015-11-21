@@ -25,7 +25,7 @@ namespace Michal.Project.Mechanism
             if (offer.StateCode == (int)OfferVariables.OfferStateCode.Request)
             {
                 var ship = await _shippingRepository.GetShipIncludeFollowsUsers(offer.Id);
-                var offerModel = await _offerRepository.GetAsync(offer.OfferId);
+                var offerModel = await _offerRepository.GetOfferAndHisChilds(offer.OfferId);
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
@@ -33,12 +33,11 @@ namespace Michal.Project.Mechanism
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
-                statusLogic.ConfirmRequest(request);
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.ConfirmRequest2(request);
 
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.End, offer, user, ship, offerModel);
-                _shippingRepository.Update(ship);
-
+         
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 

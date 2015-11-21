@@ -1,4 +1,5 @@
-﻿using Michal.Project.DataModel;
+﻿using Michal.Project.Contract.DAL;
+using Michal.Project.DataModel;
 using Michal.Project.Helper;
 using Michal.Project.Models;
 using Michal.Project.Models.Status;
@@ -11,6 +12,16 @@ namespace Michal.Project.Bll
 {
     public class StatusLogic
     {
+        IShippingRepository _shippingRepository;
+        public StatusLogic()
+        {
+
+        }
+        public StatusLogic( IShippingRepository shippingRepository)
+        {
+            _shippingRepository = shippingRepository;
+        }
+
         public void RemoveOrder(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
@@ -255,6 +266,83 @@ namespace Michal.Project.Bll
             request.Ship.ApprovalShip = request.UserContext.UserId;
             ChangeStatus(request);
         }
+
+        public void ConfirmRequest2(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            request.ActualStartDate = DateTime.Now;
+            var grantToText = "";
+
+            request.Ship.GrantRunner = request.UserContext.UserId;
+            grantToText = request.UserContext.FullName;
+
+
+            var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+
+            request.Title = title;
+            request.Desc = text;
+            request.NotifyType = (int)AlertStyle.Info;// Notification.Info;
+            request.Status = TimeStatus.Confirm;
+            request.StatusShipping = Guid.Parse(Helper.Status.Confirm);
+
+            request.Ship.ApprovalShip = request.UserContext.UserId;
+            ChangeStatus(request);
+            if (_shippingRepository != null)
+               _shippingRepository.Update(request.Ship);
+            
+        }
+        public void ApprovalRequest2(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            var text = "המשלוח אושרה " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            request.Title = text;
+            request.Desc = text;
+
+            request.NotifyType = (int)AlertStyle.Info; //Notification.Info;
+            request.Status = TimeStatus.ApporvallRequest;
+            request.StatusShipping = Guid.Parse(Helper.Status.ApporvallRequest);
+
+            request.Ship.ApprovalRequest = request.UserContext.UserId;
+            ChangeStatus(request);
+            if (_shippingRepository != null)
+                _shippingRepository.Update(request.Ship);
+        }
+
+        public void RemoveOrder2(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            var text = "המשלוח בוטל ע''י" + " " + request.UserContext.FullName;
+            request.Title = text;
+            request.Desc = text;
+            request.Status = TimeStatus.Cancel;
+            request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
+            request.StatusShipping = Guid.Parse(Helper.Status.Cancel);
+
+            request.Ship.CancelByUser = request.UserContext.UserId;
+            ChangeStatus(request);
+            if (_shippingRepository != null)
+                _shippingRepository.Update(request.Ship);
+        }
+        public void CancelRequest2(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            var user = request.UserContext;
+            var ship = request.Ship;
+            var currentDate = request.CurrentDate;
+            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
+            request.Title = text;
+            request.Desc = text;
+            request.Status = TimeStatus.CancelByAdmin;
+            request.NotifyType = (int)AlertStyle.Error; //Notification.Error;
+            request.StatusShipping = Guid.Parse(Helper.Status.CancelByAdmin);
+
+            request.Ship.CancelByAdmin = request.UserContext.UserId;
+            ChangeStatus(request);
+            if (_shippingRepository != null)
+                _shippingRepository.Update(request.Ship);
+        }
+
 
     }
 }

@@ -333,8 +333,8 @@ namespace Michal.Project.Bll
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
-                    IsDiscount = false,
-                    IsPresent = false,
+                    IsDiscount = item.IsDiscount,
+                    IsPresent = item.PriceValueType==2,
                     Name = item.Name,
                     Desc = item.Desc,
                     ObjectId = item.ObjectTypeId.GetValueOrDefault(),
@@ -419,7 +419,7 @@ namespace Michal.Project.Bll
 
         public async Task<Shipping> GetShipAsync(Guid shipId)
         {
-            return await _shippingRepository.GetShip(shipId);
+            return await _shippingRepository.GetShipIncludeItems(shipId);
         }
 
         public async Task<RequestShipping> GetOfferAsync(Guid offerId)
@@ -489,6 +489,7 @@ namespace Michal.Project.Bll
             offer.ModifiedOn = DateTime.Now;
 
             _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
+            
         }
 
         public List<RequestItemShip> FillItems(OfferUpload offerRequest, Guid requestShippingId, UserContext user)
@@ -496,7 +497,7 @@ namespace Michal.Project.Bll
             DateTime dt = DateTime.Now;
             List<RequestItemShip> items = new List<RequestItemShip>();
             if (offerRequest.HasDirty)
-            {//  QuntityType = qunitityType == 0 ? General.Unit : General.UnitMin
+            {
                 foreach (var dataItem in offerRequest.DataItems)
                 {
                     items.Add(new RequestItemShip

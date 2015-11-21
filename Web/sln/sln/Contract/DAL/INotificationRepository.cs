@@ -13,6 +13,6 @@ namespace Michal.Project.Contract.DAL
     {
         Task<NotifiesView> GetNotifiesUserAsync(Guid userId, int? currentPage);
         void Register(string userid, string deviceid);
-       
+        Task<NotifyItem> GetNotifyForCloudMessage( string deviceid);
     }
 }
