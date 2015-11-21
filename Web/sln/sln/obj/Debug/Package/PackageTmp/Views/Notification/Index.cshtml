@@ -34,7 +34,7 @@
 @foreach (var item in Model.Items) {
     <tr>
         <td> 
-        @if (item.IsRead){
+        @if (!item.IsRead){
             <img src="~/Content/img/star32x32bold.png" />
          }
         else{
