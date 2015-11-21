@@ -68,6 +68,7 @@ namespace Michal.Project.Api
                     var notifyRepo = new NotificationRepository(context);
                     var logic = new NotifyLogic(notifyRepo);
                     result.Model = await logic.GetNotifyForCloudMessage(deviceid);
+                    await context.SaveChangesAsync();
                 }
                 catch (Exception e)
                 {
