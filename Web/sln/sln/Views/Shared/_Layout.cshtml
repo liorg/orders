@@ -66,7 +66,7 @@
                     @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleUser) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.RoleAccept)))
                     {
                         <li class="page-scroll">
-                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש </a>
+                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
                         </li>
                     }
                       @RenderSection("ordernumber", required: false)
@@ -81,12 +81,14 @@
                             }
                             @if (Request.IsAuthenticated && User.IsInRole(HelperAutorize.RoleAdmin))
                             {
-                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache </a></li>
+                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i> רענון Cache </a></li>
                                 <li class="divider"></li>
                             }
-                                <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i>הודעות </a></li>
+                                <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i> הודעות </a></li>
                                 <li class="divider"></li>
-                                <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i>פרטי מוצר </a></li>
+                                <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i> מחשבון מחיר </a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i> פרטי מוצר </a></li>
                                 
                             </ul>
                         </li>
@@ -257,10 +259,10 @@
                 case "Views":
                     viewer(null, null, page, null, null);
                     break;
-                case "Notify":
-                    notifyView(page);
+                case "General":
+                    baseView(page);
                     break;
-                    
+
                 default:
                     changePage(page);
             }
@@ -283,8 +285,8 @@
                 case "Views":
                     viewer(null, null, page, null, null);
                     break;
-                case "Notify":
-                    notifyView(page);
+                case "General":
+                    baseView(page);
                     break;
                 default:
                     changePage(page);
@@ -304,15 +306,19 @@
         function usersView(page, prevDay, nextDay) {
             if (page == null)
                 page = $('#currentPage').val();
+           
 
             var viewUrl = "/Account?&currentPage=" + page;
             changeUrl(viewUrl);
         }
-        function notifyView(page, prevDay, nextDay) {
+        function baseView(page, prevDay, nextDay) {
             if (page == null)
                 page = $('#currentPage').val();
 
-            var viewUrl = "/Notification?&currentPage=" + page;
+           // var viewUrl = "/Notification?&currentPage=" + page;
+            var url = window.location.href.match(/^[^\#\?]+/)[0];
+           var viewUrl = url + "?currentPage=" + page;
+        //   alert(url);
             changeUrl(viewUrl);
         }
         function clickToOrder(url) {

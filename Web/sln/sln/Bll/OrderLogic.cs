@@ -527,5 +527,6 @@ namespace Michal.Project.Bll
 
         }
 
+        
     }
 }

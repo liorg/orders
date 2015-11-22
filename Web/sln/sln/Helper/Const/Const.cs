@@ -5,8 +5,8 @@ using System.Web;
 
 namespace Michal.Project.Helper
 {
-    public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5,Notify=6,Order=7 };
-    
+    public enum ClientViewType { Views = 1, Follows = 2, Users = 3, Search = 4, Report = 5, General = 6 };
+
     public enum ObjectTypeCode
     {
         Product = 1, ProductSystem = 2, Distance = 3, ShipType = 4, Discount = 99
@@ -122,6 +122,23 @@ namespace Michal.Project.Helper
 
     public class OfferVariables
     {
-        public enum OfferStateCode { New = 1, Request = 2, End = 3,  CancelOffer }
+        public enum OfferStateCode { New = 1, Request = 2, End = 3, CancelOffer }
+    }
+
+    public class DefaultShip
+    {
+        public enum DType { Distance, ShipType,DefaultCompany }
+        public List<Tuple<DType, string, Guid>> items;// = new List<Tuple<string, string, Guid>>();
+        // Dictionary<Guid, string> _values;
+        public DefaultShip()
+        {
+             items = new List<Tuple<DType, string, Guid>>();
+           items.Add( new Tuple<DType, string, Guid>( DType.Distance,"מרחב דן",Guid.Parse("00000000-0000-0000-0000-000000000004")));
+           items.Add( new Tuple<DType, string, Guid>( DType.ShipType,"שליחות רגילה",Guid.Parse("00000000-0000-0000-0000-000000000001")));
+           items.Add(new Tuple<DType, string, Guid>(DType.DefaultCompany, "רן שליחויות", Guid.Parse("00000000-0000-0000-0000-000000000001")));
+
+            //00000000-0000-0000-0000-000000000001
+        }
+
     }
 }

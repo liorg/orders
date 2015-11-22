@@ -287,6 +287,7 @@ namespace Michal.Project.Bll
             request.StatusShipping = Guid.Parse(Helper.Status.Confirm);
 
             request.Ship.ApprovalShip = request.UserContext.UserId;
+           
             ChangeStatus(request);
             if (_shippingRepository != null)
                _shippingRepository.Update(request.Ship);

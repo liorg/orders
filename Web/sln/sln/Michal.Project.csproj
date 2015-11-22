@@ -789,6 +789,7 @@
     <Content Include="Views\Shared\_offerTw.cshtml" />
     <Content Include="Views\Shared\HomepageBasic.cshtml" />
     <Content Include="Views\Offer\OrderItem.cshtml" />
+    <Content Include="Views\Offer\Calc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

@@ -84,7 +84,7 @@ namespace Michal.Project.Api
                 return response;
             }
         }
-
+         [Authorize]
         [System.Web.Http.AcceptVerbs("POST")]
         [Route("CommitOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -96,7 +96,7 @@ namespace Michal.Project.Api
             using (var context = new ApplicationDbContext())
             {
                 OfferManager offermanager = new OfferManager();
-                result=await offermanager.CommitAsync(context, offer, user);
+                result = await offermanager.CommitAsync(context, offer, user);
 
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
@@ -107,7 +107,7 @@ namespace Michal.Project.Api
             };
             return response;
         }
-
+         [Authorize]
         [System.Web.Http.AcceptVerbs("POST")]
         [Route("CancelOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -129,6 +129,68 @@ namespace Michal.Project.Api
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
             return response;
+        }
+
+         [Authorize]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [Route("GetMockOffer")]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        public async Task<HttpResponseMessage> GetMockOffer(Guid shippingCompanyId)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                bool allowRemove = true;
+                //    bool allowAdd = false;
+                bool allowEdit = true;
+                var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                //if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                //   (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                //{
+                //    allowRemove = true;
+                //    //  allowAdd = true;
+                //    allowEdit = true;
+                //}
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+                var user = new UserContext(userContext);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+
+                //   var ship = await shippingRepository.GetShipIncludeItems(shipid);
+                var mockShip = new Shipping();
+                mockShip.Direction = 0;
+                mockShip.ShippingItems = new List<ShippingItem>();
+                
+                DefaultShip defaultShip = new DefaultShip();
+
+                var shtype = defaultShip.items.Where(t => t.Item1 == DefaultShip.DType.ShipType).FirstOrDefault();
+                mockShip.ShipType = new ShipType();
+                mockShip.ShipType.ShipTypeId = shtype.Item3;
+                mockShip.ShipType.Name = shtype.Item2;
+
+                var dist = defaultShip.items.Where(t => t.Item1 == DefaultShip.DType.Distance).FirstOrDefault();
+                mockShip.Distance = new Distance();
+                mockShip.Distance.DistanceId = dist.Item3;
+                mockShip.Distance.Name = dist.Item2;
+
+             
+                OfferClient offerClient = logic.GetOfferClient(allowRemove, allowEdit, mockShip, shippingCompanyId, user);
+
+                logic.AppendNewOffer(offerClient, mockShip, allowRemove, allowEdit);
+
+                var data = JsonConvert.SerializeObject(offerClient);
+                var responseBody = @"var offerClient = " + data + ";";
+
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(responseBody, Encoding.UTF8, "application/javascript")
+                };
+
+                response.Headers.CacheControl = new CacheControlHeaderValue();
+                response.Headers.CacheControl.NoStore = true;
+                return response;
+            }
         }
     }
 }

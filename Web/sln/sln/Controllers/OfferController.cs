@@ -45,7 +45,17 @@ namespace Michal.Project.Controllers
         //        return View(offers);
         //    }
         //}
-
+        public ActionResult Calc()
+        {
+            OrderDetail order = new OrderDetail();
+            order.Id = Guid.Empty;
+            order.Name = "מחשבון דמו";
+            order.OfferId = Guid.Empty;
+            DefaultShip logic = new DefaultShip();
+            var company = logic.items.Where(t => t.Item1 == DefaultShip.DType.DefaultCompany).FirstOrDefault();
+            order.ShippingCompanyId = company.Item3;
+            return View(order);
+        }
         public async Task<ActionResult> OrderItem(Guid shipId)
         {
             using (var context = new ApplicationDbContext())

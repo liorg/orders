@@ -44,7 +44,7 @@ namespace Michal.Project.Dal
 
             var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
             notifiesView.CurrentPage = page;
-            notifiesView.ClientViewType = ClientViewType.Notify;
+            notifiesView.ClientViewType = ClientViewType.General;
             notifiesView.MoreRecord = hasMoreRecord;
             notifiesView.Items = items;
             notifiesView.Total = total;
@@ -65,7 +65,7 @@ namespace Michal.Project.Dal
             });
         }
 
-        public async Task<NotifyItem> GetNotifyForCloudMessage( string deviceid)
+        public async Task<NotifyItem> GetNotifyForCloudMessageAsync( string deviceid)
         {
             var dt = DateTime.Now;
             var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();

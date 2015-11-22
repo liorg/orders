@@ -31,7 +31,7 @@ namespace Michal.Project.Bll
 
         public  async Task<NotifyItem> GetNotifyForCloudMessage( string deviceid)
         {
-            return  await _notificationRepository.GetNotifyForCloudMessage(deviceid);
+            return  await _notificationRepository.GetNotifyForCloudMessageAsync(deviceid);
         }
     }
 }

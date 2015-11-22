@@ -76,3 +76,30 @@ mission pricing
 3.2.2 fill days on table
 3.3 do calc
 3.4 show in view timecountdown http://www.jqueryrain.com/?56sC0nJR
+
+
+-----
+offer
+1.  paging generic
+1.1 demo price
+2. 3 view 
+2.1 view new offer
+2.2 view order
+2.3 close order ( )
+3 close order
+4 change start date  on close status
+5 notifcation
+5.1 del notification
+5.2 read noification
+6 permision toolbox
+7 grant to runner view
+8 menu navigator
+8.1 timelines
+8.2 order detail
+8.3 whatsup
+8.4 printer
+8.5 location
+8.6 signture
+
+
+
