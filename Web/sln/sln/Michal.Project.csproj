@@ -425,6 +425,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap-rtl.css" />
+    <Content Include="Content\css\onlyie.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\timeline.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />

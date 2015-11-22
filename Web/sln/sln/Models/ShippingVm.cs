@@ -86,6 +86,8 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "חובה לבחור כיוון")]
         public int Direction { get; set; }
 
+        [Display(Name = "תאריך התחלה ")]
+        public string ActualStartDate { get; set; }
         //[Display(Name = "תאריך סיום")]
         //public DateTime? ActualEndDate { get; set; }
     }

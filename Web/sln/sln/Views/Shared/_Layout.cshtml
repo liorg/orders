@@ -40,6 +40,15 @@
         }
     </style>
 
+<script>
+    var doc = document.documentElement;
+    doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+	<link href="/Content/css/onlyie.css" rel="stylesheet" />
+
+
+
+    
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -404,4 +413,6 @@
     @Html.Partial("_questionIsArrived")
     @Html.Partial("_questionIsArrivedGet")
 </body>
+
+
 </html>
