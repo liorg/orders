@@ -179,6 +179,8 @@ namespace Michal.Project.DataModel
 
         public DateTime? TimeWaitEndGet { get; set; }
 
+
+
     }
 
 }

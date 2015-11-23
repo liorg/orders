@@ -131,7 +131,7 @@ function AppViewModel(vmData) {
       
         self.HasDirty(b);
       
-        if (self.HasDirty()) {
+        if (self.HasDirty() && !offerClient.IsDemo) {
             $('#error_container').bs_alert('התבצעו שינויים ,יש לבצע שמירה', 'הערה');
         }
     };
@@ -245,6 +245,17 @@ function AppViewModel(vmData) {
         return result;
     };
 
+    self.hasOneMorePriceException = function () {
+       
+        var id=offerClient.ObjectIdExcpetionPriceId;
+        priceEx = ko.utils.arrayFirst(vm.Items(), function (item) {
+            return item.ObjectId() == id && item.ObjectIdType() == 5;
+        });
+        if (priceEx == null) return false;
+        return true;
+
+
+    }
     self.refreshWatch = function () {
         var timeWaitSet = offerClient.TimeWaitSetProductId;
         var timeWaitGet = offerClient.TimeWaitGetProductId;
@@ -286,6 +297,14 @@ function AppViewModel(vmData) {
         self.currentModalItem(newt);
     };
 
+    self.createExceptionPriceItem = function (item) {
+        self.isOpen(true);
+        var newt = new OfferItem(guidEmpty, "", "", null,
+                false, false, 3, 1,
+                false, true, true, true, offerClient.ObjectIdExcpetionPriceId, 5, 0, "יח'");
+        self.currentModalItem(newt);
+    };
+
     self.createNewDiscount = function (item) {
         self.isOpen(true);
         var newt = new OfferItem(guidEmpty, "", "", null,
@@ -319,7 +338,7 @@ function AppViewModel(vmData) {
     };
 
     self.save = function () {
-
+        debugger;
         var current = self.currentModalItem();
         if (current.ObjectId() == null || current.ObjectId() == guidEmpty) {
             alert("יש לבחור סוג");
@@ -343,6 +362,7 @@ function AppViewModel(vmData) {
                 product.ObjectId(current.ObjectId());
                 product.ObjectIdType(current.ObjectIdType());
                 product.PriceValue(current.Total());
+               
                 product.HasPrice(true);
 
             }
@@ -366,6 +386,7 @@ function AppViewModel(vmData) {
             item.ProductPrice = current.ProductPrice();
             item.ObjectId = current.ObjectId();
             item.ObjectIdType = current.ObjectIdType();
+            item.QuntityType=current.QuntityType();
             var ob = ko.mapping.fromJS(item);
 
             var dd = self.Items;

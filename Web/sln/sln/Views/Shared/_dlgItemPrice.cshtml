@@ -32,13 +32,16 @@
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==3 -->
                             <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Distances,
-    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
-    optionsCaption: 'בחר מרחק...'">
+                            optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                            optionsCaption: 'בחר מרחק...'">
                             </select>
                             <!-- /ko -->
                             <!-- ko if: ObjectIdType() ==99 && StatusRecord() !=3-->
                             <input class="form-control" type="text" data-bind="disable: !AllowEdit(), textInput: Name" />
 
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==5 -->
+                                <input class="form-control" type="text" data-bind="disable: StatusRecord() != 3, textInput: Name" />
                             <!-- /ko -->
                         </div>
                     </div>
@@ -74,8 +77,12 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="DistanceId">תיאור:</label>
                         <div class="col-md-6">
+                         <!-- ko if: ObjectIdType() ==5 -->
+                                <input class="form-control" type="text" data-bind="textInput: Desc" />
+                            <!-- /ko -->
+                         <!-- ko if: ObjectIdType()!=5 -->
                             <div style="overflow-y: scroll; height: 70px; width: 100%; border-width: thin; border-bottom-style: solid"><span data-bind="text: Desc"></span></div>
-
+                          <!-- /ko -->
                         </div>
                     </div>
                 </form>

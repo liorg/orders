@@ -9,7 +9,7 @@ namespace Michal.Project.Helper
 
     public enum ObjectTypeCode
     {
-        Product = 1, ProductSystem = 2, Distance = 3, ShipType = 4, Discount = 99
+        Product = 1, ProductSystem = 2, Distance = 3, ShipType = 4, Discount = 99,ExceptionPrice=5
     }
 
     public enum AlertStyle
@@ -108,6 +108,7 @@ namespace Michal.Project.Helper
     public class ProductType
     {
         public const string TimeWait = "00000000-0000-0000-0000-000000000001";
+        public const string ObjectIdExcpetionPrice = "10000000-0000-1111-1111-000000000001";
     }
 
     public class Notification
@@ -122,7 +123,7 @@ namespace Michal.Project.Helper
 
     public class OfferVariables
     {
-        public enum OfferStateCode { New = 1, Request = 2, End = 3, CancelOffer }
+        public enum OfferStateCode { New = 1, Request = 2, End = 3, CancelOffer=4 ,ConfirmException=7}
     }
 
     public class DefaultShip

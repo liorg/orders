@@ -45,6 +45,7 @@ namespace Michal.Project.Api
                 bool allowRemove = false;
                 //    bool allowAdd = false;
                 bool allowEdit = false;
+                bool allowExcepPrice = false;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
@@ -54,6 +55,11 @@ namespace Michal.Project.Api
                     //  allowAdd = true;
                     allowEdit = true;
                 }
+                if (HttpContext.Current != null && HttpContext.Current.User != null &&
+                   (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.ApprovalExceptionalBudget) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
+                {
+                    allowExcepPrice = true;
+                }
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
@@ -62,6 +68,7 @@ namespace Michal.Project.Api
 
                 var ship = await shippingRepository.GetShipIncludeItems(shipid);
                 OfferClient offerClient = logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
+                offerClient.AddExceptionPrice = allowExcepPrice;
                 if (offerId == Guid.Empty)
                 {
                     logic.AppendNewOffer(offerClient, ship, allowRemove, allowEdit);
@@ -144,20 +151,13 @@ namespace Michal.Project.Api
                 bool allowEdit = true;
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
-                //if (HttpContext.Current != null && HttpContext.Current.User != null &&
-                //   (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
-                //{
-                //    allowRemove = true;
-                //    //  allowAdd = true;
-                //    allowEdit = true;
-                //}
+                
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
-
-                //   var ship = await shippingRepository.GetShipIncludeItems(shipid);
+                 
                 var mockShip = new Shipping();
                 mockShip.Direction = 0;
                 mockShip.ShippingItems = new List<ShippingItem>();
@@ -176,7 +176,7 @@ namespace Michal.Project.Api
 
              
                 OfferClient offerClient = logic.GetOfferClient(allowRemove, allowEdit, mockShip, shippingCompanyId, user);
-
+                offerClient.IsDemo = true;
                 logic.AppendNewOffer(offerClient, mockShip, allowRemove, allowEdit);
 
                 var data = JsonConvert.SerializeObject(offerClient);

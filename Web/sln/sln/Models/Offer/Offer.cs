@@ -15,14 +15,18 @@ namespace Michal.Project.Models
         public string Name { get; set; }
         public bool HasDirty { get; set; }
 
-        public int StateCode { get; set; } //1, new,2=checkin,3=checkout , 3=approval
+        public int StateCode { get; set; } //1, new,2=checkin,3=checkout , 3=approval,7=exception
         public Guid StatusId { get; set; }
 
         public Guid ShippingCompanyId { get; set; }
-       
 
+        public bool IsDemo { get; set; }
 
+        public bool AddExceptionPrice { get; set; }
 
+        public Guid ObjectIdExcpetionPriceId { get; set; }
+
+        public double? MaxPriceForGrantException { get; set; }
     }
 
 }

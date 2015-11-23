@@ -57,6 +57,6 @@ namespace Michal.Project.Models
         public int TimeWaitSend { get; set; }
         public int TimeWaitGet { get; set; }
 
-      
+        
     }
 }

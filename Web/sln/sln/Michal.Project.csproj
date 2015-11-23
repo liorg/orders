@@ -207,7 +207,6 @@
     <Compile Include="Bll\FollowLogic.cs" />
     <Compile Include="Bll\NotifyLogic.cs" />
     <Compile Include="Bll\OrderLogic.cs" />
-    <Compile Include="Bll\PriceLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\DAL\INotificationRepository.cs" />

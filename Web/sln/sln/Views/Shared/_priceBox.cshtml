@@ -63,14 +63,16 @@
                                     <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
                                 </button>
                                 <ul class="dropdown-menu slidedown">
-                                    <!-- ko if: AllowAddDiscount() == true -->
+                                    <!-- ko if: AllowAddItem() == true -->
                                     <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
                                     <!-- /ko -->
-                                    <!-- ko if: AllowAddItem() ==true  -->
-                                    <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-plus"></span>הוסף הנחה</a></li>
+                                   <!-- ko if: AllowAddDiscount() == true && Discounts().length >0 -->
+                                    <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-ok-sign"></span>הוסף הנחה</a></li>
+                                    <!-- /ko -->
+                                      <!-- ko if: AllowAddDiscount() == true  && !hasOneMorePriceException()-->
+                                    <li><a href="#" data-bind="click: createExceptionPriceItem"><span class="glyphicon glyphicon-flag"></span>הוסף תוספת מחיר </a></li>
                                     <!-- /ko -->
                                 </ul>
-
                             </div>
                         </div>
                         <!-- /ko -->
@@ -86,9 +88,11 @@
                                 <!-- ko if: Amount()>1-->
                                 <i class="addplus pull-right badge" data-bind="text: Amount"></i>
                                 <!-- /ko -->
-
+                                 <!-- ko if: ObjectIdType()==5-->
+                                <i class="fa fa-flag  pull-right"></i>
+                                <!-- /ko -->
                                 @*<span class="pull-right badge">5</span>*@
-                                                    <!-- ko if: HasPrice()==false -->
+                                <!-- ko if: HasPrice()==false -->
                                 <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">אן מחיר</span>
                                 <!-- /ko -->
                                 <!-- ko if: HasPrice()==true -->

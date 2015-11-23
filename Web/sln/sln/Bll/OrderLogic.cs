@@ -29,6 +29,7 @@ namespace Michal.Project.Bll
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
         {
             OfferClient offerClient = new OfferClient();
+            offerClient.ObjectIdExcpetionPriceId = Guid.Parse(ProductType.ObjectIdExcpetionPrice);
             //bool isPresent = false;
             int qunitityType = 0;
             var organid = _orgDetailRep.GetOrg();
@@ -39,7 +40,6 @@ namespace Michal.Project.Bll
             var products = _offerPrice.GetProducts(organid);
             var productsSystem = _offerPrice.GetProductsSystem();
 
-            // var ship = await _shippingRepository.GetShipIncludeItems(shipId);
             var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
 
             decimal? priceValue = null;
