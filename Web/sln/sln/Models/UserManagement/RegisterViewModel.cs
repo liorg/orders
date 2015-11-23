@@ -64,7 +64,9 @@ namespace Michal.Project.Models
         [Display(Name = "תפקיד מאשר הזמנה")]
         public bool IsAcceptOrder { get; set; }
 
-        // Return a pre-poulated instance of AppliationUser:
+        [Display(Name = "תפקיד מאשר חריגות")]
+        public bool IsApprovalExceptionalBudget { get; set; }
+
         public ApplicationUser GetUser()
         {
             var user = new ApplicationUser()
@@ -80,5 +82,8 @@ namespace Michal.Project.Models
         [Display(Name = "טלפון")]
         [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
         public string Tel { get; set; }
+
+          [Display(Name = "מנהל מאשר חריגות")]
+        public Guid? GrantUserManager { get; set; }
     }
 }

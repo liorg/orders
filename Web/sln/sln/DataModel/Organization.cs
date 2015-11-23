@@ -75,5 +75,8 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
+
+        public decimal? PriceValueException { get; set; } 
+
     }
 }

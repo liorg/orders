@@ -77,6 +77,8 @@ namespace Michal.Project.Models
         [Display(Name = "תפקיד מאשר הזמנה")]
         public bool IsAcceptOrder { get; set; }
 
+        [Display(Name = "תפקיד מאשר חריגות")]
+        public bool IsApprovalExceptionalBudget { get; set; }
 
         [Display(Name = "משתמש פעיל?")]
         public bool IsActive { get; set; }

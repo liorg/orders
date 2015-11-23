@@ -104,6 +104,8 @@ namespace Michal.Project.Controllers
                                 model.IsOrgMangager = true;
                             if (item.Role.Name == Helper.HelperAutorize.RoleAccept)
                                 model.IsAcceptOrder = true;
+                            if (item.Role.Name == Helper.HelperAutorize.ApprovalExceptionalBudget)
+                                model.IsApprovalExceptionalBudget = true;
                         }
                     }
                 }
@@ -139,13 +141,7 @@ namespace Michal.Project.Controllers
                     user.Tel = model.Tel;
                     await location.SetLocationAsync(model.Address, user.AddressUser);
 
-                    // user.AddressUser.IsSensor = false;
                     user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
-                    //user.AddressUser.CityCode = model.Address.Citycode;
-                    //user.AddressUser.CityName = model.Address.City;
-                    //user.AddressUser.StreetCode = model.Address.Streetcode;
-                    //user.AddressUser.StreetName = model.Address.Street;
-                    //user.AddressUser.StreetNum = model.Address.Num;
 
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
@@ -170,6 +166,8 @@ namespace Michal.Project.Controllers
                     if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, "Runner");
 
                     if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, "Accept");
+
+                    if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, "ApprovalExceptionalBudget");
 
                     return RedirectToAction("Index");
 
@@ -401,6 +399,9 @@ namespace Michal.Project.Controllers
                     if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleRunner);
 
                     if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAccept);
+
+                    if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.ApprovalExceptionalBudget);
+
 
                     if (result.Succeeded)
                         return RedirectToAction("Index", "Account");

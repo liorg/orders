@@ -18,6 +18,8 @@ namespace Michal.Project.Models
         [Display(Name = "מספר משלוח")]
         public string Name { get; set; }
 
+        public bool IsDemo { get; set; }
+
         [Display(Name = " כותרת")]
         public string Title { get; set; }
 

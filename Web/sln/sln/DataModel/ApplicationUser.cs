@@ -60,6 +60,8 @@ namespace Michal.Project.DataModel
 
         public string Subdivision { get; set; }
 
+        public Guid? GrantUserManager { get; set; }
+
         public string EmpId { get; set; }
 
         public int DefaultView { get; set; }
