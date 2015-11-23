@@ -69,6 +69,25 @@ mission pricing
 2.2 step view on ship details http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progressbar-details
 
 
+
+
+
+-----
+offer
+X1.  paging generic
+X1.1 demo price
+1.2 demo price remove message
+1.3 grant user lookup on user for excpetion
+1.4 add custom price with name and send exception
+1.5 add config max money send exception
+1.6 add new step
+1.7 close order
+
+2. views tree 
+2.1 view new offer
+2.2 view order
+2.3 close order ( )
+
 3. sla
 3.1 sla table
 3.2 bussines closure 
@@ -78,16 +97,8 @@ mission pricing
 3.4 show in view timecountdown http://www.jqueryrain.com/?56sC0nJR
 
 
------
-offer
-1.  paging generic
-1.1 demo price
-2. 3 view 
-2.1 view new offer
-2.2 view order
-2.3 close order ( )
-3 close order
-4 change start date  on close status
+X4 change start date  on close status
+
 5 notifcation
 5.1 del notification
 5.2 read noification
