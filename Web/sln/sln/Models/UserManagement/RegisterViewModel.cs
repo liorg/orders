@@ -83,7 +83,7 @@ namespace Michal.Project.Models
         [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
         public string Tel { get; set; }
 
-          [Display(Name = "מנהל מאשר חריגות")]
+        [Display(Name = "מנהל מאשר חריגות")]
         public Guid? GrantUserManager { get; set; }
     }
 }

@@ -85,6 +85,15 @@ namespace Michal.Project.Controllers
             //  using (var context = new ApplicationDbContext())
             {
                 var context = DBContext;
+                var grantUsers = await context.Users.Where(u => u.IsActive == true && u.Roles.Any(r => r.Role != null && (r.Role.Name == HelperAutorize.ApprovalExceptionalBudget || r.Role.Name == HelperAutorize.RoleOrgManager))
+
+                    ).Select((s) => new
+                    {
+                        Id = s.Id,
+                        Title = s.FirstName + " " + s.LastName + "(" + s.EmpId + ")"
+                    })
+                        .ToListAsync();
+
                 var user = await context.Users.FirstAsync(u => u.Id == id);
                 //var user = context.Users.First(u => u.Id == id);
                 var model = new EditUserViewModel(user);
@@ -109,6 +118,8 @@ namespace Michal.Project.Controllers
                         }
                     }
                 }
+                ViewBag.GrantUsers = new SelectList(grantUsers, "Id", "Title");
+               
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.MessageId = Message;
                 return View(model);
@@ -139,6 +150,8 @@ namespace Michal.Project.Controllers
                     user.IsActive = model.IsActive;
                     user.EmpId = model.EmpId;
                     user.Tel = model.Tel;
+                    user.GrantUserManager = model.GrantUserManager;
+
                     await location.SetLocationAsync(model.Address, user.AddressUser);
 
                     user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
@@ -157,17 +170,17 @@ namespace Michal.Project.Controllers
                             await UserManager.RemoveFromRoleAsync(model.UserId, role);
                     }
 
-                    if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id, "Admin");
+                    if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id,  Helper.HelperAutorize.RoleAdmin);// "Admin");
 
-                    if (model.IsCreateOrder) await UserManager.AddToRoleAsync(user.Id, "User");
+                    if (model.IsCreateOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleUser);//, "User");
 
-                    if (model.IsOrgMangager) await UserManager.AddToRoleAsync(user.Id, "OrgManager");
+                    if (model.IsOrgMangager) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleOrgManager);//"OrgManager");
 
-                    if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, "Runner");
+                    if (model.IsRunner) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleRunner);// "Runner");
 
-                    if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, "Accept");
+                    if (model.IsAcceptOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAccept);// "Accept");
 
-                    if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, "ApprovalExceptionalBudget");
+                    if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.ApprovalExceptionalBudget);//// "ApprovalExceptionalBudget");
 
                     return RedirectToAction("Index");
 
@@ -296,21 +309,30 @@ namespace Michal.Project.Controllers
 
 
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
-        public ActionResult Register()
+        public async Task<ActionResult> Register()
         {
             RegisterViewModel model = new RegisterViewModel();
             model.Address = new AddressEditorViewModel();
             //using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var db = DBContext;
-               
+
+                var grantUsers = await db.Users.Where(u => u.IsActive == true && u.Roles.Any(r => r.Role != null && (r.Role.Name == HelperAutorize.ApprovalExceptionalBudget || r.Role.Name == HelperAutorize.RoleOrgManager))
+
+                   ).Select((s) => new
+                   {
+                       Id = s.Id,
+                       Title = s.FirstName + " " + s.LastName + "(" + s.EmpId + ")"
+                   })
+                       .ToListAsync();
+
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 var orgs = cache.GetOrgs(db);
                 var orgid = cache.GetOrg(db);
                 var org = orgs.Where(o => o.OrgId == orgid).FirstOrDefault();
                 if (org != null)
                 {
-                   
+
 
                     model.Address.ExtraDetail = org.AddressOrg.ExtraDetail;
                     model.Address.City = org.AddressOrg.CityName;
@@ -325,7 +347,8 @@ namespace Michal.Project.Controllers
                     model.Address.StreetcodeOld = model.Address.Streetcode;
                     model.Address.UId = org.AddressOrg.UID;
                 }
-
+                ViewBag.GrantUsers = new SelectList(grantUsers, "Id", "Title");
+              
                 ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
 
             }
@@ -379,7 +402,8 @@ namespace Michal.Project.Controllers
                         IsActive = true,
                         EmpId = model.EmpId,
                         Organization_OrgId = model.OrgId,
-                        Tel = model.Tel
+                        Tel = model.Tel,
+                        GrantUserManager=model.GrantUserManager
                     };
                     user.AddressUser = new Address();
                     await location.SetLocationAsync(model.Address, user.AddressUser);

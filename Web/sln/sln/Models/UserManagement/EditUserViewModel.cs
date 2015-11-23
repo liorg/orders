@@ -32,6 +32,7 @@ namespace Michal.Project.Models
             this.Address.UId = user.AddressUser.UID;
             this.Address.ExtraDetail = user.AddressUser.ExtraDetail;
             this.Address.Num = user.AddressUser.StreetNum;
+            this.GrantUserManager = user.GrantUserManager;
 
         }
         [Display(Name = "כתובת לקוח")]
@@ -87,5 +88,8 @@ namespace Michal.Project.Models
         [Display(Name = "טלפון")]
         [RegularExpression(@"^\d+$", ErrorMessage = "מספר טלפון מכיל מספרים בלבד")]
         public string Tel { get; set; }
+
+        [Display(Name = "מנהל מאשר חריגות")]
+        public Guid? GrantUserManager { get; set; }
     }
 }

@@ -96,6 +96,20 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">פרטים</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GrantUserManager, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.GrantUserManager, (SelectList)ViewBag.GrantUsers, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">תפקידים</h3>
                     </div>
@@ -120,14 +134,18 @@
                                     @Html.LabelFor(m => m.IsRunner)
                                 </div>
                             }
-
-                            <div class="col-md-2">
-                                @Html.CheckBoxFor(m => m.IsCreateOrder)
-                                @Html.LabelFor(m => m.IsCreateOrder)
+                             <div class="col-md-2">
+                                @Html.CheckBoxFor(m => m.IsApprovalExceptionalBudget)
+                                @Html.LabelFor(m => m.IsApprovalExceptionalBudget)
                             </div>
+                           
                             <div class="col-md-2">
                                 @Html.CheckBoxFor(m => m.IsAcceptOrder)
                                 @Html.LabelFor(m => m.IsAcceptOrder)
+                            </div>
+                             <div class="col-md-2">
+                                @Html.CheckBoxFor(m => m.IsCreateOrder)
+                                @Html.LabelFor(m => m.IsCreateOrder)
                             </div>
                         </div>
                     </div>
