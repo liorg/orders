@@ -371,6 +371,10 @@
     <Compile Include="Migrations\201511231502424_userapproval.Designer.cs">
       <DependentUpon>201511231502424_userapproval.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511232132558_userapprovalforship.cs" />
+    <Compile Include="Migrations\201511232132558_userapprovalforship.Designer.cs">
+      <DependentUpon>201511232132558_userapprovalforship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
     <Compile Include="Models\Notify.cs" />
@@ -860,6 +864,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511231502424_userapproval.resx">
       <DependentUpon>201511231502424_userapproval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511232132558_userapprovalforship.resx">
+      <DependentUpon>201511232132558_userapprovalforship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

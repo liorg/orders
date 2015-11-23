@@ -179,7 +179,7 @@ namespace Michal.Project.DataModel
 
         public DateTime? TimeWaitEndGet { get; set; }
 
-
+        public Guid? ApprovalPriceException{ get; set; }
 
     }
 
