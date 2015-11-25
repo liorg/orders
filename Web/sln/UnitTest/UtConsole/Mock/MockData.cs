@@ -31,16 +31,32 @@ namespace UtConsole.Mock
             {
                 BussinessClosureId = Guid.NewGuid(),
                 DayOfWeek = 0,
-                EndTime = TimeSpan.Parse("09:45"),
-                StartTime = TimeSpan.Parse("16:15"),
+                StartTime = TimeSpan.Parse("14:45"),
+                EndTime = TimeSpan.Parse("15:35"),
                 SpecialDate = DateTime.Now.Date,
+                Year = 2015,
+                IsDayOff = true,
+                Name = "",
+                ShippingCompany = Guid.NewGuid()
+            });
+            _data.Add(new MockBussinessClosure
+            {
+                BussinessClosureId = Guid.NewGuid(),
+                DayOfWeek = 0,
+                StartTime = TimeSpan.Parse("8:45"),
+                EndTime = TimeSpan.Parse("14:45"),
+                SpecialDate = DateTime.Now.Date.AddDays(1),
                 Year = 2015,
                 IsDayOff = false,
                 Name = "",
                 ShippingCompany = Guid.NewGuid()
             });
         }
-
+        /*
+         תאריך ספציפי
+         תרחיש 1 תאריך ב
+         
+         */
 
         public List<IBussinessClosure> GetByShipCompany(Guid shipCopanyId)
         {

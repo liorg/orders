@@ -41,16 +41,16 @@ namespace Michal.Project.Bll
         {
             var data = _bussinessClosureRepository.GetByShipCompany(company);
             var dt = DateTime.Now;
-            TimeSpan minTimeOnly = dt.GetTime();
+           
             maxEndDate = maxEndDate.NextDay();
             bool hasFound = false;
             while (dt < maxEndDate && !hasFound)
             {
+                TimeSpan minTimeOnly = dt.GetTime();
                 hasFound = false;
                 var items = data.Where(d => ((d.DayOfWeek == (int)dt.DayOfWeek) || (d.SpecialDate != null && d.SpecialDate.Value.Date == dt.Date))).AsEnumerable();
                 if (items.Any())
                 {
-
                     var sepicialDay = items.Where(sp => sp.SpecialDate != null).FirstOrDefault();
                     if (sepicialDay != null)
                     {
@@ -59,26 +59,27 @@ namespace Michal.Project.Bll
                             dt = dt.NextDay();
                             continue;
                         }
-                        if (sepicialDay.StartTime < minTimeOnly)
+                        if (sepicialDay.StartTime > minTimeOnly)
                             minTimeOnly = sepicialDay.StartTime;
 
                         var maxDt = minTimeOnly.AddMins(timeleftOnMin);
                         if (maxDt <= sepicialDay.EndTime)
                         {
-                            dt = dt.Add(maxDt);
+                            dt = dt.Date.Add(maxDt);
                             hasFound = true;
                             continue;
                         }
 
                         TimeSpan getmin = maxDt - sepicialDay.EndTime;
                         timeleftOnMin = getmin.Minutes;
+
                         dt = dt.NextDay();
                         continue;
                     }
                     if (items.Any(a => a.IsDayOff))
                     {
                         dt = dt.NextDay();
-                        break;
+                        continue;
                     }
 
                     foreach (var bcitem in items.OrderBy(o => o.StartTime))
@@ -86,7 +87,9 @@ namespace Michal.Project.Bll
                         if (!hasFound)
                             break;
 
-                        if (minTimeOnly < bcitem.StartTime)
+                        //if (minTimeOnly < bcitem.StartTime)
+                        //    minTimeOnly = sepicialDay.StartTime;
+                        if (sepicialDay.StartTime > minTimeOnly)
                             minTimeOnly = sepicialDay.StartTime;
 
                         var maxDt = minTimeOnly.AddMins(timeleftOnMin);
@@ -94,6 +97,7 @@ namespace Michal.Project.Bll
                         {
                             dt = dt.Add(maxDt);
                             hasFound = true;
+                            continue;
                         }
                         else
                         {
@@ -104,20 +108,19 @@ namespace Michal.Project.Bll
                     }
                     if (!hasFound)
                     {
-
+                        dt = dt.NextDay();
+                        continue;
                     }
-                }
+                }//end   if (items.Any())
                 else
-                {
-                    dt = dt.NextDay();
-                }
+                  dt = dt.NextDay(); //next day if not found on table businessClosure
+                
             }
             if (!hasFound)
                 throw new ArgumentException("no found sla");
-
+            
+            return dt;
         }
-
-
     }
 }
 /*
