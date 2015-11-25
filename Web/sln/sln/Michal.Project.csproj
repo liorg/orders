@@ -211,6 +211,7 @@
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IBussinessClosureRepository.cs" />
+    <Compile Include="Contract\DAL\IGeneralAgent\ISlaRepository.cs" />
     <Compile Include="Contract\DAL\INotificationRepository.cs" />
     <Compile Include="Contract\DAL\IShipComapnyRepository.cs">
       <SubType>Code</SubType>
@@ -219,8 +220,12 @@
     <Compile Include="Contract\DAL\IGeneralAgent\IOrgDetailRepostory.cs" />
     <Compile Include="Contract\DAL\IOfferRepository.cs" />
     <Compile Include="Contract\DAL\IShippingRepository.cs" />
+    <Compile Include="Contract\DataModel\ISlaValue.cs" />
     <Compile Include="Contract\DataModel\IModifieder.cs" />
     <Compile Include="Contract\DataModel\IBussinessClosure.cs" />
+    <Compile Include="Contract\DataModel\ISla.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Contract\IModifieder.cs">
       <SubType>Code</SubType>
     </Compile>

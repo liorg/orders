@@ -18,9 +18,10 @@ namespace Michal.Project.Mechanism
     /// </summary>
     internal class RequestOffer : Handler
     {
-        public RequestOffer(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
+        public RequestOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+            base(bussinessClosureRepository,slaRepository,
+            shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
         {
 
         }

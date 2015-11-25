@@ -42,10 +42,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bl\CalcService.cs" />
-    <Compile Include="Contarct\IBussinessClosure.cs" />
+    <Compile Include="Contarct\ISlaRepository.cs" />
+    <Compile Include="Contarct\IBussinessClosure.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Contarct\IBussinessClosureRepository.cs" />
+    <Compile Include="Contarct\ISla.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Contarct\ISlaValue.cs" />
     <Compile Include="Mock\MockBussinessClosure.cs" />
     <Compile Include="Mock\MockData.cs" />
+    <Compile Include="Mock\MockSla.cs" />
+    <Compile Include="Mock\SlaModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

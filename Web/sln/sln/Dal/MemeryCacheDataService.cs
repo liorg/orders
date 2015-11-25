@@ -1,4 +1,5 @@
 ﻿using Kipodeal.Helper.Cache;
+using Michal.Project.Contract;
 using Michal.Project.DataModel;
 using Michal.Project.Helper;
 using Michal.Project.Models;
@@ -168,12 +169,12 @@ namespace Michal.Project.Dal
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
             List<Distance> lists = null;
-            cacheMemoryProvider.Get("DistancesPerOrg_" + orgId.ToString(), out lists);
+            cacheMemoryProvider.Get("DistancesPerOrg", out lists);
             if (lists == null)
             {
                 lists = context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
 
-                cacheMemoryProvider.Set("DistancesPerOrg_" + orgId.ToString(), lists);
+                cacheMemoryProvider.Set("DistancesPerOrg", lists);
             }
             return lists;
         }
@@ -331,6 +332,33 @@ namespace Michal.Project.Dal
             {
                 lists = context.ShippingCompany.Where(s => s.IsActive == true && s.Organizations.Any(o=>o.OrgId==orgId)).ToList();
                 cacheMemoryProvider.Set("GetShippingCompaniesByOrgId", lists);
+            }
+            return lists;
+        }
+
+        public List<Sla> GetSlaByOrgId(ApplicationDbContext context, Guid orgId)
+        {
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<Sla> lists = null;
+            cacheMemoryProvider.Get("GetSlaByOrgId", out lists);
+            if (lists == null)
+            {
+                lists = context.Sla.Where(s => s.IsActive == true && s.Organizations_OrgId.HasValue && s.Organizations_OrgId.Value==orgId).ToList();
+                cacheMemoryProvider.Set("GetSlaByOrgId", lists);
+            }
+            return lists;
+        }
+
+        public List<IBussinessClosure> GetBussinessClosureByCompanyShip(ApplicationDbContext context, Guid companyShipId)
+        {
+            var key = "GetBussinessClosureByCompanyShip_" + companyShipId.ToString();
+            CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+            List<IBussinessClosure> lists = null;
+            cacheMemoryProvider.Get(key, out lists);
+            if (lists == null)
+            {
+                lists = context.BussinessClosure.Where(s => s.IsActive == true && s.ShippingCompany == companyShipId).ToList<IBussinessClosure>();
+                cacheMemoryProvider.Set(key, lists);
             }
             return lists;
         }

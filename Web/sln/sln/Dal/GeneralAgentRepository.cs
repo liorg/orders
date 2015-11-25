@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Michal.Project.Dal
 {
-    public class GeneralAgentRepository : IOfferPriceRepostory, IOrgDetailRepostory
+    public class GeneralAgentRepository : IOfferPriceRepostory, IOrgDetailRepostory, IBussinessClosureRepository, ISlaRepository
     {
         ApplicationDbContext _context;
         
@@ -17,7 +17,6 @@ namespace Michal.Project.Dal
         }
 
       
-
         public List<DataModel.Discount> GetDiscount()
         {
             MemeryCacheDataService memory=new MemeryCacheDataService();
@@ -35,8 +34,6 @@ namespace Michal.Project.Dal
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetProductsSystem(_context);
         }
-
-      
 
         public List<DataModel.Distance> GetDistancesPerOrg(Guid orgId)
         {
@@ -74,13 +71,11 @@ namespace Michal.Project.Dal
             return memory.GetOrgEntity(_context);
         }
 
-
         public List<DataModel.Product> GetProducts(Guid orgId)
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetProducts(_context, orgId);
         }
-
 
         public List<KeyValuePair<int, string>> GetBackOrder()
         {
@@ -88,11 +83,28 @@ namespace Michal.Project.Dal
             return memory.GetBackOrder();
         }
 
-
         public List<KeyValuePair<int, string>> GetDirection()
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetDirection();
+        }
+
+        public List<Contract.IBussinessClosure> GetByShipCompany(Guid shipCopanyId)
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            var result=memory.GetBussinessClosureByCompanyShip(_context, shipCopanyId);
+            return result;
+        }
+
+        public double FindSlaOnMinute(Guid shipCopanyId, Guid orgid, Guid distanceId, Guid shipTypeId)
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            var items=memory.GetSlaByOrgId(_context, orgid);
+            var result = items.Where(sl => sl.Organizations_OrgId.HasValue && sl.Organizations_OrgId.Value == orgid &&
+                               sl.Distance_DistanceId.HasValue && sl.Distance_DistanceId.Value == distanceId &&
+                              sl.ShippingCompany_ShippingCompanyId.HasValue && sl.ShippingCompany_ShippingCompanyId.Value == shipCopanyId &&
+                                 sl.ShipType_ShipTypeId.HasValue && sl.ShipType_ShipTypeId.Value == shipTypeId).Select(m => m.Mins).FirstOrDefault();
+            return result;
         }
     }
 }

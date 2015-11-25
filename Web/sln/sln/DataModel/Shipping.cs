@@ -9,7 +9,7 @@ using System.Web;
 namespace Michal.Project.DataModel
 {
 
-    public class Shipping : IModifieder
+    public class Shipping : IModifieder, ISlaValue
     {
         public Shipping()
         {
@@ -107,11 +107,6 @@ namespace Michal.Project.DataModel
         [Column(TypeName = "Money")]
         public decimal ActualPrice { get; set; }
 
-        //public decimal TimeWait { get; set; }
-
-        //[Column(TypeName = "Money")]
-        //public decimal EstimatedPrice { get; set; }
-
         public long FastSearchNumber { get; set; }
 
         public Guid? ApprovalRequest { get; set; }
@@ -119,8 +114,6 @@ namespace Michal.Project.DataModel
         public Guid? ApprovalShip { get; set; }
 
         public Guid? GrantRunner { get; set; }
-
-        //public Guid? Runner { get; set; }
 
         public Guid? BroughtShippingSender { get; set; }
 

@@ -527,6 +527,14 @@ namespace Michal.Project.Bll
 
         }
 
-        
+        public void SetCompanyHandler(Shipping ship, Guid companyHandler)
+        {
+            ship.ShippingCompany_ShippingCompanyId = companyHandler;
+        }
+
+        public void Update(Shipping ship)
+        {
+            _shippingRepository.Update(ship);
+        }
     }
 }

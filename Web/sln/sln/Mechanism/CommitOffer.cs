@@ -14,9 +14,10 @@ namespace Michal.Project.Mechanism
 {
     internal class CommitOffer : Handler
     {
-        public CommitOffer(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
+        public CommitOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+            base(bussinessClosureRepository, slaRepository,
+           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
         {
 
         }
@@ -29,6 +30,7 @@ namespace Michal.Project.Mechanism
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                CalcService sla = new CalcService(_bussinessClosureRepository, _slaRepository);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
@@ -37,7 +39,10 @@ namespace Michal.Project.Mechanism
                 statusLogic.ConfirmRequest2(request);
 
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.End, offer, user, ship, offerModel);
-         
+                logic.SetCompanyHandler(ship, offer.ShippingCompanyId);
+                sla.SetSla(ship);
+                logic.Update(ship);
+
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 
@@ -49,9 +54,8 @@ namespace Michal.Project.Mechanism
                 return await SetNotification(users, urlMessage, titleMessage, bodyMessage);
             }
             else if (successor != null)
-            {
-                return await successor.HandleRequest(offer, user);
-            }
+             return await successor.HandleRequest(offer, user);
+            
             return await Task.FromResult<MessageForUsers>(null);
         }
     }

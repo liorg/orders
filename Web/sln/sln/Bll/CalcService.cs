@@ -1,4 +1,5 @@
-﻿using Michal.Project.Contract.DAL;
+﻿using Michal.Project.Contract;
+using Michal.Project.Contract.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +31,37 @@ namespace Michal.Project.Bll
     }
     public class CalcService
     {
-        readonly IBussinessClosureRepository _bussinessClosureRepository;
+        const int MAX_DAYS = 30;
 
-        public CalcService(IBussinessClosureRepository bussinessClosureRepository)
+        readonly IBussinessClosureRepository _bussinessClosureRepository;
+        readonly ISlaRepository _slaRepository;
+        public CalcService(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository)
         {
             _bussinessClosureRepository = bussinessClosureRepository;
+            _slaRepository = slaRepository;
+        }
+        public void SetSla(ISlaValue sla)
+        {
+            Guid shipCopanyId = sla.ShippingCompany_ShippingCompanyId.GetValueOrDefault();
+            Guid orgid = sla.Organization_OrgId.GetValueOrDefault();
+            Guid distanceId = sla.Distance_DistanceId.GetValueOrDefault();
+            Guid shipTypeId = sla.ShipType_ShipTypeId.GetValueOrDefault();
+
+            var result = GetSla(shipCopanyId, orgid, distanceId, shipTypeId, sla.ActualStartDate);
+            sla.SlaTime = result;
+        }
+        public DateTime GetSla(Guid shipCopanyId, Guid orgid, Guid distanceId, Guid shipTypeId, DateTime? starttime = null)
+        {
+            var minutes = _slaRepository.FindSlaOnMinute(shipCopanyId, orgid, distanceId, shipTypeId);
+            var result = Calc(shipCopanyId, minutes, DateTime.Now.AddDays(MAX_DAYS), starttime);
+            return result;
         }
 
-        public DateTime Calc(Guid company, double timeleftOnMin, DateTime maxEndDate)
+        public DateTime Calc(Guid company, double timeleftOnMin, DateTime maxEndDate, DateTime? starttime = null)
         {
             var data = _bussinessClosureRepository.GetByShipCompany(company);
-            var dt = DateTime.Now;
+
+            var dt = starttime.HasValue ? starttime.Value : DateTime.Now;
 
             maxEndDate = maxEndDate.NextDay();
             bool hasFound = false;

@@ -14,9 +14,10 @@ namespace Michal.Project.Mechanism
 {
     internal class CanceClient : Handler
     {
-        public CanceClient(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
+        public CanceClient(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+            base(bussinessClosureRepository, slaRepository,
+           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
         {
 
         }

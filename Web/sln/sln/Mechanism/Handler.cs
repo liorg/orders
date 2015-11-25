@@ -19,10 +19,17 @@ namespace Michal.Project.Mechanism
         protected readonly IOfferPriceRepostory _offerPrice;
         protected readonly IOrgDetailRepostory _orgDetailRep;
         protected readonly IShipComapnyRepository _shipComapnyRepository;
+        protected readonly IBussinessClosureRepository _bussinessClosureRepository;
+        protected readonly ISlaRepository _slaRepository;
+
         protected Handler successor;
-        public Handler(IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
+        public Handler(IBussinessClosureRepository bussinessClosureRepository,ISlaRepository slaRepository,
+            
+            IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
         {
+            _bussinessClosureRepository = bussinessClosureRepository;
+            _slaRepository = slaRepository;
             _shipComapnyRepository = shipComapnyRepository;
             _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
         }

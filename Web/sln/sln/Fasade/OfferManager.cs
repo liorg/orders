@@ -29,8 +29,8 @@ namespace Michal.Project.Fasade
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-                Handler requestOffer = new RequestOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-                Handler commitOffer = new CommitOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler requestOffer = new RequestOffer(generalRepo, generalRepo,shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
                 requestOffer.SetSuccessor(commitOffer);
                 var messages = await requestOffer.HandleRequest(offer, user);
 
@@ -61,8 +61,8 @@ namespace Michal.Project.Fasade
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-                Handler cancelClient = new CanceClient(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-                Handler cancelOffer = new CancelOffer(shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler cancelClient = new CanceClient(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler cancelOffer = new CancelOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
                 cancelClient.SetSuccessor(cancelOffer);
                 var messages = await cancelClient.HandleRequest(offer, user);
 

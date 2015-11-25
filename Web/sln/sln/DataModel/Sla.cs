@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
-    public class Sla : IModifieder
+    public class Sla : IModifieder, ISla
     {
         public Sla()
         {
