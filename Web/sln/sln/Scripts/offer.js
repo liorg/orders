@@ -256,6 +256,7 @@ function AppViewModel(vmData) {
 
 
     }
+
     self.refreshWatch = function () {
         var timeWaitSet = offerClient.TimeWaitSetProductId;
         var timeWaitGet = offerClient.TimeWaitGetProductId;
@@ -420,7 +421,8 @@ $(document).ready(function () {
             'HasDirty': vm.HasDirty(),
             'OfferId': offerClient.OfferId,
             'ShippingCompanyId': offerClient.ShippingCompanyId,
-            'StateCode':offerClient.StateCode,
+            'StateCode': offerClient.StateCode,
+            'Total': vm.Total(),
             'DataItems': items
         };
         $.blockUI({

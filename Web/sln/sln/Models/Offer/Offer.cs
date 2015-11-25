@@ -27,6 +27,8 @@ namespace Michal.Project.Models
         public Guid ObjectIdExcpetionPriceId { get; set; }
 
         public double? MaxPriceForGrantException { get; set; }
+
+        public decimal? Total { get; set; }
     }
 
 }
