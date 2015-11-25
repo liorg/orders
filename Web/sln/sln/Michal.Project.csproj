@@ -209,6 +209,7 @@
     <Compile Include="Bll\OrderLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
+    <Compile Include="Contract\DAL\IGeneralAgent\IBussinessClosureRepository.cs" />
     <Compile Include="Contract\DAL\INotificationRepository.cs" />
     <Compile Include="Contract\DAL\IShipComapnyRepository.cs">
       <SubType>Code</SubType>
@@ -217,8 +218,12 @@
     <Compile Include="Contract\DAL\IGeneralAgent\IOrgDetailRepostory.cs" />
     <Compile Include="Contract\DAL\IOfferRepository.cs" />
     <Compile Include="Contract\DAL\IShippingRepository.cs" />
+    <Compile Include="Contract\DataModel\IModifieder.cs" />
+    <Compile Include="Contract\DataModel\IBussinessClosure.cs" />
+    <Compile Include="Contract\IModifieder.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Contract\IPricesForItems.cs" />
-    <Compile Include="Contract\IModifieder.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Contract\View\IShipView.cs" />
@@ -374,6 +379,10 @@
     <Compile Include="Migrations\201511232132558_userapprovalforship.cs" />
     <Compile Include="Migrations\201511232132558_userapprovalforship.Designer.cs">
       <DependentUpon>201511232132558_userapprovalforship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250757292_bsdays.cs" />
+    <Compile Include="Migrations\201511250757292_bsdays.Designer.cs">
+      <DependentUpon>201511250757292_bsdays.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
@@ -867,6 +876,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511232132558_userapprovalforship.resx">
       <DependentUpon>201511232132558_userapprovalforship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250757292_bsdays.resx">
+      <DependentUpon>201511250757292_bsdays.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

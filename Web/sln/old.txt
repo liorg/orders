@@ -1,78 +1,4 @@
-1.  follow ups /remove add
-@@@@@@@@@@@1.1 add
-1.2 remove
-2.  camera
-3.  upload
-@@@@@@@@@@@  4.  signture
-@@@@@@@@@@@  5.  report excel
-XXXXX 6.  close order
-7.  previous order
-@@@@@@@@@@@  8.  search 
-XXXXX 9.  price 
-10. lead 
-@@@@@@@@@@@  11. whatsup
-12. jwt json token-done
-@@@@@@@@@@@12.1 jwt simple
-12.2 jwt expired
-@@@@@@@@@@@  13. auto complete city and adress
-@@@@@@@@@@@  14. google map
-XXXXX 15. accept money
 
--------------------------------------------------
-
-1. address fill lat and lang batch file
-2. layers
-3. attachments
-4. close/previous buck order
-5. followby
-@@@@@@@@@@@  6. 404/401/500 handler
-@@@@@@@@@@@  7. ui styles
---------------------------------------------------
-offer
-1. price
-2. close mission
-3 workflow
-
---------------------------------------------------
-mission pricing
-1. remove
-2. edit
-2.1 edit shiptype
-2.2 edit distance
-3. add
-3.1 add item product
-4. autocomlete
-4. server side 
-4.1 fill current items (on new or on current offer)
-4.2 update current items
-5 discount client and server
-
-
--------------------------------------------------
-1. offer
-1.1 offer sections
-1.1.1 proudcts items
-1.1.2 time wait and refresh button
-1.1.3 product systems items
-1.1.4 add to price item מחיר עבור חזרה עם אסמכתא/חתימה/ללא
-1.2 offer view
-1.2.1 offer lists (type of list)
-1.2.2 order lists (type of list)
-1.3 workflow 
-1.3.1 send notifcation by follow by
-1.3.2  change status
-1.5 close order
-
-
-2. navigator 
-2.1 navigator on top menu
-2.2 step view on ship details http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progressbar-details
-
-
-
-
-
------
 offer
 X1.  paging generic
 X1.1 demo price
@@ -129,7 +55,17 @@ X4 change start date  on close status
 
 12 bussiness closure form
 
+13 sla form
 
+14 org form
+
+15 ship comany form
+
+16 address fill lat and lang batch file
+
+17 camera /upload
+
+18  follow ups /remove add (list of )
 
 
 

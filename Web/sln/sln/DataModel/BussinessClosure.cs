@@ -9,7 +9,7 @@ using System.Web;
 namespace Michal.Project.DataModel
 {
 
-    public class BussinessClosure : IModifieder
+    public class BussinessClosure : IModifieder, IBussinessClosure
     {
         public BussinessClosure()
         {
@@ -19,15 +19,19 @@ namespace Michal.Project.DataModel
         [Key]
         public Guid BussinessClosureId { get; set; }
 
+        [Required]
+        public Guid ShippingCompany { get; set; }
+
         public int DayOfWeek { get; set; }
 
         public TimeSpan StartTime { get; set; }
+
         public TimeSpan EndTime { get; set; }
 
         [Required]
         public bool IsDayOff { get; set; }
 
-        public DateTime SpecialDate { get; set; }
+        public DateTime? SpecialDate { get; set; }
 
         [Required]
         public int Year { get; set; }
