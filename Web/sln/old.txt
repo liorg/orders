@@ -43,7 +43,9 @@ X4 change start date  on close status
 8.5 location(1/4)
 8.6 signture (1/4)
 8.7 Must shipping item (1/2)
-8.8 menu step ui (1-2)
+8.8 menu step ui (1-2) 2.2 step view on ship details http://www.prepbootstrap.com/bootstrap-template/steps-navigation-circular-progressbar-details
+
+
 
 9 android (9-10)
 
