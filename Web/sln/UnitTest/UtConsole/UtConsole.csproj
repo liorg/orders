@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bl\CalcService.cs" />
     <Compile Include="Contarct\IBussinessClosure.cs" />
     <Compile Include="Contarct\IBussinessClosureRepository.cs" />
     <Compile Include="Mock\MockBussinessClosure.cs" />
