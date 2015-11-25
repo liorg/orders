@@ -41,7 +41,7 @@ namespace Michal.Project.Bll
         {
             var data = _bussinessClosureRepository.GetByShipCompany(company);
             var dt = DateTime.Now;
-           
+
             maxEndDate = maxEndDate.NextDay();
             bool hasFound = false;
             while (dt < maxEndDate && !hasFound)
@@ -94,8 +94,8 @@ namespace Michal.Project.Bll
                             minTimeOnly = bcitem.StartTime;
 
                         if (minTimeOnly >= bcitem.EndTime)
-                          continue;
-                        
+                            continue;
+
                         var maxDt = minTimeOnly.AddMins(timeleftOnMin);
                         if (maxDt <= bcitem.EndTime)
                         {
@@ -118,12 +118,12 @@ namespace Michal.Project.Bll
                     }
                 }//end   if (items.Any())
                 else
-                  dt = dt.NextDay(); //next day if not found on table businessClosure
-                
+                    dt = dt.NextDay(); //next day if not found on table businessClosure
+
             }
             if (!hasFound)
                 throw new ArgumentException("no found sla");
-            
+
             return dt;
         }
     }

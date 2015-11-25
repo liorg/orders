@@ -13,7 +13,7 @@ namespace UtConsole
         {
             var mock=new Mock.MockData();
             CalcService service = new CalcService(mock);
-            int h=1;
+            int h=7;
             int minutes=h*60;
             var result=service.Calc(Guid.NewGuid(), minutes, DateTime.Now.AddDays(20));
 
