@@ -714,6 +714,7 @@
     <Content Include="Scripts\tooltip.js" />
     <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Test\a.html" />
     <Content Include="Test\h - Copy %282%29.html" />
     <Content Include="Test\f.html" />
     <Content Include="Test\tl2.html" />
