@@ -30,7 +30,7 @@ namespace Michal.Project.Mechanism
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
-                CalcService sla = new CalcService(_bussinessClosureRepository, _slaRepository);
+                CalcService sla = new CalcService(_bussinessClosureRepository, _slaRepository,_orgDetailRep);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;

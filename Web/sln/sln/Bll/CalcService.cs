@@ -1,5 +1,7 @@
 ﻿using Michal.Project.Contract;
 using Michal.Project.Contract.DAL;
+using Michal.Project.DataModel;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,16 +31,21 @@ namespace Michal.Project.Bll
             return result;
         }
     }
+    
     public class CalcService
     {
         const int MAX_DAYS = 30;
 
         readonly IBussinessClosureRepository _bussinessClosureRepository;
         readonly ISlaRepository _slaRepository;
-        public CalcService(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository)
+        readonly IOrgDetailRepostory _orgDetailRepostory;
+        public CalcService(IBussinessClosureRepository bussinessClosureRepository,
+            ISlaRepository slaRepository, IOrgDetailRepostory orgDetailRepostory
+            )
         {
             _bussinessClosureRepository = bussinessClosureRepository;
             _slaRepository = slaRepository;
+            _orgDetailRepostory=orgDetailRepostory;
         }
         public void SetSla(ISlaValue sla)
         {
@@ -50,6 +57,7 @@ namespace Michal.Project.Bll
             var result = GetSla(shipCopanyId, orgid, distanceId, shipTypeId, sla.ActualStartDate);
             sla.SlaTime = result;
         }
+      
         public DateTime GetSla(Guid shipCopanyId, Guid orgid, Guid distanceId, Guid shipTypeId, DateTime? starttime = null)
         {
             var minutes = _slaRepository.FindSlaOnMinute(shipCopanyId, orgid, distanceId, shipTypeId);
@@ -147,6 +155,28 @@ namespace Michal.Project.Bll
 
             return dt;
         }
+
+        public List<SlaItem> Slas(Guid orgid,Guid companyid)
+        {
+            List<SlaItem> slas = new List<SlaItem>();
+            var data = _slaRepository.GetAllSla(orgid, companyid);
+            foreach (var item in data)
+            {
+                SlaItem slaItem = new SlaItem();
+                slaItem.Desc = item.Name;
+                slaItem.Distance = item.Distance.Name;
+                slaItem.ShipType = item.ShipType.Name;
+                slaItem.Mins = item.Mins.ToString();
+                slas.Add(slaItem);
+            }
+            return slas;
+        }
+
+        public ShippingCompany GetCompany(Guid orgid, Guid? companyid)
+        {
+            return _orgDetailRepostory.GetShippingCompaniesByOrgId(orgid).Where(c => !companyid.HasValue || c.ShippingCompanyId == companyid.Value ).FirstOrDefault();
+        }
+    
     }
 }
 /*

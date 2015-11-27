@@ -232,13 +232,16 @@
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
+    <Compile Include="Contract\View\IComapnyView.cs" />
     <Compile Include="Contract\View\IShipView.cs" />
+    <Compile Include="Contract\View\IView.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />
     <Compile Include="Contract\View\IViewType.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
@@ -391,6 +394,8 @@
       <DependentUpon>201511250757292_bsdays.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BussinessClosureView.cs" />
+    <Compile Include="Models\CompanyVm.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -412,6 +417,7 @@
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
+    <Compile Include="Models\SlaView.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
     <Compile Include="Models\Status\StatusDesc.cs" />
@@ -725,6 +731,7 @@
     <Content Include="Test\sr.html" />
     <Content Include="Test\t1.html" />
     <Content Include="Test\tl.html" />
+    <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -814,6 +821,7 @@
     <Content Include="Views\Shared\HomepageBasic.cshtml" />
     <Content Include="Views\Offer\OrderItem.cshtml" />
     <Content Include="Views\Offer\Calc.cshtml" />
+    <Content Include="Views\Company\sla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Michal.Project.Contract.View
 {
-    interface IShipView
+    public interface IShipView : IView
     {
-         Guid Id { get; set; }
-
-
-         string Name { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Michal.Project.Contract.DAL;
+using Michal.Project.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,17 @@ namespace Michal.Project.Dal
     public class GeneralAgentRepository : IOfferPriceRepostory, IOrgDetailRepostory, IBussinessClosureRepository, ISlaRepository
     {
         ApplicationDbContext _context;
-        
+
         public GeneralAgentRepository(ApplicationDbContext context)
         {
             _context = context;//ok
-           
+
         }
 
-      
+
         public List<DataModel.Discount> GetDiscount()
         {
-            MemeryCacheDataService memory=new MemeryCacheDataService();
+            MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetDiscount(_context);
         }
 
@@ -92,19 +93,27 @@ namespace Michal.Project.Dal
         public List<Contract.IBussinessClosure> GetByShipCompany(Guid shipCopanyId)
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
-            var result=memory.GetBussinessClosureByCompanyShip(_context, shipCopanyId);
+            var result = memory.GetBussinessClosureByCompanyShip(_context, shipCopanyId);
             return result;
         }
 
         public double FindSlaOnMinute(Guid shipCopanyId, Guid orgid, Guid distanceId, Guid shipTypeId)
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
-            var items=memory.GetSlaByOrgId(_context, orgid);
-            var result = items.Where(sl => sl.Organizations_OrgId.HasValue && sl.Organizations_OrgId.Value == orgid &&
+            var items = memory.GetSlaByOrgId(_context, orgid);
+            var result = items.Where(sl =>sl.IsActive==true && sl.Organizations_OrgId.HasValue && sl.Organizations_OrgId.Value == orgid &&
                                sl.Distance_DistanceId.HasValue && sl.Distance_DistanceId.Value == distanceId &&
                               sl.ShippingCompany_ShippingCompanyId.HasValue && sl.ShippingCompany_ShippingCompanyId.Value == shipCopanyId &&
                                  sl.ShipType_ShipTypeId.HasValue && sl.ShipType_ShipTypeId.Value == shipTypeId).Select(m => m.Mins).FirstOrDefault();
             return result;
+        }
+
+        public IEnumerable<Sla> GetAllSla(Guid orgid,Guid companyid)
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            var items = memory.GetSlaByOrgId(_context, orgid);
+            return items.Where(it=>it.ShippingCompany_ShippingCompanyId.HasValue && it.ShippingCompany_ShippingCompanyId.Value==companyid).AsEnumerable();
+
         }
     }
 }
