@@ -158,7 +158,7 @@ namespace Michal.Project.DataModel
         public int? SigBackType { get; set; } //null or 0=none,1=return back,2=digital
 
         public DateTime? ActualStartDate { get; set; }
-
+       
         public DateTime? ActualEndDate { get; set; }
 
         [Required]

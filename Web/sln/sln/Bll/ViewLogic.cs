@@ -208,8 +208,8 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
             orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
             orderModel.ShippingVm.ActualStartDate =shipping.ActualStartDate.HasValue? shipping.ActualStartDate.Value.ToString("dd/MM/yyyy hh:mm"): "עוד לא אושר";
+            orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value==DateTime.Now.Date?   shipping.SlaTime.Value.ToString("hh:mm") :shipping.SlaTime.Value.ToString("dd/MM/yyyy hh:mm") : "עוד לא אושר";
             
-
             orderModel.ShippingVm.TelSource = shipping.TelSource;
             orderModel.ShippingVm.TelTarget = shipping.TelTarget;
             orderModel.ShippingVm.NameSource = shipping.NameSource;

@@ -30,6 +30,9 @@ namespace Michal.Project.Models
         [Display(Name = "נוצר ע''י ")]
         public string CreatedBy { get; set; }
 
+        [Display(Name = "תאריך סיום משוער")]
+        public string SlaDate { get; set; }
+
         [Display(Name = "חישוב היעד")]
         public string DistanceName { get; set; }
 
