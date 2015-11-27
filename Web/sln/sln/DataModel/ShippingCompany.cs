@@ -67,5 +67,12 @@ namespace Michal.Project.DataModel
 
         public Guid? ManagerId { get; set; }
 
+        public Address AddressCompany { get; set; }
+
+        public string Tel { get; set; }
+
+        public string ContactFullName { get; set; }
+
+        public string ContactTel { get; set; }
     }
 }

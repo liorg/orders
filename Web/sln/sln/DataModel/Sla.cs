@@ -17,14 +17,14 @@ namespace Michal.Project.DataModel
         [Required]
         public int Priority { get; set; }
 
-        [Required]
-        public bool IsBusinessDay { get; set; }
+        //[Required]
+        //public bool IsBusinessDay { get; set; }
 
-        [Required]
-        public double Days { get; set; }
+        //[Required]
+        //public double Days { get; set; }
 
-        [Required]
-        public double Hours { get; set; }
+        //[Required]
+        //public double Hours { get; set; }
 
         [Required]
         public double Mins { get; set; }

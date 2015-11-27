@@ -174,6 +174,10 @@ namespace Michal.Project.DataModel
 
         public Guid? ApprovalPriceException{ get; set; }
 
+        public bool IsInProccess { get; set; } //when ship is active (no close ,cancel or on no on draft so is in proccess
+
+
+
     }
 
 }
