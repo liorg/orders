@@ -45,7 +45,7 @@ namespace Michal.Project.Mechanism
                 users.Add(user.UserId);
 
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
-
+               
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
