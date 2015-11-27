@@ -31,9 +31,7 @@ namespace Michal.Project.Controllers
             }
         }
 
-        //    public  ActionResult bussinessClosure((Guid companyid)
-        //    {
-        //}
+            
         public ActionResult Details(Guid? companyid)
         {
             CompanyVm coompanyVm = new CompanyVm();
@@ -52,7 +50,25 @@ namespace Michal.Project.Controllers
             }
             return View(coompanyVm);
         }
-       
+
+        public ActionResult BussinessClosure(Guid companyid)
+        {
+            var bussinessClosureView = new BussinessClosureView();
+            bussinessClosureView.Id = companyid;
+            using (var context = new ApplicationDbContext())
+            {
+
+                UserContext user = new UserContext(AuthenticationManager);
+                GeneralAgentRepository repository = new GeneralAgentRepository(context);
+                var orgId = repository.GetOrg();
+                CalcService calc = new CalcService(repository, repository, repository);
+                bussinessClosureView.Items = calc.GetBussinessClosure( companyid);
+                var company = calc.GetCompany(orgId, companyid);
+                bussinessClosureView.Name = company.Name;
+                return View(bussinessClosureView);
+            }
+        }
+
         public ActionResult Sla(Guid companyid)
         {
             SlaView sla = new SlaView();
@@ -70,6 +86,8 @@ namespace Michal.Project.Controllers
                 return View(sla);
             }
         }
+
+       
 
     }
 }

@@ -115,5 +115,15 @@ namespace Michal.Project.Dal
             return items.Where(it=>it.ShippingCompany_ShippingCompanyId.HasValue && it.ShippingCompany_ShippingCompanyId.Value==companyid).AsEnumerable();
 
         }
+
+        //public IEnumerable<ApplicationUser> GetManagersOfCompany()
+        //{
+        //    MemeryCacheDataService memory = new MemeryCacheDataService();
+        //    var items = memory.GetManagersOfCompanies(_context);
+
+        //    return items.Where(it => it.ShippingCompany_ShippingCompanyId.HasValue && it.ShippingCompany_ShippingCompanyId.Value == companyid).AsEnumerable();
+
+        //}
+        
     }
 }

@@ -176,7 +176,25 @@ namespace Michal.Project.Bll
         {
             return _orgDetailRepostory.GetShippingCompaniesByOrgId(orgid).Where(c => !companyid.HasValue || c.ShippingCompanyId == companyid.Value ).FirstOrDefault();
         }
-    
+
+        public List<BussinessClosureItem> GetBussinessClosure(Guid companyid)
+        {
+            var items = new List<BussinessClosureItem>();
+            var data = _bussinessClosureRepository.GetByShipCompany(companyid);
+            foreach (var item in data)
+            {
+                var bussinessItem = new BussinessClosureItem();
+                bussinessItem.Name = item.Name;
+                bussinessItem.Start = item.StartTime.ToString();
+                bussinessItem.End = item.EndTime.ToString();
+                bussinessItem.DateSpiceial = item.SpecialDate.HasValue ? item.SpecialDate.Value.ToString("dd/MM/yyyy") : "";
+                bussinessItem.IsDateOff = item.IsDayOff;
+
+                items.Add(bussinessItem);
+            }
+            return items;
+        }
+
     }
 }
 /*

@@ -349,6 +349,19 @@ namespace Michal.Project.Dal
             return lists;
         }
 
+        //public List<ApplicationUser> GetManagersOfCompanies(ApplicationDbContext context)
+        //{
+        //    CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
+        //    List<ApplicationUser> lists = null;
+        //    cacheMemoryProvider.Get("GetManagersOfCompany", out lists);
+        //    if (lists == null)
+        //    {
+        //        lists = context.Users.Where(s => s.IsActive == true && s.Roles.Any(r=>r.Role.Name== HelperAutorize.RunnerManager || r.Role.Name==HelperAutorize.RoleAdmin)).ToList();
+        //        cacheMemoryProvider.Set("GetManagersOfCompany", lists);
+        //    }
+        //    return lists;
+        //}
+
         public List<IBussinessClosure> GetBussinessClosureByCompanyShip(ApplicationDbContext context, Guid companyShipId)
         {
             var key = "GetBussinessClosureByCompanyShip_" + companyShipId.ToString();

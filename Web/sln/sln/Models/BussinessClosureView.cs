@@ -10,7 +10,7 @@ namespace Michal.Project.Models
     public class BussinessClosureItem
     {
         [Display(Name = "מזהה")]
-        public Guid SlaId { get; set; }
+        public Guid Id { get; set; }
         [Display(Name = "שם")]
         public string Name { get; set; }
         [Display(Name = "שעת פתיחה")]
@@ -26,7 +26,7 @@ namespace Michal.Project.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        List<BussinessClosureItem> Items { get; set; }
+        public List<BussinessClosureItem> Items { get; set; }
 
     }
 }

@@ -17,5 +17,7 @@ namespace Michal.Project.Contract.DAL
         Guid GetOrg();
 
         Organization GetOrgEntity();
+
+        //IEnumerable<ApplicationUser> GetManagersOfCompany(Guid orgId);
     }
 }
