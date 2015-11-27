@@ -69,6 +69,23 @@ namespace Michal.Project.Controllers
             }
         }
 
+        public ActionResult DaysOff(Guid companyid)
+        {
+            var bussinessClosureView = new BussinessClosureView();
+            bussinessClosureView.Id = companyid;
+            using (var context = new ApplicationDbContext())
+            {
+
+                UserContext user = new UserContext(AuthenticationManager);
+                GeneralAgentRepository repository = new GeneralAgentRepository(context);
+                var orgId = repository.GetOrg();
+                CalcService calc = new CalcService(repository, repository, repository);
+                bussinessClosureView.Items = calc.GetDayOff(companyid);
+                var company = calc.GetCompany(orgId, companyid);
+                bussinessClosureView.Name = company.Name;
+                return View(bussinessClosureView);
+            }
+        }
         public ActionResult Sla(Guid companyid)
         {
             SlaView sla = new SlaView();

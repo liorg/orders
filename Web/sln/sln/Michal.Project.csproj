@@ -732,6 +732,7 @@
     <Content Include="Test\t1.html" />
     <Content Include="Test\tl.html" />
     <Content Include="Views\Company\bussinessClosure.cshtml" />
+    <Content Include="Views\Company\DaysOff.cshtml" />
     <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\sla.cshtml" />
     <Content Include="Web.config" />
@@ -823,6 +824,7 @@
     <Content Include="Views\Shared\HomepageBasic.cshtml" />
     <Content Include="Views\Offer\OrderItem.cshtml" />
     <Content Include="Views\Offer\Calc.cshtml" />
+    <Content Include="Views\Shared\_companyToolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />
