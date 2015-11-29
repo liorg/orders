@@ -97,7 +97,7 @@ schema changed:
 
 4. add menu to shipping
 4.1 add grant runner (and who is the shipper)
-4.2 
+4.2 change shippingitems view
 
 
 
