@@ -68,6 +68,38 @@ X4 change start date  on close status
 17 camera /upload
 
 18  follow ups /remove add (list of )
+---------------------------------------------
+
+schema changed:
+1. add field flag user or client (IsClientUser) 
+2. shipping walkorder
+3. isonproccess for status
+
+1. users
+1.1 userprofile (as fields is share)
+1.2 create two views 
+1.2.1 clients
+1.2.2 suppliers
+
+2. sla
+2.1 fixed view holiday
+2.2 add more fields for suplier details
+
+3. steps for exceptions
+3.1 tree views
+3.1.1 new offers
+3.1.2 offer on proccess
+3.1.3 open orders
+3.2 new step
+3.2 new step and has direction url and message if has on response
+3.3 on mechanism add new step
+3.4 autorise offertoolbox
+
+4. add menu to shipping
+4.1 add grant runner (and who is the shipper)
+4.2 
+
+
 
 
 
