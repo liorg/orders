@@ -10,6 +10,9 @@ namespace Michal.Project.Models
 {
     public class RegisterViewModel : IRole
     {
+        [Display(Name = " האם הוא לקוח")]
+        public bool IsClientUser { get; set; }
+
         [Display(Name = "כתובת לקוח")]
         public AddressEditorViewModel Address { get; set; }
 
@@ -47,6 +50,15 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = " ארגון שדה חובה")]
         [Display(Name = "ארגון")]
         public Guid OrgId { get; set; }
+
+
+        //[Required(ErrorMessage = " ארגון שדה חובה")]
+        [Display(Name = "ספק")]
+        public Guid CompanyId { get; set; }
+
+
+        [Display(Name = "יחידה ארגונית")]
+        public string Department { get; set; }
 
 
         [Display(Name = "תפקיד מנהל מערכת")]

@@ -33,8 +33,20 @@ namespace Michal.Project.Models
             this.Address.ExtraDetail = user.AddressUser.ExtraDetail;
             this.Address.Num = user.AddressUser.StreetNum;
             this.GrantUserManager = user.GrantUserManager;
+            this.IsClientUser = user.IsClientUser;
+            this.CompanyId = user.ShippingCompany_ShippingCompanyId.GetValueOrDefault();
+            this.Department = user.Department;
 
         }
+        [Display(Name = "ספק")]
+        public Guid CompanyId { get; set; }
+
+        [Display(Name = "יחידה ארגונית")]
+        public string Department { get; set; }
+
+        [Display(Name = " האם הוא לקוח")]
+        public bool  IsClientUser { get; set; }
+
         [Display(Name = "כתובת לקוח")]
         public AddressEditorViewModel Address { get; set; }
 

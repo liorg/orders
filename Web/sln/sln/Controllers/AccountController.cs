@@ -51,10 +51,11 @@ namespace Michal.Project.Controllers
             //var users = DBContext.Users;
             var inMemo = new List<EditUserViewModel>();
 
-            if (!User.IsInRole(HelperAutorize.RoleAdmin))
-                usersQuery = DBContext.Users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
-            else
-                usersQuery = DBContext.Users;
+            //if (!User.IsInRole(HelperAutorize.RoleAdmin))
+            //    usersQuery = DBContext.Users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
+            //else
+            //     usersQuery = DBContext.Users;
+            usersQuery = DBContext.Users.Where(u => u.IsClientUser == true);
             var total = await usersQuery.CountAsync();
             int page = currentPage.HasValue ? currentPage.Value : 1;
             var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
@@ -78,7 +79,45 @@ namespace Michal.Project.Controllers
             return View(usersView);
         }
 
+
         [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
+        public async Task<ActionResult> GetShippers(int? currentPage)
+        {
+            var userContext = new UserContext(AuthenticationManager);
+            IQueryable<ApplicationUser> usersQuery;
+            //var users = DBContext.Users;
+            var inMemo = new List<EditUserViewModel>();
+
+            //if (!User.IsInRole(HelperAutorize.RoleAdmin))
+            //    usersQuery = DBContext.Users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
+            //else
+            usersQuery = DBContext.Users.Where(u => u.IsClientUser == false);
+            var total = await usersQuery.CountAsync();
+            int page = currentPage.HasValue ? currentPage.Value : 1;
+            var hasMoreRecord = total > (page * Helper.General.MaxRecordsPerPage);
+
+            var usersData = await usersQuery.OrderByDescending(ord => ord.UserName).Skip((page - 1) * Helper.General.MaxRecordsPerPage).Take(General.MaxRecordsPerPage).ToListAsync();
+
+
+            foreach (var user in usersData)
+            {
+                var edit = new EditUserViewModel(user);
+                inMemo.Add(edit);
+            }
+            UsersView usersView = new UsersView();
+            usersView.Items = inMemo;
+            usersView.ClientViewType = ClientViewType.Users;
+            usersView.CurrentPage = page;
+            usersView.MoreRecord = hasMoreRecord;
+            usersView.Title = "משתמשים";
+            usersView.Total = total;
+
+            return View(usersView);
+        }
+
+
+
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager, HelperAutorize.RunnerManager)]
         public async Task<ActionResult> Edit(string id, ManageMessageId? Message = null)
         {
             // var Db = new ApplicationDbContext();
@@ -119,7 +158,7 @@ namespace Michal.Project.Controllers
                     }
                 }
                 ViewBag.GrantUsers = new SelectList(grantUsers, "Id", "Title");
-               
+
                 ViewBag.Orgs = new SelectList(context.Organization.ToList(), "OrgId", "Name");
                 ViewBag.MessageId = Message;
                 return View(model);
@@ -129,7 +168,8 @@ namespace Michal.Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
+
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager, HelperAutorize.RunnerManager)]
         public async Task<ActionResult> Edit(EditUserViewModel model)
         {
             //if (ModelState.IsValid)
@@ -151,11 +191,14 @@ namespace Michal.Project.Controllers
                     user.EmpId = model.EmpId;
                     user.Tel = model.Tel;
                     user.GrantUserManager = model.GrantUserManager;
+                    user.IsClientUser = model.IsClientUser;
+                    user.Department = model.Department; 
+                    if (user.IsClientUser)
+                    {
+                        await location.SetLocationAsync(model.Address, user.AddressUser);
 
-                    await location.SetLocationAsync(model.Address, user.AddressUser);
-
-                    user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
-
+                        user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    }
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
                     viewLogic.SetViewerUserByRole(model, user);
@@ -170,7 +213,7 @@ namespace Michal.Project.Controllers
                             await UserManager.RemoveFromRoleAsync(model.UserId, role);
                     }
 
-                    if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id,  Helper.HelperAutorize.RoleAdmin);// "Admin");
+                    if (model.IsAdmin) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleAdmin);// "Admin");
 
                     if (model.IsCreateOrder) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.RoleUser);//, "User");
 
@@ -182,7 +225,11 @@ namespace Michal.Project.Controllers
 
                     if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.ApprovalExceptionalBudget);//// "ApprovalExceptionalBudget");
 
-                    return RedirectToAction("Index");
+                    if (model.IsClientUser)
+                        return RedirectToAction("Index", "Account");
+                    else
+                        return RedirectToAction("GetShippers", "Account");
+                    //return RedirectToAction("Index");
 
                 }
             }
@@ -308,10 +355,11 @@ namespace Michal.Project.Controllers
         }
 
 
-        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
-        public async Task<ActionResult> Register()
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager, HelperAutorize.RunnerManager)]
+        public async Task<ActionResult> Register(bool? isSupplier = false)
         {
             RegisterViewModel model = new RegisterViewModel();
+            model.IsClientUser = true;
             model.Address = new AddressEditorViewModel();
             //using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -327,9 +375,21 @@ namespace Michal.Project.Controllers
                        .ToListAsync();
 
                 MemeryCacheDataService cache = new MemeryCacheDataService();
+
                 var orgs = cache.GetOrgs(db);
                 var orgid = cache.GetOrg(db);
+
                 var org = orgs.Where(o => o.OrgId == orgid).FirstOrDefault();
+                if (isSupplier.HasValue && isSupplier.Value)
+                {
+                    var defaultCompany = cache.GetShippingCompaniesByOrgId(db, orgid).FirstOrDefault();
+                    model.CompanyId = defaultCompany != null ? defaultCompany.ShippingCompanyId : Guid.Empty;
+                    var orgWWW = orgs.Where(w => w.Name == General.OrgWWW).FirstOrDefault();
+                    model.OrgId = orgWWW.OrgId;
+                    model.IsClientUser = false;
+                    //   model.c
+                }
+                
                 if (org != null)
                 {
 
@@ -348,7 +408,7 @@ namespace Michal.Project.Controllers
                     model.Address.UId = org.AddressOrg.UID;
                 }
                 ViewBag.GrantUsers = new SelectList(grantUsers, "Id", "Title");
-              
+
                 ViewBag.Orgs = new SelectList(db.Organization.ToList(), "OrgId", "Name");
 
             }
@@ -358,7 +418,7 @@ namespace Michal.Project.Controllers
         // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager)]
+        [RolesAttribute(HelperAutorize.RoleAdmin, HelperAutorize.RoleOrgManager, HelperAutorize.RunnerManager)]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             //using (var context = new ApplicationDbContext())
@@ -403,12 +463,16 @@ namespace Michal.Project.Controllers
                         EmpId = model.EmpId,
                         Organization_OrgId = model.OrgId,
                         Tel = model.Tel,
-                        GrantUserManager=model.GrantUserManager
+                        GrantUserManager = model.GrantUserManager,
+                        Department=model.Department,
+                        IsClientUser=model.IsClientUser
                     };
                     user.AddressUser = new Address();
-                    await location.SetLocationAsync(model.Address, user.AddressUser);
-                    user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
-
+                    if (user.IsClientUser)
+                    {
+                        await location.SetLocationAsync(model.Address, user.AddressUser);
+                        user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    }
                     viewLogic.SetViewerUserByRole(model, user);
 
 
@@ -428,7 +492,12 @@ namespace Michal.Project.Controllers
 
 
                     if (result.Succeeded)
-                        return RedirectToAction("Index", "Account");
+                    {
+                        if (model.IsClientUser)
+                            return RedirectToAction("Index", "Account");
+                        else
+                            return RedirectToAction("GetShippers", "Account");
+                    }
                     else
                         AddErrors(result);
 

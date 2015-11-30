@@ -833,6 +833,7 @@
     <Content Include="Views\Offer\OrderItem.cshtml" />
     <Content Include="Views\Offer\Calc.cshtml" />
     <Content Include="Views\Shared\_companyToolbar.cshtml" />
+    <Content Include="Views\Account\GetShippers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

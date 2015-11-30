@@ -71,9 +71,9 @@ X4 change start date  on close status
 ---------------------------------------------
 
 schema changed:
-1. add field flag user or client (IsClientUser) 
-2. shipping walkorder
-3. isonproccess for status
+1. add field flag user or client (IsClientUser) -OK
+2. shipping walkorder-OK
+3. isonproccess for status-OK
 
 1. users
 1.1 userprofile (as fields is share)
@@ -82,7 +82,7 @@ schema changed:
 1.2.2 suppliers
 
 2. sla
-2.1 fixed view holiday
+2.1 fixed view holiday-OK
 2.2 add more fields for suplier details
 
 3. steps for exceptions

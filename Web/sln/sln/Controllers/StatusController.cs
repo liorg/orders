@@ -40,7 +40,7 @@ namespace Michal.Project.Controllers
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
-
+              
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
@@ -63,7 +63,7 @@ namespace Michal.Project.Controllers
                 UserContext user = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
                 var ship = await context.Shipping.Include(fb => fb.FollowsBy).Where(x => x.ShippingId == shipId).FirstOrDefaultAsync();
-
+               
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
