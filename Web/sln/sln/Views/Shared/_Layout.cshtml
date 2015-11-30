@@ -75,7 +75,7 @@
                     @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleUser) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.RoleAccept)))
                     {
                         <li class="page-scroll">
-                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i> צור משלוח חדש </a>
+                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש</a>
                         </li>
                     }
                         <li class="dropdown">

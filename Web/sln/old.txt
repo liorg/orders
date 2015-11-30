@@ -77,9 +77,9 @@ schema changed:
 
 1. users
 1.1 userprofile (as fields is share)
-1.2 create two views 
-1.2.1 clients
-1.2.2 suppliers
+1.2 create two views OK
+1.2.1 clients OK
+1.2.2 suppliers OK
 
 2. sla
 2.1 fixed view holiday-OK
