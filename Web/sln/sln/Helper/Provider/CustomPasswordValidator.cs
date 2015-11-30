@@ -30,7 +30,7 @@ namespace Michal.Project.Helper
 
             }
 
-           // string pattern = @"^(?=.*[0-9])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*0-9]{10,}$";
+            //string pattern = @"^(?=.*[0-9])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*0-9]{10,}$";
 
             //if (!Regex.IsMatch(item, pattern))
             //{

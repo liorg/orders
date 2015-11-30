@@ -16,6 +16,9 @@ namespace Michal.Project.Dal
             : base(new UserStore<ApplicationUser>(context))
         {
             PasswordValidator = new CustomPasswordValidator(1);
+            this.UserValidator = new UserValidator<ApplicationUser>(this) { AllowOnlyAlphanumericUserNames = false };
+
+            
 
         }
     }

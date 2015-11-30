@@ -20,7 +20,7 @@ namespace Michal.Project.Models
         public string EmpId { get; set; }
 
         [Required(ErrorMessage = "שם משתמש שדה חובה")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "הזן אותיות אנגליות בלבד ללא רווחים")]
+       [RegularExpression(@"^[a-zA-Z0-9_@]*$", ErrorMessage = "הזן אותיות אנגליות בלבד ללא רווחים")]
         [Display(Name = "שם משתמש")]
         public string UserName { get; set; }
 
