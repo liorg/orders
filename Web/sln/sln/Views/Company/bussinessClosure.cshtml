@@ -4,22 +4,11 @@
     ViewBag.Title = "מועדי סגירת העסק ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section ordernumber {
- <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>@Model.Name  <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@Url.Action("Details", "Company", new { companyid=@Model.Id})"><i class="fa fa-motorcycle"></i> פרטים </a></li>
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("Sla", "Company", new { companyid=@Model.Id})"><i class="fa fa-rocket"></i> זמני תגובה  </a></li>
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("bussinessClosure", "Company", new { companyid=@Model.Id})"><i class="fa fa-clock-o"></i> מועדי פתיחת העסק </a></li>
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("DaysOff", "Company", new { companyid=@Model.Id})"><i class="fa fa-coffee"></i> לוח חופשות  </a></li>
-                              
-                                
-                            </ul>
-</li>
+ @Html.Partial("_companyToolbar", Model)
 }
+
 <div class="row">
     <div class="col-md-10">
         <h4><b class="centered"> @Model.Name מועדי סגירת העסק עבור</b> </h4>
@@ -35,8 +24,7 @@
 
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Start)</th>
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.End)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.DateSpiceial)</th>
-                      <th>@Html.DisplayColumnNameFor(Model.Items, model => model.IsDateOff)</th>
+                  
                 </tr>
                 @if (!Model.Items.Any())
                 {
@@ -57,8 +45,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Start)</td>
                         <td>@Html.DisplayFor(modelItem => item.End)</td>
                         }
-                        <td>@Html.DisplayFor(modelItem => item.DateSpiceial) </td>
-                        <td>@Html.DisplayFor(modelItem => item.IsDateOff) </td>
+                       
                     </tr>
                 }
             </table>

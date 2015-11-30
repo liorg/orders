@@ -180,7 +180,7 @@ namespace Michal.Project.Bll
         public List<BussinessClosureItem> GetBussinessClosure(Guid companyid)
         {
             var items = new List<BussinessClosureItem>();
-            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d => !d.SpecialDate.HasValue || (d.SpecialDate.HasValue && !d.IsDayOff));
+            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d => !d.SpecialDate.HasValue);
             foreach (var item in data)
             {
                 var bussinessItem = new BussinessClosureItem();
@@ -198,7 +198,7 @@ namespace Michal.Project.Bll
         public List<BussinessClosureItem> GetDayOff(Guid companyid)
         {
             var items = new List<BussinessClosureItem>();
-            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d=>d.SpecialDate.HasValue && d.IsDayOff) ;
+            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d=>d.SpecialDate.HasValue) ;
             foreach (var item in data)
             {
                 var bussinessItem = new BussinessClosureItem();

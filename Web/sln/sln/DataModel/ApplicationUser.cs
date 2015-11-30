@@ -49,6 +49,7 @@ namespace Michal.Project.DataModel
 
         public Organization Organization { get; set; }
 
+        public bool IsClientUser { get; set; }
         // [Required]
         public bool IsActive
         {

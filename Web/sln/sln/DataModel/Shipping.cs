@@ -176,7 +176,7 @@ namespace Michal.Project.DataModel
 
         public bool IsInProccess { get; set; } //when ship is active (no close ,cancel or on no on draft so is in proccess
 
-
+        public int WalkOrder { get; set; }
 
     }
 

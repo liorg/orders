@@ -397,6 +397,10 @@
     <Compile Include="Migrations\201511271328484_dsnew.Designer.cs">
       <DependentUpon>201511271328484_dsnew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511301954518_walk.cs" />
+    <Compile Include="Migrations\201511301954518_walk.Designer.cs">
+      <DependentUpon>201511301954518_walk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
@@ -904,6 +908,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511271328484_dsnew.resx">
       <DependentUpon>201511271328484_dsnew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511301954518_walk.resx">
+      <DependentUpon>201511301954518_walk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
