@@ -431,6 +431,7 @@
     <Compile Include="Models\Status\StatusDesc.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
     <Compile Include="Models\NSStreet\Streets.cs" />
+    <Compile Include="Models\UserManagement\UserDetail.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
     <Compile Include="Models\ShippingItemVm.cs" />
@@ -834,6 +835,8 @@
     <Content Include="Views\Offer\Calc.cshtml" />
     <Content Include="Views\Shared\_companyToolbar.cshtml" />
     <Content Include="Views\Account\GetShippers.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Shared\UserDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

@@ -9,11 +9,12 @@
 
 
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user"></i>שלום @User.Identity.GetUserName()<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user-secret "></i>שלום @User.Identity.GetUserName()<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="#">
                 <li class="page-scroll"><a href="@Url.Action("Index", "F")"><i class="fa fa-map"></i> כניסה ללקוחות </a></li>
-                <li class="page-scroll"><a href="@Url.Action("Manage", "Account")"><i class="fa fa-pencil-square-o"></i> ערוך </a></li>
+                <li class="page-scroll"><a href="@Url.Action("Manage", "Account")"><i class="fa fa-pencil-square-o"></i> שינוי סיסמא </a></li>
+                <li class="page-scroll"><a href="@Url.Action("Profile", "Account")"><i class="fa fa-user"></i>  פרטים </a></li>
                 <li class="divider"></li>
                 <li class="page-scroll"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> יציאה </a></li>
 

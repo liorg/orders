@@ -165,6 +165,53 @@ namespace Michal.Project.Controllers
             }
         }
 
+        public async Task<ActionResult> Profile(string id)
+        {
+            // var Db = new ApplicationDbContext();
+            //  using (var context = new ApplicationDbContext())
+            {
+                if (String.IsNullOrWhiteSpace(id))
+                {
+                    id = User.Identity.GetUserId();
+                }
+                var context = DBContext;
+                var grantUsers = await context.Users.Where(u => u.IsActive == true && u.Roles.Any(r => r.Role != null && (r.Role.Name == HelperAutorize.ApprovalExceptionalBudget || r.Role.Name == HelperAutorize.RoleOrgManager))
+
+                    ).Select((s) => new
+                    {
+                        Id = s.Id,
+                        Title = s.FirstName + " " + s.LastName + "(" + s.EmpId + ")"
+                    })
+                        .ToListAsync();
+
+                var user = await context.Users.FirstAsync(u => u.Id == id);
+                //var user = context.Users.First(u => u.Id == id);
+                var model = new UserDetail(user);
+                if (user.Roles != null && user.Roles.Any())
+                {
+                    foreach (var item in user.Roles)
+                    {
+                        if (item.Role != null)
+                        {
+                            if (item.Role.Name == Helper.HelperAutorize.RoleAdmin)
+                                model.IsAdmin = true;
+                            if (item.Role.Name == Helper.HelperAutorize.RoleUser)
+                                model.IsCreateOrder = true;
+                            if (item.Role.Name == Helper.HelperAutorize.RoleRunner)
+                                model.IsRunner = true;
+                            if (item.Role.Name == Helper.HelperAutorize.RoleOrgManager)
+                                model.IsOrgMangager = true;
+                            if (item.Role.Name == Helper.HelperAutorize.RoleAccept)
+                                model.IsAcceptOrder = true;
+                            if (item.Role.Name == Helper.HelperAutorize.ApprovalExceptionalBudget)
+                                model.IsApprovalExceptionalBudget = true;
+                        }
+                    }
+                }
+                return View(model);
+            }
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
