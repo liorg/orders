@@ -19,14 +19,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
-
+    <link href="~/Content/css/circle.css" rel="stylesheet" />
     <style>
         /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
         body {
             padding-top: 70px;
         }
-
-
+        
         #top-link-block.affix-top {
             position: absolute; /* allows it to "slide" up into view */
             bottom: -82px; /* negative of the offset - height of link element */
@@ -40,15 +39,15 @@
         }
     </style>
 
-<script>
-    var doc = document.documentElement;
-    doc.setAttribute('data-useragent', navigator.userAgent);
-</script>
-	<link href="/Content/css/onlyie.css" rel="stylesheet" />
+    <script>
+        var doc = document.documentElement;
+        doc.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+    <link href="/Content/css/onlyie.css" rel="stylesheet" />
 
 
 
-    
+
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -78,36 +77,36 @@
                             <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש</a>
                         </li>
                     }
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ראשי  <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                            @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) ||  User.IsInRole(HelperAutorize.RoleOrgManager)))
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ראשי  <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleOrgManager)))
                             {
-                                <li><a href="/Account/"><i class="fa fa-user-plus"></i> משתמשי ארגון </a></li>
-                                 <li class="divider"></li>
+                                <li><a href="/Account/"><i class="fa fa-user-plus"></i>משתמשי ארגון </a></li>
+                                <li class="divider"></li>
                             }
                             @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
                             {
-                                <li><a href="/Account/GetShippers"><i class="fa fa-user-plus"></i> משתמשי ספק </a></li>
-                                 <li class="divider"></li>
+                                <li><a href="/Account/GetShippers"><i class="fa fa-user-plus"></i>משתמשי ספק </a></li>
+                                <li class="divider"></li>
                             }
                             @if (Request.IsAuthenticated && User.IsInRole(HelperAutorize.RoleAdmin))
                             {
-                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i> רענון Cache </a></li>
+                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache </a></li>
                                 <li class="divider"></li>
                             }
-                                <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i> הודעות </a></li>
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i> מחשבון מחיר </a></li>
-                                <li class="divider"></li>
-                                <li><a href="@Url.Action("Details", "Company")"><i class="fa fa-motorcycle"></i> פרטי הספק </a></li>
-                                 <li class="divider"></li>
-                                <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i> פרטי מוצר </a></li>
-                               
-                            </ul>
-                        </li>
+                            <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i>הודעות </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i>מחשבון מחיר </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Details", "Company")"><i class="fa fa-motorcycle"></i>פרטי הספק </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i>פרטי מוצר </a></li>
+
+                        </ul>
+                    </li>
                     @RenderSection("ordernumber", required: false)
-                    
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bar-chart"></i>תצוגות <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -321,7 +320,7 @@
         function usersView(page, prevDay, nextDay) {
             if (page == null)
                 page = $('#currentPage').val();
-           
+
 
             var viewUrl = "/Account?&currentPage=" + page;
             changeUrl(viewUrl);
@@ -330,10 +329,10 @@
             if (page == null)
                 page = $('#currentPage').val();
 
-           // var viewUrl = "/Notification?&currentPage=" + page;
+            // var viewUrl = "/Notification?&currentPage=" + page;
             var url = window.location.href.match(/^[^\#\?]+/)[0];
-           var viewUrl = url + "?currentPage=" + page;
-        //   alert(url);
+            var viewUrl = url + "?currentPage=" + page;
+            //   alert(url);
             changeUrl(viewUrl);
         }
         function clickToOrder(url) {
