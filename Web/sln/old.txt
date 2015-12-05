@@ -76,7 +76,7 @@ schema changed:
 3. isonproccess for status-OK
 
 1. users
-1.1 userprofile (as fields is share)
+1.1 userprofile (as fields is share)-OK
 1.2 create two views OK
 1.2.1 clients OK
 1.2.2 suppliers OK

@@ -31,24 +31,33 @@ namespace Michal.Project.Controllers
             }
         }
 
-            
+
         public ActionResult Details(Guid? companyid)
         {
-            CompanyVm coompanyVm = new CompanyVm();
-           
+            CompanyVm companyVm = new CompanyVm();
+
             using (var context = new ApplicationDbContext())
             {
                 UserContext user = new UserContext(AuthenticationManager);
                 GeneralAgentRepository repository = new GeneralAgentRepository(context);
                 var orgId = repository.GetOrg();
                 CalcService calc = new CalcService(repository, repository, repository);
-                
+
                 var company = calc.GetCompany(orgId, companyid);
-                coompanyVm.Name = company.Name;
-                coompanyVm.Id = company.ShippingCompanyId;
-               
+                companyVm.Name = company.Name;
+                companyVm.Id = company.ShippingCompanyId;
+                companyVm.ContractTel = company.ContactTel;
+                companyVm.ContactFullName = company.ContactFullName;
+
+                companyVm.Address = new AddressEditorViewModel();
+                companyVm.Address.City = company.AddressCompany.CityName;
+                companyVm.Address.ExtraDetail = company.AddressCompany.ExtraDetail;
+                companyVm.Address.Num = company.AddressCompany.StreetNum;
+                companyVm.Address.Street = company.AddressCompany.StreetName;
+
+                companyVm.Desc=  company.Desc;
             }
-            return View(coompanyVm);
+            return View(companyVm);
         }
 
         public ActionResult BussinessClosure(Guid companyid)
@@ -62,7 +71,7 @@ namespace Michal.Project.Controllers
                 GeneralAgentRepository repository = new GeneralAgentRepository(context);
                 var orgId = repository.GetOrg();
                 CalcService calc = new CalcService(repository, repository, repository);
-                bussinessClosureView.Items = calc.GetBussinessClosure( companyid);
+                bussinessClosureView.Items = calc.GetBussinessClosure(companyid);
                 var company = calc.GetCompany(orgId, companyid);
                 bussinessClosureView.Name = company.Name;
                 return View(bussinessClosureView);
@@ -104,7 +113,7 @@ namespace Michal.Project.Controllers
             }
         }
 
-       
+
 
     }
 }
