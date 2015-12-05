@@ -83,7 +83,7 @@ schema changed:
 
 2. sla
 2.1 fixed view holiday-OK
-2.2 add more fields for suplier details
+2.2 add more fields for suplier details-OK
 
 3. steps for exceptions
 3.1 tree views
