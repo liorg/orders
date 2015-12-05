@@ -21,17 +21,19 @@ namespace Michal.Project.Mechanism
         protected readonly IShipComapnyRepository _shipComapnyRepository;
         protected readonly IBussinessClosureRepository _bussinessClosureRepository;
         protected readonly ISlaRepository _slaRepository;
+        protected readonly bool _isUserGrant;
 
         protected Handler successor;
         public Handler(IBussinessClosureRepository bussinessClosureRepository,ISlaRepository slaRepository,
             
             IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep,bool isUserGrant=false)
         {
             _bussinessClosureRepository = bussinessClosureRepository;
             _slaRepository = slaRepository;
             _shipComapnyRepository = shipComapnyRepository;
             _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
+            _isUserGrant = isUserGrant;
         }
         public void SetSuccessor(Handler successor)
         {
@@ -40,9 +42,10 @@ namespace Michal.Project.Mechanism
 
         public abstract Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user);
 
-        public async Task<MessageForUsers> SetNotification(IEnumerable<Guid> users, string url, string title, string body)
+        public async Task<MessageForUsers> SetNotification(IEnumerable<Guid> users, string url, string title, string body,string messageClient)
         {
             MessageForUsers result = new MessageForUsers();
+            result.MessageClient = messageClient;
             result.NotifyItem = new NotifyItem
             {
                 Title = title,

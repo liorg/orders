@@ -25,6 +25,8 @@ namespace Michal.Project.Mechanism
         {
             if (offer.StateCode == (int)OfferVariables.OfferStateCode.New)
             {
+                var messageClient = "";
+                
                 var ship = await _shippingRepository.GetShipIncludeFollowsUsers(offer.Id);
                
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
@@ -44,7 +46,7 @@ namespace Michal.Project.Mechanism
                 var urlMessage = url + path;
                 var users = follow.GetUsersByShip(ship);
 
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage);
+                return await SetNotification(users, urlMessage, titleMessage, bodyMessage,messageClient);
             }
             else if (successor != null)
             {

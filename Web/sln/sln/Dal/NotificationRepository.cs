@@ -54,6 +54,12 @@ namespace Michal.Project.Dal
         public void Register(string userid, string deviceid)
         {
             var dt = DateTime.Now;
+            var userId=Guid.Parse(userid);
+           var removes= _context.UserNotify.Where(dd => dd.UserId == userId).ToList();
+           foreach (var remove in removes)
+           {
+               _context.UserNotify.Remove(remove);  
+           }
             _context.UserNotify.Add(new DataModel.UserNotify
             {
                 UserNotifyId = Guid.NewGuid(),

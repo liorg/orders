@@ -447,7 +447,7 @@ namespace Michal.Project.Bll
             }
         }
 
-        public void Create(OfferUpload offer, UserContext user, Shipping ship, ShippingCompany managerShip)
+        public RequestShipping Create(OfferUpload offer, UserContext user, Shipping ship, ShippingCompany managerShip)
         {
             var dt = DateTime.Now;
             Guid requestShippingId = Guid.NewGuid();
@@ -473,9 +473,24 @@ namespace Michal.Project.Bll
             _offerRepository.Create(request, items);
 
 
-
+            return request;
         }
 
+        public bool IsNeedEsclationPrice(OfferUpload offer,Shipping ship,RequestShipping request )
+        {
+            var org = _orgDetailRep.GetOrgEntity();
+            if ((offer.AddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
+            {
+               // request.StatusCode = (int)OfferVariables.OfferStateCode.ConfirmException;//next status
+                return true;
+            }
+            return false;
+        }
+        public void SetEsclationStatus(OfferUpload offer, Shipping ship, RequestShipping request)
+        {
+            request.StatusCode = (int)OfferVariables.OfferStateCode.ConfirmException;//next status
+                
+        }
         public void ChangeStatusOffer(int status, OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
         {
             List<RequestItemShip> items = new List<RequestItemShip>();
@@ -491,7 +506,10 @@ namespace Michal.Project.Bll
             _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
             
         }
-
+        public void SetApprovalPriceException(OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
+        {
+            ship.ApprovalPriceException = user.UserId;
+        }
         public List<RequestItemShip> FillItems(OfferUpload offerRequest, Guid requestShippingId, UserContext user)
         {
             DateTime dt = DateTime.Now;

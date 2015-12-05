@@ -12,7 +12,11 @@
                 else  if (Model.StateCode==2) {
                 <img src="~/Content/img/thumbs32x32.png" />
                 }
-                else   {
+                else  if (Model.StateCode==7) {
+                <img src="~/Content/img/flag32x32.png" />
+                }
+                else
+                {
                 <img src="~/Content/img/finish32x32.png" />
                 }
 
@@ -25,10 +29,12 @@
         </div>
         <div class="btn-group" style="margin-left: 4px">
             <button type="button" id="btnCancel" data-toggle="tooltip"  title="ביטול" data-placement="top" data-url="@Url.Action("Index", "F")"  class="btn btn-danger btn-circle btn-xl">
-                @if (Model.StateCode==1){   
+                @if (Model.StateCode == 1)
+                {   
              <img src="~/Content/img/delete32x32.png" />
-             }
-                else{
+                }
+                else
+                {
                 <img src="~/Content/img/thumbsdown32x32.png" />
                 }
             </button>

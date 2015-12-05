@@ -700,6 +700,7 @@ namespace Michal.Project.Controllers
             identity.AddClaim(new Claim(CustomClaimTypes.Num, user.AddressUser.StreetNum.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.External, String.IsNullOrEmpty(user.AddressUser.ExtraDetail) ? "" : user.AddressUser.ExtraDetail.ToString()));
             identity.AddClaim(new Claim(CustomClaimTypes.UID, user.AddressUser.UID.ToString()));
+            identity.AddClaim(new Claim(CustomClaimTypes.GrantUser, user.GrantUserManager.GetValueOrDefault().ToString()));
 
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }

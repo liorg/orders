@@ -18,6 +18,18 @@ namespace Michal.Project.Models
                 return _orgId;
             }
         }
+        Guid? _grantUserid;
+        public Guid? GrantUserId
+        {
+            get
+            {
+                return _grantUserid;
+            }
+            set
+            {
+                _grantUserid = value;
+            }
+        }
 
         public Guid UserId
         {
@@ -93,7 +105,7 @@ namespace Michal.Project.Models
             {
                 if (claim.Type == CustomClaimTypes.CityCode)
                 {
-                    _address.CityCode = claim.Value;  continue;
+                    _address.CityCode = claim.Value; continue;
                 }
                 if (claim.Type == CustomClaimTypes.City)
                 {
@@ -123,7 +135,12 @@ namespace Michal.Project.Models
                 {
                     _tel = claim.Value; continue;
                 }
-
+                if (claim.Type == CustomClaimTypes.GrantUser)
+                {
+                    var tempId = Guid.Parse(claim.Value);
+                    if (tempId != Guid.Empty)
+                        _grantUserid = tempId; continue;
+                }
                 if (claim.Type == ClaimTypes.GroupSid)
                 {
                     _orgId = Guid.Parse(claim.Value); continue;

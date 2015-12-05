@@ -20,23 +20,25 @@ namespace Michal.Project.Fasade
 
         }
 
-        public async Task<Result> CommitAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
+        public async Task<Result<OfferMessage>> CommitAsync(ApplicationDbContext context, OfferUpload offer, UserContext user,bool isUserGrant)
         {
-            var response = new Result();
+            var response = new Result<OfferMessage>();
             try
             {
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-                Handler requestOffer = new RequestOffer(generalRepo, generalRepo,shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, isUserGrant);
+                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, isUserGrant);
                 requestOffer.SetSuccessor(commitOffer);
                 var messages = await requestOffer.HandleRequest(offer, user);
 
                 await context.SaveChangesAsync();
                 if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
                 {
+                    response.Model = new OfferMessage();
+                    response.Model.MessageClient = messages.MessageClient;
                     NotificationManager manager = new NotificationManager();
                     await manager.SendItemsAsync(context, messages);
                 }
@@ -52,9 +54,9 @@ namespace Michal.Project.Fasade
            
         }
 
-        public async Task<Result> CancelAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
+        public async Task<Result<OfferMessage>> CancelAsync(ApplicationDbContext context, OfferUpload offer, UserContext user)
         {
-            var response = new Result();
+            var response = new Result<OfferMessage>();
             try
             {
                 IOfferRepository offerRepository = new OfferRepository(context);
@@ -69,6 +71,8 @@ namespace Michal.Project.Fasade
                 await context.SaveChangesAsync();
                 if (messages != null && messages.Users != null && messages.NotifyItem != null && messages.Users.Any())
                 {
+                    response.Model = new OfferMessage();
+                    response.Model.MessageClient = messages.MessageClient;
                     NotificationManager manager = new NotificationManager();
                     await manager.SendItemsAsync(context, messages);
                 }

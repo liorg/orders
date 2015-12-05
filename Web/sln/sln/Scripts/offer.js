@@ -473,6 +473,7 @@ $(document).ready(function () {
             }
         });
     });
+
     $('#btnCancelPrice').click(function () {
         debugger;
         var items = ko.mapping.toJS(vm.Items);

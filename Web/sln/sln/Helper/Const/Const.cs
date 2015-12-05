@@ -71,6 +71,7 @@ namespace Michal.Project.Helper
         public const string Num = "http://r.co.il/claims/Num";
         public const string External = "http://r.co.il/claims/External";
         public const string UID = "http://r.co.il/claims/UID";
+        public const string GrantUser = "http://r.co.il/claims/GrantUser";
     }
 
     public class TimeStatus
@@ -104,7 +105,7 @@ namespace Michal.Project.Helper
         public const string Close = "00000000-0000-0000-0000-000000000021";//11
         public const string ArrivedSender = "00000000-0000-0000-0000-000000000026";//5
 
-        public const int Max = 11;
+        public const int Max = 8;
         //public const int DraftCode = 1;
         //public const int ApporvallRequestCode = 2;
         //public const int CancelCode = 3;

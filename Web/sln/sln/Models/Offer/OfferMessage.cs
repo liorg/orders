@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Michal.Project.Contract.View;
+using Michal.Project.Helper;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class MessageForUsers
+    public class OfferMessage 
     {
-        public NotifyItem NotifyItem { get; set; }
-        public List<Guid> Users { get; set; }
         public string MessageClient { get; set; }
     }
+
 }

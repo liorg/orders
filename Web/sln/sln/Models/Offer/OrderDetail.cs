@@ -45,5 +45,20 @@ namespace Michal.Project.Models
 
         [Display(Name = "מרחק")]
         public string DistanceText { get; set; }
+
+        [Display(Name = "יוצר הצעה")]
+        public Guid Creator { get; set; }
+        [Display(Name = "יוצר הצעה")]
+        public Guid CreatorMame { get; set; }
+
+        [Display(Name = "מאשר הצעה")]
+        public Guid Approval { get; set; }
+        [Display(Name = "מאשר הצעה")]
+        public Guid ApprovalMame { get; set; }
+
+        [Display(Name = "מאשר חריגות")]
+        public Guid ApprovalPriceException { get; set; }
+        [Display(Name = "מאשר ההזמנה")]
+        public Guid ApprovalPriceExceptionMame { get; set; }
     }
 }

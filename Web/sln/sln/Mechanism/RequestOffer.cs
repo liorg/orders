@@ -19,9 +19,9 @@ namespace Michal.Project.Mechanism
     internal class RequestOffer : Handler
     {
         public RequestOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
-            base(bussinessClosureRepository,slaRepository,
-            shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, bool isUserGrant) :
+            base(bussinessClosureRepository, slaRepository,
+             shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep, isUserGrant)
         {
 
         }
@@ -30,6 +30,7 @@ namespace Michal.Project.Mechanism
         {
             if (offer.StateCode == (int)OfferVariables.OfferStateCode.New)
             {
+                var messageClient = "";
                 var ship = await _shippingRepository.GetShipIncludeItems(offer.Id); //context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 var managerShip = await _shipComapnyRepository.GetAsync(offer.ShippingCompanyId);
                 HashSet<Guid> users = new HashSet<Guid>();
@@ -37,23 +38,33 @@ namespace Michal.Project.Mechanism
                 {
                     users.Add(ship.OwnerId.Value);
                 }
-                if (managerShip.ManagerId != null && managerShip.ManagerId.Value == Guid.Empty)
-                {
 
-                    users.Add(managerShip.ManagerId.Value);
-                }
-                users.Add(user.UserId);
-
+                var bodyMessage = " בקשת אישור הזמנה עבור " + ship.Name;
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
-               
+
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
                 StatusLogic statusLogic = new StatusLogic(_shippingRepository);
                 statusLogic.ApprovalRequest2(request);
 
-                logic.Create(offer, user, ship, managerShip);
+                var requestShip = logic.Create(offer, user, ship, managerShip);
+                var isNeedConfirm = logic.IsNeedEsclationPrice(offer, ship, requestShip);
+                if (isNeedConfirm)
+                {
+                    logic.SetEsclationStatus(offer, ship, requestShip);
+                    messageClient = " מחייב אישור למחיר חריג";
 
+                    if (user.GrantUserId.HasValue)
+                        users.Add(user.GrantUserId.Value);
+                    bodyMessage += " שים לב ! יש חובה לאשר מחיר חריג זה לפני ההזמנה";
+                }
+                else
+                {
+                    if (managerShip.ManagerId != null && managerShip.ManagerId.Value == Guid.Empty)
+                        users.Add(managerShip.ManagerId.Value);
+                    users.Add(user.UserId);
+                }
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 foreach (var userID in users)
                 {
@@ -64,9 +75,8 @@ namespace Michal.Project.Mechanism
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 
                 var titleMessage = "הזמנה חדשה";
-                var bodyMessage = " בקשת אישור הזמנה עבור " + ship.Name;
                 var urlMessage = url + path;
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage);
+                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient);
             }
             else if (successor != null)
             {

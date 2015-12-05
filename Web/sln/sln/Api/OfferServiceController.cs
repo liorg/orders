@@ -36,6 +36,7 @@ namespace Michal.Project.Api
             return Ok(Order.CreateOrders());
         }
         [System.Web.Http.AcceptVerbs("GET", "POST")]
+       
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId, Guid shippingCompanyId)
@@ -91,30 +92,34 @@ namespace Michal.Project.Api
                 return response;
             }
         }
-         [Authorize]
+        
+        [Authorize]
         [System.Web.Http.AcceptVerbs("POST")]
         [Route("CommitOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> CommitOffer([FromBody] OfferUpload offer)
         {
-            var result = new Result();
+            var result = new Result<OfferMessage>();
             var userContext = HttpContext.Current.GetOwinContext().Authentication;
             var user = new UserContext(userContext);
             using (var context = new ApplicationDbContext())
             {
                 OfferManager offermanager = new OfferManager();
-                result = await offermanager.CommitAsync(context, offer, user);
+                var isUserGrant=this.User.IsInRole(HelperAutorize.RoleOrgManager) || this.User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.ApprovalExceptionalBudget);
+
+                result = await offermanager.CommitAsync(context, offer, user, isUserGrant);
 
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<Result>(result,
+                Content = new ObjectContent<Result<OfferMessage>>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
             return response;
         }
-         [Authorize]
+        
+        [Authorize]
         [System.Web.Http.AcceptVerbs("POST")]
         [Route("CancelOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]

@@ -313,6 +313,7 @@
     </Compile>
     <Compile Include="Mechanism\CanceClient.cs" />
     <Compile Include="Mechanism\CancelOffer.cs" />
+    <Compile Include="Mechanism\EscalationOffer.cs" />
     <Compile Include="Mechanism\RequestOffer.cs" />
     <Compile Include="Mechanism\Handler.cs">
       <SubType>Code</SubType>
@@ -412,6 +413,7 @@
     <Compile Include="Models\KeyValuePairUI.cs" />
     <Compile Include="Models\NSStreet\LocationUi.cs" />
     <Compile Include="Models\NSStreet\StreetRequest.cs" />
+    <Compile Include="Models\Offer\OfferMessage.cs" />
     <Compile Include="Models\Offer\Offer.cs" />
     <Compile Include="Models\Offer\OfferClient.cs" />
     <Compile Include="Models\Offer\OfferClientItem.cs" />
@@ -482,6 +484,7 @@
     <Content Include="Content\img\discount32green.png" />
     <Content Include="Content\img\error128.png" />
     <Content Include="Content\img\finish32x32.png" />
+    <Content Include="Content\img\flag32x32.png" />
     <Content Include="Content\img\location32x32.png" />
     <Content Include="Content\img\Male-Avatar-Bowler-Hat-icon.png" />
     <Content Include="Content\img\Male-Avatar-Cool-Cap-icon.png" />
