@@ -15,9 +15,9 @@ namespace Michal.Project.Mechanism
     internal class CancelOffer : Handler
     {
         public CancelOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep) :
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository) :
             base(bussinessClosureRepository, slaRepository,
-           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep)
+           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository)
         {
 
         }
@@ -31,7 +31,7 @@ namespace Michal.Project.Mechanism
                 var offerModel = await _offerRepository.GetAsync(offer.OfferId);
 
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
-                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep,_userRepository);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;

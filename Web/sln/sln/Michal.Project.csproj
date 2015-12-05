@@ -210,6 +210,7 @@
     <Compile Include="Bll\OrderLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
+    <Compile Include="Contract\DAL\IUserRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IBussinessClosureRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\ISlaRepository.cs" />
     <Compile Include="Contract\DAL\INotificationRepository.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IOfferPriceRepostory.cs" />
+    <Compile Include="Dal\UserRepository.cs" />
     <Compile Include="Dal\ShipComapnyRepository.cs" />
     <Compile Include="Dal\GeneralAgentRepository.cs" />
     <Compile Include="Dal\NotificationRepository.cs" />
@@ -433,6 +435,7 @@
     <Compile Include="Models\Status\StatusDesc.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
     <Compile Include="Models\NSStreet\Streets.cs" />
+    <Compile Include="Models\UserLink.cs" />
     <Compile Include="Models\UserManagement\UserDetail.cs" />
     <Compile Include="Models\UserProfiler.cs" />
     <Compile Include="Models\OrderView.cs" />
@@ -842,6 +845,7 @@
     <Content Include="Views\Account\GetShippers.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shared\UserDetail.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\UserLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

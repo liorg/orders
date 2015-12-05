@@ -65,7 +65,8 @@ namespace Michal.Project.Api
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                IUserRepository userRepository = new UserRepository(context);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo,userRepository);
 
                 var ship = await shippingRepository.GetShipIncludeItems(shipid);
                 OfferClient offerClient = logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
@@ -161,7 +162,8 @@ namespace Michal.Project.Api
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                IUserRepository userRepository = new UserRepository(context);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
                  
                 var mockShip = new Shipping();
                 mockShip.Direction = 0;

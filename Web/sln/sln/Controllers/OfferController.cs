@@ -66,7 +66,8 @@ namespace Michal.Project.Controllers
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo);
+                IUserRepository userRepository = new UserRepository(context);
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
 
                 var ship = await logic.GetShipAsync(shipId); //context.Shipping.Include(s => s.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 order.Id = shipId;
@@ -119,8 +120,10 @@ namespace Michal.Project.Controllers
                 order.SourceAddress.Street = ship.Source.StreetName;
                 order.SourceAddress.Streetcode = ship.Source.StreetCode;
 
-                
-
+                order.Approval =await logic.GetApproval(ship);
+                order.ApprovalPriceException = await logic.GetApprovalException(ship);
+                order.Creator = await logic.GetCreator(ship);
+                order.ApprovalShipping = await logic.GetApprovalShip(ship);
 
                 Guid orgId = generalRepo.GetOrg();
                 return View(order);

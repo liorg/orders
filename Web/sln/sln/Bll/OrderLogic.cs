@@ -17,13 +17,17 @@ namespace Michal.Project.Bll
         readonly IShippingRepository _shippingRepository;
         readonly IOfferPriceRepostory _offerPrice;
         readonly IOrgDetailRepostory _orgDetailRep;
+        readonly IUserRepository _userRepo;
 
-        public OrderLogic(IOfferRepository offerRepository, IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep)
+        public OrderLogic(IOfferRepository offerRepository, 
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice,
+            IOrgDetailRepostory orgDetailRep,IUserRepository userRepo)
         {
             _offerRepository = offerRepository;
             _shippingRepository = shippingRepository;
             _offerPrice = offerPrice;
             _orgDetailRep = orgDetailRep;
+            _userRepo=userRepo;
         }
 
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
@@ -481,16 +485,17 @@ namespace Michal.Project.Bll
             var org = _orgDetailRep.GetOrgEntity();
             if ((offer.AddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
             {
-               // request.StatusCode = (int)OfferVariables.OfferStateCode.ConfirmException;//next status
                 return true;
             }
             return false;
         }
+        
         public void SetEsclationStatus(OfferUpload offer, Shipping ship, RequestShipping request)
         {
             request.StatusCode = (int)OfferVariables.OfferStateCode.ConfirmException;//next status
                 
         }
+        
         public void ChangeStatusOffer(int status, OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
         {
             List<RequestItemShip> items = new List<RequestItemShip>();
@@ -506,10 +511,12 @@ namespace Michal.Project.Bll
             _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
             
         }
+      
         public void SetApprovalPriceException(OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
         {
             ship.ApprovalPriceException = user.UserId;
         }
+       
         public List<RequestItemShip> FillItems(OfferUpload offerRequest, Guid requestShippingId, UserContext user)
         {
             DateTime dt = DateTime.Now;
@@ -553,6 +560,28 @@ namespace Michal.Project.Bll
         public void Update(Shipping ship)
         {
             _shippingRepository.Update(ship);
+        }
+
+        public async Task<UserLink> GetCreator(Shipping ship)
+        {
+            var userLink =await _userRepo.GetUserLink(ship.CreatedBy);
+            return userLink;
+        }
+        public async Task<UserLink> GetApproval(Shipping ship)
+        {
+            var userLink = await _userRepo.GetUserLink(ship.ApprovalRequest);
+            return userLink;
+        }
+
+        public async Task<UserLink> GetApprovalException(Shipping ship)
+        {
+            var userLink = await _userRepo.GetUserLink(ship.ApprovalPriceException);
+            return userLink;
+        }
+        public async Task<UserLink> GetApprovalShip(Shipping ship)
+        {
+            var userLink = await _userRepo.GetUserLink(ship.ApprovalShip);
+            return userLink;
         }
     }
 }

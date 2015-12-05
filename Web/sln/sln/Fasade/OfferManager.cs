@@ -29,8 +29,9 @@ namespace Michal.Project.Fasade
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-                Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, isUserGrant);
-                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, isUserGrant);
+                IUserRepository userRepository = new UserRepository(context);
+                Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,isUserGrant);
+                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,isUserGrant);
                 requestOffer.SetSuccessor(commitOffer);
                 var messages = await requestOffer.HandleRequest(offer, user);
 
@@ -63,8 +64,9 @@ namespace Michal.Project.Fasade
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
-                Handler cancelClient = new CanceClient(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
-                Handler cancelOffer = new CancelOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo);
+                IUserRepository userRepository = new UserRepository(context);
+                Handler cancelClient = new CanceClient(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
+                Handler cancelOffer = new CancelOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
                 cancelClient.SetSuccessor(cancelOffer);
                 var messages = await cancelClient.HandleRequest(offer, user);
 

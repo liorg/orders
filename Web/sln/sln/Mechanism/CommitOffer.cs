@@ -15,9 +15,9 @@ namespace Michal.Project.Mechanism
     internal class CommitOffer : Handler
     {
         public CommitOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep,bool isUserGrant) :
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository, bool isUserGrant) :
             base(bussinessClosureRepository, slaRepository,
-           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,isUserGrant)
+           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository, isUserGrant)
         {
 
         }
@@ -33,7 +33,7 @@ namespace Michal.Project.Mechanism
                 var titleMessage = "הזמנה אושרה";
                 HashSet<Guid> users = new HashSet<Guid>();
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
-                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository);
                 CalcService sla = new CalcService(_bussinessClosureRepository, _slaRepository,_orgDetailRep);
                 var usersfollow = follow.GetUsersByShip(ship);
                 foreach (var usrFollow in usersfollow)

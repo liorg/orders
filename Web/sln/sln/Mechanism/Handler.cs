@@ -22,17 +22,19 @@ namespace Michal.Project.Mechanism
         protected readonly IBussinessClosureRepository _bussinessClosureRepository;
         protected readonly ISlaRepository _slaRepository;
         protected readonly bool _isUserGrant;
-
+        protected readonly IUserRepository _userRepository;
         protected Handler successor;
         public Handler(IBussinessClosureRepository bussinessClosureRepository,ISlaRepository slaRepository,
             
             IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep,bool isUserGrant=false)
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep,
+            IUserRepository userRepository,bool isUserGrant=false)
         {
             _bussinessClosureRepository = bussinessClosureRepository;
             _slaRepository = slaRepository;
             _shipComapnyRepository = shipComapnyRepository;
             _offerRepository = offerRepository; _shippingRepository = shippingRepository; _offerPrice = offerPrice; _orgDetailRep = orgDetailRep;
+            _userRepository = userRepository;
             _isUserGrant = isUserGrant;
         }
         public void SetSuccessor(Handler successor)

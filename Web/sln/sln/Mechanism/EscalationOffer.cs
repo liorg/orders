@@ -19,9 +19,9 @@ namespace Michal.Project.Mechanism
     internal class EscalationOffer : Handler
     {
         public EscalationOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, bool isUserGrant) :
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository, bool isUserGrant) :
             base(bussinessClosureRepository, slaRepository,
-             shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep, isUserGrant)
+             shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository, isUserGrant)
         {
 
         }
@@ -35,7 +35,7 @@ namespace Michal.Project.Mechanism
                 var ship = await _shippingRepository.GetShipIncludeItems(offer.Id); //context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == offer.Id);
                 var offerModel = await _offerRepository.GetOfferAndHisChilds(offer.OfferId);
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
-                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository);
                
                 HashSet<Guid> users = new HashSet<Guid>();
                 var usersfollow = follow.GetUsersByShip(ship);
@@ -47,7 +47,7 @@ namespace Michal.Project.Mechanism
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Request, offer, user, ship, offerModel);
 
                 logic.SetApprovalPriceException(offer, user, ship, offerModel);
-
+                logic.Update(ship);
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 
