@@ -152,14 +152,14 @@ namespace Michal.Project.Helper
             var bar = new TagBuilder("div");
             var fill = new TagBuilder("div");
 
-            string cssValue = "p" + value.ToString("");
-           
-            if(!String.IsNullOrWhiteSpace(size))
+            string cssValue = "p" + ((int)value).ToString("");
+
+            if (!String.IsNullOrWhiteSpace(size))
                 builder.AddCssClass(size);
             builder.AddCssClass("c100");
             builder.AddCssClass(cssValue);
 
-            span.SetInnerText(value.ToString()+"%");
+            span.SetInnerText(((int)value).ToString() + "%");
             span.ToString(TagRenderMode.EndTag);
             builder.InnerHtml += span.ToString();
 

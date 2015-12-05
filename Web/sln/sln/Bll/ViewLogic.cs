@@ -98,7 +98,7 @@ namespace Michal.Project.Bll
 
             orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
 
-            orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : shipping.StatusShipping.OrderDirection / Status.Max * 100;
+            orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection / (double)Status.Max) * 100;
 
             orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
@@ -174,7 +174,7 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
             orderModel.ShippingVm.ActualStartDate =shipping.ActualStartDate.HasValue? shipping.ActualStartDate.Value.ToString("dd/MM/yyyy hh:mm"): "עוד לא אושר";
             orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value==DateTime.Now.Date?   shipping.SlaTime.Value.ToString("hh:mm") :shipping.SlaTime.Value.ToString("dd/MM/yyyy hh:mm") : "עוד לא אושר";
-            orderModel.ShippingVm.StatusPresent = 23;// shipping.StatusShipping.OrderDirection == 0 ? 0 : shipping.StatusShipping.OrderDirection / Status.Max * 100;
+            orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection /(double) Status.Max) * 100;
 
             orderModel.ShippingVm.TelSource = shipping.TelSource;
             orderModel.ShippingVm.TelTarget = shipping.TelTarget;
