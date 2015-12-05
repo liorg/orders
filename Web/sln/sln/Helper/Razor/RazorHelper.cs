@@ -107,11 +107,11 @@ namespace Michal.Project.Helper
                     circleCss = "danger";
                     break;
                 case Helper.TimeStatus.AcceptByRunner:
-                    fa= "fa-road";
+                    fa = "fa-road";
                     circleCss = "success";
                     break;
                 case Helper.TimeStatus.Arrived:
-                    fa="fa-clock-o";// "fa-map-marker";
+                    fa = "fa-clock-o";// "fa-map-marker";
                     circleCss = "info";
                     break;
                 case Helper.TimeStatus.ArrivedSender:
@@ -120,15 +120,15 @@ namespace Michal.Project.Helper
                     break;
                 //fa-check
                 case Helper.TimeStatus.NoAcceptByClient:
-                    fa= "fa-hand-rock-o";
+                    fa = "fa-hand-rock-o";
                     circleCss = "danger";
                     break;
                 case Helper.TimeStatus.AcceptByClient:
-                    fa= "fa-gift";
+                    fa = "fa-gift";
                     circleCss = "success";
                     break;
                 default:
-                    fa= "fa-rocket";
+                    fa = "fa-rocket";
                     circleCss = "default";
                     break;
 
@@ -142,6 +142,51 @@ namespace Michal.Project.Helper
             builder.InnerHtml += icon.ToString();
             return MvcHtmlString.Create(builder.ToString());
             //return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
+        }
+
+        public static MvcHtmlString Cyrcle(this HtmlHelper helper, double value, string size)
+        {
+            var builder = new TagBuilder("div");
+            var span = new TagBuilder("span");
+            var slice = new TagBuilder("div");
+            var bar = new TagBuilder("div");
+            var fill = new TagBuilder("div");
+
+            string cssValue = "p" + value.ToString("");
+           
+            if(!String.IsNullOrWhiteSpace(size))
+                builder.AddCssClass(size);
+            builder.AddCssClass("c100");
+            builder.AddCssClass(cssValue);
+
+            span.SetInnerText(value.ToString()+"%");
+            span.ToString(TagRenderMode.EndTag);
+            builder.InnerHtml += span.ToString();
+
+            slice.AddCssClass("slice");
+
+            bar.AddCssClass("bar");
+            bar.ToString(TagRenderMode.EndTag);
+            slice.InnerHtml += bar.ToString();
+
+            fill.AddCssClass("fill");
+            fill.ToString(TagRenderMode.EndTag);
+            slice.InnerHtml += fill.ToString();
+
+            builder.InnerHtml += slice.ToString();
+
+            return MvcHtmlString.Create(builder.ToString());
+
+            /*
+            <div class=" c100 p77 big">
+                <span>77</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+     
+             */
         }
 
     }

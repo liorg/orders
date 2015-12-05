@@ -14,16 +14,13 @@
 </div>
 @Html.Partial("_StatusConfirm", Model.Status)
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-lg-9">
         @Html.Partial("_orderDetail")
     </div>
-    <div class="col-md-3">
-        <div class="c100 p25">
-            <span>25%</span>
-            <div class="slice">
-                <div class="bar"></div>
-                <div class="fill"></div>
-            </div>
+    <div class="col-lg-3">
+        <div class="visible-lg" style="position:relative;top:40px">
+         
+              @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")
         </div>
     </div>
 </div>
@@ -35,7 +32,11 @@
         @Html.Partial("_comments")
     </div>
 </div>
-
+<div class="row visible-md visible-xs  visible-sm">
+    <div class="col-md-12">
+         @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "")
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         @Html.Partial("_TimeLinePartial", Model.TimeLineVms)

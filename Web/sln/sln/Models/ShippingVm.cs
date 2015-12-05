@@ -18,6 +18,11 @@ namespace Michal.Project.Models
         [Display(Name = "סטאטוס")]
         public string Status { get; set; }
 
+
+        [Display(Name = "קצב התקדמות")]
+        public double  StatusPresent { get; set; }
+
+
         [Display(Name = "סטאטוס")]
         public Guid StatusId { get; set; }
 
