@@ -18,9 +18,9 @@
         @Html.Partial("_orderDetail")
     </div>
     <div class="col-lg-3">
-        <div class="visible-lg" style="position:relative;top:40px">
-         
-              @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")
+        <div class="visible-lg" style="position: relative; top: 40px">
+
+            @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")
         </div>
     </div>
 </div>
@@ -34,7 +34,9 @@
 </div>
 <div class="row visible-md visible-xs  visible-sm">
     <div class="col-md-12">
-         @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "")
+        <div class="pull-right">
+            @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "")
+        </div>
     </div>
 </div>
 <div class="row">
