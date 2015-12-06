@@ -21,8 +21,7 @@ namespace Michal.Project.DataModel
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        // many to many
-        //public ICollection<Discount> Discount { get; set; }
+      
         public ICollection<RequestItemShip> RequestItemShip { get; set; }
         
         [Key]

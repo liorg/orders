@@ -411,8 +411,29 @@ function AppViewModel(vmData) {
 };
 
 ko.applyBindings(vm);
+function refreshPage() {
+    $.blockUI({
+        css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        },
+        message: "מרענן דף,נא המתן"
+    });
+    window.location.reload(false);
+}
+
 
 $(document).ready(function () {
+    $('#btnOk').click(function () {
+        $.unblockUI();
+        refreshPage();
+       // return false;
+    });
     $('#btnEditPrice').click(function () {
         debugger;
         var items = ko.mapping.toJS(vm.Items);
@@ -422,6 +443,8 @@ $(document).ready(function () {
             'OfferId': offerClient.OfferId,
             'ShippingCompanyId': offerClient.ShippingCompanyId,
             'StateCode': offerClient.StateCode,
+            'DiscountPrice': vm.TotalDiscount(),
+            'Price': vm.TotalPrice(),
             'Total': vm.Total(),
             'DataItems': items
         };
@@ -447,20 +470,15 @@ $(document).ready(function () {
                 debugger;
                 $.unblockUI();
                 if (!data.IsError) {
-                    alert("התהליך בוצע");
-                    $.blockUI({
-                        css: {
-                            border: 'none',
-                            padding: '15px',
-                            backgroundColor: '#000',
-                            '-webkit-border-radius': '10px',
-                            '-moz-border-radius': '10px',
-                            opacity: .5,
-                            color: '#fff'
-                        },
-                        message: "מרענן דף,נא המתן"
-                    });
-                    window.location.reload(false);
+                    if (data.MessageClient != null || data.MessageClient != "") {
+                        $('#vmclientMessage').text(data.MessageClient);
+                        $.blockUI({ message: $('#clientMessage'), css: { width: '275px' } });
+                    }
+                    else {
+                        //alert("התהליך בוצע");
+                        $.growlUI('סטאטוס', 'התהליך בוצע!')
+                        refreshPage();
+                    }
                 }
                 else
                 alert(data.ErrDesc);

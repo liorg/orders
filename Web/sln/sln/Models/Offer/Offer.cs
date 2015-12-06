@@ -29,6 +29,15 @@ namespace Michal.Project.Models
         public double? MaxPriceForGrantException { get; set; }
 
         public decimal? Total { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+
+        public decimal? ClosedTotal { get; set; }
+        public decimal? ClosedPrice { get; set; }
+        public decimal? ClosedDiscountPrice { get; set; }
+
+        public bool  IsClosed { get; set; }
+
     }
 
 }

@@ -39,16 +39,29 @@
         <div id="collapseUsers" class="panel-collapse collapse">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
                         <ul class="list-group">
 
                             <li class="list-group-item">
-                                <span class="label label-primary">@Html.DisplayFor(m=>m.Approval)</span>
+                                <span class="label label-primary">@Html.DisplayFor(m => m.Approval)</span>
                                 <span class="prefix pull-right">מאשר ההזמנה : </span>
                             </li>
                             <li class="list-group-item">
-                                <span class="label label-primary">>@Html.DisplayFor(m=>m.Creator)</span>
+                                <span class="label label-primary">@Html.DisplayFor(m => m.Creator)</span>
                                 <span class="prefix pull-right">יוצר ההזמנה : </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Html.DisplayFor(m => m.ApprovalPriceException)</span>
+                                <span class="prefix pull-right">מאשר חריגה : </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="label label-primary">@Html.DisplayFor(m => m.ApprovalShipping)</span>
+                                <span class="prefix pull-right">(חב' שליחויות) מאשר סופי: </span>
                             </li>
                         </ul>
                     </div>
