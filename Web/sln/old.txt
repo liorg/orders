@@ -81,7 +81,7 @@ schema changed:
 1.2.1 clients OK
 1.2.2 suppliers OK
 
-2. sla
+2. sla-OK
 2.1 fixed view holiday-OK
 2.2 add more fields for suplier details-OK
 

@@ -19,21 +19,22 @@ namespace Michal.Project.Bll
         readonly IOrgDetailRepostory _orgDetailRep;
         readonly IUserRepository _userRepo;
 
-        public OrderLogic(IOfferRepository offerRepository, 
+        public OrderLogic(IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice,
-            IOrgDetailRepostory orgDetailRep,IUserRepository userRepo)
+            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo)
         {
             _offerRepository = offerRepository;
             _shippingRepository = shippingRepository;
             _offerPrice = offerPrice;
             _orgDetailRep = orgDetailRep;
-            _userRepo=userRepo;
+            _userRepo = userRepo;
         }
 
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
         {
             OfferClient offerClient = new OfferClient();
             offerClient.ObjectIdExcpetionPriceId = Guid.Parse(ProductType.ObjectIdExcpetionPrice);
+
             //bool isPresent = false;
             int qunitityType = 0;
             var organid = _orgDetailRep.GetOrg();
@@ -324,6 +325,8 @@ namespace Michal.Project.Bll
         public void AppendCurrentOffer(OfferClient offerClient, Shipping ship, RequestShipping offer, bool allowRemove, bool allowEdit)
         {
             offerClient.StateCode = offer.StatusCode;
+            offerClient.IsAddExceptionPrice = false;
+            offerClient.AddExceptionPrice = offerClient.AddExceptionPrice;
             var discountLists = _offerPrice.GetDiscount();
             var priceList = _offerPrice.GetPriceList();
             var productsSystem = _offerPrice.GetProductsSystem();
@@ -334,11 +337,14 @@ namespace Michal.Project.Bll
             offerClient.DirtyDiscounts = new List<OfferClientItem>();
             foreach (var item in offer.RequestItemShip)
             {
+                if (item.ObjectTypeId == Guid.Parse(ProductType.ObjectIdExcpetionPrice))
+                    offerClient.IsAddExceptionPrice = true;
+
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
                     IsDiscount = item.IsDiscount,
-                    IsPresent = item.PriceValueType==2,
+                    IsPresent = item.PriceValueType == 2,
                     Name = item.Name,
                     Desc = item.Desc,
                     ObjectId = item.ObjectTypeId.GetValueOrDefault(),
@@ -484,22 +490,21 @@ namespace Michal.Project.Bll
             return request;
         }
 
-        public bool IsNeedEsclationPrice(OfferUpload offer,Shipping ship,RequestShipping request )
+        public bool IsNeedEsclationPrice(OfferUpload offer, Shipping ship, RequestShipping request)
         {
             var org = _orgDetailRep.GetOrgEntity();
-            if ((offer.AddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
-            {
+            if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
                 return true;
-            }
+
             return false;
         }
-        
+
         public void SetEsclationStatus(OfferUpload offer, Shipping ship, RequestShipping request)
         {
             request.StatusCode = (int)OfferVariables.OfferStateCode.ConfirmException;//next status
-                
+
         }
-        
+
         public void ChangeStatusOffer(int status, OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
         {
             List<RequestItemShip> items = new List<RequestItemShip>();
@@ -513,14 +518,14 @@ namespace Michal.Project.Bll
             offer.ModifiedOn = DateTime.Now;
 
             _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
-            
+
         }
-      
+
         public void SetApprovalPriceException(OfferUpload offerRequest, UserContext user, Shipping ship, RequestShipping offer)
         {
             ship.ApprovalPriceException = user.UserId;
         }
-       
+
         public List<RequestItemShip> FillItems(OfferUpload offerRequest, Guid requestShippingId, UserContext user)
         {
             DateTime dt = DateTime.Now;
@@ -568,7 +573,7 @@ namespace Michal.Project.Bll
 
         public async Task<UserLink> GetCreator(Shipping ship)
         {
-            var userLink =await _userRepo.GetUserLink(ship.CreatedBy);
+            var userLink = await _userRepo.GetUserLink(ship.CreatedBy);
             return userLink;
         }
         public async Task<UserLink> GetApproval(Shipping ship)

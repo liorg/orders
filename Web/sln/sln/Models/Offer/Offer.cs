@@ -24,6 +24,9 @@ namespace Michal.Project.Models
 
         public bool AddExceptionPrice { get; set; }
 
+        public bool IsAddExceptionPrice { get; set; }
+
+
         public Guid ObjectIdExcpetionPriceId { get; set; }
 
         public double? MaxPriceForGrantException { get; set; }

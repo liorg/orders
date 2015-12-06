@@ -127,6 +127,8 @@ function AppViewModel(vmData) {
 
     self.HasDirty = ko.observable(vmData.HasDirty);
     self.AddExceptionPrice = ko.observable(vmData.AddExceptionPrice);
+    self.IsAddExceptionPrice = ko.observable(vmData.IsAddExceptionPrice);
+    
     
     self.HasDirtyChange = function (b) {
       
@@ -347,7 +349,7 @@ function AppViewModel(vmData) {
             return;
         }
         if (current.ObjectId() == offerClient.ObjectIdExcpetionPriceId)
-            self.AddExceptionPrice(true);
+            self.IsAddExceptionPrice(true);
 
         if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
             product = ko.utils.arrayFirst(vm.Items(), function (item) {
@@ -375,7 +377,7 @@ function AppViewModel(vmData) {
         else {
             self.HasDirtyChange(true);
             if (current.ObjectId() == offerClient.ObjectIdExcpetionPriceId)
-                self.AddExceptionPrice(true);
+                self.IsAddExceptionPrice(true);
             var item = {};
             item.Id = generateUUID();
             item.Name = current.Name();
@@ -452,7 +454,7 @@ $(document).ready(function () {
             'DiscountPrice': vm.TotalDiscount(),
             'Price': vm.TotalPrice(),
             'Total': vm.Total(),
-            'AddExceptionPrice': vm.AddExceptionPrice(),
+            'IsAddExceptionPrice': vm.IsAddExceptionPrice(),
             'DataItems': items
         };
         $.blockUI({
