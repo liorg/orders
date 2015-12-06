@@ -84,6 +84,7 @@ schema changed:
 2. sla-OK
 2.1 fixed view holiday-OK
 2.2 add more fields for suplier details-OK
+2.3 sla year on view
 
 3. steps for exceptions
 3.1  views (3)
@@ -101,6 +102,10 @@ schema changed:
 
 5 views
 5.1 change new designs 
+
+6. notification
+6.1 delete notification
+
 
 
 
