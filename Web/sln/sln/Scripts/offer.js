@@ -126,7 +126,8 @@ function AppViewModel(vmData) {
     self.TimeWaitGet = ko.observable(vmData.TimeWaitGet);
 
     self.HasDirty = ko.observable(vmData.HasDirty);
-
+    self.AddExceptionPrice = ko.observable(vmData.AddExceptionPrice);
+    
     self.HasDirtyChange = function (b) {
       
         self.HasDirty(b);
@@ -345,6 +346,9 @@ function AppViewModel(vmData) {
             alert("יש לבחור סוג");
             return;
         }
+        if (current.ObjectId() == offerClient.ObjectIdExcpetionPriceId)
+            self.AddExceptionPrice(true);
+
         if (current.StatusRecord() == 1 || current.StatusRecord() == 4) {
             product = ko.utils.arrayFirst(vm.Items(), function (item) {
                 return item.Id() == current.Id();
@@ -370,6 +374,8 @@ function AppViewModel(vmData) {
         }
         else {
             self.HasDirtyChange(true);
+            if (current.ObjectId() == offerClient.ObjectIdExcpetionPriceId)
+                self.AddExceptionPrice(true);
             var item = {};
             item.Id = generateUUID();
             item.Name = current.Name();
@@ -411,6 +417,7 @@ function AppViewModel(vmData) {
 };
 
 ko.applyBindings(vm);
+
 function refreshPage() {
     $.blockUI({
         css: {
@@ -426,7 +433,6 @@ function refreshPage() {
     });
     window.location.reload(false);
 }
-
 
 $(document).ready(function () {
     $('#btnOk').click(function () {
@@ -446,6 +452,7 @@ $(document).ready(function () {
             'DiscountPrice': vm.TotalDiscount(),
             'Price': vm.TotalPrice(),
             'Total': vm.Total(),
+            'AddExceptionPrice': vm.AddExceptionPrice(),
             'DataItems': items
         };
         $.blockUI({
@@ -470,7 +477,7 @@ $(document).ready(function () {
                 debugger;
                 $.unblockUI();
                 if (!data.IsError) {
-                    if (data.MessageClient != null || data.MessageClient != "") {
+                    if (data.MessageClient != null && data.MessageClient != "") {
                         $('#vmclientMessage').text(data.MessageClient);
                         $.blockUI({ message: $('#clientMessage'), css: { width: '275px' } });
                     }

@@ -58,5 +58,7 @@ namespace Michal.Project.Models
         [Display(Name = "מאשר ההזמנה")]
         public UserLink ApprovalShipping { get; set; }
 
+
+
     }
 }

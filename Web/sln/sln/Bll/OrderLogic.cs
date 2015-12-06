@@ -445,6 +445,10 @@ namespace Michal.Project.Bll
                     return "בקשת הזמנה חדשה";
                 case 2:
                     return "אישור הזמנה סופי";
+                case 7:
+                    return "אישור הזמנה חריגה";
+                case 10:
+                    return "סגירת הזמנה";
                 default:
                     return "אישור הזמנה סופי";
 

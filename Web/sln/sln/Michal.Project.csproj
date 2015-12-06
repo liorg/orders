@@ -315,6 +315,7 @@
     </Compile>
     <Compile Include="Mechanism\CanceClient.cs" />
     <Compile Include="Mechanism\CancelOffer.cs" />
+    <Compile Include="Mechanism\CloseOffer.cs" />
     <Compile Include="Mechanism\EscalationOffer.cs" />
     <Compile Include="Mechanism\RequestOffer.cs" />
     <Compile Include="Mechanism\Handler.cs">

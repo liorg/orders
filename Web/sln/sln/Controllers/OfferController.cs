@@ -32,19 +32,6 @@ namespace Michal.Project.Controllers
             }
         }
 
-        //public async Task<ActionResult> Index(int offerType, int state)//state=>1=New,2=InProccess, 3=End,4=Cancel
-        //{
-        //    using (var context = new ApplicationDbContext())
-        //    {
-        //        List<OfferVm> offers = new List<OfferVm>();
-        //        var user = new UserContext(AuthenticationManager);
-        //        Guid orgId = Guid.Empty;
-        //        MemeryCacheDataService cache = new MemeryCacheDataService();
-
-        //        orgId = cache.GetOrg(context);
-        //        return View(offers);
-        //    }
-        //}
         public ActionResult Calc()
         {
             OrderDetail order = new OrderDetail();
@@ -56,26 +43,28 @@ namespace Michal.Project.Controllers
             order.ShippingCompanyId = company.Item3;
             return View(order);
         }
+
         public async Task<ActionResult> OrderItem(Guid shipId)
         {
             using (var context = new ApplicationDbContext())
             {
                 OrderDetail order = new OrderDetail();
                 var user = new UserContext(AuthenticationManager);
-                //  MemeryCacheDataService cache = new MemeryCacheDataService();
                 IOfferRepository offerRepository = new OfferRepository(context);
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IUserRepository userRepository = new UserRepository(context);
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
 
-                var ship = await logic.GetShipAsync(shipId); //context.Shipping.Include(s => s.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var ship = await logic.GetShipAsync(shipId); 
                 order.Id = shipId;
                 order.OfferId = ship.OfferId.GetValueOrDefault();
                 var offer = await logic.GetOfferAsync(order.OfferId);
                 if (offer != null)
                 {
                     order.StateCode = offer.StatusCode;
+                   
+                  //  order.ad
                 }
                 else
                 {
