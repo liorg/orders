@@ -19,14 +19,15 @@ namespace Kipodeal.Helper.Cache
 
         const string cache = "~/cache.txt";
 
-        public void Refresh(string s)
+        public void Refresh(string s, string cacheFile = "")
         {
-            string cachedFilePath = HttpContext.Current.Server.MapPath(cache);
+            if (String.IsNullOrWhiteSpace(cacheFile))
+                cacheFile = cache;
+            string cachedFilePath = HttpContext.Current.Server.MapPath(cacheFile);
             using (var data = System.IO.File.AppendText(cachedFilePath))
             {
                 data.Write(s);
             }
-
         }
 
         public bool Get<T>(string key, out T value)
@@ -42,12 +43,12 @@ namespace Kipodeal.Helper.Cache
         }
 
 
-        public void Set<T>(string key, T value, int? duration = null)
+        public void Set<T>(string key, T value, int? duration = null, string cacheFile = "")
         {
             ObjectCache cache = MemoryCache.Default;
             if (!cache.Contains(key))
             {
-                cache.Add(key, value, GetCacheItemPolicy(duration));
+                cache.Add(key, value, GetCacheItemPolicy(duration, cacheFile));
             }
             else
             {
@@ -61,15 +62,17 @@ namespace Kipodeal.Helper.Cache
             cache.Remove(key);
         }
 
-        CacheItemPolicy GetCacheItemPolicy(int? duration = null)
+        CacheItemPolicy GetCacheItemPolicy(int? duration = null, string cacheFile="")
         {
+            if (String.IsNullOrWhiteSpace(cacheFile))
+                cacheFile = cache;
             var durationHours = duration.HasValue ? duration.Value :DefaultCacheHours;
             
             CacheItemPolicy policy = new CacheItemPolicy();
             policy.AbsoluteExpiration = DateTimeOffset.Now.AddHours(durationHours);
 
             List<string> filePaths = new List<string>();
-            string cachedFilePath = HttpContext.Current.Server.MapPath(cache); //  rootPathDependency + "/" + ConstantVariables.DefaultCahceFile;
+            string cachedFilePath = HttpContext.Current.Server.MapPath(cacheFile); //  rootPathDependency + "/" + ConstantVariables.DefaultCahceFile;
             var uCache = new Uri(cachedFilePath);
 
             filePaths.Add(uCache.LocalPath);

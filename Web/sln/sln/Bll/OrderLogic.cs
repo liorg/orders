@@ -18,16 +18,18 @@ namespace Michal.Project.Bll
         readonly IOfferPriceRepostory _offerPrice;
         readonly IOrgDetailRepostory _orgDetailRep;
         readonly IUserRepository _userRepo;
-
+        readonly ILocationRepository _locationRepostory;
         public OrderLogic(IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice,
-            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo)
+
+            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo, ILocationRepository locationRepostory)
         {
             _offerRepository = offerRepository;
             _shippingRepository = shippingRepository;
             _offerPrice = offerPrice;
             _orgDetailRep = orgDetailRep;
             _userRepo = userRepo;
+            _locationRepostory = _locationRepostory;
         }
 
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)

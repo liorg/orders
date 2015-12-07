@@ -1,4 +1,5 @@
-﻿using Michal.Project.Contract.DAL;
+﻿using Michal.Project.Agent;
+using Michal.Project.Contract.DAL;
 using Michal.Project.Dal;
 using Michal.Project.Mechanism;
 using Michal.Project.Models;
@@ -30,9 +31,10 @@ namespace Michal.Project.Fasade
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
                 IUserRepository userRepository = new UserRepository(context);
-                Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, isUserGrant);
-                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, isUserGrant);
-                Handler escalationOffer = new EscalationOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, isUserGrant);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository ,isUserGrant);
+                Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository, isUserGrant);
+                Handler escalationOffer = new EscalationOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository, isUserGrant);
 
                 requestOffer.SetSuccessor(escalationOffer);
                 //  commitOffer.SetSuccessor(escalationOffer);
@@ -69,8 +71,9 @@ namespace Michal.Project.Fasade
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IShipComapnyRepository shipComapnyRepository = new ShipComapnyRepository(context);
                 IUserRepository userRepository = new UserRepository(context);
-                Handler cancelClient = new CanceClient(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
-                Handler cancelOffer = new CancelOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                Handler cancelClient = new CanceClient(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
+                Handler cancelOffer = new CancelOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
                 cancelClient.SetSuccessor(cancelOffer);
                 var messages = await cancelClient.HandleRequest(offer, user);
 

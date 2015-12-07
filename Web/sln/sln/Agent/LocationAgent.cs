@@ -92,6 +92,7 @@ namespace Michal.Project.Agent
         }
 
 
+
         //void CallGoogle(StreetLatAndLng streetLatAndLng, AddressEditorViewModel addr)
         //{
         //    try

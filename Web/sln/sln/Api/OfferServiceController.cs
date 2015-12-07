@@ -21,6 +21,7 @@ using Michal.Project.DataModel;
 using Michal.Project.Fasade;
 using Michal.Project.Bll;
 using Michal.Project.Contract.DAL;
+using Michal.Project.Agent;
 
 
 namespace Michal.Project.Api
@@ -66,7 +67,8 @@ namespace Michal.Project.Api
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
                 IUserRepository userRepository = new UserRepository(context);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo,userRepository);
+                ILocationRepository locationRepository = new LocationRepository(context,new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
                 var ship = await shippingRepository.GetShipIncludeItems(shipid);
                 OfferClient offerClient = logic.GetOfferClient(allowRemove, allowEdit, ship, shippingCompanyId, user);
@@ -163,7 +165,8 @@ namespace Michal.Project.Api
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 var user = new UserContext(userContext);
                 IUserRepository userRepository = new UserRepository(context);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository);
                  
                 var mockShip = new Shipping();
                 mockShip.Direction = 0;

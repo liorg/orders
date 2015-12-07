@@ -19,9 +19,9 @@ namespace Michal.Project.Mechanism
     internal class RequestOffer : Handler
     {
         public RequestOffer(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository, bool isUserGrant) :
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository,ILocationRepository locationRepostory, bool isUserGrant) :
             base(bussinessClosureRepository, slaRepository,
-             shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository, isUserGrant)
+             shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository,locationRepostory, isUserGrant)
         {
 
         }
@@ -40,7 +40,7 @@ namespace Michal.Project.Mechanism
                 }
 
                 var bodyMessage = " בקשת אישור הזמנה עבור " + ship.Name;
-                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository,_locationRepostory);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;

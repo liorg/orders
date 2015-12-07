@@ -17,6 +17,7 @@ using System.Data.Entity;
 using Michal.Project.Bll;
 using Michal.Project.Models.View;
 using Michal.Project.Contract.DAL;
+using Michal.Project.Agent;
 
 
 namespace Michal.Project.Controllers
@@ -54,7 +55,8 @@ namespace Michal.Project.Controllers
                 IShippingRepository shippingRepository = new ShippingRepository(context);
                 GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
                 IUserRepository userRepository = new UserRepository(context);
-                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
                 var ship = await logic.GetShipAsync(shipId); 
                 order.Id = shipId;

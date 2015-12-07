@@ -191,6 +191,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\GoogleAgent.cs" />
     <Compile Include="Agent\LocationAgent.cs" />
     <Compile Include="Api\AddressController.cs" />
     <Compile Include="Api\NotifcationServiceController.cs" />
@@ -210,6 +211,8 @@
     <Compile Include="Bll\OrderLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
+    <Compile Include="Contract\Agent\ILocationAgent.cs" />
+    <Compile Include="Contract\DAL\ILocationRepository.cs" />
     <Compile Include="Contract\DAL\IUserRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IBussinessClosureRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\ISlaRepository.cs" />
@@ -259,6 +262,7 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IOfferPriceRepostory.cs" />
+    <Compile Include="Dal\LocationRepository.cs" />
     <Compile Include="Dal\UserRepository.cs" />
     <Compile Include="Dal\ShipComapnyRepository.cs" />
     <Compile Include="Dal\GeneralAgentRepository.cs" />

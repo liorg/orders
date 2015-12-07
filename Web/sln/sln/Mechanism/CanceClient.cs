@@ -15,9 +15,9 @@ namespace Michal.Project.Mechanism
     internal class CanceClient : Handler
     {
         public CanceClient(IBussinessClosureRepository bussinessClosureRepository, ISlaRepository slaRepository, IShipComapnyRepository shipComapnyRepository, IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository) :
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice, IOrgDetailRepostory orgDetailRep, IUserRepository userRepository, ILocationRepository locationRepostory) :
             base(bussinessClosureRepository, slaRepository,
-           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep,userRepository)
+           shipComapnyRepository, offerRepository, shippingRepository, offerPrice, orgDetailRep, userRepository, locationRepostory)
         {
 
         }
@@ -30,7 +30,7 @@ namespace Michal.Project.Mechanism
                 var ship = await _shippingRepository.GetShipIncludeFollowsUsers(offer.Id);
                
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
-                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep,_userRepository);
+                OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository, _locationRepostory);
 
                 var request = new StatusRequestBase();
                 request.Ship = ship;
