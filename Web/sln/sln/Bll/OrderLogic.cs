@@ -32,8 +32,8 @@ namespace Michal.Project.Bll
             _userRepo = userRepo;
             _locationRepostory = locationRepostory;
         }
-
-        public async Task CreateNewShip(ShippingVm shippingVm, UserContext userContext)
+        
+        public async Task<Guid> CreateNewShip(ShippingVm shippingVm, UserContext userContext)
         {
             shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
             var shipping = new Shipping();
@@ -95,10 +95,10 @@ namespace Michal.Project.Bll
             };
             shipping.TimeLines.Add(tl);
             // context.Shipping.Add(shipping);
-           await  _shippingRepository.AddOwnerFollowBy(shipping, userContext.UserId);
+            await _shippingRepository.AddOwner(shipping, userContext.UserId);
 
             _shippingRepository.Add(shipping);
-            // await followLogic.AddOwnerFollowBy(shipping, userContext, context.Users);
+            return shipping.ShippingId;
         }
 
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)

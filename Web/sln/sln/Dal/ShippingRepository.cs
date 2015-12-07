@@ -34,7 +34,12 @@ namespace Michal.Project.Dal
         {
             return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
         }
-
+        public async Task AddOwner(Shipping ship, Guid userid)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());
+           
+            ship.FollowsBy.Add(user);
+        }
         public async Task AddOwnerFollowBy(Shipping ship, Guid userid)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());

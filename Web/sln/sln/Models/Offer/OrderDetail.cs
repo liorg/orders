@@ -46,6 +46,12 @@ namespace Michal.Project.Models
         [Display(Name = "מרחק")]
         public string DistanceText { get; set; }
 
+        [Display(Name = "מרחק ממחשבון גוגל")]
+        public string DistanceCalcText { get; set; }
+
+        [Display(Name = "מרחק ממחשבון גוגל (במטר)")]
+        public string DistanceCalcOnMeter{ get; set; }
+
         [Display(Name = "יוצר הצעה")]
         public UserLink Creator { get; set; }
      

@@ -36,6 +36,7 @@ namespace Michal.Project.Dal
             {
                 ship.DistanceText = distanceCities.DistanceText;
                 ship.DistanceValue = distanceCities.DistanceValue;
+                ship.FixedDistanceValue = distanceCities.FixedDistanceValue;
             }
         }
         
@@ -114,9 +115,13 @@ namespace Michal.Project.Dal
             if (distanceCities == null)
                 return;
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
-
-            _context.DistanceCities.Add(distanceCities);
-            await _context.SaveChangesAsync();
+            var tryGet = await _context.DistanceCities.Where(d => d.IsActive == true && d.CityCode1 == distanceCities.CityCode1 && d.CityCode2 == distanceCities.CityCode2).FirstOrDefaultAsync();
+            if (tryGet == null)
+            {
+                _context.DistanceCities.Add(distanceCities);
+                await _context.SaveChangesAsync();
+            }
+            
             cacheMemoryProvider.Refresh(cacheLocation);
 
         }

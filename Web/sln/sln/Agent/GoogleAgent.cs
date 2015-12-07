@@ -138,6 +138,8 @@ namespace Michal.Project.Agent
                     distanceCities.DestinationLng = to.Lng;
                     distanceCities.DistanceValue = o.rows[0].elements[0].distance.value;
                     distanceCities.DistanceText= o.rows[0].elements[0].distance.text;
+                    distanceCities.FixedDistanceValue = o.rows[0].elements[0].distance.value;
+                    distanceCities.IsActive = true;
                 }
 
 

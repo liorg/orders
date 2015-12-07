@@ -13,8 +13,10 @@ namespace Michal.Project.Contract.DAL
         Task<Shipping> GetShip(Guid shipId);
         Task<Shipping> GetShipIncludeItems(Guid shipId);
         Task AddOwnerFollowBy(Shipping ship, Guid userid);
+        Task AddOwner(Shipping ship, Guid userid);
         void Update(Shipping ship);
         Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId);
         void Add(Shipping ship);
+
     }
 }

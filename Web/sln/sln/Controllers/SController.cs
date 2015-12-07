@@ -194,7 +194,7 @@ namespace Michal.Project.Controllers
 
                 long increa = 0;
                 var model = new ShippingVm();
-                var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber).FirstOrDefaultAsync();
+                var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber ).FirstOrDefaultAsync();
                 if (counter != null)
                 {
                     increa = counter.LastNumber;
@@ -262,10 +262,10 @@ namespace Michal.Project.Controllers
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
                
                 UserContext userContext = new UserContext(AuthenticationManager);
-                await logic.CreateNewShip(shippingVm, userContext);
+                var id=await logic.CreateNewShip(shippingVm, userContext);
                 
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "ShipItem", new { Id = shippingVm.Id.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
+                return RedirectToAction("Index", "ShipItem", new { Id = id.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
             }
         }
 
@@ -534,5 +534,54 @@ namespace Michal.Project.Controllers
                 return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
             }
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> EditOld(ShippingVm shippingVm)
+        {
+
+            using (var context = new ApplicationDbContext())
+            {
+                var shipping = await context.Shipping.FindAsync(shippingVm.Id);
+                UserContext userContext = new UserContext(AuthenticationManager);
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                LocationAgent location = new LocationAgent(cache);
+
+                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
+                    shipping.Organization_OrgId = userContext.OrgId;
+                else
+                    shipping.Organization_OrgId = shippingVm.OrgId;
+
+                shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
+                shipping.Distance_DistanceId = shippingVm.DistanceId;
+                shipping.SigBackType = shippingVm.SigBackType;
+                shipping.FastSearchNumber = shippingVm.FastSearch;
+                shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+                shipping.ModifiedOn = DateTime.Now;
+                shipping.ModifiedBy = userContext.UserId;
+                shipping.IsActive = true;
+                shipping.Direction = shippingVm.Direction;
+                shipping.Recipient = shippingVm.Recipient;
+                shipping.TelTarget = shippingVm.TelTarget;
+                shipping.NameTarget = shippingVm.NameTarget;
+
+                shipping.TelSource = shippingVm.TelSource;
+                shipping.NameSource = shippingVm.NameSource;
+
+                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+                //location.SetLocation(shippingVm.SourceAddress, shipping.Source);
+                await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
+
+                shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
+                //location.SetLocation(shippingVm.TargetAddress, shipping.Target);
+                await location.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
+
+                context.Entry<Shipping>(shipping).State = EntityState.Modified;
+
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index", "F");
+            }
+        }
+
     }
 }

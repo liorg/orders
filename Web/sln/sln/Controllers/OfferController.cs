@@ -74,6 +74,9 @@ namespace Michal.Project.Controllers
                 }
                 order.Name = ship.Name;
 
+                order.DistanceCalcText = String.IsNullOrWhiteSpace(ship.DistanceText) ? "..." : ship.DistanceText;
+                order.DistanceCalcOnMeter = ship.DistanceValue == 0 ? "..." : ship.DistanceValue.ToString();
+
                 order.Title = logic.GetTitle(offer);
                 var org = generalRepo.GetOrgEntity();
                 var companies = generalRepo.GetShippingCompaniesByOrgId(org.OrgId);
