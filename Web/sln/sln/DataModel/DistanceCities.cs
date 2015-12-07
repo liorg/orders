@@ -37,6 +37,7 @@ namespace Michal.Project.DataModel
         public double OriginLat { get; set; }
         public double OriginLng { get; set; }
 
+        public double FixedDistanceValue { get; set; }
         public float DistanceValue { get; set; }
         public string DistanceText { get; set; }
   

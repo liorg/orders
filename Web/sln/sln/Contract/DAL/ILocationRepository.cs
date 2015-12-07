@@ -10,13 +10,15 @@ namespace Michal.Project.Contract.DAL
 {
     public interface ILocationRepository
     {
-        Task<City> Get(string code);
-        //void LazySet(City city);
-
-        Task<DistanceCities> GetDistance(string code1 ,string  code2);
-        //void LazySetDistance(DistanceCities distanceCities);
-
+        //Task<City> Get(string code);
+        
+        //Task<DistanceCities> GetDistance(Address from, Address to);
+        
         StreetsGeoLocation GetStreetsGeoLocation();
+
+        Task SetLocationAsync(AddressEditorViewModel source, Address target);
+        Task SetDistance(Address from, Address to,Shipping ship);
+        bool IsChanged(AddressEditorViewModel addr);
         
     }
 }

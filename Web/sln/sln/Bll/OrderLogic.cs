@@ -19,17 +19,86 @@ namespace Michal.Project.Bll
         readonly IOrgDetailRepostory _orgDetailRep;
         readonly IUserRepository _userRepo;
         readonly ILocationRepository _locationRepostory;
+
         public OrderLogic(IOfferRepository offerRepository,
             IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice,
-
-            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo, ILocationRepository locationRepostory)
+            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo,
+            ILocationRepository locationRepostory)
         {
             _offerRepository = offerRepository;
             _shippingRepository = shippingRepository;
             _offerPrice = offerPrice;
             _orgDetailRep = orgDetailRep;
             _userRepo = userRepo;
-            _locationRepostory = _locationRepostory;
+            _locationRepostory = locationRepostory;
+        }
+
+        public async Task CreateNewShip(ShippingVm shippingVm, UserContext userContext)
+        {
+            shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
+            var shipping = new Shipping();
+
+            //MemeryCacheDataService cache = new MemeryCacheDataService();
+            //shipping.Organization_OrgId = cache.GetOrg(context);
+
+            var userid = userContext.UserId;
+            shipping.ShippingId = Guid.NewGuid();
+            shipping.FastSearchNumber = shippingVm.FastSearch;
+            shipping.Name = shippingVm.Number;
+            shipping.SigBackType = shippingVm.SigBackType;
+            shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+            shipping.Direction = shippingVm.Direction;
+            //LocationAgent location = new LocationAgent(cache);
+
+            var currentDate = DateTime.Now;
+            shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
+            shipping.CreatedOn = currentDate;
+            shipping.CreatedBy = userid;
+            shipping.ModifiedOn = currentDate;
+            shipping.ModifiedBy = userid;
+            shipping.OwnerId = userid;
+            shipping.IsActive = true;
+            shipping.NotifyType = (int)AlertStyle.Warning;
+            shipping.NotifyText = Notification.MessageConfirm;
+
+            shipping.Recipient = shippingVm.Recipient;
+            shipping.TelSource = shippingVm.TelSource; // userContext.Tel;
+            shipping.TelTarget = shippingVm.TelTarget;
+            shipping.NameSource = shippingVm.NameSource;// userContext.FullName;
+            shipping.NameTarget = shippingVm.NameTarget;
+
+            shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
+
+            await _locationRepostory.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
+
+            shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+
+            await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
+            if (_locationRepostory.IsChanged(shippingVm.SourceAddress) || _locationRepostory.IsChanged(shippingVm.TargetAddress))
+            {
+                await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
+            }
+            shipping.Distance_DistanceId = shippingVm.DistanceId;
+
+            TimeLine tl = new TimeLine
+            {
+                Name = "הזמנה חדשה" + "של " + userContext.FullName + " מספר עובד - " + userContext.EmpId + "",
+                Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
+                CreatedBy = userid,
+                CreatedOn = currentDate,
+                ModifiedBy = userid,
+                ModifiedOn = currentDate,
+                TimeLineId = Guid.NewGuid(),
+                IsActive = true,
+                Status = TimeStatus.New,
+                StatusShipping_StatusShippingId = shippingVm.StatusId
+            };
+            shipping.TimeLines.Add(tl);
+            // context.Shipping.Add(shipping);
+           await  _shippingRepository.AddOwnerFollowBy(shipping, userContext.UserId);
+
+            _shippingRepository.Add(shipping);
+            // await followLogic.AddOwnerFollowBy(shipping, userContext, context.Users);
         }
 
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)

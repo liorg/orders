@@ -1,6 +1,7 @@
 ﻿using Michal.Project.Contract.Agent;
 using Michal.Project.Contract.DAL;
 using Michal.Project.Dal;
+using Michal.Project.DataModel;
 using Michal.Project.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,13 +15,13 @@ namespace Michal.Project.Agent
 {
     public class GoogleAgent : ILocationAgent
     {
-     //   ILocationRepository _locationRepository;
+        //   ILocationRepository _locationRepository;
         public GoogleAgent()
         {
-          
+
         }
-        
-        public async Task SetLocationAsync(ILocationRepository locationRepository,AddressEditorViewModel source, Michal.Project.DataModel.Address target)
+
+        public async Task SetLocationAsync(ILocationRepository locationRepository, AddressEditorViewModel source, Michal.Project.DataModel.Address target)
         {
             if (IsChanged(source))
             {
@@ -104,10 +105,10 @@ namespace Michal.Project.Agent
 
         }
 
-        public async Task FindDistance(Michal.Project.DataModel.Address from, Michal.Project.DataModel.Address to)
+        public async Task<DistanceCities> FindDistance(Address from, Address to)
         {
             string api = System.Configuration.ConfigurationManager.AppSettings["googleapi"];
-
+            DistanceCities distanceCities = null;
             //https://maps.googleapis.com/maps/api/distancematrix/json?origins=32.0228952,34.7552509&destinations=32.013767,34.761126&key=AIzaSyC2HKhSRdOyPmV7lGMj0tdcfoaOY9XWi8Q
             var urlFormat = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={0},{1}&destinations={2},{3}&key={4}";
 
@@ -115,8 +116,33 @@ namespace Michal.Project.Agent
             using (var httpClient = new HttpClient())
             {
                 var url = String.Format(urlFormat, from.Lat, from.Lng, to.Lat, to.Lng, api);
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                    return null;
+                var content = await response.Content.ReadAsStringAsync();
+                dynamic o = JObject.Parse(content);
+                string status = o.status;
+                if (status != "OK")
+                    return null;
+                if (o.rows != null && o.rows[0] != null && o.rows[0].elements != null && o.rows[0].elements[0] != null && o.rows[0].elements[0].distance!=null)
+                {
+                    distanceCities = new DistanceCities();
+                    distanceCities.CityCode1 = from.CityCode;
+                    distanceCities.CityCode2 = to.CityCode;
+                    distanceCities.CreatedOn = DateTime.Now;
+                    distanceCities.DestinationAddress = to.CityName + " " + to.StreetName + " " + to.StreetNum;// +"(" + o.origin_addresses.Join(",") + ")";
+                    distanceCities.OriginAddress = from.CityName + " " + from.StreetName + " " + from.StreetNum;// +"(" + o.destination_addresses.Join(",") + ")";
+                    distanceCities.OriginLat = from.Lat;
+                    distanceCities.OriginLng = from.Lng;
+                    distanceCities.DestinationLat = to.Lat;
+                    distanceCities.DestinationLng = to.Lng;
+                    distanceCities.DistanceValue = o.rows[0].elements[0].distance.value;
+                    distanceCities.DistanceText= o.rows[0].elements[0].distance.text;
+                }
+
 
             }
+            return distanceCities;
             /*
              * 
             {

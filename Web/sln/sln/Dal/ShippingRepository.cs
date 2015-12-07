@@ -49,7 +49,10 @@ namespace Michal.Project.Dal
         {
             _context.Entry<Shipping>(ship).State = EntityState.Modified;
         }
-
+        public void Add(Shipping ship)
+        {
+            _context.Shipping.Add(ship);
+        }
 
         public async Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId)
         {

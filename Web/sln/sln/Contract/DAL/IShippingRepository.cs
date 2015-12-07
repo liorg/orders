@@ -15,5 +15,6 @@ namespace Michal.Project.Contract.DAL
         Task AddOwnerFollowBy(Shipping ship, Guid userid);
         void Update(Shipping ship);
         Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId);
+        void Add(Shipping ship);
     }
 }
