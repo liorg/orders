@@ -38,6 +38,8 @@ namespace Michal.Project.Dal
         public DbSet<RequestItemShip> RequestItemShip { get; set; }
         public DbSet<NotifyMessage> NotifyMessage { get; set; }
         public DbSet<BussinessClosure> BussinessClosure { get; set; }
+        public DbSet<DistanceCities> DistanceCities { get; set; }
+        public DbSet<City> City { get; set; }
         public DbSet<UserNotify> UserNotify { get; set; }
     }
 }

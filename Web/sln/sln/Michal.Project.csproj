@@ -270,6 +270,8 @@
     <Compile Include="DataModel\Address.cs" />
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\BussinessClosure.cs" />
+    <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\DistanceCities.cs" />
     <Compile Include="DataModel\UserNotify.cs" />
     <Compile Include="DataModel\NotifyMessage.cs">
       <SubType>Code</SubType>
@@ -289,7 +291,7 @@
     <Compile Include="Fasade\OfferManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="fonts\XbzCounter.cs" />
+    <Compile Include="DataModel\XbzCounter.cs" />
     <Compile Include="DataModel\StatusTimeLine.cs" />
     <Compile Include="DataModel\TimeLine.cs" />
     <Compile Include="DataModel\StatusShipping.cs" />
@@ -404,6 +406,10 @@
     <Compile Include="Migrations\201511301954518_walk.cs" />
     <Compile Include="Migrations\201511301954518_walk.Designer.cs">
       <DependentUpon>201511301954518_walk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512070925007_dddxxaX.cs" />
+    <Compile Include="Migrations\201512070925007_dddxxaX.Designer.cs">
+      <DependentUpon>201512070925007_dddxxaX.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
@@ -925,6 +931,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511301954518_walk.resx">
       <DependentUpon>201511301954518_walk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512070925007_dddxxaX.resx">
+      <DependentUpon>201512070925007_dddxxaX.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

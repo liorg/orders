@@ -44,6 +44,8 @@ namespace Michal.Project.DataModel
 
         public string Name { get; set; }
 
+        public string Perfix { get; set; } // for autonumber
+
         public string Domain { get; set; }
 
         public DateTime? CreatedOn

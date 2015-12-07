@@ -26,6 +26,11 @@ namespace XmlToJsonF4
 
             Init(file);
         }
+        static void Distance()
+        {
+            // https://maps.googleapis.com/maps/api/distancematrix/json?origins=32.0228952,34.7552509&destinations=32.013767,34.761126&key=AIzaSyC2HKhSRdOyPmV7lGMj0tdcfoaOY9XWi8Q
+        }
+
         static void Init(string fileJosn)
         {
             StreetsGeoLocation location = new StreetsGeoLocation();

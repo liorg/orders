@@ -34,6 +34,10 @@ namespace Michal.Project.DataModel
         public string Name { get; set; }
         public string Desc { get; set; }
 
+
+        public float? FromDistance { get; set; }
+        public float? ToDistance { get; set; }
+
         public DateTime? CreatedOn
         {
             get;
