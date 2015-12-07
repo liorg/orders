@@ -178,6 +178,9 @@ namespace Michal.Project.DataModel
 
         public int WalkOrder { get; set; }
 
+        public float DistanceValue { get; set; }
+        public string DistanceText { get; set; }
+
     }
 
 }
