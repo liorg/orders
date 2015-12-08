@@ -36,12 +36,39 @@ namespace Michal.Project.Controllers
             }
             return View();
         }
-            private IAuthenticationManager AuthenticationManager
+        
+        private IAuthenticationManager AuthenticationManager
         {
             get
             {
                 return HttpContext.GetOwinContext().Authentication;
             }
+        }
+
+        public ActionResult Details(Guid? orgid)
+        {
+            OrgVm orgVm = new OrgVm();
+
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext user = new UserContext(AuthenticationManager);
+                GeneralAgentRepository repository = new GeneralAgentRepository(context);
+                var orgId = repository.GetOrg();
+                CalcService calc = new CalcService(repository, repository, repository);
+
+                var org = repository.GetOrgEntity();
+                orgVm.Name = org.Name;
+                orgVm.Id = org.OrgId;
+                
+                orgVm.Address = new AddressEditorViewModel();
+                orgVm.Address.City = org.AddressOrg.CityName;
+                orgVm.Address.ExtraDetail = org.AddressOrg.ExtraDetail;
+                orgVm.Address.Num = org.AddressOrg.StreetNum;
+                orgVm.Address.Street = org.AddressOrg.StreetName;
+
+                orgVm.Desc = String.IsNullOrWhiteSpace(org.Name) ? General.Empty : org.Name;
+            }
+            return View(orgVm);
         }
     }
 }

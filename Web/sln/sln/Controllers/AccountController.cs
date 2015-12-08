@@ -49,6 +49,9 @@ namespace Michal.Project.Controllers
             var userContext = new UserContext(AuthenticationManager);
             IQueryable<ApplicationUser> usersQuery;
             //var users = DBContext.Users;
+            GeneralAgentRepository repository = new GeneralAgentRepository(DBContext);
+            var org= repository.GetOrgEntity();
+          
             var inMemo = new List<EditUserViewModel>();
 
             //if (!User.IsInRole(HelperAutorize.RoleAdmin))
@@ -69,6 +72,8 @@ namespace Michal.Project.Controllers
                 inMemo.Add(edit);
             }
             UsersView usersView = new UsersView();
+            usersView.Name = org.Name;
+            usersView.Id = org.OrgId;
             usersView.Items = inMemo;
             usersView.ClientViewType = ClientViewType.Users;
             usersView.CurrentPage = page;
@@ -85,6 +90,10 @@ namespace Michal.Project.Controllers
         {
             var userContext = new UserContext(AuthenticationManager);
             IQueryable<ApplicationUser> usersQuery;
+            GeneralAgentRepository repository = new GeneralAgentRepository(DBContext);
+            var orgId = repository.GetOrg();
+            CalcService calc = new CalcService(repository, repository, repository);
+
             //var users = DBContext.Users;
             var inMemo = new List<EditUserViewModel>();
 
@@ -105,6 +114,9 @@ namespace Michal.Project.Controllers
                 inMemo.Add(edit);
             }
             UsersView usersView = new UsersView();
+            var company = calc.GetCompany(orgId, null);
+            usersView.Id = company.ShippingCompanyId;
+            usersView.Name = company.Name;
             usersView.Items = inMemo;
             usersView.ClientViewType = ClientViewType.Users;
             usersView.CurrentPage = page;

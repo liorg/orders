@@ -430,6 +430,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
+    <Compile Include="Models\OrgVm.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\NSStreet\AddressEditorViewModel.cs" />
@@ -869,6 +870,8 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Shared\UserDetail.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\UserLink.cshtml" />
+    <Content Include="Views\Org\Details.cshtml" />
+    <Content Include="Views\Shared\_orgToolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

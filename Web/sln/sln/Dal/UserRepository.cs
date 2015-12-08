@@ -9,6 +9,7 @@ using System.Web;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using Michal.Project.Models;
+using Michal.Project.Helper;
 namespace Michal.Project.Dal
 {
     public class UserRepository : IUserRepository
@@ -23,7 +24,7 @@ namespace Michal.Project.Dal
         {
             if (userid == null || userid.Value == Guid.Empty)
             {
-                return await Task.FromResult<UserLink>(new UserLink { FullName = "", UserId = Guid.Empty }); 
+                return await Task.FromResult<UserLink>(new UserLink { FullName = General.Empty, UserId = Guid.Empty }); 
 
             }
             

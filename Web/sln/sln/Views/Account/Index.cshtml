@@ -5,7 +5,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section ordernumber {
+ @Html.Partial("_orgToolbar", Model)
+}
 <div class="row">
     <div class="  col-md-12 well well-lg ">
 
