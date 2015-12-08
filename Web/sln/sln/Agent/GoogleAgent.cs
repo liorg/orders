@@ -107,7 +107,7 @@ namespace Michal.Project.Agent
 
         public async Task<DistanceCities> FindDistance(Address from, Address to)
         {
-            string api = System.Configuration.ConfigurationManager.AppSettings["googleapi"];
+            string api = System.Configuration.ConfigurationManager.AppSettings["googleserverapi"];
             DistanceCities distanceCities = null;
             //https://maps.googleapis.com/maps/api/distancematrix/json?origins=32.0228952,34.7552509&destinations=32.013767,34.761126&key=AIzaSyC2HKhSRdOyPmV7lGMj0tdcfoaOY9XWi8Q
             var urlFormat = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={0},{1}&destinations={2},{3}&key={4}";
@@ -129,6 +129,9 @@ namespace Michal.Project.Agent
                     distanceCities = new DistanceCities();
                     distanceCities.CityCode1 = from.CityCode;
                     distanceCities.CityCode2 = to.CityCode;
+                    distanceCities.Url = url;
+                    distanceCities.CityName1 = from.CityName;
+                    distanceCities.CityName2 = to.CityName;
                     distanceCities.CreatedOn = DateTime.Now;
                     distanceCities.DestinationAddress = to.CityName + " " + to.StreetName + " " + to.StreetNum;// +"(" + o.origin_addresses.Join(",") + ")";
                     distanceCities.OriginAddress = from.CityName + " " + from.StreetName + " " + from.StreetNum;// +"(" + o.destination_addresses.Join(",") + ")";

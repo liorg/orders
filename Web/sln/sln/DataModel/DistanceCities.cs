@@ -28,6 +28,12 @@ namespace Michal.Project.DataModel
         public string Name { get; set; }
         public string Desc { get; set; }
 
+        public string CityName1 { get; set; }
+        public string CityName2 { get; set; }
+
+        [MaxLength]
+        public string Url { get; set; }
+
         public string DestinationAddress { get; set; }
         public string OriginAddress { get; set; }
 
