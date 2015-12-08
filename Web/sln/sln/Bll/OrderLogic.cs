@@ -57,7 +57,6 @@ namespace Michal.Project.Bll
             model.TelSource = userContext.Tel;
             model.NameSource = userContext.FullName;
 
-
             return model;
         }
 
@@ -100,14 +99,11 @@ namespace Michal.Project.Bll
             if (_locationRepostory.IsChangedCity(shippingVm.SourceAddress) || _locationRepostory.IsChangedCity(shippingVm.TargetAddress))
             {
                 await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
-
                 var distance = FindDistance(shipping, org);
                 shipping.Distance_DistanceId = distance.DistanceId;
-
             }
 
-
-            TimeLine tl = new TimeLine
+            TimeLine timeline = new TimeLine
             {
                 Name = "הזמנה חדשה" + "של " + userContext.FullName + " מספר עובד - " + userContext.EmpId + "",
                 Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
@@ -120,8 +116,7 @@ namespace Michal.Project.Bll
                 Status = TimeStatus.New,
                 StatusShipping_StatusShippingId = shippingVm.StatusId
             };
-            shipping.TimeLines.Add(tl);
-            // context.Shipping.Add(shipping);
+            shipping.TimeLines.Add(timeline);
             await _shippingRepository.AddOwner(shipping, userContext.UserId);
 
             _shippingRepository.Add(shipping);
