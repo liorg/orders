@@ -188,59 +188,33 @@ namespace Michal.Project.Controllers
             {
                 List<Distance> distances = new List<Distance>();
                 UserContext userContext = new UserContext(AuthenticationManager);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
 
-                var shiptypes = cache.GetShipType(context);
+                IUserRepository userRepository = new UserRepository(context);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
-                long increa = 0;
-                var model = new ShippingVm();
-                var counter = await context.XbzCounter.Take(1).OrderByDescending(o => o.LastNumber ).FirstOrDefaultAsync();
-                if (counter != null)
-                {
-                    increa = counter.LastNumber;
-                    increa++;
-                    counter.LastNumber = increa;
-                    context.Entry<XbzCounter>(counter).State = EntityState.Modified;
-                    await context.SaveChangesAsync();
-                }
-                else
-                {
-                    counter = new XbzCounter();
-                    counter.XbzCounterId = Guid.NewGuid();
-                    counter.IsActive = true;
-                    counter.LastNumber = increa++;
-                    context.Entry<XbzCounter>(counter).State = EntityState.Added;
-                    await context.SaveChangesAsync();
-                }
-                model.Number = String.Format("Ran-{0}", increa.ToString().PadLeft(5, '0'));
-                model.FastSearch = increa;
+                var model = await logic.OnPreCreateShip(userContext);
 
-                model.SourceAddress = new AddressEditorViewModel();
-                model.SourceAddress.City = userContext.Address.CityName;
-                model.SourceAddress.Citycode = userContext.Address.CityCode;
-                model.SourceAddress.CitycodeOld = userContext.Address.CityCode;
-                model.SourceAddress.Street = userContext.Address.StreetName;
-                model.SourceAddress.Streetcode = userContext.Address.StreetCode;
-                model.SourceAddress.StreetcodeOld = userContext.Address.StreetCode;
-                model.SourceAddress.ExtraDetail = userContext.Address.ExtraDetail;
-                model.SourceAddress.Num = userContext.Address.StreetNum;
-                model.SourceAddress.UId = userContext.Address.UID;
-                model.Direction = 0;//send
-                model.TelSource = userContext.Tel;
-                model.NameSource = userContext.FullName;
+                var shiptypes = generalRepo.GetShipType();
 
                 ViewBag.OrderNumber = model.Name;
-                var orgs = cache.GetOrgs(context);
-                var sigBacks = cache.GetBackOrder();
-                var directions = cache.GetDirection();
+
+                var orgs = generalRepo.GetOrgs();
+                var sigBacks = generalRepo.GetBackOrder();
+                var directions = generalRepo.GetDirection();
+
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
                 ViewBag.Directions = new SelectList(directions, "Key", "Value");
 
-                var organid = cache.GetOrg(context);
-                distances = cache.GetDistancesPerOrg(context, organid); //await context.Distance.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToListAsync();
-
+                var org= generalRepo.GetOrgEntity();
+                var organid = org.OrgId;
+                generalRepo.GetDistancesPerOrg(organid);
+                distances = generalRepo.GetDistancesPerOrg(organid); 
                 model.OrgId = organid;
 
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
@@ -262,7 +236,7 @@ namespace Michal.Project.Controllers
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
                
                 UserContext userContext = new UserContext(AuthenticationManager);
-                var id=await logic.CreateNewShip(shippingVm, userContext);
+                var id=await logic.OnPostCreateShip(shippingVm, userContext);
                 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "ShipItem", new { Id = id.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });

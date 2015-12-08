@@ -21,14 +21,14 @@ namespace Michal.Project.Dal
             _locationAgent = locationAgent;
         }
 
-        public bool IsChanged(AddressEditorViewModel addr)
+       
+        public bool IsChangedCity(AddressEditorViewModel addr)
         {
-            if (addr.Citycode != addr.CitycodeOld || addr.Streetcode != addr.StreetcodeOld || addr.Num != addr.NumOld)
+            if (addr.Citycode != addr.CitycodeOld)
                 return true;
             return false;
 
         }
-
         public async Task SetDistance(Address from, Address to, Shipping ship)
         {
             DistanceCities distanceCities = await GetDistance(from, to);
@@ -42,11 +42,6 @@ namespace Michal.Project.Dal
         
         async Task<DistanceCities> GetDistance(Address from, Address to)
         {
-            ////trace city from
-            //var cityFrom = await Get(from.CityCode);
-            ////trace city to
-            //var cityTo = await Get(to.CityCode);
-
             var distances = await GetDistancesDb();
             var tryGet = distances.Where(d => (d.CityCode1 == from.CityCode && d.CityCode2 == to.CityCode) || (d.CityCode2 == from.CityCode && d.CityCode1 == to.CityCode)).FirstOrDefault();
             if (tryGet == null)

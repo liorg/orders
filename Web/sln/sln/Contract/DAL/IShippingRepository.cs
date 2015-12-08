@@ -17,6 +17,7 @@ namespace Michal.Project.Contract.DAL
         void Update(Shipping ship);
         Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId);
         void Add(Shipping ship);
+        Task<XbzCounter> GetCounter(Guid orgid);
 
     }
 }

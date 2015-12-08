@@ -64,5 +64,32 @@ namespace Michal.Project.Dal
             return await _context.Shipping.Include(ic => ic.FollowsBy).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
       
         }
+
+        public async Task<XbzCounter> GetCounter(Guid orgid)
+        {
+           
+            XbzCounter counter = null;
+            long increa = 0;
+            counter = await _context.XbzCounter.Where(o=>o.Organizations_OrgId.HasValue&& o.Organizations_OrgId.Value==orgid).Take(1).OrderByDescending(o => o.LastNumber).FirstOrDefaultAsync();
+            if (counter != null)
+            {
+                increa = counter.LastNumber;
+                increa++;
+                counter.LastNumber = increa;
+                _context.Entry<XbzCounter>(counter).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                counter = new XbzCounter();
+                counter.XbzCounterId = Guid.NewGuid();
+                counter.IsActive = true;
+                counter.Organizations_OrgId = orgid;
+                counter.LastNumber = increa++;
+                _context.Entry<XbzCounter>(counter).State = EntityState.Added;
+                await _context.SaveChangesAsync();
+            }
+            return counter;
+        }
     }
 }

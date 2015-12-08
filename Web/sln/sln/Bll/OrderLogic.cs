@@ -15,31 +15,57 @@ namespace Michal.Project.Bll
     {
         readonly IOfferRepository _offerRepository;
         readonly IShippingRepository _shippingRepository;
-        readonly IOfferPriceRepostory _offerPrice;
-        readonly IOrgDetailRepostory _orgDetailRep;
-        readonly IUserRepository _userRepo;
+        readonly IOfferPriceRepostory _offerPriceRepository;
+        readonly IOrgDetailRepostory _orgDetailRepsitory;
+        readonly IUserRepository _userRepository;
         readonly ILocationRepository _locationRepostory;
 
         public OrderLogic(IOfferRepository offerRepository,
-            IShippingRepository shippingRepository, IOfferPriceRepostory offerPrice,
-            IOrgDetailRepostory orgDetailRep, IUserRepository userRepo,
+            IShippingRepository shippingRepository, IOfferPriceRepostory offerPriceRepository,
+            IOrgDetailRepostory orgDetailRepsitory, IUserRepository userRepository,
             ILocationRepository locationRepostory)
         {
             _offerRepository = offerRepository;
             _shippingRepository = shippingRepository;
-            _offerPrice = offerPrice;
-            _orgDetailRep = orgDetailRep;
-            _userRepo = userRepo;
+            _offerPriceRepository = offerPriceRepository;
+            _orgDetailRepsitory = orgDetailRepsitory;
+            _userRepository = userRepository;
             _locationRepostory = locationRepostory;
         }
-        
-        public async Task<Guid> CreateNewShip(ShippingVm shippingVm, UserContext userContext)
+
+
+        public async Task<ShippingVm> OnPreCreateShip(UserContext userContext)
+        {
+            var model = new ShippingVm();
+            var org = _orgDetailRepsitory.GetOrgEntity();
+            var counter = await _shippingRepository.GetCounter(org.OrgId);
+            var increa = counter.LastNumber;
+            model.Number = String.Format(org.Perfix + "-{0}", increa.ToString().PadLeft(5, '0'));
+            model.FastSearch = increa;
+
+            model.SourceAddress = new AddressEditorViewModel();
+            model.SourceAddress.City = userContext.Address.CityName;
+            model.SourceAddress.Citycode = userContext.Address.CityCode;
+            model.SourceAddress.CitycodeOld = userContext.Address.CityCode;
+            model.SourceAddress.Street = userContext.Address.StreetName;
+            model.SourceAddress.Streetcode = userContext.Address.StreetCode;
+            model.SourceAddress.StreetcodeOld = userContext.Address.StreetCode;
+            model.SourceAddress.ExtraDetail = userContext.Address.ExtraDetail;
+            model.SourceAddress.Num = userContext.Address.StreetNum;
+            model.SourceAddress.UId = userContext.Address.UID;
+            model.Direction = 0;//send
+            model.TelSource = userContext.Tel;
+            model.NameSource = userContext.FullName;
+
+
+            return model;
+        }
+
+        public async Task<Guid> OnPostCreateShip(ShippingVm shippingVm, UserContext userContext)
         {
             shippingVm.StatusId = Guid.Parse(Helper.Status.Draft);
+            var org = _orgDetailRepsitory.GetOrgEntity();
             var shipping = new Shipping();
-
-            //MemeryCacheDataService cache = new MemeryCacheDataService();
-            //shipping.Organization_OrgId = cache.GetOrg(context);
 
             var userid = userContext.UserId;
             shipping.ShippingId = Guid.NewGuid();
@@ -48,7 +74,6 @@ namespace Michal.Project.Bll
             shipping.SigBackType = shippingVm.SigBackType;
             shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
             shipping.Direction = shippingVm.Direction;
-            //LocationAgent location = new LocationAgent(cache);
 
             var currentDate = DateTime.Now;
             shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
@@ -74,11 +99,15 @@ namespace Michal.Project.Bll
             shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
 
             await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
-            if (_locationRepostory.IsChanged(shippingVm.SourceAddress) || _locationRepostory.IsChanged(shippingVm.TargetAddress))
+            if (_locationRepostory.IsChangedCity(shippingVm.SourceAddress) || _locationRepostory.IsChangedCity(shippingVm.TargetAddress))
             {
                 await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
+
+                var distance = FindDistance(shipping, org);
+                shipping.Distance_DistanceId = distance.DistanceId;
+
             }
-            shipping.Distance_DistanceId = shippingVm.DistanceId;
+
 
             TimeLine tl = new TimeLine
             {
@@ -101,6 +130,27 @@ namespace Michal.Project.Bll
             return shipping.ShippingId;
         }
 
+        public Distance FindDistance(Shipping shipping, Organization org)
+        {
+            var distances = _orgDetailRepsitory.GetDistancesPerOrg(org.OrgId);
+            Distance distance = null;
+            if (shipping.DistanceValue != 0)
+            {
+                distance = (from d in distances
+                            where d.FromDistance.HasValue && d.FromDistance.Value < shipping.DistanceValue && d.ToDistance.HasValue && d.ToDistance.Value >= shipping.DistanceValue
+                            select d).FirstOrDefault();
+                if (distance != null)
+                    return distance;
+
+            }
+
+            DefaultShip defaultShip = new DefaultShip();
+            var defaultDistance = defaultShip.items.Where(t => t.Item1 == DefaultShip.DType.Distance).FirstOrDefault();
+            distance = distances.Where(dd => dd.DistanceId == defaultDistance.Item3).FirstOrDefault();
+
+            return distance;
+        }
+
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
         {
             OfferClient offerClient = new OfferClient();
@@ -108,13 +158,13 @@ namespace Michal.Project.Bll
 
             //bool isPresent = false;
             int qunitityType = 0;
-            var organid = _orgDetailRep.GetOrg();
-            var distances = _orgDetailRep.GetDistancesPerOrg(organid);
-            var priceList = _offerPrice.GetPriceList();
-            var shiptypeLists = _orgDetailRep.GetShipType();
-            var discountLists = _offerPrice.GetDiscount();
-            var products = _offerPrice.GetProducts(organid);
-            var productsSystem = _offerPrice.GetProductsSystem();
+            var organid = _orgDetailRepsitory.GetOrg();
+            var distances = _orgDetailRepsitory.GetDistancesPerOrg(organid);
+            var priceList = _offerPriceRepository.GetPriceList();
+            var shiptypeLists = _orgDetailRepsitory.GetShipType();
+            var discountLists = _offerPriceRepository.GetDiscount();
+            var products = _offerPriceRepository.GetProducts(organid);
+            var productsSystem = _offerPriceRepository.GetProductsSystem();
 
             var statusShip = ship.StatusShipping_StatusShippingId.GetValueOrDefault();
 
@@ -226,9 +276,9 @@ namespace Michal.Project.Bll
             decimal? priceValue;
             PriceList price;
             offerClient.StateCode = (int)OfferVariables.OfferStateCode.New;
-            var discountLists = _offerPrice.GetDiscount();
-            var priceList = _offerPrice.GetPriceList();
-            var productsSystem = _offerPrice.GetProductsSystem();
+            var discountLists = _offerPriceRepository.GetDiscount();
+            var priceList = _offerPriceRepository.GetPriceList();
+            var productsSystem = _offerPriceRepository.GetProductsSystem();
             var discounts = GetDiscounts(discountLists, priceList, allowRemove, allowEdit);
 
             offerClient.HasDirty = true;
@@ -398,9 +448,9 @@ namespace Michal.Project.Bll
             offerClient.StateCode = offer.StatusCode;
             offerClient.IsAddExceptionPrice = false;
             offerClient.AddExceptionPrice = offerClient.AddExceptionPrice;
-            var discountLists = _offerPrice.GetDiscount();
-            var priceList = _offerPrice.GetPriceList();
-            var productsSystem = _offerPrice.GetProductsSystem();
+            var discountLists = _offerPriceRepository.GetDiscount();
+            var priceList = _offerPriceRepository.GetPriceList();
+            var productsSystem = _offerPriceRepository.GetProductsSystem();
             var discounts = GetDiscounts(discountLists, priceList, allowRemove, allowEdit);
             offerClient.OfferId = offer.RequestShippingId;
             offerClient.HasDirty = false;
@@ -563,7 +613,7 @@ namespace Michal.Project.Bll
 
         public bool IsNeedEsclationPrice(OfferUpload offer, Shipping ship, RequestShipping request)
         {
-            var org = _orgDetailRep.GetOrgEntity();
+            var org = _orgDetailRepsitory.GetOrgEntity();
             if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
                 return true;
 
@@ -644,23 +694,25 @@ namespace Michal.Project.Bll
 
         public async Task<UserLink> GetCreator(Shipping ship)
         {
-            var userLink = await _userRepo.GetUserLink(ship.CreatedBy);
+            var userLink = await _userRepository.GetUserLink(ship.CreatedBy);
             return userLink;
         }
+
         public async Task<UserLink> GetApproval(Shipping ship)
         {
-            var userLink = await _userRepo.GetUserLink(ship.ApprovalRequest);
+            var userLink = await _userRepository.GetUserLink(ship.ApprovalRequest);
             return userLink;
         }
 
         public async Task<UserLink> GetApprovalException(Shipping ship)
         {
-            var userLink = await _userRepo.GetUserLink(ship.ApprovalPriceException);
+            var userLink = await _userRepository.GetUserLink(ship.ApprovalPriceException);
             return userLink;
         }
+
         public async Task<UserLink> GetApprovalShip(Shipping ship)
         {
-            var userLink = await _userRepo.GetUserLink(ship.ApprovalShip);
+            var userLink = await _userRepository.GetUserLink(ship.ApprovalShip);
             return userLink;
         }
     }

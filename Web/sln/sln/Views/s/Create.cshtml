@@ -89,13 +89,13 @@
         </div>
         <div class="panel-body">
 
-            <div class="form-group">
+           @* <div class="form-group">
                 @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
                 <div class="col-md-6">
                     @Html.DropDownListFor(m => m.DistanceId, (SelectList)ViewBag.Distance, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.DistanceId)
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 @Html.LabelFor(m => m.ShipTypeId, new { @class = "col-md-2 control-label" })
                 <div class="col-md-6">

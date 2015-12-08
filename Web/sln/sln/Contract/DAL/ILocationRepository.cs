@@ -18,7 +18,7 @@ namespace Michal.Project.Contract.DAL
 
         Task SetLocationAsync(AddressEditorViewModel source, Address target);
         Task SetDistance(Address from, Address to,Shipping ship);
-        bool IsChanged(AddressEditorViewModel addr);
+        bool IsChangedCity(AddressEditorViewModel addr);
         
     }
 }
