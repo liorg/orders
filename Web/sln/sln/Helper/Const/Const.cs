@@ -55,6 +55,8 @@ namespace Michal.Project.Helper
         public const string UnitMin = "דק'";
         public const string Unit = "יח'";
 
+
+        public const string Empty = "---";
     }
 
     public static class CustomClaimTypes

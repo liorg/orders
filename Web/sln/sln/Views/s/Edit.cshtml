@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    
+     @Html.HiddenFor(m => m.DistanceIdState)
     @Html.HiddenFor(m => m.Number)
     @Html.HiddenFor(m => m.FastSearch)
     @Html.HiddenFor(m => m.Id)
@@ -101,7 +101,8 @@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.DistanceId, new { @class = "col-md-2 control-label" })
-                <div class="col-md-6">
+                <div class="col-md-6"> 
+                    {מחשבון גוגל : @Model.DistanceValue }
                     @Html.DropDownListFor(m => m.DistanceId, (SelectList)ViewBag.Distance, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.DistanceId)
                 </div>
@@ -116,6 +117,7 @@
              <div class="form-group">
                 @Html.LabelFor(m => m.Direction, new { @class = "col-md-2 control-label" })
                 <div class="col-md-6">
+                   
                     @Html.DropDownListFor(m => m.Direction, (SelectList)ViewBag.Directions, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Direction)
                 </div>

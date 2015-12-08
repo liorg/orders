@@ -211,10 +211,10 @@ namespace Michal.Project.Controllers
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
                 ViewBag.Directions = new SelectList(directions, "Key", "Value");
 
-                var org= generalRepo.GetOrgEntity();
+                var org = generalRepo.GetOrgEntity();
                 var organid = org.OrgId;
                 generalRepo.GetDistancesPerOrg(organid);
-                distances = generalRepo.GetDistancesPerOrg(organid); 
+                distances = generalRepo.GetDistancesPerOrg(organid);
                 model.OrgId = organid;
 
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
@@ -234,10 +234,10 @@ namespace Michal.Project.Controllers
                 IUserRepository userRepository = new UserRepository(context);
                 ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
-               
+
                 UserContext userContext = new UserContext(AuthenticationManager);
-                var id=await logic.OnPostCreateShip(shippingVm, userContext);
-                
+                var id = await logic.OnPostCreateShip(shippingVm, userContext);
+
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "ShipItem", new { Id = id.ToString(), order = shippingVm.Number, message = "שים לב יש להוסיף פריטי משלוח" });
             }
@@ -248,80 +248,34 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 UserContext userContext = new UserContext(AuthenticationManager);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.FindAsync(shipId);
-
+                
                 List<Distance> distances = new List<Distance>();
 
-                var sigBacks = cache.GetBackOrder();
-                var shiptypes = cache.GetShipType(context);
-                var orgs = cache.GetOrgs(context);
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
 
-                var model = new ShippingVm();
-                model.Number = shipping.Name;
-                model.SigBackType = shipping.SigBackType.GetValueOrDefault();
-                model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
-                model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
-                model.FastSearch = shipping.FastSearchNumber;
-                model.Id = shipping.ShippingId;
+                IUserRepository userRepository = new UserRepository(context);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                var model = await logic.OnPreUpdateShip(shipId, userContext);
 
-                model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
-                model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
-                model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+                var sigBacks = generalRepo.GetBackOrder();
+                var shiptypes = generalRepo.GetShipType();
+                var orgs = generalRepo.GetOrgs();
+                var org = generalRepo.GetOrgEntity();
+                var organid = org.OrgId;
 
-                model.Recipient = shipping.Recipient;
-                model.TelTarget = shipping.TelTarget;
-                model.NameTarget = shipping.NameTarget;
-
-                model.TelSource = shipping.TelSource;
-                model.NameSource = shipping.NameSource;
-
-                model.SourceAddress = new AddressEditorViewModel();
-                model.SourceAddress.City = shipping.Source.CityName;
-                model.SourceAddress.Citycode = shipping.Source.CityCode;
-                model.SourceAddress.CitycodeOld = shipping.Source.CityCode;
-                model.SourceAddress.Street = shipping.Source.StreetName;
-                model.SourceAddress.Streetcode = shipping.Source.StreetCode;
-                model.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
-                model.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
-                model.SourceAddress.Num = shipping.Source.StreetNum;
-
-                model.TargetAddress = new AddressEditorViewModel();
-                model.TargetAddress.City = shipping.Target.CityName;
-                model.TargetAddress.Citycode = shipping.Target.CityCode;
-                model.TargetAddress.CitycodeOld = shipping.Target.CityCode;
-                model.TargetAddress.Street = shipping.Target.StreetName;
-                model.TargetAddress.Streetcode = shipping.Target.StreetCode;
-                model.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
-                model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
-                model.TargetAddress.Num = shipping.Target.StreetNum;
-
-                model.Direction = shipping.Direction;
-
-                if (shipping.StatusShipping_StatusShippingId.HasValue)
-                {
-                    if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
-                    {
-                        shipping.NotifyType = (int)AlertStyle.Warning;//Notification.Warning;
-                        shipping.NotifyText = Notification.MessageConfirm;
-                    }
-                }
-                var directions = cache.GetDirection();
+                var directions = generalRepo.GetDirection();
                 ViewBag.Orgs = new SelectList(orgs, "OrgId", "Name");
-                ViewBag.OrderNumber = shipping.Name;
+                ViewBag.OrderNumber = model.Name;
                 ViewBag.ShipTypes = new SelectList(shiptypes, "ShipTypeId", "Name");
                 ViewBag.SigBacks = new SelectList(sigBacks, "Key", "Value");
                 ViewBag.Directions = new SelectList(directions, "Key", "Value");
-                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                {
-                    Guid orgId = Guid.Empty;
-                    distances = cache.GetDistancesPerOrg(context, userContext.OrgId);
-                }
-                else
-                    distances = await context.Distance.ToListAsync();
+                Guid orgId = Guid.Empty;
+                distances = generalRepo.GetDistancesPerOrg(organid);
 
                 ViewBag.Distance = new SelectList(distances, "DistanceId", "Name");
                 return View(model);
@@ -336,39 +290,17 @@ namespace Michal.Project.Controllers
             {
                 var shipping = await context.Shipping.FindAsync(shippingVm.Id);
                 UserContext userContext = new UserContext(AuthenticationManager);
-                MemeryCacheDataService cache = new MemeryCacheDataService();
-                LocationAgent location = new LocationAgent(cache);
 
-                if (!User.IsInRole(Helper.HelperAutorize.RoleAdmin))
-                    shipping.Organization_OrgId = userContext.OrgId;
-                else
-                    shipping.Organization_OrgId = shippingVm.OrgId;
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
 
-                shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
-                shipping.Distance_DistanceId = shippingVm.DistanceId;
-                shipping.SigBackType = shippingVm.SigBackType;
-                shipping.FastSearchNumber = shippingVm.FastSearch;
-                shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
-                shipping.ModifiedOn = DateTime.Now;
-                shipping.ModifiedBy = userContext.UserId;
-                shipping.IsActive = true;
-                shipping.Direction = shippingVm.Direction;
-                shipping.Recipient = shippingVm.Recipient;
-                shipping.TelTarget = shippingVm.TelTarget;
-                shipping.NameTarget = shippingVm.NameTarget;
+                IUserRepository userRepository = new UserRepository(context);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
-                shipping.TelSource = shippingVm.TelSource;
-                shipping.NameSource = shippingVm.NameSource;
-
-                shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
-                //location.SetLocation(shippingVm.SourceAddress, shipping.Source);
-                await location.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
-
-                shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
-                //location.SetLocation(shippingVm.TargetAddress, shipping.Target);
-                await location.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
-
-                context.Entry<Shipping>(shipping).State = EntityState.Modified;
+                await logic.OnPostUpdateShip(shippingVm, userContext);
+                
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "F");

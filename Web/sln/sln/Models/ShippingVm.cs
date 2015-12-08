@@ -29,6 +29,9 @@ namespace Michal.Project.Models
         [Display(Name = "חישוב היעד")]
         public Guid DistanceId { get; set; }
 
+        [Display(Name = "חישוב היעד")]
+        public Guid DistanceIdState { get; set; }
+
         [Display(Name = "תאריך יצירה ")]
         public string CreatedOn { get; set; }
 
@@ -40,6 +43,9 @@ namespace Michal.Project.Models
 
         [Display(Name = "חישוב היעד")]
         public string DistanceName { get; set; }
+
+        [Display(Name = "מחשבון יעד ע''פ גוגל")]
+        public string DistanceValue { get; set; }
 
         [Required]
         [Display(Name = "ארגון")]
@@ -63,8 +69,6 @@ namespace Michal.Project.Models
         [Display(Name = "שם איש קשר יעד")]
         [Required(ErrorMessage = "שם איש קשר חובה")]
         public string Recipient { get; set; }
-
-        //public string ActualRecipient { get; set; }
 
         [Display(Name = "טלפון של המזמין")]
         public string TelSource { get; set; }
@@ -96,7 +100,6 @@ namespace Michal.Project.Models
 
         [Display(Name = "תאריך התחלה ")]
         public string ActualStartDate { get; set; }
-        //[Display(Name = "תאריך סיום")]
-        //public DateTime? ActualEndDate { get; set; }
+      
     }
 }

@@ -92,13 +92,11 @@ namespace Michal.Project.Bll
             shipping.NameSource = shippingVm.NameSource;// userContext.FullName;
             shipping.NameTarget = shippingVm.NameTarget;
 
-            shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
-
             await _locationRepostory.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
-
+            await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
+            shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
             shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
 
-            await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
             if (_locationRepostory.IsChangedCity(shippingVm.SourceAddress) || _locationRepostory.IsChangedCity(shippingVm.TargetAddress))
             {
                 await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
@@ -130,6 +128,104 @@ namespace Michal.Project.Bll
             return shipping.ShippingId;
         }
 
+        public async Task OnPostUpdateShip(ShippingVm shippingVm, UserContext userContext)
+        {
+            var shipping = await _shippingRepository.GetShip(shippingVm.Id);
+            var org = _orgDetailRepsitory.GetOrgEntity();
+            shipping.ShipType_ShipTypeId = shippingVm.ShipTypeId;
+            shipping.Distance_DistanceId = shippingVm.DistanceId;
+            shipping.SigBackType = shippingVm.SigBackType;
+            shipping.FastSearchNumber = shippingVm.FastSearch;
+            shipping.StatusShipping_StatusShippingId = shippingVm.StatusId;
+            shipping.ModifiedOn = DateTime.Now;
+            shipping.ModifiedBy = userContext.UserId;
+            shipping.IsActive = true;
+            shipping.Direction = shippingVm.Direction;
+            shipping.Recipient = shippingVm.Recipient;
+            shipping.TelTarget = shippingVm.TelTarget;
+            shipping.NameTarget = shippingVm.NameTarget;
+
+            shipping.TelSource = shippingVm.TelSource;
+            shipping.NameSource = shippingVm.NameSource;
+
+            await _locationRepostory.SetLocationAsync(shippingVm.TargetAddress, shipping.Target);
+            await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
+            shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
+            shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
+            if (shippingVm.DistanceId == shippingVm.DistanceIdState)
+            {
+                if (_locationRepostory.IsChangedCity(shippingVm.SourceAddress) || _locationRepostory.IsChangedCity(shippingVm.TargetAddress))
+                {
+                    await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
+
+                    var distance = FindDistance(shipping, org);
+                    shipping.Distance_DistanceId = distance.DistanceId;
+
+                }
+            }
+            _shippingRepository.Update(shipping);
+           // context.Entry<Shipping>(shipping).State = EntityState.Modified;
+        }
+       
+        public async Task<ShippingVm> OnPreUpdateShip(Guid id, UserContext userContext)
+        {
+            var shipping = await _shippingRepository.GetShip(id);
+            var model = new ShippingVm();
+            model.Number = shipping.Name;
+            model.SigBackType = shipping.SigBackType.GetValueOrDefault();
+            model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+            model.DistanceIdState = model.DistanceId;
+            model.ShipTypeId = shipping.ShipType_ShipTypeId.GetValueOrDefault();
+            model.DistanceValue = String.IsNullOrEmpty(shipping.DistanceText) ? General.Empty : shipping.DistanceText;
+            model.FastSearch = shipping.FastSearchNumber;
+            model.Id = shipping.ShippingId;
+
+            model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+
+            model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
+            model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
+
+            model.Recipient = shipping.Recipient;
+            model.TelTarget = shipping.TelTarget;
+            model.NameTarget = shipping.NameTarget;
+
+            model.TelSource = shipping.TelSource;
+            model.NameSource = shipping.NameSource;
+
+            model.SourceAddress = new AddressEditorViewModel();
+            model.SourceAddress.City = shipping.Source.CityName;
+            model.SourceAddress.Citycode = shipping.Source.CityCode;
+            model.SourceAddress.CitycodeOld = shipping.Source.CityCode;
+            model.SourceAddress.Street = shipping.Source.StreetName;
+            model.SourceAddress.Streetcode = shipping.Source.StreetCode;
+            model.SourceAddress.StreetcodeOld = shipping.Source.StreetCode;
+            model.SourceAddress.ExtraDetail = shipping.Source.ExtraDetail;
+            model.SourceAddress.Num = shipping.Source.StreetNum;
+
+            model.TargetAddress = new AddressEditorViewModel();
+            model.TargetAddress.City = shipping.Target.CityName;
+            model.TargetAddress.Citycode = shipping.Target.CityCode;
+            model.TargetAddress.CitycodeOld = shipping.Target.CityCode;
+            model.TargetAddress.Street = shipping.Target.StreetName;
+            model.TargetAddress.Streetcode = shipping.Target.StreetCode;
+            model.TargetAddress.StreetcodeOld = shipping.Target.StreetCode;
+            model.TargetAddress.ExtraDetail = shipping.Target.ExtraDetail;
+            model.TargetAddress.Num = shipping.Target.StreetNum;
+
+            model.Direction = shipping.Direction;
+
+            if (shipping.StatusShipping_StatusShippingId.HasValue)
+            {
+                if (shipping.StatusShipping_StatusShippingId.Value == Guid.Parse(Helper.Status.Draft))
+                {
+                    shipping.NotifyType = (int)AlertStyle.Warning;//Notification.Warning;
+                    shipping.NotifyText = Notification.MessageConfirm;
+                }
+            }
+            return model;
+        }
+        
         public Distance FindDistance(Shipping shipping, Organization org)
         {
             var distances = _orgDetailRepsitory.GetDistancesPerOrg(org.OrgId);

@@ -86,11 +86,11 @@ namespace Michal.Project.Dal
                 var notifyMessages = await _context.NotifyMessage.Where(u => u.UserId == userId && u.IsActive == true && u.IsRead == false).ToListAsync();
                 if (notifyMessages.Count() == 0)
                 {
-                    model.Body = "אן הודעות מהמערכת";
+                    model.Body = "!אן הודעות מהמערכת";
                     return model;
                 }
 
-                if (notifyMessages.Count() > 1)
+                if (notifyMessages.Count() > 0)
                     model.Body = "יש לך מספר הודעות " + notifyMessages.Count().ToString() + " חדשות ";
                 else
                 {
