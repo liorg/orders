@@ -82,6 +82,7 @@ namespace Michal.Project.Dal
             var user = await (from un in _context.UserNotify
                                 join u in _context.Users
                                 on un.UserId.ToString() equals u.Id
+                              where un.DeviceId == deviceid
                                 select u).FirstOrDefaultAsync();
 
             if (user!=null)
