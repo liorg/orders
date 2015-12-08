@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-
+//using System.Web.Http.Cors;
 namespace Michal.Project
 {
     public static class WebApiConfig
@@ -13,6 +13,8 @@ namespace Michal.Project
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*") { SupportsCredentials = true });
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -29,6 +29,8 @@ namespace Michal.Project
  
             //WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+          
         //    app.UseWebApi(config);
 
             // Uncomment the following lines to enable logging in with third party login providers
