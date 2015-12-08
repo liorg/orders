@@ -79,23 +79,29 @@ namespace Michal.Project.Dal
             var model = new NotifyItem();
             model.Url = url + path;
             model.Title = "מערכת הודעות זמן אמת";
-            var userId = await _context.UserNotify.Where(d => d.DeviceId == deviceid).Select(s => s.UserId).FirstOrDefaultAsync();
-            if (userId != null && userId != Guid.Empty)
+            var user = await (from un in _context.UserNotify
+                                join u in _context.Users
+                                on un.UserId.ToString() equals u.Id
+                                select u).FirstOrDefaultAsync();
+
+            if (user!=null)
             {
+                var userId = Guid.Parse(user.Id);
+                var fullname = user.FirstName + " " + user.LastName;
                 model.Body = "שים לב יש לך הודעות חדשות";
                 var notifyMessages = await _context.NotifyMessage.Where(u => u.UserId == userId && u.IsActive == true && u.IsRead == false).ToListAsync();
                 if (notifyMessages.Count() == 0)
                 {
-                    model.Body = "!אן הודעות מהמערכת";
+                    model.Body = fullname + "," + "אן הודעות מהמערכת !";
                     return model;
                 }
 
-                if (notifyMessages.Count() > 0)
-                    model.Body = "יש לך מספר הודעות " + notifyMessages.Count().ToString() + " חדשות ";
+                if (notifyMessages.Count() > 1)
+                    model.Body = fullname + "," + "יש לך מספר הודעות " + notifyMessages.Count().ToString() + " חדשות ";
                 else
                 {
                     var notifyMessageFirst = notifyMessages.First();
-                    model.Body = notifyMessageFirst.Body;
+                    model.Body =  fullname + "," +notifyMessageFirst.Body;
                     model.Url = notifyMessageFirst.ToUrl;
                     model.Id = notifyMessageFirst.NotifyMessageId;
                 }
