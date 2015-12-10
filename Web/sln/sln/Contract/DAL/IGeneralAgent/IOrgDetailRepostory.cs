@@ -18,6 +18,8 @@ namespace Michal.Project.Contract.DAL
 
         Organization GetOrgEntity();
 
+        List<Product> GetProducts(Guid orgid);
+
         //IEnumerable<ApplicationUser> GetManagersOfCompany(Guid orgId);
     }
 }

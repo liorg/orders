@@ -23,6 +23,7 @@ namespace Michal.Project.Dal
         static StreetsGeoLocation _locationDes = null;
         static Guid _orgId = Guid.Empty;
         static Organization _organization = null;
+
         public MemeryCacheDataService()
         {
 

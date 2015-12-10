@@ -19,24 +19,24 @@ using Kipodeal.Helper.Cache;
 
 namespace Michal.Project.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class OrgController : Controller
     {
-       
+
         public ActionResult CreateShipByOrg()
         {
-             using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext())
             {
                 ViewLogic view = new ViewLogic();
-              //  UserContext user = new UserContext(AuthenticationManager);
+                //  UserContext user = new UserContext(AuthenticationManager);
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 ViewBag.Orgs = cache.GetOrgs(context).ToList();
-               
+
 
             }
             return View();
         }
-        
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -59,7 +59,7 @@ namespace Michal.Project.Controllers
                 var org = repository.GetOrgEntity();
                 orgVm.Name = org.Name;
                 orgVm.Id = org.OrgId;
-                
+                orgVm.PriceException = org.PriceValueException.GetValueOrDefault().ToString();
                 orgVm.Address = new AddressEditorViewModel();
                 orgVm.Address.City = org.AddressOrg.CityName;
                 orgVm.Address.ExtraDetail = org.AddressOrg.ExtraDetail;
@@ -74,7 +74,7 @@ namespace Michal.Project.Controllers
         public ActionResult GetDistances(Guid? orgid)
         {
             var distancesView = new DistancesView();
-           
+
             using (var context = new ApplicationDbContext())
             {
                 UserContext user = new UserContext(AuthenticationManager);
@@ -84,8 +84,24 @@ namespace Michal.Project.Controllers
                 var org = repository.GetOrgEntity();
                 distancesView.Name = org.Name;
                 distancesView.Id = org.OrgId;
-                distancesView.Items= calc.GetDistancesItems(org.OrgId);
-            
+                distancesView.Items = calc.GetDistancesItems(org.OrgId);
+
+            }
+            return View(distancesView);
+        }
+        public ActionResult GetProducts(Guid? orgid)
+        {
+            var distancesView = new ProductsView();
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext user = new UserContext(AuthenticationManager);
+                GeneralAgentRepository repository = new GeneralAgentRepository(context);
+                var orgId = repository.GetOrg();
+                CalcService calc = new CalcService(repository, repository, repository);
+                var org = repository.GetOrgEntity();
+                distancesView.Name = org.Name;
+                distancesView.Id = org.OrgId;
+                distancesView.Items = calc.GetProducts(org.OrgId);
             }
             return View(distancesView);
         }

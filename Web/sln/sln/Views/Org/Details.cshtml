@@ -27,8 +27,12 @@
             </li>
             
               <li class="list-group-item">
-                <span class="label label-primary">@Model.Address</span>
+                <span class="label label-primary">@Html.DisplayFor(m=>m.Address)</span>
                 <span class="prefix  pull-right">כתובת :</span>
+            </li>
+            <li class="list-group-item">
+                <span class="label label-primary">@Model.PriceException</span>
+                <span class="prefix  pull-right">סכום מחייב חריגה בש"ח :</span>
             </li>
             </ul>
     </div>

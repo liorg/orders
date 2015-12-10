@@ -430,6 +430,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
+    <Compile Include="Models\ProductsView.cs" />
     <Compile Include="Models\DistancesView.cs" />
     <Compile Include="Models\OrgVm.cs" />
     <Compile Include="Models\MessageForUsers.cs" />
@@ -874,6 +875,7 @@
     <Content Include="Views\Org\Details.cshtml" />
     <Content Include="Views\Shared\_orgToolbar.cshtml" />
     <Content Include="Views\Org\GetDistances.cshtml" />
+    <Content Include="Views\Org\GetProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

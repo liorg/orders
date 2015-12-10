@@ -72,11 +72,11 @@ namespace Michal.Project.Dal
             return memory.GetOrgEntity(_context);
         }
 
-        public List<DataModel.Product> GetProducts(Guid orgId)
-        {
-            MemeryCacheDataService memory = new MemeryCacheDataService();
-            return memory.GetProducts(_context, orgId);
-        }
+        //public List<DataModel.Product> GetProducts(Guid orgId)
+        //{
+        //    MemeryCacheDataService memory = new MemeryCacheDataService();
+        //    return memory.GetProducts(_context, orgId);
+        //}
 
         public List<KeyValuePair<int, string>> GetBackOrder()
         {
@@ -124,6 +124,12 @@ namespace Michal.Project.Dal
         //    return items.Where(it => it.ShippingCompany_ShippingCompanyId.HasValue && it.ShippingCompany_ShippingCompanyId.Value == companyid).AsEnumerable();
 
         //}
+
+        public List<Product> GetProducts(Guid orgid)
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetProducts(_context, orgid);
+        }
         
     }
 }

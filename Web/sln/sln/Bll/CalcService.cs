@@ -231,6 +231,22 @@ namespace Michal.Project.Bll
             }
             return items;
         }
+
+        public List<ProductsViewItem> GetProducts(Guid orgid)
+        {
+            var items = new List<ProductsViewItem>();
+            var data = _orgDetailRepostory.GetProducts(orgid);
+            foreach (var item in data)
+            {
+                var productsViewItem = new ProductsViewItem();
+                productsViewItem.Name = item.Name;
+                productsViewItem.Desc = item.Desc;
+                productsViewItem.Id = item.ProductId;
+                items.Add(productsViewItem);
+            }
+            return items;
+        }
+        
     }
 }
 /*
