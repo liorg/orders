@@ -128,12 +128,12 @@ function AppViewModel(vmData) {
     self.HasDirty = ko.observable(vmData.HasDirty);
     self.AddExceptionPrice = ko.observable(vmData.AddExceptionPrice);
     self.IsAddExceptionPrice = ko.observable(vmData.IsAddExceptionPrice);
-    
-    
+
+
     self.HasDirtyChange = function (b) {
-      
+
         self.HasDirty(b);
-      
+
         if (self.HasDirty() && !offerClient.IsDemo) {
             $('#error_container').bs_alert('התבצעו שינויים ,יש לבצע שמירה', 'הערה');
         }
@@ -249,8 +249,8 @@ function AppViewModel(vmData) {
     };
 
     self.hasOneMorePriceException = function () {
-       
-        var id=offerClient.ObjectIdExcpetionPriceId;
+
+        var id = offerClient.ObjectIdExcpetionPriceId;
         priceEx = ko.utils.arrayFirst(vm.Items(), function (item) {
             return item.ObjectId() == id && item.ObjectIdType() == 5;
         });
@@ -263,24 +263,24 @@ function AppViewModel(vmData) {
     self.refreshWatch = function () {
         var timeWaitSet = offerClient.TimeWaitSetProductId;
         var timeWaitGet = offerClient.TimeWaitGetProductId;
-       
 
-       var twsend = ko.utils.arrayFirst(vm.Items(), function (item) {
-           return item.ObjectId() == timeWaitSet && item.ObjectIdType() == 2;
-       });
-       if (twsend != null) {
-           twsend.Amount(self.TimeWaitSend());
-           twsend.PriceValue(offerClient.TimeWaitSend * twsend.ProductPrice());
-           self.HasDirtyChange(true);
-       }
-       var twget = ko.utils.arrayFirst(vm.Items(), function (item) {
-           return item.ObjectId() == timeWaitGet && item.ObjectIdType() == 2;
-       });
-       if (twget != null) {
-           twget.Amount(self.TimeWaitGet());
-           twget.PriceValue(offerClient.TimeWaitGet * twget.ProductPrice());
-           self.HasDirtyChange(true);
-       }
+
+        var twsend = ko.utils.arrayFirst(vm.Items(), function (item) {
+            return item.ObjectId() == timeWaitSet && item.ObjectIdType() == 2;
+        });
+        if (twsend != null) {
+            twsend.Amount(self.TimeWaitSend());
+            twsend.PriceValue(offerClient.TimeWaitSend * twsend.ProductPrice());
+            self.HasDirtyChange(true);
+        }
+        var twget = ko.utils.arrayFirst(vm.Items(), function (item) {
+            return item.ObjectId() == timeWaitGet && item.ObjectIdType() == 2;
+        });
+        if (twget != null) {
+            twget.Amount(self.TimeWaitGet());
+            twget.PriceValue(offerClient.TimeWaitGet * twget.ProductPrice());
+            self.HasDirtyChange(true);
+        }
 
         //offerClient.TimeWaitSend
     };
@@ -369,7 +369,7 @@ function AppViewModel(vmData) {
                 product.ObjectId(current.ObjectId());
                 product.ObjectIdType(current.ObjectIdType());
                 product.PriceValue(current.Total());
-               
+
                 product.HasPrice(true);
 
             }
@@ -395,7 +395,7 @@ function AppViewModel(vmData) {
             item.ProductPrice = current.ProductPrice();
             item.ObjectId = current.ObjectId();
             item.ObjectIdType = current.ObjectIdType();
-            item.QuntityType=current.QuntityType();
+            item.QuntityType = current.QuntityType();
             var ob = ko.mapping.fromJS(item);
 
             var dd = self.Items;
@@ -440,7 +440,7 @@ $(document).ready(function () {
     $('#btnOk').click(function () {
         $.unblockUI();
         refreshPage();
-       // return false;
+        // return false;
     });
 
     $('#btnBack').click(function () {
@@ -450,6 +450,7 @@ $(document).ready(function () {
 
     $('#btnCreate, #btnConfirm, #btnGrant').click(function () {
         debugger;
+        var gobackurl = $(this).attr("data-url");
         var items = ko.mapping.toJS(vm.Items);
         var offer = {
             'Id': offerClient.Id,
@@ -491,12 +492,15 @@ $(document).ready(function () {
                     }
                     else {
                         //alert("התהליך בוצע");
-                        $.growlUI('סטאטוס', 'התהליך בוצע!')
-                        refreshPage();
+                        $.growlUI('סטאטוס', 'התהליך בוצע!');
+                        if (gobackurl != "")
+                            changeUrl(gobackurl);
+                        else
+                            refreshPage();
                     }
                 }
                 else
-                alert(data.ErrDesc);
+                    alert(data.ErrDesc);
             },
             error: function (error) {
                 debugger;

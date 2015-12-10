@@ -677,8 +677,10 @@ namespace Michal.Project.Bll
                     return "אישור הזמנה סופי";
                 case 7:
                     return "אישור הזמנה חריגה";
+                case 3:
+                    return "פרטי הזמנה";
                 case 10:
-                    return "סגירת הזמנה";
+                    return " ההזמנה סגורה";
                 default:
                     return "אישור הזמנה סופי";
 
