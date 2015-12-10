@@ -22,7 +22,7 @@ namespace Michal.Project.Models
         [Display(Name = "זמן תגובה בדקות")]
         public string Mins { get; set; }
     }
-    public class SlaView : IComapnyView
+    public class SlaView : IView
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -22,10 +22,11 @@ namespace Michal.Project.Models
         [Display(Name = "חופשה")]
         public bool  IsDateOff { get; set; }
     }
-    public class BussinessClosureView : IComapnyView
+    public class BussinessClosureView : IView
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Year { get; set; }
         public List<BussinessClosureItem> Items { get; set; }
 
     }

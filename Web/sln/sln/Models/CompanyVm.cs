@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class CompanyVm : IComapnyView
+    public class CompanyVm : IView
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

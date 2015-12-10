@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class Offer : IShipView
+    public class Offer : IView
     {
         public Guid Id { get; set; }
         public Guid OfferId { get; set; }

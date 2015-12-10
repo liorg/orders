@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class OfferUpload : Offer, IShipView
+    public class OfferUpload : Offer, IView
     {
         public List<OfferItem> DataItems { get; set; }
     }

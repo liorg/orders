@@ -89,12 +89,14 @@ namespace Michal.Project.Controllers
                 GeneralAgentRepository repository = new GeneralAgentRepository(context);
                 var orgId = repository.GetOrg();
                 CalcService calc = new CalcService(repository, repository, repository);
-                bussinessClosureView.Items = calc.GetDayOff(companyid);
+                bussinessClosureView.Items = calc.GetDayOff(companyid,DateTime.Now.Year);
+                bussinessClosureView.Year = DateTime.Now.Year.ToString();
                 var company = calc.GetCompany(orgId, companyid);
                 bussinessClosureView.Name = company.Name;
                 return View(bussinessClosureView);
             }
         }
+
         public ActionResult Sla(Guid companyid)
         {
             SlaView sla = new SlaView();

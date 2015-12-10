@@ -70,5 +70,24 @@ namespace Michal.Project.Controllers
             }
             return View(orgVm);
         }
+
+        public ActionResult GetDistances(Guid? orgid)
+        {
+            var distancesView = new DistancesView();
+           
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext user = new UserContext(AuthenticationManager);
+                GeneralAgentRepository repository = new GeneralAgentRepository(context);
+                var orgId = repository.GetOrg();
+                CalcService calc = new CalcService(repository, repository, repository);
+                var org = repository.GetOrgEntity();
+                distancesView.Name = org.Name;
+                distancesView.Id = org.OrgId;
+                distancesView.Items= calc.GetDistancesItems(org.OrgId);
+            
+            }
+            return View(distancesView);
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Web;
 namespace Michal.Project.Models
 {
 
-    public class OfferClient : Offer, IShipView
+    public class OfferClient : Offer, IView
     {
         public List<OfferClientItem> Discounts { get; set; }
         public List<OfferClientItem> DirtyDiscounts { get; set; }

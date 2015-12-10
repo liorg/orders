@@ -47,6 +47,7 @@ namespace Michal.Project.Bll
             _slaRepository = slaRepository;
             _orgDetailRepostory=orgDetailRepostory;
         }
+
         public void SetSla(ISlaValue sla)
         {
             Guid shipCopanyId = sla.ShippingCompany_ShippingCompanyId.GetValueOrDefault();
@@ -57,7 +58,7 @@ namespace Michal.Project.Bll
             var result = GetSla(shipCopanyId, orgid, distanceId, shipTypeId, sla.ActualStartDate);
             sla.SlaTime = result;
         }
-      
+
         public DateTime GetSla(Guid shipCopanyId, Guid orgid, Guid distanceId, Guid shipTypeId, DateTime? starttime = null)
         {
             var minutes = _slaRepository.FindSlaOnMinute(shipCopanyId, orgid, distanceId, shipTypeId);
@@ -196,10 +197,10 @@ namespace Michal.Project.Bll
             return items;
         }
 
-        public List<BussinessClosureItem> GetDayOff(Guid companyid)
+        public List<BussinessClosureItem> GetDayOff(Guid companyid,int year)
         {
             var items = new List<BussinessClosureItem>();
-            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d=>d.SpecialDate.HasValue) ;
+            var data = _bussinessClosureRepository.GetByShipCompany(companyid).Where(d=>d.SpecialDate.HasValue &&d.Year==year) ;
             foreach (var item in data)
             {
                 var bussinessItem = new BussinessClosureItem();
@@ -210,6 +211,23 @@ namespace Michal.Project.Bll
                 bussinessItem.IsDateOff = item.IsDayOff;
 
                 items.Add(bussinessItem);
+            }
+            return items;
+        }
+
+        public List<DistancesViewItem> GetDistancesItems(Guid orgid)
+        {
+            var items = new List<DistancesViewItem>();
+            var data = _orgDetailRepostory.GetDistancesPerOrg(orgid);
+            foreach (var item in data)
+            {
+                var distancesItem = new DistancesViewItem();
+                distancesItem.Name = item.Name;
+                distancesItem.Desc = item.Desc;
+                distancesItem.Id = item.DistanceId;
+                distancesItem.FromDistance = (item.FromDistance.GetValueOrDefault()/1000).ToString();
+                distancesItem.ToDistance = (item.ToDistance.GetValueOrDefault()/1000).ToString();
+                items.Add(distancesItem);
             }
             return items;
         }

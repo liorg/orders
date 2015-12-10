@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Michal.Project.Contract.View
 {
-    public interface IComapnyView : IView
-    {
+    //public interface IComapnyView : IView
+    //{
 
-    }
+    //}
 }

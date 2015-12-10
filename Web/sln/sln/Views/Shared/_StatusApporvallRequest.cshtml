@@ -6,25 +6,6 @@
                 <h3 class="panel-title"><b>אישור המשלוח והעברתו לשליח</b></h3>
             </div>
             <div class="panel-body">
-               @* <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" href="#"><span class="visible-md visible-lg"><i class="fa fa-thumbs-o-up fa-fw fa-2x"></i>אושר</span><i class="visible-xs visible-sm fa fa-thumbs-o-up fa-fw fa-2x"></i></a>
-                    <a class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="fa fa-caret-down fa-2x"></span></a>
-
-                    <ul class="dropdown-menu">
-                        @foreach (var runner in Model.Runners)
-                        {
-                            <li><a href="@Url.Action("ConfirmRequest", "Status", new { id = Model.ShipId, assignTo = runner.Id })"><i class="fa fa-hand-o-left fa-fw"></i>@runner.FullName</a></li> 
-                            <li class="divider"></li>
-                        }
-                        <li><a href="@Url.Action("ConfirmRequest", "Status", new { id = Model.ShipId })"><i class="fa fa-repeat fa-fw"></i>העבר אליי</a></li>
-                    </ul>
-                </div>*@
-               @* <div class="btn-group">
-                    <a class="btn btn-lg btn-danger"
-                         href="@Url.Action("CancelRequest", "Status", new { shipId = Model.ShipId })">
-                        <span class="visible-md visible-lg"><i class="fa  fa-thumbs-o-down  fa-2x pull-right"></i>לא אושר הזמנה</span><i class="visible-xs  visible-sm fa  fa-thumbs-o-down  fa-2x pull-right"></i>  </a>
-                </div>*@
                 <div class="btn-group">
                     <a class="btn btn-lg btn-danger"
                          href="@Url.Action("OrderItem", "Offer", new { shipId = Model.ShipId })">

@@ -1,16 +1,18 @@
-﻿@model Michal.Project.Models.BussinessClosureView
+﻿@model Michal.Project.Models.DistancesView
 
 @{
-    ViewBag.Title = "לוח חופשות ";
+    ViewBag.Title = "טבלת מרחקים ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section ordernumber {
- @Html.Partial("_companyToolbar", Model)
+    @Html.Partial("_orgToolbar", Model)
 }
+
 <div class="row">
     <div class="col-md-10">
-        <h4><b class="centered"> @Model.Name לוח חופשות של @Model.Year</b> </h4>
-    </div> 
+        <h4><b class="centered">טבלת מרחקים</b> </h4>
+    </div>
 </div>
 
 <div class="row">
@@ -20,10 +22,9 @@
                 <tr>
                     <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Name)</th>
 
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Start)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.End)</th>
-                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.DateSpiceial)</th>
-                    
+                    <th class="visible-md visible-lg">@Html.DisplayColumnNameFor(Model.Items, model => model.Desc)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.FromDistance)</th>
+                    <th>@Html.DisplayColumnNameFor(Model.Items, model => model.ToDistance)</th>
                 </tr>
                 @if (!Model.Items.Any())
                 {
@@ -37,15 +38,9 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.Name) </td>
-                        @if(item.IsDateOff==true){
-                            <td colspan="2">יום חופש</td>
-                        }
-                        else{
-                        <td>@Html.DisplayFor(modelItem => item.Start)</td>
-                        <td>@Html.DisplayFor(modelItem => item.End)</td>
-                        }
-                        <td>@Html.DisplayFor(modelItem => item.DateSpiceial) </td>
-                    
+                        <td class="visible-md visible-lg">@Html.DisplayFor(modelItem => item.Desc)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FromDistance)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ToDistance)</td>
                     </tr>
                 }
             </table>

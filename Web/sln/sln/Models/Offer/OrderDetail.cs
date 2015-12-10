@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class OrderDetail : IShipView
+    public class OrderDetail : IView
     {
         [Display(Name = "מזהה משלוח")]
         public Guid Id { get; set; }
