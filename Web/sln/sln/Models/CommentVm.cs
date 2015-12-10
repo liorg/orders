@@ -18,7 +18,7 @@ namespace Michal.Project.Models
             get
             {
                 if (CreatedOn.Date == DateTime.Now.Date)
-                   return CreatedOn.ToString("hh:mm");
+                   return CreatedOn.ToString("HH:mm");
 
                 return CreatedOn.Date.ToString("dd-MM-yy");
             }

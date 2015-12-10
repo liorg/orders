@@ -37,7 +37,7 @@ namespace Michal.Project.Controllers
         {
             OrderDetail order = new OrderDetail();
             order.Id = Guid.Empty;
-            order.Name = "מחשבון דמו";
+            order.Name = "מחשבון מחירון";
             order.OfferId = Guid.Empty;
             DefaultShip logic = new DefaultShip();
             var company = logic.items.Where(t => t.Item1 == DefaultShip.DType.DefaultCompany).FirstOrDefault();
@@ -66,7 +66,6 @@ namespace Michal.Project.Controllers
                 {
                     order.StateCode = offer.StatusCode;
                    
-                  //  order.ad
                 }
                 else
                 {
@@ -74,8 +73,8 @@ namespace Michal.Project.Controllers
                 }
                 order.Name = ship.Name;
 
-                order.DistanceCalcText = String.IsNullOrWhiteSpace(ship.DistanceText) ? "..." : ship.DistanceText;
-                order.DistanceCalcOnMeter = ship.DistanceValue == 0 ? "..." : ship.DistanceValue.ToString();
+                order.DistanceCalcText = String.IsNullOrWhiteSpace(ship.DistanceText) ? General.Empty : ship.DistanceText;
+                order.DistanceCalcOnMeter = ship.DistanceValue == 0 ? General.Empty  : ship.DistanceValue.ToString();
 
                 order.Title = logic.GetTitle(offer);
                 var org = generalRepo.GetOrgEntity();
@@ -94,8 +93,8 @@ namespace Michal.Project.Controllers
                     order.SigTypeText = generalRepo.GetBackOrder().Where(ds => ds.Key == ship.SigBackType.Value).Select(s => s.Value).FirstOrDefault();
 
                 order.DirectionText = generalRepo.GetDirection().Where(d => d.Key == ship.Direction).Select(s => s.Value).FirstOrDefault();
-                order.DistanceText = ship.Distance != null ? ship.Distance.Name : "";
-                order.ShipTypeText = ship.ShipType != null ? ship.ShipType.Name : "";
+                order.DistanceText = ship.Distance != null ? ship.Distance.Name : General.Empty;
+                order.ShipTypeText = ship.ShipType != null ? ship.ShipType.Name : General.Empty;
 
                 order.TargetAddress = new AddressEditorViewModel();
                 order.TargetAddress.City = ship.Target.CityName;

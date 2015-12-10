@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michal.Project.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -48,9 +49,9 @@ namespace Michal.Project.Models
             {
                 if (CreatedOn != DateTime.MinValue)
                 {
-                    return CreatedOn.ToString("dd-MM-yy hh:mm");
+                    return CreatedOn.ToString("dd-MM-yy HH:mm");
                 }
-                return "";
+                return General.Empty;
             }
         }
 

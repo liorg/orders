@@ -124,7 +124,7 @@ namespace Michal.Project.Bll
         public void ApprovalRequest(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
-            var text = "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
             request.Title = text;
             request.Desc = text;
 
@@ -140,7 +140,7 @@ namespace Michal.Project.Bll
         {
             StatusRequest request = new StatusRequest(requestBase);
             request.ActualStartDate = DateTime.Now;
-            var grantToText = "";
+            var grantToText = General.Empty;
             if (!String.IsNullOrEmpty(request.AssignTo))
             {
                 request.Ship.GrantRunner = Guid.Parse(request.AssignTo);
@@ -155,7 +155,7 @@ namespace Michal.Project.Bll
             }
 
             var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm") + " והועברה לשליח" + " " + grantToText;
 
             request.Title = title;
             request.Desc = text;
@@ -173,7 +173,7 @@ namespace Michal.Project.Bll
             var user = request.UserContext;
             var ship = request.Ship;
             var title = "המשלוח  נמצא " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + " מספר המשלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = title + System.Environment.NewLine + " " + " מספר המשלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
 
             request.Title = title;
             request.TimeWaitEndGet = DateTime.Now;
@@ -193,7 +193,7 @@ namespace Michal.Project.Bll
             var user = request.UserContext;
             var ship = request.Ship;
             var currentDate = request.CurrentDate;
-            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm");
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.CancelByAdmin;
@@ -212,7 +212,7 @@ namespace Michal.Project.Bll
             request.TimeWaitStartGet = DateTime.Now;
 
             var title = "המשלוח  הגיע לקבל   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
 
             request.Title = title;
             request.Desc = text;
@@ -231,7 +231,7 @@ namespace Michal.Project.Bll
             var ship = request.Ship;
             request.TimeWaitStartSend = DateTime.Now;
             var title = "המשלוח  הגיע  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = title + System.Environment.NewLine + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
 
             request.Title = title;
             request.Desc = text;
@@ -248,7 +248,7 @@ namespace Michal.Project.Bll
             var request = new StatusRequest(requestBase);
             var user = request.UserContext;
             var ship = request.Ship;
-            var title = "המשלוח  התקבל  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var title = "המשלוח  התקבל  " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
             var text = title + desc;
 
             ship.ActualRecipient = recipient;
@@ -269,7 +269,7 @@ namespace Michal.Project.Bll
             var request = new StatusRequest(requestBase);
             var user = request.UserContext;
             var ship = request.Ship;
-            var title = "המשלוח  לא   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var title = "המשלוח  לא   " + " ע''י השליח " + user.FullName + " (" + user.EmpId + ")" + " " + " מספר משלוח " + " " + ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
             var text = title + desc;
             request.TimeWaitEndSend = DateTime.Now;
 
@@ -334,14 +334,14 @@ namespace Michal.Project.Bll
         {
             StatusRequest request = new StatusRequest(requestBase);
             request.ActualStartDate = DateTime.Now;
-            var grantToText = "";
+            var grantToText = General.Empty;
 
             request.Ship.GrantRunner = request.UserContext.UserId;
             grantToText = request.UserContext.FullName;
 
 
             var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm") + " והועברה לשליח" + " " + grantToText;
 
             request.Title = title;
             request.Desc = text;
@@ -357,14 +357,14 @@ namespace Michal.Project.Bll
         {
             StatusRequest request = new StatusRequest(requestBase);
             request.ActualStartDate = DateTime.Now;
-            var grantToText = "";
+            var grantToText = General.Empty;
 
             request.Ship.GrantRunner = request.UserContext.UserId;
             grantToText = request.UserContext.FullName;
 
 
             var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm") + " והועברה לשליח" + " " + grantToText;
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm") + " והועברה לשליח" + " " + grantToText;
 
             request.Title = title;
             request.Desc = text;
@@ -383,7 +383,7 @@ namespace Michal.Project.Bll
         public void ApprovalRequest2(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
-            var text = "המשלוח אושרה " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = "המשלוח אושרה " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
             request.Title = text;
             request.Desc = text;
 
@@ -421,7 +421,7 @@ namespace Michal.Project.Bll
             var user = request.UserContext;
             var ship = request.Ship;
             var currentDate = request.CurrentDate;
-            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm");
+            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm");
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.CancelByAdmin;

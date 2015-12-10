@@ -45,16 +45,16 @@ namespace Michal.Project.Api
             using (var context = new ApplicationDbContext())
             {
                 bool allowRemove = false;
-                //    bool allowAdd = false;
                 bool allowEdit = false;
                 bool allowExcepPrice = false;
+
                 var userContext = HttpContext.Current.GetOwinContext().Authentication;
+
                 MemeryCacheDataService cache = new MemeryCacheDataService();
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&
                    (HttpContext.Current.User.IsInRole(HelperAutorize.RoleAdmin) || HttpContext.Current.User.IsInRole(HelperAutorize.RunnerManager)))
                 {
                     allowRemove = true;
-                    //  allowAdd = true;
                     allowEdit = true;
                 }
                 if (HttpContext.Current != null && HttpContext.Current.User != null &&

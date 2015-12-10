@@ -106,7 +106,7 @@ namespace Michal.Project.Bll
             TimeLine timeline = new TimeLine
             {
                 Name = "הזמנה חדשה" + "של " + userContext.FullName + " מספר עובד - " + userContext.EmpId + "",
-                Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy hh:mm"),
+                Desc = "הזמנה חדשה שנוצרה" + " " + shipping.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm"),
                 CreatedBy = userid,
                 CreatedOn = currentDate,
                 ModifiedBy = userid,
@@ -159,9 +159,9 @@ namespace Michal.Project.Bll
                 }
             }
             _shippingRepository.Update(shipping);
-           // context.Entry<Shipping>(shipping).State = EntityState.Modified;
+            // context.Entry<Shipping>(shipping).State = EntityState.Modified;
         }
-       
+
         public async Task<ShippingVm> OnPreUpdateShip(Guid id, UserContext userContext)
         {
             var shipping = await _shippingRepository.GetShip(id);
@@ -177,7 +177,7 @@ namespace Michal.Project.Bll
 
             model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
-            model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            model.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             model.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             model.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
@@ -220,7 +220,7 @@ namespace Michal.Project.Bll
             }
             return model;
         }
-        
+
         public Distance FindDistance(Shipping shipping, Organization org)
         {
             var distances = _orgDetailRepsitory.GetDistancesPerOrg(org.OrgId);
@@ -247,7 +247,6 @@ namespace Michal.Project.Bll
             OfferClient offerClient = new OfferClient();
             offerClient.ObjectIdExcpetionPriceId = Guid.Parse(ProductType.ObjectIdExcpetionPrice);
 
-            //bool isPresent = false;
             int qunitityType = 0;
             var organid = _orgDetailRepsitory.GetOrg();
             var distances = _orgDetailRepsitory.GetDistancesPerOrg(organid);
@@ -272,13 +271,13 @@ namespace Michal.Project.Bll
             if (ship.TimeWaitStartSend.HasValue && ship.TimeWaitEndSend.HasValue)
             {
                 var resultTimeWaitSend = ship.TimeWaitEndSend.Value - ship.TimeWaitStartSend.Value;
-                offerClient.TimeWaitSend = resultTimeWaitSend.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitSend.Minutes : ProductSystemIds.MinAmountTimeWaitInMIn;
+                offerClient.TimeWaitSend = resultTimeWaitSend.TotalMinutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitSend.TotalMinutes : ProductSystemIds.MinAmountTimeWaitInMIn;
             }
 
             if (ship.TimeWaitEndGet.HasValue && ship.TimeWaitStartSGet.HasValue)
             {
                 var resultTimeWaitGet = ship.TimeWaitEndGet.Value - ship.TimeWaitStartSGet.Value;
-                offerClient.TimeWaitGet = resultTimeWaitGet.Minutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitGet.Minutes : ProductSystemIds.MinAmountTimeWaitInMIn;
+                offerClient.TimeWaitGet = resultTimeWaitGet.TotalMinutes > ProductSystemIds.MinAmountTimeWaitInMIn ? resultTimeWaitGet.TotalMinutes : ProductSystemIds.MinAmountTimeWaitInMIn;
             }
 
 
@@ -546,12 +545,32 @@ namespace Michal.Project.Bll
             offerClient.OfferId = offer.RequestShippingId;
             offerClient.HasDirty = false;
 
+            var twSetId = Guid.Parse(ProductSystemIds.TimeWaitSet);
+            var timeWaitSetProduct = productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+            offerClient.TimeWaitSetProductId = timeWaitSetProduct.ProductSystemId;
+
+            var twGetId = Guid.Parse(ProductSystemIds.TimeWaitGet);
+            var timeWaitGetProduct = productsSystem.Where(ps => ps.ProductSystemId == twGetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
+            offerClient.TimeWaitGetProductId = timeWaitGetProduct.ProductSystemId;
+
             offerClient.DirtyDiscounts = new List<OfferClientItem>();
             foreach (var item in offer.RequestItemShip)
             {
                 if (item.ObjectTypeId == Guid.Parse(ProductType.ObjectIdExcpetionPrice))
                     offerClient.IsAddExceptionPrice = true;
 
+                // for close 
+                if (offerClient.StateCode == (int)OfferVariables.OfferStateCode.End)
+                {
+                    if (item.ObjectTypeId == offerClient.TimeWaitSetProductId
+                        && item.ObjectTypeIdCode == (int)ObjectTypeCode.ProductSystem)
+                        item.Amount = (int)offerClient.TimeWaitSend;
+
+                    else if (item.ObjectTypeId == offerClient.TimeWaitGetProductId
+                        && item.ObjectTypeIdCode == (int)ObjectTypeCode.ProductSystem)
+                        item.Amount = (int)offerClient.TimeWaitGet;
+
+                }
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
@@ -580,7 +599,6 @@ namespace Michal.Project.Bll
                         IsDiscount = true,
                         IsPresent = item.PriceValueType == 2,
                         Name = item.Name,
-                        // PriceValue = item.PriceValue,
                         ProductPrice = item.ProductValue,
                         QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin,
                         StatusRecord = 2
@@ -592,13 +610,7 @@ namespace Michal.Project.Bll
                                      select d).ToList();
 
 
-            var twSetId = Guid.Parse(ProductSystemIds.TimeWaitSet);
-            var timeWaitSetProduct = productsSystem.Where(ps => ps.ProductSystemId == twSetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
-            offerClient.TimeWaitSetProductId = timeWaitSetProduct.ProductSystemId;
 
-            var twGetId = Guid.Parse(ProductSystemIds.TimeWaitGet);
-            var timeWaitGetProduct = productsSystem.Where(ps => ps.ProductSystemId == twGetId && ps.ProductTypeKey == (int)ProductSystemIds.ProductSystemType.TimeWait).FirstOrDefault();
-            offerClient.TimeWaitGetProductId = timeWaitGetProduct.ProductSystemId;
         }
 
         public List<OfferClientItem> GetDiscounts(List<Discount> discountLists, List<PriceList> priceList, bool allowRemove, bool allowEdit)
@@ -705,7 +717,7 @@ namespace Michal.Project.Bll
         public bool IsNeedEsclationPrice(OfferUpload offer, Shipping ship, RequestShipping request)
         {
             var org = _orgDetailRepsitory.GetOrgEntity();
-            if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value <=offer.Total)) && !ship.ApprovalPriceException.HasValue)
+            if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value <= offer.Total)) && !ship.ApprovalPriceException.HasValue)
                 return true;
 
             return false;

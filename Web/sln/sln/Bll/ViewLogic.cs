@@ -70,16 +70,16 @@ namespace Michal.Project.Bll
             orderModel.Status.NameActualRecipient =  shipping.ActualRecipient;
             orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget;
             orderModel.Status.NameActualTarget = shipping.ActualNameTarget;
-            orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
             orderModel.Status.IsTake =shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
-            orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : "אן פרטים";
+            orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : General.Empty;
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             orderModel.Status.Runners = runners;
-            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy hh:mm"):" ";
-            orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy hh:mm") : " ";
+            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy HH:mm"):" ";
+            orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy HH:mm") : " ";
 
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;
@@ -96,7 +96,7 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.Number = shipping.Desc;
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
-            orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
 
             orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection / (double)Status.Max) * 100;
 
@@ -144,7 +144,7 @@ namespace Michal.Project.Bll
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
 
-            orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
@@ -167,7 +167,7 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.Number = shipping.Desc;
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
 
-            orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
+            orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
             orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm");

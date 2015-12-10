@@ -68,8 +68,8 @@ namespace Michal.Project.Controllers
                     u.Id = ship.ShippingId;
                     u.Status = ship.StatusShipping.Desc;
                     u.Name = ship.Name;
-                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
+                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : General.Empty;
+                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : General.Empty;
                     u.TargetAddress = new AddressEditorViewModel();
                     u.TargetAddress.City = ship.Target.CityName;
                     u.TargetAddress.Street = ship.Target.StreetName;
@@ -82,7 +82,7 @@ namespace Michal.Project.Controllers
                     u.SourceAddress.Num = ship.Source.StreetNum;
                     u.SourceAddress.ExtraDetail = ship.Source.ExtraDetail;
 
-                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
 
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;

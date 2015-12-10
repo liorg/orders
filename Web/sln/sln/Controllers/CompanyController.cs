@@ -46,8 +46,8 @@ namespace Michal.Project.Controllers
                 var company = calc.GetCompany(orgId, companyid);
                 companyVm.Name = company.Name;
                 companyVm.Id = company.ShippingCompanyId;
-                companyVm.ContractTel = String.IsNullOrWhiteSpace(company.ContactTel) ? "אין פרטים" : company.ContactTel;
-                companyVm.ContactFullName = String.IsNullOrWhiteSpace(company.ContactFullName) ? "אין פרטים" : company.ContactFullName;
+                companyVm.ContractTel = String.IsNullOrWhiteSpace(company.ContactTel) ? General.Empty : company.ContactTel;
+                companyVm.ContactFullName = String.IsNullOrWhiteSpace(company.ContactFullName) ? General.Empty : company.ContactFullName;
                
                 companyVm.Address = new AddressEditorViewModel();
                 companyVm.Address.City = company.AddressCompany.CityName;
@@ -55,7 +55,7 @@ namespace Michal.Project.Controllers
                 companyVm.Address.Num = company.AddressCompany.StreetNum;
                 companyVm.Address.Street = company.AddressCompany.StreetName;
 
-                companyVm.Desc= String.IsNullOrWhiteSpace( company.Desc)?"חברת שליחיות":company.Desc;
+                companyVm.Desc = String.IsNullOrWhiteSpace(company.Desc) ? General.Empty : company.Desc;
             }
             return View(companyVm);
         }

@@ -67,9 +67,9 @@ namespace Michal.Project.Controllers
                     u.Id = ship.ShippingId;
                     u.Status = ship.StatusShipping.Desc;
                     u.Name = ship.Name;
-                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : General.Empty;
+                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : General.Empty;
+                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
 
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
@@ -136,9 +136,9 @@ namespace Michal.Project.Controllers
                     u.Id = ship.ShippingId;
                     u.Status = ship.StatusShipping.Desc;
                     u.Name = ship.Name;
-                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : "";
-                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : "";
-                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy hh:mm") : "";
+                    u.DistanceName = ship.Distance != null ? ship.Distance.Name : General.Empty;
+                    u.ShipTypeIdName = ship.ShipType != null ? ship.ShipType.Name : General.Empty;
+                    u.CreatedOn = ship.CreatedOn.HasValue ? ship.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
 
                     u.TelTarget = ship.TelTarget;
                     u.NameTarget = ship.NameTarget;
