@@ -1,4 +1,7 @@
-﻿<div class="price-box">
+﻿@model Michal.Project.Models.OrderDetail
+
+
+<div class="price-box">
     <div class="row">
         <div class="col-sm-6">
             <div class="price-form">
@@ -9,12 +12,13 @@
                                 <img src="~/Content/img/additem32green.png" />
                                 מחיר לפני הנחה (₪):
                             </label>
-                            <span class="help-text">המחיר לפני הנחה לא כולל זמני המתנה</span>
+                            <span class="help-text">המחיר לפני הנחה</span>
                         </div>
                         <div class="col-sm-6">
-                            <input type="hidden" id="amount_amirol" class="form-control">
-                            <!-- <p class="price lead" id="total"></p> -->
-                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" data-bind="value: TotalPrice" style="">
+
+                           @* <input class="price lead" name="totalprice" type="text" id="closetotal" disabled="disabled" value="0"
+                                style="">*@
+                             @Html.TextBoxFor(m => m.ClosedPrice, new { @disabled=true, @class = "price lead" })
                         </div>
                     </div>
                 </div>
@@ -28,9 +32,11 @@
                             <span class="help-text">הנחה כולל עבור הפריטים</span>
                         </div>
                         <div class="col-sm-6">
-                            <input type="hidden" id="amount_amirol" class="form-control">
+
                             <!-- <p class="price lead" id="total12"></p> -->
-                            <input class="price lead" name="totalprice12" type="text" id="total12" data-bind="value: TotalDiscount" disabled="disabled" style="">
+                        @*    <input class="price lead" name="totalprice12" type="text" id="closetotal12" value="0"
+                                disabled="disabled" style="">*@
+                             @Html.TextBoxFor(m => m.ClosedDiscountPrice, new { @disabled=true, @class = "price lead" })
                         </div>
                     </div>
                 </div>
@@ -44,8 +50,10 @@
                             <span class="help-text">סה"כ המחיר</span>
                         </div>
                         <div class="col-sm-6">
-                            <input type="hidden" id="amount_amirol" class="form-control">
-                            <input class="price lead" name="totalprice52" type="text" id="total52" data-bind="value: Total" disabled="disabled" style="">
+                            @*<input type="hidden" id="amount_amirol" class="form-control">*@
+                         @*   <input class="price lead" name="totalprice52" type="text" id="closetotal52" value="0"
+                                disabled="disabled" style="">*@
+                             @Html.TextBoxFor(m => m.ClosedTotal, new { @disabled=true, @class = "price lead" })
                         </div>
                     </div>
                 </div>
@@ -56,26 +64,7 @@
                 <div class="panel panel-primary ">
                     <div class="panel-heading">
                         הצג פרטי ההזמנה 
-                                            <!-- ko if: AllowAddDiscount() == true ||  AllowAddItem() ==true -->
-                        <div class="pull-right action-buttons">
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
-                                </button>
-                                <ul class="dropdown-menu slidedown">
-                                    <!-- ko if: AllowAddItem() == true -->
-                                    <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
-                                    <!-- /ko -->
-                                    <!-- ko if: AllowAddDiscount() == true && Discounts().length >0 -->
-                                    <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-ok-sign"></span>הוסף הנחה</a></li>
-                                    <!-- /ko -->
-                                    <!-- ko if: AllowAddDiscount() == true  && !hasOneMorePriceException()-->
-                                    <li><a href="#" data-bind="click: createExceptionPriceItem"><span class="glyphicon glyphicon-flag"></span>הוסף תוספת מחיר </a></li>
-                                    <!-- /ko -->
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- /ko -->
+                            
                     </div>
                     <div class="panel-body">
                         <ul class="list-group" data-bind="foreach: Items">
@@ -99,12 +88,6 @@
                                 <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
                                 <!-- /ko -->
                                 <div class="pull-left action-buttons">
-                                    <!-- ko if: AllowEdit() ==true -->
-                                    <a href="#" data-bind="click: $parent.openModal"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <!-- /ko -->
-                                    <!-- ko if: AllowRemove() ==true -->
-                                    <a href="#" data-bind="click: $parent.cancelOffer" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                                    <!-- /ko -->
                                 </div>
                             </li>
 

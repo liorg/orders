@@ -441,7 +441,7 @@ namespace Michal.Project.Bll
             var user = request.UserContext;
             var ship = request.Ship;
             var currentDate = request.CurrentDate;
-            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm");
+            var text = "המשלוח נסגר" + " " + ship.Name + " מחיר בפועל הינו " + ship.ActualPrice.ToString() + " " + General.Shekel + " בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm");
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.Close;

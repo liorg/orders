@@ -35,10 +35,11 @@ namespace Michal.Project.Fasade
                 Handler requestOffer = new RequestOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository ,isUserGrant);
                 Handler commitOffer = new CommitOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository, isUserGrant);
                 Handler escalationOffer = new EscalationOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository,locationRepository, isUserGrant);
+                Handler closeOffer = new CloseOffer(generalRepo, generalRepo, shipComapnyRepository, offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository, isUserGrant);
 
                 requestOffer.SetSuccessor(escalationOffer);
-                //  commitOffer.SetSuccessor(escalationOffer);
                 escalationOffer.SetSuccessor(commitOffer);
+                commitOffer.SetSuccessor(closeOffer);
                 var messages = await requestOffer.HandleRequest(offer, user);
 
                 await context.SaveChangesAsync();

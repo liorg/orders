@@ -42,12 +42,7 @@ namespace Michal.Project.Mechanism
                 var bodyMessage = " בקשת אישור הזמנה עבור " + ship.Name;
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository,_locationRepostory);
 
-                var request = new StatusRequestBase();
-                request.Ship = ship;
-                request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
-                statusLogic.ApprovalRequest2(request);
-
+                
                 var requestShip = logic.Create(offer, user, ship, managerShip);
                 var isNeedConfirm = logic.IsNeedEsclationPrice(offer, ship, requestShip);
                 if (isNeedConfirm)
@@ -65,6 +60,13 @@ namespace Michal.Project.Mechanism
                         users.Add(managerShip.ManagerId.Value);
                     users.Add(user.UserId);
                 }
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.ApprovalRequest2(request);
+
                 logic.Update(ship);
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 foreach (var userID in users)

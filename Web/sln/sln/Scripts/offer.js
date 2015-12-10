@@ -453,7 +453,7 @@ $(document).ready(function () {
         $("#txtClosePrice").val(vm.TotalPrice());
         $("#txtCloseDiscountPrice").val(vm.TotalDiscount());
         $.blockUI({ message: $('#dlgClosed'), css: { width: '275px' } });
-        
+
     });
     $('#btnNoCloseYet').click(function () {
         $.unblockUI();
@@ -475,7 +475,7 @@ $(document).ready(function () {
             'Total': vm.Total(),
             'IsAddExceptionPrice': vm.IsAddExceptionPrice(),
             'DataItems': items,
-            'ClosedPrice':$("#txtClosePrice").val(),
+            'ClosedPrice': $("#txtClosePrice").val(),
             'ClosedTotal': $("#txtCloseActualPrice").val(),
             'ClosedDiscountPrice': $("#txtCloseDiscountPrice").val()
         };
@@ -508,10 +508,7 @@ $(document).ready(function () {
                     else {
                         //alert("התהליך בוצע");
                         $.growlUI('סטאטוס', 'התהליך בוצע!');
-                        if (gobackurl != "")
-                            changeUrl(gobackurl);
-                        else
-                            refreshPage();
+                        refreshPage();
                     }
                 }
                 else

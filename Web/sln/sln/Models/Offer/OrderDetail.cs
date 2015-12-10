@@ -64,7 +64,11 @@ namespace Michal.Project.Models
         [Display(Name = "מאשר ההזמנה")]
         public UserLink ApprovalShipping { get; set; }
 
+        public bool IsClosed { get; set; }
 
+        public string ClosedTotal { get; set; }
+        public string ClosedPrice { get; set; }
+        public string ClosedDiscountPrice { get; set; }
 
     }
 }

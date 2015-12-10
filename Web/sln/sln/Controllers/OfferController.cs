@@ -65,11 +65,19 @@ namespace Michal.Project.Controllers
                 if (offer != null)
                 {
                     order.StateCode = offer.StatusCode;
+
                    
                 }
                 else
                 {
                     order.StateCode = (int)OfferVariables.OfferStateCode.New;
+                }
+                if (ship.StatusShipping.StatusShippingId == Guid.Parse(Status.Close))
+                {
+                    order.IsClosed = true;
+                    order.ClosedPrice = ship.Price.ToString("#.##");
+                    order.ClosedTotal = ship.ActualPrice.ToString("#.##");
+                    order.ClosedDiscountPrice = ship.DiscountPrice.ToString("#.##");
                 }
                 order.Name = ship.Name;
 

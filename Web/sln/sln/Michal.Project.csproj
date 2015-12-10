@@ -881,6 +881,12 @@
     <Content Include="Views\Org\GetDistances.cshtml" />
     <Content Include="Views\Org\GetProducts.cshtml" />
     <Content Include="Views\F\TimeLines.cshtml" />
+    <Content Include="Views\Shared\_dlgClosePrice.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\_priceCloseBox.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

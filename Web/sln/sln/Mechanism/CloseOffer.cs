@@ -38,10 +38,20 @@ namespace Michal.Project.Mechanism
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository, _locationRepostory);
                
                 var usersfollow = follow.GetUsersByShip(ship);
+
                
+
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Close, offer, user, ship, offerModel);
                 logic.SetPriceOnCloseShip(ship, offer);
+
+                var request = new StatusRequestBase();
+                request.Ship = ship;
+                request.UserContext = user;
+                StatusLogic statusLogic = new StatusLogic(_shippingRepository);
+                statusLogic.Close(request);
+
                 logic.Update(ship);
+
 
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();

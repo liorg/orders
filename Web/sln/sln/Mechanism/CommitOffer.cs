@@ -52,15 +52,17 @@ namespace Michal.Project.Mechanism
                 }
                 else
                 {
+                    
+                    logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.End, offer, user, ship, offerModel);
+                    logic.SetCompanyHandler(ship, offer.ShippingCompanyId);
+                    sla.SetSla(ship);
+
                     var request = new StatusRequestBase();
                     request.Ship = ship;
                     request.UserContext = user;
                     StatusLogic statusLogic = new StatusLogic(_shippingRepository);
                     statusLogic.ConfirmRequest2(request);
 
-                    logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.End, offer, user, ship, offerModel);
-                    logic.SetCompanyHandler(ship, offer.ShippingCompanyId);
-                    sla.SetSla(ship);
                 }
                 logic.Update(ship);
 
