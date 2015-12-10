@@ -17,9 +17,94 @@ namespace Michal.Project.Bll
         {
 
         }
-        public StatusLogic( IShippingRepository shippingRepository)
+        public StatusLogic(IShippingRepository shippingRepository)
         {
             _shippingRepository = shippingRepository;
+        }
+
+        public List<TimeLinedDetailVm> GetAllTimeLines()
+        {
+            List<TimeLinedDetailVm> timeLines = new List<TimeLinedDetailVm>();
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.New,
+                Desc = "חדש",
+                Title = "חדש",
+                ProgressBar = 1
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.ApporvallRequest,
+                Desc = "אישור הזמנה",
+                Title = "אישור הזמנה",
+                ProgressBar = 2
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.Cancel,
+                Desc = "ביטול",
+                Title = "ביטול",
+                ProgressBar = 3
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.Confirm,
+                Desc = "מאושר ע''י חברת שליחים ",
+                Title = "מאושר ע''י חברת שליחים ",
+                ProgressBar = 4
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.CancelByAdmin,
+                Desc = "לא מאושר ע''י חברת שליחים",
+                Title = "לא מאושר ע''י חברת שליחים",
+                ProgressBar = 4
+            });
+            
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.Arrived,
+                Desc = "השליח הגיע לקבל את החבילה מהשולח ",
+                Title = "השליח הגיע לקבל את החבילה מהשולח ",
+                ProgressBar = 5
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.AcceptByRunner,
+                Desc = "השליח קיבל את החבילה ",
+                Title = "השליח קיבל את החבילה ",
+                ProgressBar = 6
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.Arrived,
+                Desc = "השליח הגיע לשלוח את החבילה למקבל ",
+                Title = "השליח הגיע לשלוח את החבילה למקבל ",
+                ProgressBar = 7
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.AcceptByClient,
+                Desc = "המשלוח התקבל- קו הסיום ",
+                Title = "המשלוח התקבל- קו הסיום ",
+                ProgressBar = 8
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.NoAcceptByClient,
+                Desc = "המשלוח לא התקבל- קו הסיום ",
+                Title = "המשלוח לא התקבל- קו הסיום ",
+                ProgressBar = 8
+            });
+            timeLines.Add(new TimeLinedDetailVm
+            {
+                Status = (int)TimeStatus.Close,
+                Desc = "סגירת הזמנה ",
+                Title = "סגירת הזמנה ",
+                ProgressBar = 8
+            });
+
+            return timeLines;
         }
 
         public void RemoveOrder(StatusRequestBase requestBase)
@@ -288,12 +373,13 @@ namespace Michal.Project.Bll
             request.StatusShipping = Guid.Parse(Helper.Status.Confirm);
             request.Ship.IsInProccess = true;
             request.Ship.ApprovalShip = request.UserContext.UserId;
-           
+
             ChangeStatus(request);
             if (_shippingRepository != null)
-               _shippingRepository.Update(request.Ship);
-            
+                _shippingRepository.Update(request.Ship);
+
         }
+
         public void ApprovalRequest2(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);
@@ -328,6 +414,7 @@ namespace Michal.Project.Bll
             if (_shippingRepository != null)
                 _shippingRepository.Update(request.Ship);
         }
+
         public void CancelRequest2(StatusRequestBase requestBase)
         {
             StatusRequest request = new StatusRequest(requestBase);

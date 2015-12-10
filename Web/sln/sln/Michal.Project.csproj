@@ -876,6 +876,7 @@
     <Content Include="Views\Shared\_orgToolbar.cshtml" />
     <Content Include="Views\Org\GetDistances.cshtml" />
     <Content Include="Views\Org\GetProducts.cshtml" />
+    <Content Include="Views\F\TimeLines.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

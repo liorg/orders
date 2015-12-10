@@ -109,6 +109,13 @@ namespace Michal.Project.Controllers
             }
         }
 
+        public ActionResult TimeLines()
+        {
+            StatusLogic logic = new StatusLogic();
+            var model=logic.GetAllTimeLines();
+            return View(model);
+
+        }
 
         public ActionResult Register()
         {
