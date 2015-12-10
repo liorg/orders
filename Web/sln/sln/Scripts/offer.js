@@ -442,7 +442,13 @@ $(document).ready(function () {
         refreshPage();
        // return false;
     });
-    $('#btnEditPrice').click(function () {
+
+    $('#btnBack').click(function () {
+        var url = $(this).attr("data-url");
+        changeUrl(url);
+    });
+
+    $('#btnCreate, #btnConfirm, #btnGrant').click(function () {
         debugger;
         var items = ko.mapping.toJS(vm.Items);
         var offer = {
@@ -501,7 +507,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#btnCancelPrice').click(function () {
+    $('#btnCancel, #btnCancelByAdmin, #btnNoCommit').click(function () {
         debugger;
         var items = ko.mapping.toJS(vm.Items);
         var offer = {
