@@ -12,7 +12,7 @@ namespace Michal.Project.Contract.DAL
     public interface INotificationRepository
     {
         Task<NotifiesView> GetNotifiesUserAsync(Guid userId, int? currentPage);
-        void Register(string userid, string deviceid);
+        Task Register(string userid, string deviceid);
         Task<NotifyItem> GetNotifyForCloudMessageAsync( string deviceid);
     }
 }

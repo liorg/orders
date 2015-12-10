@@ -170,10 +170,10 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.Status = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : "";
             orderModel.ShippingVm.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.ShippingVm.OrgId = shipping.Organization_OrgId.GetValueOrDefault();
-            orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
-            orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
-            orderModel.ShippingVm.ActualStartDate =shipping.ActualStartDate.HasValue? shipping.ActualStartDate.Value.ToString("dd/MM/yyyy hh:mm"): "עוד לא אושר";
-            orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value==DateTime.Now.Date?   shipping.SlaTime.Value.ToString("hh:mm") :shipping.SlaTime.Value.ToString("dd/MM/yyyy hh:mm") : "עוד לא אושר";
+            orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm");
+            orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy HH:mm");
+            orderModel.ShippingVm.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
+            orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value==DateTime.Now.Date?   shipping.SlaTime.Value.ToString("HH:mm") :shipping.SlaTime.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
             orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection /(double) Status.Max) * 100;
 
             orderModel.ShippingVm.TelSource = shipping.TelSource;

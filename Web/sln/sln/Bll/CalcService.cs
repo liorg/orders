@@ -100,7 +100,8 @@ namespace Michal.Project.Bll
                         var maxDt = minTimeOnly.AddMins(timeleftOnMin);
                         if (maxDt <= sepicialDay.EndTime)
                         {
-                            dt = dt.Date.Add(maxDt);
+                           // dt = dt.Date.Add(maxDt);
+                            dt = dt.Date.Add(maxDt);//change clock time
                             hasFound = true;
                             continue;
                         }
@@ -128,7 +129,7 @@ namespace Michal.Project.Bll
                         var maxDt = minTimeOnly.AddMins(timeleftOnMin);
                         if (maxDt <= bcitem.EndTime)
                         {
-                            dt = dt.Add(maxDt);
+                            dt = dt.Date.Add(maxDt);//change clock time
                             hasFound = true;
                             break;
                         }

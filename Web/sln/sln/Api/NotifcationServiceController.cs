@@ -34,8 +34,7 @@ namespace Michal.Project.Api
                 {
                     var notifyRepo = new NotificationRepository(context);
                     var logic = new NotifyLogic(notifyRepo);
-                    logic.Register(userid, deviceid);
-
+                    await logic.Register(userid, deviceid);
                     await context.SaveChangesAsync();
                 }
                 catch (Exception e)

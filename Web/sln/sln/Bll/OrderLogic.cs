@@ -95,7 +95,7 @@ namespace Michal.Project.Bll
             await _locationRepostory.SetLocationAsync(shippingVm.SourceAddress, shipping.Source);
             shipping.Target.ExtraDetail = shippingVm.TargetAddress.ExtraDetail;
             shipping.Source.ExtraDetail = shippingVm.SourceAddress.ExtraDetail;
-
+            shipping.Organization_OrgId = org.OrgId;
             if (_locationRepostory.IsChangedCity(shippingVm.SourceAddress) || _locationRepostory.IsChangedCity(shippingVm.TargetAddress))
             {
                 await _locationRepostory.SetDistance(shipping.Source, shipping.Target, shipping);
@@ -705,7 +705,7 @@ namespace Michal.Project.Bll
         public bool IsNeedEsclationPrice(OfferUpload offer, Shipping ship, RequestShipping request)
         {
             var org = _orgDetailRepsitory.GetOrgEntity();
-            if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value >= offer.Total)) && !ship.ApprovalPriceException.HasValue)
+            if ((offer.IsAddExceptionPrice || (org.PriceValueException.HasValue && org.PriceValueException.Value <=offer.Total)) && !ship.ApprovalPriceException.HasValue)
                 return true;
 
             return false;

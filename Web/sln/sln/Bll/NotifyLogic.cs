@@ -24,9 +24,9 @@ namespace Michal.Project.Bll
             return await _notificationRepository.GetNotifiesUserAsync(user.UserId, currentPage);
         }
 
-        public void Register(string user, string deviceid)
+        public async Task Register(string user, string deviceid)
         {
-            _notificationRepository.Register(user, deviceid);
+            await _notificationRepository.Register(user, deviceid);
         }
 
         public  async Task<NotifyItem> GetNotifyForCloudMessage( string deviceid)

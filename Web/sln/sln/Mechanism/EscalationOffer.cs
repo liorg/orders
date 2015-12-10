@@ -37,7 +37,7 @@ namespace Michal.Project.Mechanism
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository,_locationRepostory);
                
-                HashSet<Guid> users = new HashSet<Guid>();
+                //HashSet<Guid> users = new HashSet<Guid>();
                 var usersfollow = follow.GetUsersByShip(ship);
                 if (!_isUserGrant)
                 {
@@ -54,7 +54,7 @@ namespace Michal.Project.Mechanism
                 var titleMessage = "הזמנה חריגה אושרה";
                 var bodyMessage = " בקשת אישור הזמנה חריגה עבור " + ship.Name;
                 var urlMessage = url + path;
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient);
+                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient);
             }
             else if (successor != null)
             {

@@ -51,15 +51,23 @@ namespace Michal.Project.Dal
             return notifiesView;
         }
 
-        public void Register(string userid, string deviceid)
+        public async Task Register(string userid, string deviceid)
         {
             var dt = DateTime.Now;
-            var userId=Guid.Parse(userid);
-           var removes= _context.UserNotify.Where(dd => dd.UserId == userId).ToList();
-           foreach (var remove in removes)
-           {
-               _context.UserNotify.Remove(remove);  
-           }
+            var registersAlreadyDevices = await _context.UserNotify.Where(u => u.DeviceId == deviceid && u.IsActive == true).ToListAsync();
+
+            foreach (var removeRegisterDevice in registersAlreadyDevices)
+            {
+                _context.UserNotify.Remove(removeRegisterDevice);
+            }
+
+            var userId = Guid.Parse(userid);
+            var removes = await _context.UserNotify.Where(dd => dd.UserId == userId).ToListAsync();
+            foreach (var remove in removes)
+            {
+                _context.UserNotify.Remove(remove);
+            }
+
             _context.UserNotify.Add(new DataModel.UserNotify
             {
                 UserNotifyId = Guid.NewGuid(),
@@ -71,7 +79,7 @@ namespace Michal.Project.Dal
             });
         }
 
-        public async Task<NotifyItem> GetNotifyForCloudMessageAsync( string deviceid)
+        public async Task<NotifyItem> GetNotifyForCloudMessageAsync(string deviceid)
         {
             var dt = DateTime.Now;
             var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
@@ -80,12 +88,12 @@ namespace Michal.Project.Dal
             model.Url = url + path;
             model.Title = "מערכת הודעות זמן אמת";
             var user = await (from un in _context.UserNotify
-                                join u in _context.Users
-                                on un.UserId.ToString() equals u.Id
+                              join u in _context.Users
+                              on un.UserId.ToString() equals u.Id
                               where un.DeviceId == deviceid
-                                select u).FirstOrDefaultAsync();
+                              select u).FirstOrDefaultAsync();
 
-            if (user!=null)
+            if (user != null)
             {
                 var userId = Guid.Parse(user.Id);
                 var fullname = user.FirstName + " " + user.LastName;
@@ -102,7 +110,7 @@ namespace Michal.Project.Dal
                 else
                 {
                     var notifyMessageFirst = notifyMessages.First();
-                    model.Body =  fullname + "," +notifyMessageFirst.Body;
+                    model.Body = fullname + "," + notifyMessageFirst.Body;
                     model.Url = notifyMessageFirst.ToUrl;
                     model.Id = notifyMessageFirst.NotifyMessageId;
                 }
