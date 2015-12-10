@@ -220,7 +220,7 @@ namespace Michal.Project.Bll
             request.Status = TimeStatus.ArrivedSender;
             request.StatusShipping = Guid.Parse(Helper.Status.ArrivedSender);
             request.Ship.IsInProccess = true;
-            request.Ship.ArrivedShippingSender = request.UserContext.UserId;
+            request.Ship.ArrivedShippingGet = request.UserContext.UserId;
             ChangeStatus(request);
         }
 
@@ -435,6 +435,25 @@ namespace Michal.Project.Bll
                 _shippingRepository.Update(request.Ship);
         }
 
+        public void Close(StatusRequestBase requestBase)
+        {
+            StatusRequest request = new StatusRequest(requestBase);
+            var user = request.UserContext;
+            var ship = request.Ship;
+            var currentDate = request.CurrentDate;
+            var text = "המשלוח לא מאושר" + " " + ship.Name + " " + "בתאריך " + currentDate.ToString("dd/MM/yyyy HH:mm");
+            request.Title = text;
+            request.Desc = text;
+            request.Status = TimeStatus.Close;
+            request.NotifyType = (int)AlertStyle.Success; //Notification.Error;
+            request.StatusShipping = Guid.Parse(Helper.Status.Close);
+            request.Ship.IsInProccess = false;
+
+            request.Ship.ClosedShippment = request.UserContext.UserId;
+            ChangeStatus(request);
+            if (_shippingRepository != null)
+                _shippingRepository.Update(request.Ship);
+        }
 
     }
 }

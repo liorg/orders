@@ -447,6 +447,84 @@ $(document).ready(function () {
         var url = $(this).attr("data-url");
         changeUrl(url);
     });
+    $('#btnClose').click(function () {
+        var gobackurl = $(this).attr("data-url");
+        $("#txtCloseActualPrice").val(vm.Total());
+        $("#txtClosePrice").val(vm.TotalPrice());
+        $("#txtCloseDiscountPrice").val(vm.TotalDiscount());
+        $.blockUI({ message: $('#dlgClosed'), css: { width: '275px' } });
+        
+    });
+    $('#btnNoCloseYet').click(function () {
+        $.unblockUI();
+        return false;
+    });
+
+    $('#btnYesClose').click(function () {
+        debugger;
+        var gobackurl = $(this).attr("data-url");
+        var items = ko.mapping.toJS(vm.Items);
+        var offer = {
+            'Id': offerClient.Id,
+            'HasDirty': vm.HasDirty(),
+            'OfferId': offerClient.OfferId,
+            'ShippingCompanyId': offerClient.ShippingCompanyId,
+            'StateCode': offerClient.StateCode,
+            'DiscountPrice': vm.TotalDiscount(),
+            'Price': vm.TotalPrice(),
+            'Total': vm.Total(),
+            'IsAddExceptionPrice': vm.IsAddExceptionPrice(),
+            'DataItems': items,
+            'ClosedPrice':$("#txtClosePrice").val(),
+            'ClosedTotal': $("#txtCloseActualPrice").val(),
+            'ClosedDiscountPrice': $("#txtCloseDiscountPrice").val()
+        };
+        $.blockUI({
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            },
+            message: "מעבד את הבקשה,נא המתן"
+        });
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/api/OfferService/CommitOffer",
+            data: offer,
+            success: function (data) {
+                debugger;
+                $.unblockUI();
+                if (!data.IsError) {
+                    if (data.MessageClient != null && data.MessageClient != "") {
+                        $('#vmclientMessage').text(data.MessageClient);
+                        $.blockUI({ message: $('#clientMessage'), css: { width: '275px' } });
+                    }
+                    else {
+                        //alert("התהליך בוצע");
+                        $.growlUI('סטאטוס', 'התהליך בוצע!');
+                        if (gobackurl != "")
+                            changeUrl(gobackurl);
+                        else
+                            refreshPage();
+                    }
+                }
+                else
+                    alert(data.ErrDesc);
+            },
+            error: function (error) {
+                debugger;
+                $.unblockUI();
+                jsonValue = jQuery.parseJSON(error.responseText);
+                //jError('An error has occurred while saving the new part source: ' + jsonValue, { TimeShown: 3000 });
+            }
+        });
+    });
 
     $('#btnCreate, #btnConfirm, #btnGrant').click(function () {
         debugger;

@@ -127,6 +127,8 @@ namespace Michal.Project.DataModel
 
         public Guid? ArrivedShippingSender { get; set; }
 
+        public Guid? ArrivedShippingGet { get; set; }
+
         public Guid? ClosedShippment { get; set; }
 
         public int NotifyType { get; set; }

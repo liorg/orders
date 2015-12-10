@@ -159,3 +159,13 @@
 
 }
 @Html.Partial("_dlgItemPrice")
+
+<div id="dlgClosed" style="display: none; cursor: default">
+    <h1>האם תרצה לסגור משלוח</h1>
+    מחיר סגירה:<input type="text" value="" placeholder="מחיר סגירה" id="txtClosePrice" /><br />
+    מחיר הנחה:<input type="text" value="" placeholder="מחיר הנחה" id="txtCloseDiscountPrice" /><br />
+    מחיר בפועל:<input type="text" value="" placeholder="מחיר בפועל" id="txtCloseActualPrice" /><br />
+
+    <input type="button" id="btnYesClose" value="כן" />
+    <input type="button" id="btnNoCloseYet" value="לא" />
+</div>

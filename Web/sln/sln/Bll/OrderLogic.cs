@@ -702,6 +702,10 @@ namespace Michal.Project.Bll
             request.CreatedBy = user.UserId;
             request.CreatedOn = DateTime.Now;
 
+            request.Price = offer.Price.GetValueOrDefault();
+            request.Total = offer.Total.GetValueOrDefault();
+            request.DiscountPrice = offer.DiscountPrice.GetValueOrDefault();
+
             List<RequestItemShip> items = FillItems(offer, requestShippingId, user);
 
             ship.ShippingCompany_ShippingCompanyId = managerShip.ShippingCompanyId;
@@ -742,6 +746,11 @@ namespace Michal.Project.Bll
             offer.StatusReasonCode = 1;
             offer.ModifiedBy = user.UserId;
             offer.ModifiedOn = DateTime.Now;
+
+            offer.Price = offerRequest.Price.GetValueOrDefault();
+            offer.Total = offerRequest.Total.GetValueOrDefault();
+            offer.DiscountPrice = offerRequest.DiscountPrice.GetValueOrDefault();
+
 
             _offerRepository.ChangeStatus(offer, items, offerRequest.HasDirty);
 
@@ -819,6 +828,13 @@ namespace Michal.Project.Bll
         {
             var userLink = await _userRepository.GetUserLink(ship.ApprovalShip);
             return userLink;
+        }
+
+        public void SetPriceOnCloseShip(Shipping ship,OfferUpload offerClose)
+        {
+            ship.Price = offerClose.ClosedPrice.GetValueOrDefault();
+            ship.ActualPrice = offerClose.ClosedTotal.GetValueOrDefault();
+            ship.DiscountPrice = offerClose.DiscountPrice.GetValueOrDefault();
         }
     }
 }

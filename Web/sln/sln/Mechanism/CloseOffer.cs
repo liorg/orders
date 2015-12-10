@@ -28,7 +28,7 @@ namespace Michal.Project.Mechanism
 
         public override async Task<MessageForUsers> HandleRequest(OfferUpload offer, UserContext user)
         {
-            if (offer.StateCode == (int)OfferVariables.OfferStateCode.Close)
+            if (offer.StateCode == (int)OfferVariables.OfferStateCode.End)
             {
                 var messageClient = "";
 
@@ -37,19 +37,19 @@ namespace Michal.Project.Mechanism
                 FollowByLogic follow = new FollowByLogic(_shippingRepository);
                 OrderLogic logic = new OrderLogic(_offerRepository, _shippingRepository, _offerPrice, _orgDetailRep, _userRepository, _locationRepostory);
                
-                HashSet<Guid> users = new HashSet<Guid>();
                 var usersfollow = follow.GetUsersByShip(ship);
                
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Close, offer, user, ship, offerModel);
-
+                logic.SetPriceOnCloseShip(ship, offer);
                 logic.Update(ship);
+
                 var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString();
                 var path = "/Offer/OrderItem?shipId=" + offer.Id.ToString();
 
                 var titleMessage = "הזמנה  סגורה";
-                var bodyMessage = " בקשת אישור הזמנה חריגה עבור " + ship.Name;
+                var bodyMessage = " ההזמנה נסגרה!" + ship.Name;
                 var urlMessage = url + path;
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient);
+                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient);
             }
             else if (successor != null)
             {
