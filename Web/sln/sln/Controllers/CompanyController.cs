@@ -46,16 +46,19 @@ namespace Michal.Project.Controllers
                 var company = calc.GetCompany(orgId, companyid);
                 companyVm.Name = company.Name;
                 companyVm.Id = company.ShippingCompanyId;
-                companyVm.ContractTel = String.IsNullOrWhiteSpace(company.ContactTel) ? General.Empty : company.ContactTel;
-                companyVm.ContactFullName = String.IsNullOrWhiteSpace(company.ContactFullName) ? General.Empty : company.ContactFullName;
+                var shipcompany=company.ShippingCompany;
+                companyVm.ContractTel = String.IsNullOrWhiteSpace(shipcompany.ContactTel) ? General.Empty : shipcompany.ContactTel;
+                companyVm.ContactFullName = String.IsNullOrWhiteSpace(shipcompany.ContactFullName) ? General.Empty : shipcompany.ContactFullName;
                
                 companyVm.Address = new AddressEditorViewModel();
-                companyVm.Address.City = company.AddressCompany.CityName;
-                companyVm.Address.ExtraDetail = company.AddressCompany.ExtraDetail;
-                companyVm.Address.Num = company.AddressCompany.StreetNum;
-                companyVm.Address.Street = company.AddressCompany.StreetName;
+                companyVm.Address.City = shipcompany.AddressCompany.CityName;
+                companyVm.Address.ExtraDetail = shipcompany.AddressCompany.ExtraDetail;
+                companyVm.Address.Num = shipcompany.AddressCompany.StreetNum;
+                companyVm.Address.Street = shipcompany.AddressCompany.StreetName;
 
-                companyVm.Desc = String.IsNullOrWhiteSpace(company.Desc) ? General.Empty : company.Desc;
+                companyVm.Manager = new UserLink { UserId = shipcompany.ManagerId.GetValueOrDefault(), FullName = company.ManagerFullName };
+
+                companyVm.Desc = String.IsNullOrWhiteSpace(shipcompany.Desc) ? General.Empty : shipcompany.Desc;
             }
             return View(companyVm);
         }

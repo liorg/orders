@@ -8,7 +8,7 @@ namespace Michal.Project.Contract.DAL
     {
         List<Distance> GetDistancesPerOrg(Guid orgId);
 
-        List<ShippingCompany> GetShippingCompaniesByOrgId(Guid orgId);
+        List<ShippingCompanyDecorator> GetShippingCompaniesByOrgId(Guid orgId);
 
         List<Organization> GetOrgs();
 

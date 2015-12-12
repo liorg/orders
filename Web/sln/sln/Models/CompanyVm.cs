@@ -13,7 +13,7 @@ namespace Michal.Project.Models
         public string ContractTel { get; set; }
         public string ContactFullName { get; set; }
         public AddressEditorViewModel Address{ get; set; }
-
+        public UserLink Manager { get; set; }
 
         public string Desc { get; set; }
     }

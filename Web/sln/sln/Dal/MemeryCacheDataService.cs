@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-
+using System.Data.Entity;
 namespace Michal.Project.Dal
 {
 
@@ -82,14 +82,14 @@ namespace Michal.Project.Dal
                         _getDirection = new List<KeyValuePair<int, string>>();
                         _getDirection.Add(new KeyValuePair<int, string>(0, "משולח ההזמנה אל היעד"));
                         _getDirection.Add(new KeyValuePair<int, string>(1, "מהיעד לשולח הזמנה"));
-                      
+
                     }
                 }
             }
             return _getDirection;
         }
-       
-        public List<KeyValuePair<int,string>> GetBackOrder()
+
+        public List<KeyValuePair<int, string>> GetBackOrder()
         {
             if (_backOrderItems == null)
             {
@@ -106,7 +106,7 @@ namespace Michal.Project.Dal
             }
             return _backOrderItems;
         }
-        
+
         public StreetsGeoLocation GetStreetsGeoLocation()
         {
             string path = System.Web.HttpContext.Current.ApplicationInstance.Server.MapPath("~/App_Data/") + "rechov.json";
@@ -127,13 +127,13 @@ namespace Michal.Project.Dal
             return _locationDes;
         }
 
-        public IEnumerable<KeyValuePairUI> GetStreetByCityCode(string cityCode,string term,int maxTake)
+        public IEnumerable<KeyValuePairUI> GetStreetByCityCode(string cityCode, string term, int maxTake)
         {
             StreetsGeoLocation locationDes = GetStreetsGeoLocation();
             var query = (from cm in locationDes.StreetsItems
-                        where cm.CodeCity == cityCode && cm.Addr.Contains(term)
-                       select
-                        new KeyValuePairUI(cm.CodeAddr, cm.Addr)).Take(maxTake);
+                         where cm.CodeCity == cityCode && cm.Addr.Contains(term)
+                         select
+                          new KeyValuePairUI(cm.CodeAddr, cm.Addr)).Take(maxTake);
             return query.ToList();
         }
 
@@ -142,10 +142,10 @@ namespace Michal.Project.Dal
             var cities = GetCities();
             return cities.Where(c => c.Value.Contains(term)).ToList();
         }
-     
+
         public IEnumerable<KeyValuePairUI> GetCities()
         {
-             StreetsGeoLocation locationDes = GetStreetsGeoLocation();
+            StreetsGeoLocation locationDes = GetStreetsGeoLocation();
             var query = from cm in locationDes.StreetsItems
                         group cm by new { cm.CodeCity, cm.City } into cms
                         select
@@ -305,7 +305,7 @@ namespace Michal.Project.Dal
             cacheMemoryProvider.Get("GetProducts", out lists);
             if (lists == null)
             {
-                lists = context.Product.Where(s => s.Organizations.Any(e =>  e.OrgId == orgId)).ToList();
+                lists = context.Product.Where(s => s.Organizations.Any(e => e.OrgId == orgId)).ToList();
                 cacheMemoryProvider.Set("GetProducts", lists);
             }
             return lists;
@@ -318,21 +318,32 @@ namespace Michal.Project.Dal
             cacheMemoryProvider.Get("GetProductsSystem", out lists);
             if (lists == null)
             {
-                lists = context.ProductSystem.Where(s => s.IsActive==true).ToList();
+                lists = context.ProductSystem.Where(s => s.IsActive == true).ToList();
                 cacheMemoryProvider.Set("GetProductsSystem", lists);
             }
             return lists;
         }
 
-        public List<ShippingCompany> GetShippingCompaniesByOrgId(ApplicationDbContext context,Guid orgId)
+        public List<ShippingCompanyDecorator> GetShippingCompaniesByOrgId(ApplicationDbContext context, Guid orgId)
         {
             CacheMemoryProvider cacheMemoryProvider = new CacheMemoryProvider();
-            List<ShippingCompany> lists = null;
-            cacheMemoryProvider.Get("GetShippingCompaniesByOrgId", out lists);
+            List<ShippingCompanyDecorator> lists = null;
+            cacheMemoryProvider.Get("GetShippingCompaniesByOrgId"+orgId.ToString(), out lists);
             if (lists == null)
             {
-                lists = context.ShippingCompany.Where(s => s.IsActive == true && s.Organizations.Any(o=>o.OrgId==orgId)).ToList();
-                cacheMemoryProvider.Set("GetShippingCompaniesByOrgId", lists);
+                lists = (from c in context.ShippingCompany.Include(uss=>uss.Users)
+                        join u in context.Users
+                        on c.ManagerId.Value.ToString() equals u.Id.ToString()
+                        where c.Organizations.Any(o=>o.OrgId==orgId) && c.ManagerId.HasValue
+                        select new ShippingCompanyDecorator()
+                        {
+                            ShippingCompany=c,
+                            ManagerFullName = u.FirstName + " " + u.LastName,
+                            
+                        }).ToList();
+
+               // lists = context.ShippingCompany.Where(s => s.IsActive == true && s.Organizations.Any(o=>o.OrgId==orgId)).ToList();
+                cacheMemoryProvider.Set("GetShippingCompaniesByOrgId"+orgId.ToString(), lists);
             }
             return lists;
         }
@@ -344,7 +355,7 @@ namespace Michal.Project.Dal
             cacheMemoryProvider.Get("GetSlaByOrgId", out lists);
             if (lists == null)
             {
-                lists = context.Sla.Where(s => s.IsActive == true && s.Organizations_OrgId.HasValue && s.Organizations_OrgId.Value==orgId).ToList();
+                lists = context.Sla.Where(s => s.IsActive == true && s.Organizations_OrgId.HasValue && s.Organizations_OrgId.Value == orgId).ToList();
                 cacheMemoryProvider.Set("GetSlaByOrgId", lists);
             }
             return lists;

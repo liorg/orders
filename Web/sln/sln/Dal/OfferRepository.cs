@@ -19,7 +19,7 @@ namespace Michal.Project.Dal
             _context = context;
         }
 
-        public void Create( RequestShipping request, List<RequestItemShip> requestItemShips)
+        public void Create(RequestShipping request, List<RequestItemShip> requestItemShips)
         {
             _context.RequestShipping.Add(request);
             foreach (var requestItem in requestItemShips)
@@ -29,17 +29,28 @@ namespace Michal.Project.Dal
             // await  _context.SaveChangesAsync();
         }
 
-        public void ChangeStatus( RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens)
+        public void ChangeStatus(RequestShipping request, List<RequestItemShip> requestItemShips, bool deleteChildrens)
         {
-           // var model = await GetOfferAndHisChilds(request.RequestShippingId); // _context.RequestShipping.Include(s => s.RequestItemShip).FirstOrDefaultAsync(f => f.RequestShippingId == request.RequestShippingId);
+            // var model = await GetOfferAndHisChilds(request.RequestShippingId); // _context.RequestShipping.Include(s => s.RequestItemShip).FirstOrDefaultAsync(f => f.RequestShippingId == request.RequestShippingId);
             request.StatusCode = request.StatusCode;
             if (deleteChildrens)
             {
-                foreach (var requestItemToDel in request.RequestItemShip)
+                //request.RequestItemShip;
+                //var count = request.RequestItemShip.Count;
+                //for (int i = 0; i < count; i++)
+                //{
+                //    var item = request.RequestItemShip[i];
+                //    request.RequestItemShip.Remove(item);
+                //    _context.Entry<RequestItemShip>(item).State = EntityState.Modified;
+
+                //}
+                foreach (var requestItemToDel in request.RequestItemShip.ToList())
                 {
-                    request.RequestItemShip.Remove(requestItemToDel);
+                   // request.RequestItemShip.Remove(requestItemToDel);
                     _context.Entry<RequestItemShip>(requestItemToDel).State = EntityState.Deleted;
                 }
+                request.RequestItemShip.Clear();
+
                 _context.Entry<RequestShipping>(request).State = EntityState.Modified;
 
                 foreach (var requestItem in requestItemShips)

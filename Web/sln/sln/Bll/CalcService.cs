@@ -174,7 +174,7 @@ namespace Michal.Project.Bll
             return slas;
         }
 
-        public ShippingCompany GetCompany(Guid orgid, Guid? companyid)
+        public ShippingCompanyDecorator GetCompany(Guid orgid, Guid? companyid)
         {
             return _orgDetailRepostory.GetShippingCompaniesByOrgId(orgid).Where(c => !companyid.HasValue || c.ShippingCompanyId == companyid.Value ).FirstOrDefault();
         }

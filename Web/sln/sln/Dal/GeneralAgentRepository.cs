@@ -42,7 +42,7 @@ namespace Michal.Project.Dal
             return memory.GetDistancesPerOrg(_context, orgId);
         }
 
-        public List<DataModel.ShippingCompany> GetShippingCompaniesByOrgId(Guid orgId)
+        public List<DataModel.ShippingCompanyDecorator> GetShippingCompaniesByOrgId(Guid orgId)
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetShippingCompaniesByOrgId(_context, orgId);

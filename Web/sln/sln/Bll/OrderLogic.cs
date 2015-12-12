@@ -581,11 +581,12 @@ namespace Michal.Project.Bll
                     ObjectId = item.ObjectTypeId.GetValueOrDefault(),
                     ObjectIdType = item.ObjectTypeIdCode.GetValueOrDefault(),
                     ProductPrice = item.ProductValue,
-                    StatusRecord = 2,
+                    StatusRecord = item.StatusRecord,
                     Amount = item.Amount,
                     AllowEdit = allowEdit,
                     AllowRemove = allowRemove,
-                    QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin
+                    QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin,
+                   
                 });
                 if (item.IsDiscount)
                 {
@@ -601,7 +602,7 @@ namespace Michal.Project.Bll
                         Name = item.Name,
                         ProductPrice = item.ProductValue,
                         QuntityType = item.QuntityType == 0 ? General.Unit : General.UnitMin,
-                        StatusRecord = 2
+                        StatusRecord = item.StatusRecord
                     });
                 }
             }
@@ -787,7 +788,8 @@ namespace Michal.Project.Bll
                         RequestShipping_RequestShippingId = requestShippingId,
                         ProductValue = dataItem.ProductPrice,
                         IsDiscount = dataItem.IsDiscount,
-                        QuntityType = dataItem.QuntityType == General.UnitMin ? 1 : 0
+                        QuntityType = dataItem.QuntityType == General.UnitMin ? 1 : 0,
+                        StatusRecord=dataItem.StatusRecord
 
                     });
                 }

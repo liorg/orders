@@ -8,6 +8,56 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
+    public class ShippingCompanyDecorator 
+    {
+        public string ManagerFullName { get; set; }
+
+        ShippingCompany _company;
+        public ShippingCompany ShippingCompany
+        {
+            get
+            {
+                return _company;
+            }
+            set
+            {
+                _company = value;
+            }
+        }
+        public Guid ShippingCompanyId
+        {
+            get
+            {
+                return _company.ShippingCompanyId;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return _company.Name;
+            }
+        }
+        public ShippingCompanyDecorator()
+        {
+            _company = new ShippingCompany();
+        }
+        public ShippingCompanyDecorator(ShippingCompany comany)
+        {
+            _company = new ShippingCompany();
+            _company.Tel = comany.Tel;
+            _company.Users = comany.Users;
+            _company.ShippingCompanyId = comany.ShippingCompanyId;
+            _company.AddressCompany = comany.AddressCompany;
+            _company.ContactFullName = comany.ContactFullName;
+            _company.ContactTel = comany.ContactTel;
+            _company.Desc = comany.Desc;
+            _company.IsActive = comany.IsActive;
+            _company.ManagerId = comany.ManagerId;
+            _company.Name = comany.Name;
+           
+        }
+    }
     public class ShippingCompany : IModifieder
     {
         public ShippingCompany()
