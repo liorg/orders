@@ -366,10 +366,10 @@ function AppViewModel(vmData) {
                 product.IsPresent(current.IsPresent());
                 product.IsDiscount(current.IsDiscount());
                 product.Amount(current.Amount());
+                product.ProductPrice(current.ProductPrice());
                 product.ObjectId(current.ObjectId());
                 product.ObjectIdType(current.ObjectIdType());
                 product.PriceValue(current.Total());
-
                 product.HasPrice(true);
 
             }
