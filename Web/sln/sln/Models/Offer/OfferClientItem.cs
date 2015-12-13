@@ -14,13 +14,20 @@ namespace Michal.Project.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
-       // public Guid StatusShipping { get; set; }
 
+        decimal? _priceValue;
+        //public decimal? PriceValue { get; set; }
         public decimal? PriceValue
         {
             get
             {
-                return ProductPrice.HasValue ? ProductPrice.Value * Amount : ProductPrice;
+                if (_priceValue == null)
+                    _priceValue = ProductPrice.HasValue ? ProductPrice.Value * Amount : ProductPrice;
+                return _priceValue;
+            }
+            set
+            {
+                _priceValue = value;
             }
         }
         public string QuntityType { get; set; }

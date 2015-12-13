@@ -34,6 +34,7 @@ namespace Michal.Project.DataModel
         public bool IsDiscount { get; set; }
         public int QuntityType { get; set; } //0 =unit,1=min
         public int StatusRecord { get; set; } // 1 =addbysystem,2=remove,3=addnew,4=edit
+
         public DateTime? CreatedOn
         {
             get;
