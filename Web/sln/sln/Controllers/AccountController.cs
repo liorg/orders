@@ -50,14 +50,10 @@ namespace Michal.Project.Controllers
             IQueryable<ApplicationUser> usersQuery;
             //var users = DBContext.Users;
             GeneralAgentRepository repository = new GeneralAgentRepository(DBContext);
-            var org= repository.GetOrgEntity();
-          
-            var inMemo = new List<EditUserViewModel>();
+            var org = repository.GetOrgEntity();
 
-            //if (!User.IsInRole(HelperAutorize.RoleAdmin))
-            //    usersQuery = DBContext.Users.Where(u => u.Organization_OrgId.HasValue && u.Organization_OrgId.Value == userContext.OrgId);
-            //else
-            //     usersQuery = DBContext.Users;
+            var inMemo = new List<EditUserViewModel>();
+;
             usersQuery = DBContext.Users.Where(u => u.IsClientUser == true);
             var total = await usersQuery.CountAsync();
             int page = currentPage.HasValue ? currentPage.Value : 1;
@@ -238,8 +234,10 @@ namespace Michal.Project.Controllers
                     var id = model.UserId.ToString();
                     var viewLogic = new ViewLogic();
                     MemeryCacheDataService cache = new MemeryCacheDataService();
-
+                    
                     var context = DBContext;
+                    var org=cache.GetOrgEntity(context);
+                    var orgid = org.OrgId;
                     LocationAgent location = new LocationAgent(cache);
                     var user = await context.Users.FirstAsync(u => u.Id == id);
                     // Update the user data:
@@ -251,12 +249,21 @@ namespace Michal.Project.Controllers
                     user.Tel = model.Tel;
                     user.GrantUserManager = model.GrantUserManager;
                     user.IsClientUser = model.IsClientUser;
-                    user.Department = model.Department; 
+                    user.Department = model.Department;
                     if (user.IsClientUser)
                     {
                         await location.SetLocationAsync(model.Address, user.AddressUser);
 
                         user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    }
+                    else
+                    {
+                        if (model.CompanyId == Guid.Empty)
+                        {
+                            var defaultCompany = cache.GetShippingCompaniesByOrgId(context, orgid).FirstOrDefault();
+                            model.CompanyId = defaultCompany != null ? defaultCompany.ShippingCompanyId : Guid.Empty;
+                        }
+                             user.ShippingCompany_ShippingCompanyId = model.CompanyId;
                     }
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
 
@@ -448,11 +455,9 @@ namespace Michal.Project.Controllers
                     model.IsClientUser = false;
                     //   model.c
                 }
-                
+
                 if (org != null)
                 {
-
-
                     model.Address.ExtraDetail = org.AddressOrg.ExtraDetail;
                     model.Address.City = org.AddressOrg.CityName;
                     model.Address.Citycode = org.AddressOrg.CityCode;
@@ -523,14 +528,19 @@ namespace Michal.Project.Controllers
                         Organization_OrgId = model.OrgId,
                         Tel = model.Tel,
                         GrantUserManager = model.GrantUserManager,
-                        Department=model.Department,
-                        IsClientUser=model.IsClientUser
+                        Department = model.Department,
+                        IsClientUser = model.IsClientUser
                     };
                     user.AddressUser = new Address();
                     if (user.IsClientUser)
                     {
                         await location.SetLocationAsync(model.Address, user.AddressUser);
                         user.AddressUser.ExtraDetail = model.Address.ExtraDetail;
+                    }
+                    else
+                    {
+                        if (model.CompanyId != Guid.Empty)
+                            user.ShippingCompany_ShippingCompanyId = model.CompanyId;
                     }
                     viewLogic.SetViewerUserByRole(model, user);
 

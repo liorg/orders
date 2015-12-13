@@ -334,11 +334,23 @@ namespace Michal.Project.Dal
                 lists = (from c in context.ShippingCompany.Include(uss=>uss.Users)
                         join u in context.Users
                         on c.ManagerId.Value.ToString() equals u.Id.ToString()
-                        where c.Organizations.Any(o=>o.OrgId==orgId) && c.ManagerId.HasValue
+                        where c.Organizations.Any(o=>o.OrgId==orgId) && c.ManagerId.HasValue// && c.Users.Any(ua=>ua.IsActive)
                         select new ShippingCompanyDecorator()
                         {
-                            ShippingCompany=c,
+                           AddressCompany=c.AddressCompany,
+                           ContactFullName=c.ContactFullName,
+                           ContactTel=c.ContactTel,
+                           Desc=c.Desc,
+                           
+                           
                             ManagerFullName = u.FirstName + " " + u.LastName,
+                            ManagerId=c.ManagerId,
+                            Name=c.Name,
+                            ShippingCompanyId=c.ShippingCompanyId,
+                            Tel=c.Tel,
+                            Users=c.Users.ToList()
+                            
+                            
                             
                         }).ToList();
 

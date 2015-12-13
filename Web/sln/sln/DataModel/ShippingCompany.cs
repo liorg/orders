@@ -8,55 +8,34 @@ using System.Web;
 
 namespace Michal.Project.DataModel
 {
-    public class ShippingCompanyDecorator 
+    public class ShippingCompanyDecorator
     {
         public string ManagerFullName { get; set; }
 
-        ShippingCompany _company;
-        public ShippingCompany ShippingCompany
-        {
-            get
-            {
-                return _company;
-            }
-            set
-            {
-                _company = value;
-            }
-        }
-        public Guid ShippingCompanyId
-        {
-            get
-            {
-                return _company.ShippingCompanyId;
-            }
-        }
-        public string Name
-        {
-            get
-            {
-                return _company.Name;
-            }
-        }
+        public string Name { get; set; }
+
+        public string Desc { get; set; }
+        public Guid ShippingCompanyId { get; set; }
+
+        public Guid? ManagerId { get; set; }
+
+        public Address AddressCompany { get; set; }
+
+        public string Tel { get; set; }
+
+        public string ContactFullName { get; set; }
+
+        public string ContactTel { get; set; }
+
+
         public ShippingCompanyDecorator()
         {
-            _company = new ShippingCompany();
+
         }
-        public ShippingCompanyDecorator(ShippingCompany comany)
-        {
-            _company = new ShippingCompany();
-            _company.Tel = comany.Tel;
-            _company.Users = comany.Users;
-            _company.ShippingCompanyId = comany.ShippingCompanyId;
-            _company.AddressCompany = comany.AddressCompany;
-            _company.ContactFullName = comany.ContactFullName;
-            _company.ContactTel = comany.ContactTel;
-            _company.Desc = comany.Desc;
-            _company.IsActive = comany.IsActive;
-            _company.ManagerId = comany.ManagerId;
-            _company.Name = comany.Name;
-           
-        }
+
+        public List<ApplicationUser> Users { get; set; }
+
+
     }
     public class ShippingCompany : IModifieder
     {

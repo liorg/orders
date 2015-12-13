@@ -43,10 +43,10 @@ namespace Michal.Project.Controllers
                 var orgId = repository.GetOrg();
                 CalcService calc = new CalcService(repository, repository, repository);
 
-                var company = calc.GetCompany(orgId, companyid);
-                companyVm.Name = company.Name;
-                companyVm.Id = company.ShippingCompanyId;
-                var shipcompany=company.ShippingCompany;
+                var shipcompany = calc.GetCompany(orgId, companyid);
+                companyVm.Name = shipcompany.Name;
+                companyVm.Id = shipcompany.ShippingCompanyId;
+             
                 companyVm.ContractTel = String.IsNullOrWhiteSpace(shipcompany.ContactTel) ? General.Empty : shipcompany.ContactTel;
                 companyVm.ContactFullName = String.IsNullOrWhiteSpace(shipcompany.ContactFullName) ? General.Empty : shipcompany.ContactFullName;
                
@@ -56,7 +56,7 @@ namespace Michal.Project.Controllers
                 companyVm.Address.Num = shipcompany.AddressCompany.StreetNum;
                 companyVm.Address.Street = shipcompany.AddressCompany.StreetName;
 
-                companyVm.Manager = new UserLink { UserId = shipcompany.ManagerId.GetValueOrDefault(), FullName = company.ManagerFullName };
+                companyVm.Manager = new UserLink { UserId = shipcompany.ManagerId.GetValueOrDefault(), FullName = shipcompany.ManagerFullName };
 
                 companyVm.Desc = String.IsNullOrWhiteSpace(shipcompany.Desc) ? General.Empty : shipcompany.Desc;
             }
