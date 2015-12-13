@@ -109,7 +109,7 @@ namespace Michal.Project.Helper
                     break;
                 default:
                     fa = "fa-rocket";
-                    circleCss = "default";
+                    circleCss = "success";
                     break;
 
             }

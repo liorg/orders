@@ -12,7 +12,7 @@
 }*@
 @if (Model.Message != "")
 {    
-      @Html.Alert(Model.Message, Model.MessageType)
+    @Html.Alert(Model.Message, Model.MessageType)
 }
 <input type="hidden" value="@Model.ShipId" id="hdShipId" name="hdShipId" />
 @switch (Model.StatusId.ToString())
@@ -52,6 +52,14 @@
         if (ViewBag.userProfiler.AllowRunner)
         {
     @Html.Partial("_StatusEnd")
+        
+        }
+        break;
+    case Michal.Project.Helper.Status.AcceptByClient:
+    case Michal.Project.Helper.Status.NoAcceptByClient:
+        if (ViewBag.userProfiler.AllowAccept)
+        {
+    @Html.Partial("_StatusClose")
         
         }
         break;

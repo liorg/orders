@@ -21,7 +21,7 @@ namespace Michal.Project.Helper
                 userProfiler.IsAdmin = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
                 userProfiler.AllowConfirm = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleOrgManager) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAccept);
 
-                userProfiler.AllowAccept = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin);
+                userProfiler.AllowAccept = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) ||  filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RunnerManager) ;
                 userProfiler.AllowRunner = filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleAdmin) || filterContext.RequestContext.HttpContext.User.IsInRole(HelperAutorize.RoleRunner);
  
             }

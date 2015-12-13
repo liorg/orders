@@ -4,11 +4,11 @@
         <a class="btn  btn-default" data-toggle="dropdown" href="#"><i class="fa fa-pencil  fa-fw fa-2x"></i></a>
 
         <ul class="dropdown-menu">
-            <li><i class="fa fa-reply fa-fw"></i>עבור לשלב קודם </li>
-            <li class="divider"></li>
+            @*  <li><i class="fa fa-reply fa-fw"></i>עבור לשלב קודם </li>
+            <li class="divider"></li>*@
             <li><a href="@(Url.Action("Edit", "S", new { id = Model.ShipId }))"><i class="fa fa-pencil fa-fw"></i>ערוך </a></li>
             <li class="divider"></li>
-            <li><i class="fa fa-times  fa-fw"></i>סגור הזמנה </li>
+            <li><a href="@Url.Action("OrderItem", "Offer", new { shipId = @Model.ShipId })"><i class="fa fa-rocket  fa-fw"></i>סגור הזמנה</a> </li>
         </ul>
     </div>
     
