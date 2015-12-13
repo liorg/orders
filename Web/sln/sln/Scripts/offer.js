@@ -448,11 +448,23 @@ $(document).ready(function () {
         changeUrl(url);
     });
     $('#btnClose').click(function () {
+        var message_width = "270";
+        var message_height = "200";
         var gobackurl = $(this).attr("data-url");
         $("#txtCloseActualPrice").val(vm.Total());
         $("#txtClosePrice").val(vm.TotalPrice());
         $("#txtCloseDiscountPrice").val(vm.TotalDiscount());
-        $.blockUI({ message: $('#dlgClosed'), css: { width: '275px' } });
+        $.blockUI({
+            message: $('#dlgClosed'),
+            css: {
+                width: message_width + "px",
+                height: message_height + "px",
+                top: '50%',
+                left: '50%',
+                margin: (-message_height / 2) + 'px 0 0 ' + (-message_width / 2) + 'px'
+            },
+        }
+        );
 
     });
     $('#btnNoCloseYet').click(function () {
