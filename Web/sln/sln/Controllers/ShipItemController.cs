@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Michal.Project.Contract.DAL;
+using Michal.Project.Agent;
+using Michal.Project.Bll;
 
 namespace Michal.Project.Controllers
 {
@@ -41,6 +44,42 @@ namespace Michal.Project.Controllers
         }
 
         public async Task<ActionResult> Index(string id, string order, string message)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+
+                IUserRepository userRepository = new UserRepository(context);
+                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+
+                OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
+
+
+                ViewBag.ShipId = id;
+
+
+                ViewBag.OrderNumber = order;
+                Guid shipId = Guid.Parse(id);
+                var shippingItems = await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product != null && s.Product.IsCalculatingShippingInclusive == false).ToListAsync();
+                ViewBag.Message = String.IsNullOrEmpty(message) ? "" : message;
+                var model = new List<ShippingItemVm>();
+                foreach (var shipItem in shippingItems)
+                {
+
+                    var u = new ShippingItemVm();
+                    u.Id = shipItem.ShippingItemId;
+                    u.ProductName = shipItem.Product != null ? shipItem.Product.Name : "";
+                    u.Name = shipItem.Name;
+                    u.Total = Convert.ToInt32(shipItem.Quantity);
+                    model.Add(u);
+                }
+                return View(model);
+            }
+        }
+
+        public async Task<ActionResult> IndexOld(string id, string order, string message)
         {
             using (var context = new ApplicationDbContext())
             {

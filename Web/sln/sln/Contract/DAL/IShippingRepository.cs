@@ -18,6 +18,7 @@ namespace Michal.Project.Contract.DAL
         Task<Shipping> GetShipIncludeFollowsUsers(Guid shipId);
         void Add(Shipping ship);
         Task<XbzCounter> GetCounter(Guid orgid);
+        Task<IEnumerable<ShippingItem>> GetShipitems(Guid shipId);
 
     }
 }

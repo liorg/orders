@@ -34,12 +34,14 @@ namespace Michal.Project.Dal
         {
             return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
         }
+        
         public async Task AddOwner(Shipping ship, Guid userid)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());
            
             ship.FollowsBy.Add(user);
         }
+       
         public async Task AddOwnerFollowBy(Shipping ship, Guid userid)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.ToString());
@@ -54,6 +56,7 @@ namespace Michal.Project.Dal
         {
             _context.Entry<Shipping>(ship).State = EntityState.Modified;
         }
+    
         public void Add(Shipping ship)
         {
             _context.Shipping.Add(ship);
@@ -90,6 +93,12 @@ namespace Michal.Project.Dal
                 await _context.SaveChangesAsync();
             }
             return counter;
+        }
+
+        public async Task<IEnumerable<ShippingItem>> GetShipitems(Guid shipId)
+        {
+            var shippingItems = await _context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product != null && s.Product.IsCalculatingShippingInclusive == false).ToListAsync();
+            return shippingItems;   
         }
     }
 }
