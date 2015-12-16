@@ -24,7 +24,9 @@
 </div>
 
 <h4>אישור משלוח  @Model.ShippingVm.Name</h4>
-
+@section ordernumber {
+ @Html.Partial("_orderToolbar", Model)
+}
 @Html.Partial("_ShippingView")
 
 @section Scripts {

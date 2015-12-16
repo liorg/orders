@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section ordernumber {
+ @Html.Partial("_orderToolbar", Model)
+}
+
 @Html.Partial("_offerToolBox")
 
 

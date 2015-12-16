@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michal.Project.Contract.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -55,5 +56,23 @@ namespace Michal.Project.Models
         public Guid ShipId { get; set; }
 
 
+    }
+
+    public class ShippingItemsVm:IView
+    {
+       
+        public IEnumerable<ShippingItemVm> ShippingItems { get; set; }
+
+        public Guid Id
+        {
+            get;
+            set;
+        }
+
+        public string Name
+        {
+            get;
+            set;
+        }
     }
 }

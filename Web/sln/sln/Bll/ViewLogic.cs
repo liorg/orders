@@ -138,7 +138,10 @@ namespace Michal.Project.Bll
         {
 
             var orderModel = new OrderView();
+
             var shipping = request.Shipping;
+            orderModel.Id = shipping.ShippingId;
+            orderModel.Name = shipping.Name;
             var runners = request.Runners;
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();

@@ -1,0 +1,17 @@
+﻿@model Michal.Project.Contract.View.IView
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa  fa-envelope-o "></i>משלוח  @Model.Name  <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li><a href="@Url.Action("ShipView", "S", new { id = @Model.Id.ToString() })"><i class="fa fa-newspaper-o"></i>פרטי משלוח </a></li>
+        <li class="divider"></li>
+        <li><a href="@Url.Action("OrderItem", "Offer", new { shipId = @Model.Id.ToString() })"><i class="fa fa-ils"></i>פרטי הזמנה </a></li>
+        <li class="divider"></li>
+        <li><a href="@Url.Action("Print", "S", new { id = @Model.Id.ToString() })"><i class="fa fa-print"></i>הדפס </a></li>
+        <li class="divider"></li>
+        <li><a href=""@Url.Action("Show", "Map", new { id = @Model.Id })"><i class="fa fa-map-o "></i>הצג מפה </a></li>
+        <li class="divider"></li>
+        <li><a href="@Url.Action("EndStatusDesc", "Status", new { id = @Model.Id.ToString() })"><i class="fa fa-pencil "></i>פרטי מקבל </a></li>
+
+    </ul>
+</li>

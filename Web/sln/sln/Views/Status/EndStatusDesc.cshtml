@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h4>אישור /ביטול הזמנה  @Model.ShippingVm.Name</h4>
+
+@section ordernumber {
+ @Html.Partial("_orderToolbar", @Model.ShippingVm)
+}
 <div class="row">
     <div class="  col-md-12 well well-lg ">
         @if (!(Model.Status.StatusId.ToString() == Michal.Project.Helper.Status.Cancel || Model.Status.StatusId.ToString() == Michal.Project.Helper.Status.Draft ||

@@ -32,7 +32,24 @@ namespace Michal.Project.Bll
             _userRepository = userRepository;
             _locationRepostory = locationRepostory;
         }
+        public async Task<IEnumerable<ShippingItemVm>> GetItemsShip(Guid shipId)
+        {
+          
+            var shippingItems = await _shippingRepository.GetShipitems(shipId); //await context.ShippingItem.Where(s => s.IsActive == true && s.Shipping_ShippingId == shipId && s.Product != null && s.Product.IsCalculatingShippingInclusive == false).ToListAsync();
+        
+            var model = new List<ShippingItemVm>();
+            foreach (var shipItem in shippingItems)
+            {
 
+                var u = new ShippingItemVm();
+                u.Id = shipItem.ShippingItemId;
+                u.ProductName = shipItem.Product != null ? shipItem.Product.Name : "";
+                u.Name = shipItem.Name;
+                u.Total = Convert.ToInt32(shipItem.Quantity);
+                model.Add(u);
+            }
+            return model;
+        }
 
         public async Task<ShippingVm> OnPreCreateShip(UserContext userContext)
         {
@@ -167,6 +184,7 @@ namespace Michal.Project.Bll
             var shipping = await _shippingRepository.GetShip(id);
             var model = new ShippingVm();
             model.Number = shipping.Name;
+            model.Name = shipping.Name;
             model.SigBackType = shipping.SigBackType.GetValueOrDefault();
             model.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
             model.DistanceIdState = model.DistanceId;

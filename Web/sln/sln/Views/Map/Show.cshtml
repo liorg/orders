@@ -4,7 +4,9 @@
     ViewBag.Title = " מפה של משלוח מספר " + @Model.ShippingVm.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section ordernumber {
+ @Html.Partial("_orderToolbar", Model.ShippingVm)
+}
 <div class="row">
     <div class="  col-md-12 well well-lg ">
 
