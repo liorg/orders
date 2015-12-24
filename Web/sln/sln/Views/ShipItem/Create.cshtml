@@ -50,8 +50,8 @@
         </div>
     </div>
 
-    @Html.HiddenFor(m => m.ShipId); 
-
+    @Html.HiddenFor(m => m.ShipId);
+    @Html.HiddenFor(m => m.OrderNumber); 
     <div class="form-group">
         @Html.LabelFor(m => m.ProductId, new { @class = "col-md-2 control-label" })
         <div class="col-md-6">

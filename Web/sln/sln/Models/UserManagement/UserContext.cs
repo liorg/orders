@@ -127,6 +127,14 @@ namespace Michal.Project.Models
                 {
                     _address.ExtraDetail = claim.Value; continue;
                 }
+                if (claim.Type == CustomClaimTypes.Lat)
+                {
+                    _address.Lat = double.Parse(claim.Value); continue;
+                }
+                if (claim.Type == CustomClaimTypes.Lng)
+                {
+                    _address.Lng = double.Parse(claim.Value); continue;
+                }
                 if (claim.Type == CustomClaimTypes.UID)
                 {
                     _address.UID = int.Parse(claim.Value); continue;

@@ -75,6 +75,9 @@ namespace Michal.Project.Helper
         public const string External = "http://r.co.il/claims/External";
         public const string UID = "http://r.co.il/claims/UID";
         public const string GrantUser = "http://r.co.il/claims/GrantUser";
+
+        public const string Lat = "http://r.co.il/claims/Lat";
+        public const string Lng = "http://r.co.il/claims/Lng";
     }
 
     public class TimeStatus

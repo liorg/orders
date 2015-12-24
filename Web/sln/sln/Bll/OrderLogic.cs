@@ -70,6 +70,9 @@ namespace Michal.Project.Bll
             model.SourceAddress.ExtraDetail = userContext.Address.ExtraDetail;
             model.SourceAddress.Num = userContext.Address.StreetNum;
             model.SourceAddress.UId = userContext.Address.UID;
+
+            model.SourceAddress.Lat = userContext.Address.Lat;
+            model.SourceAddress.Lng = userContext.Address.Lng;
             model.Direction = 0;//send
             model.TelSource = userContext.Tel;
             model.NameSource = userContext.FullName;

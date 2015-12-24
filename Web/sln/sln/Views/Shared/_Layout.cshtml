@@ -391,6 +391,12 @@
             changeUrl(viewUrl);
         }
 
+        $('.deliv').click(function () {
+            var url = $(this).attr("data-url");
+            changeUrl(url);
+        });
+     
+
         function changeUrl(changeUrl) {
             $.blockUI({
                 message: "נא המתן מעבד את הבקשה...",

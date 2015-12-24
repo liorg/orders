@@ -49,7 +49,7 @@
         @Html.ValidationSummary()
         @Html.HiddenFor(m => m.Id); 
         @Html.HiddenFor(m => m.ShipId); 
-
+        @Html.HiddenFor(m => m.OrderNumber); 
  <div class="form-group">
      @Html.LabelFor(model => model.OrderNumber, new { @class = "control-label col-md-2" })
      <div class="col-md-10">
