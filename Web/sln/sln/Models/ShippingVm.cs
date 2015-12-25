@@ -29,6 +29,8 @@ namespace Michal.Project.Models
         [Display(Name = "חישוב היעד")]
         public Guid DistanceId { get; set; }
 
+       
+
         [Display(Name = "חישוב היעד")]
         public Guid DistanceIdState { get; set; }
 

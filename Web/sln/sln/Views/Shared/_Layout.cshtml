@@ -91,7 +91,7 @@
                             <li class="divider"></li>
                             <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i>מחשבון מחיר </a></li>
                             <li class="divider"></li>
-                             <li><a href="@Url.Action("TimeLines", "F")"><i class="fa fa-sort-amount-asc"></i>קו הזמן </a></li>
+                             <li><a href="@Url.Action("TimeLines", "F")"><i class="fa fa-sort-amount-asc"></i>ציר הזמן </a></li>
                             <li class="divider"></li>
                              <li><a href="@Url.Action("Details", "Org")"><i class="fa fa-university"></i>פרטי ארגון </a></li>
                             <li class="divider"></li>
@@ -396,7 +396,25 @@
             changeUrl(url);
         });
      
-
+        function submitComment() {
+            $.blockUI({
+                message: "נא המתן שולח את הערה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                document.getElementById('frmComment').submit();
+                //window.location.href = changeUrl;
+            }
+            , 600);
+        }
         function changeUrl(changeUrl) {
             $.blockUI({
                 message: "נא המתן מעבד את הבקשה...",

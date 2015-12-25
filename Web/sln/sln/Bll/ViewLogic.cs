@@ -52,33 +52,33 @@ namespace Michal.Project.Bll
 
         }
 
-        public OrderViewStatus GetOrderStatus(AttachmentShipping sign,OrderRequest request)
+        public OrderViewStatus GetOrderStatus(AttachmentShipping sign, OrderRequest request)
         {
 
             var orderModel = new OrderViewStatus();
             var shipping = request.Shipping;
-            var runners = request.Runners;
+            //var runners = request.Runners;
 
             orderModel.Status = new StatusVm();
             if (sign != null)
-               orderModel.Status.PathSig = sign.Path;
-            
+                orderModel.Status.PathSig = sign.Path;
+
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Direction == 0 ? shipping.Recipient : shipping.NameSource;
             orderModel.Status.TelRecipient = shipping.Direction == 0 ? shipping.TelTarget : shipping.TelSource;
             orderModel.Status.NameTarget = shipping.Direction == 0 ? shipping.NameTarget : shipping.NameSource;
-            orderModel.Status.NameActualRecipient =  shipping.ActualRecipient;
+            orderModel.Status.NameActualRecipient = shipping.ActualRecipient;
             orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget;
             orderModel.Status.NameActualTarget = shipping.ActualNameTarget;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
-            orderModel.Status.IsTake =shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
+            orderModel.Status.IsTake = shipping.StatusShipping_StatusShippingId.HasValue && shipping.StatusShipping_StatusShippingId == Guid.Parse(Helper.Status.AcceptByClient);
             orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : General.Empty;
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
-            orderModel.Status.Runners = runners;
-            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy HH:mm"):" ";
+            //orderModel.Status.Runners = runners;
+            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue ? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy HH:mm") : " ";
             orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy HH:mm") : " ";
 
             orderModel.Location = new Location();
@@ -134,6 +134,29 @@ namespace Michal.Project.Bll
             return orderModel;
         }
 
+        public OrderView GetTimeLine(OrderRequest request)
+        {
+            var orderModel = new OrderView();
+
+            var shipping = request.Shipping;
+            orderModel.Id = shipping.ShippingId;
+            orderModel.Name = shipping.Name;
+
+            var timeLineVms = new List<TimeLineVm>();
+            foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
+            {
+                timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+            }
+            var comments = new List<CommentVm>();
+            foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
+            {
+                comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
+            }
+            orderModel.TimeLineVms = timeLineVms;
+            orderModel.CommentsVm = comments;
+            return orderModel;
+        }
+
         public OrderView GetOrder(OrderRequest request)
         {
 
@@ -142,7 +165,7 @@ namespace Michal.Project.Bll
             var shipping = request.Shipping;
             orderModel.Id = shipping.ShippingId;
             orderModel.Name = shipping.Name;
-            var runners = request.Runners;
+            // var runners = request.Runners;
             orderModel.Status = new StatusVm();
             orderModel.Status.StatusId = shipping.StatusShipping_StatusShippingId.GetValueOrDefault();
             orderModel.Status.Recipient = shipping.Recipient;
@@ -151,7 +174,7 @@ namespace Michal.Project.Bll
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
             orderModel.Status.ShipId = shipping.ShippingId;
-            orderModel.Status.Runners = runners;
+            //  orderModel.Status.Runners = runners;
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;
             orderModel.Location.TargetLng = shipping.Target.Lng;
@@ -165,6 +188,8 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.Name = shipping.Name;
 
             orderModel.ShippingVm.DistanceId = shipping.Distance_DistanceId.GetValueOrDefault();
+            orderModel.ShippingVm.DistanceName = shipping.Distance.Name;
+            orderModel.ShippingVm.ShipTypeIdName = shipping.ShipType.Name;
             orderModel.ShippingVm.FastSearch = shipping.FastSearchNumber;
             orderModel.ShippingVm.Id = shipping.ShippingId;
             orderModel.ShippingVm.Number = shipping.Desc;
@@ -176,8 +201,8 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy HH:mm");
             orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy HH:mm");
             orderModel.ShippingVm.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
-            orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value==DateTime.Now.Date?   shipping.SlaTime.Value.ToString("HH:mm") :shipping.SlaTime.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
-            orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection /(double) Status.Max) * 100;
+            orderModel.ShippingVm.SlaDate = shipping.SlaTime.HasValue ? shipping.SlaTime.Value == DateTime.Now.Date ? shipping.SlaTime.Value.ToString("HH:mm") : shipping.SlaTime.Value.ToString("dd/MM/yyyy HH:mm") : General.Empty;
+            orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection / (double)Status.Max) * 100;
 
             orderModel.ShippingVm.TelSource = shipping.TelSource;
             orderModel.ShippingVm.TelTarget = shipping.TelTarget;
@@ -210,17 +235,17 @@ namespace Michal.Project.Bll
 
             orderModel.JobTitle = request.UserContext;
 
-            var timeLineVms = new List<TimeLineVm>();
-            foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
-            {
-                timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
-            }
+            //var timeLineVms = new List<TimeLineVm>();
+            //foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
+            //{
+            //    timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
+            //}
             var comments = new List<CommentVm>();
             foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
             {
                 comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
             }
-            orderModel.TimeLineVms = timeLineVms;
+           // orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;
             return orderModel;
         }

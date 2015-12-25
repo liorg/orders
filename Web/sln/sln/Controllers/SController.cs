@@ -314,14 +314,15 @@ namespace Michal.Project.Controllers
 
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                //var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(com => com.Comments).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
-                var runners = cacheProvider.GetRunners(context);
-                var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping, Runners = runners });
+               // var runners = cacheProvider.GetRunners(context);
+                var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
 
                 return View(orderModel);
@@ -336,14 +337,37 @@ namespace Michal.Project.Controllers
 
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+               // var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(com => com.Comments).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
-                var runners = cacheProvider.GetRunners(context);
-                var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping, Runners = runners });
+               // var runners = cacheProvider.GetRunners(context);
+                var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping });
+                ViewBag.OrderNumber = shipping.Name;
+                return View(orderModel);
+            }
+        }
+
+        public async Task<ActionResult> Tl(string id)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext userContext = new UserContext(AuthenticationManager);
+
+                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
+                Guid shipId = Guid.Parse(id);
+                //var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+
+                if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
+                    return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
+
+                ViewLogic view = new ViewLogic();
+                // var runners = cacheProvider.GetRunners(context);
+                var orderModel = view.GetTimeLine(new OrderRequest { UserContext = userContext, Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }
@@ -357,9 +381,8 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                ViewLogic view = new ViewLogic();
-                var runners = cacheProvider.GetRunners(context);
-                var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping, Runners = runners });
+                ViewLogic view = new ViewLogic();      
+                var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }

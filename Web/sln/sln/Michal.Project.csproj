@@ -893,6 +893,8 @@
     </Content>
     <Content Include="Views\Shared\_StatusClose.cshtml" />
     <Content Include="Views\Shared\_orderToolbar.cshtml" />
+    <Content Include="Views\s\tl.cshtml" />
+    <Content Include="Views\s\user.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

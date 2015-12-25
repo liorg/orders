@@ -32,7 +32,7 @@ namespace Michal.Project.Models
 
         public string PicBase64 { get; set; }
 
-        public List<Runner> Runners { get; set; }
+       // public List<Runner> Runners { get; set; }
 
         public string PathSig { get; set; }
 

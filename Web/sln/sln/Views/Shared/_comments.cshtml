@@ -19,7 +19,7 @@
                             placeholder="רשום הערה..."></textarea></small>
                     @* <div class="btn-panel">*@
 
-                    <a href="#" onclick="document.getElementById('frmComment').submit();" class=" col-lg-2 text-left btn send-message-btn pull-left" role="button"><i class="fa fa-plus"></i><b>שלח הודעה</b></a>
+                    <a href="#" onclick="submitComment()" class=" col-lg-2 text-left btn send-message-btn pull-left" role="button"><i class="fa fa-plus"></i><b>שלח הודעה</b></a>
                     @*</div>*@
 
                 </div>
@@ -33,7 +33,6 @@
                 </a>
                 <div class="media-body">
                     <small class="pull-right time"><i class="fa fa-clock-o"></i>@commentItem.DateComment</small>
-
                     <h5 class="media-heading">@commentItem.Name (@commentItem.JobTitle)</h5>
                     <small class="col-lg-10">@commentItem.Desc</small>
                 </div>

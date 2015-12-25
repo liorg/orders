@@ -13,7 +13,7 @@ namespace Michal.Project.Models
         //int? viewType,bool? viewAll, int? currentPage
       //Shipping shipping, List<Runner> runners
         public Shipping Shipping { get; set; }
-        public List<Runner> Runners { get; set; }
+       // public List<Runner> Runners { get; set; }
         public UserContext UserContext { get; set; }
 
     }
