@@ -13,10 +13,12 @@ namespace Michal.Project.Bll
     public class StatusLogic
     {
         IShippingRepository _shippingRepository;
+
         public StatusLogic()
         {
 
         }
+
         public StatusLogic(IShippingRepository shippingRepository)
         {
             _shippingRepository = shippingRepository;

@@ -14,13 +14,28 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Security.Principal;
+using Michal.Project.Contract.DAL;
 
 namespace Michal.Project.Bll
 {
 
     public class ViewLogic
     {
-        
+
+        public ViewLogic()
+        {
+
+        }
+        readonly IShippingRepository _shippingRepository;
+        readonly IUserRepository _userRepository;
+        readonly IOrgDetailRepostory _orgDetailRepostory;
+        public ViewLogic(IShippingRepository shippingRepository, IUserRepository userRepository, IOrgDetailRepostory orgDetailRepostory)
+        {
+            _shippingRepository = shippingRepository;
+            _userRepository = userRepository;
+            _orgDetailRepostory = orgDetailRepostory;
+
+        }
         public void SetViewerUserByRole(Michal.Project.Contract.IRole source, IViewerUser target)
         {
             bool showAll = true;
@@ -135,6 +150,34 @@ namespace Michal.Project.Bll
             return orderModel;
         }
 
+        public async Task<RunnerView> GetUser(Guid shipId)
+        {
+            var orderModel = new RunnerView();
+            orderModel.Runners = new List<Runner>();
+            orderModel.CurrentRunner = new UserDetail();
+            var orgid = _orgDetailRepostory.GetOrg();
+
+            var shipping = await _shippingRepository.GetShip(shipId);
+            var company = _orgDetailRepostory.GetShippingCompaniesByOrgId(orgid).FirstOrDefault();
+            if (company != null && company.Users!=null && company.Users.Any())
+            {
+                foreach (var user in company.Users)
+                {
+                    
+                }
+            }
+
+
+            orderModel.Id = shipping.ShippingId;
+            orderModel.Name = shipping.Name;
+            orderModel.ShippingVm = new ShippingVm();
+            orderModel.ShippingVm.Id = orderModel.Id;
+            orderModel.ShippingVm.Name = orderModel.Name;
+
+            return orderModel;
+        }
+
+
         public OrderView GetTimeLine(OrderRequest request)
         {
             var orderModel = new OrderView();
@@ -150,9 +193,9 @@ namespace Michal.Project.Bll
             {
                 timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             }
-           
+
             orderModel.TimeLineVms = timeLineVms;
-          
+
             return orderModel;
         }
 
@@ -247,7 +290,7 @@ namespace Michal.Project.Bll
                     comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
                 }
             }
-           // orderModel.TimeLineVms = timeLineVms;
+            // orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;
             return orderModel;
         }
@@ -258,7 +301,7 @@ namespace Michal.Project.Bll
             job.JobTitle = user.JobTitle;
             job.JobType = user.JobType;
         }
-      
+
         public void SetJob(IJob job, IPrincipal user)
         {
             if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))

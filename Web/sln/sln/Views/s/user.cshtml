@@ -1,4 +1,4 @@
-﻿@model OrderView
+﻿@model RunnerView
 
 @{
     ViewBag.Title = " פרטי משלוח " + Model.ShippingVm.Name;
@@ -10,7 +10,10 @@
 @section ordernumber {
  @Html.Partial("_orderToolbar", Model)
 }
-@Html.Partial("_ShippingView")
+
+<div class="row">
+@Html.Partial("UserDetail",Model.CurrentRunner)
+</div>
 
 @section Scripts {
     @Styles.Render("~/Content/jqueryui")

@@ -374,16 +374,16 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 UserContext userContext = new UserContext(AuthenticationManager);
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
 
-                MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
+                IUserRepository userRepository = new UserRepository(context);
                 Guid shipId = Guid.Parse(id);
-                //var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-
-                ViewLogic view = new ViewLogic();
-                // var runners = cacheProvider.GetRunners(context);
-                var orderModel = view.GetTimeLine(new OrderRequest { UserContext = userContext, Shipping = shipping });
+                ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
+                var orderModel = await view.GetUser(shipId);
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
             }
@@ -395,7 +395,7 @@ namespace Michal.Project.Controllers
             {
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.Include(com => com.Comments).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 ViewLogic view = new ViewLogic();      
                 var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping });

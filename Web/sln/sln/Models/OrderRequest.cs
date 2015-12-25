@@ -17,10 +17,10 @@ namespace Michal.Project.Models
         public UserContext UserContext { get; set; }
 
     }
-  
-    //public class ViewListsResponse
+
+    //public class RunnerRequest : OrderRequest
     //{
-    //    public IEnumerable<ShippingVm> shippingsQuery { get; set; }
-    //    public string StatusDesc { get; set; }
+     
     //}
+   
 }
