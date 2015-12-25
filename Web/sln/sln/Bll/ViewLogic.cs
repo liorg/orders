@@ -20,6 +20,7 @@ namespace Michal.Project.Bll
 
     public class ViewLogic
     {
+        
         public void SetViewerUserByRole(Michal.Project.Contract.IRole source, IViewerUser target)
         {
             bool showAll = true;
@@ -141,19 +142,17 @@ namespace Michal.Project.Bll
             var shipping = request.Shipping;
             orderModel.Id = shipping.ShippingId;
             orderModel.Name = shipping.Name;
-
+            orderModel.ShippingVm = new ShippingVm();
+            orderModel.ShippingVm.Id = orderModel.Id;
+            orderModel.ShippingVm.Name = orderModel.Name;
             var timeLineVms = new List<TimeLineVm>();
             foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
             {
                 timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             }
-            var comments = new List<CommentVm>();
-            foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
-            {
-                comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
-            }
+           
             orderModel.TimeLineVms = timeLineVms;
-            orderModel.CommentsVm = comments;
+          
             return orderModel;
         }
 
@@ -241,9 +240,12 @@ namespace Michal.Project.Bll
             //    timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
             //}
             var comments = new List<CommentVm>();
-            foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
+            if (shipping.Comments != null && shipping.Comments.Any())
             {
-                comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
+                foreach (var comment in shipping.Comments.OrderByDescending(t => t.CreatedOn))
+                {
+                    comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
+                }
             }
            // orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;
@@ -256,6 +258,7 @@ namespace Michal.Project.Bll
             job.JobTitle = user.JobTitle;
             job.JobType = user.JobType;
         }
+      
         public void SetJob(IJob job, IPrincipal user)
         {
             if (user.IsInRole(Helper.HelperAutorize.RoleAdmin))
