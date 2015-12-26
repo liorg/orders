@@ -510,6 +510,7 @@
     <Content Include="Content\img\additem32.png" />
     <Content Include="Content\img\additem32green.png" />
     <Content Include="Content\img\adduser32x32.png" />
+    <Content Include="Content\img\assign32x32.png" />
     <Content Include="Content\img\back32x32.png" />
     <Content Include="Content\img\back_to.png" />
     <Content Include="Content\img\bbhome.png" />

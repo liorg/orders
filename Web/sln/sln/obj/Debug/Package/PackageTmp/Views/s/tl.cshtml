@@ -1,0 +1,23 @@
+﻿@model OrderView
+
+@{
+    ViewBag.Title = " פרטי משלוח " + Model.ShippingVm.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4>מעקב ציר הזמן  @Model.ShippingVm.Name</h4>
+@section ordernumber {
+    @Html.Partial("_orderToolbar", Model)
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
+    </div>
+</div>
+@section Scripts {
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/rantoolbx.js"></script>
+}
+

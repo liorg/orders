@@ -13,6 +13,9 @@
         <li class="divider"></li>
         <li><a  class="deliv" data-url="@Url.Action("EndStatusDesc", "Status", new { id = @Model.Id.ToString() })"><i class="fa fa-pencil "></i>פרטי מקבל </a></li>
           <li class="divider"></li>
+          <li><a  class="deliv" data-url="@Url.Action("User", "S", new { id = @Model.Id.ToString() })"><i class="fa fa-truck "></i>פרטי שליח </a></li>
+          <li class="divider"></li>
+       
         <li><a  class="deliv" data-url="@Url.Action("tl", "S", new { id = @Model.Id.ToString() })"><i class="fa fa-sort-amount-asc "></i>מעקב ציר הזמן</a></li>
    
     </ul>

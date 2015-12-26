@@ -32,5 +32,26 @@ namespace Michal.Project.Dal
             return new UserLink{UserId=Guid.Parse(result.Id),FullName=result.FirstName+" "+result.LastName};
 
         }
+
+        public async Task<UserDetail> GetUser(Guid? userid)
+        {
+            if (userid == null || userid.Value == Guid.Empty)
+            {
+                return await Task.FromResult<UserDetail>(new UserDetail {  UserId = Guid.Empty.ToString() });
+
+            }
+            var result = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.Value.ToString());
+            return new UserDetail
+            {
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                OrgId = result.Organization_OrgId.GetValueOrDefault(),
+                Tel = result.Tel,
+                UserId = result.Id,
+                UserName = result.UserName,
+                IsActive = result.IsActive,
+                EmpId=result.EmpId
+            };
+        }
     }
 }

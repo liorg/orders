@@ -158,12 +158,17 @@ namespace Michal.Project.Bll
             var orgid = _orgDetailRepostory.GetOrg();
 
             var shipping = await _shippingRepository.GetShip(shipId);
+            if (shipping == null) throw new ArgumentNullException("shipping");
+            orderModel.CurrentRunner = await _userRepository.GetUser(shipping.GrantRunner);
             var company = _orgDetailRepostory.GetShippingCompaniesByOrgId(orgid).FirstOrDefault();
-            if (company != null && company.Users!=null && company.Users.Any())
+
+            if (company != null && company.Users != null && company.Users.Any())
             {
                 foreach (var user in company.Users)
                 {
-                    
+                    if (user.Id == orderModel.CurrentRunner.UserId)
+                        continue;
+                    orderModel.Runners.Add(new Runner { FirstName = user.FirstName, Id = user.Id, Lastname = user.LastName });
                 }
             }
 

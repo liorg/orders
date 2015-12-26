@@ -11,5 +11,6 @@ namespace Michal.Project.Contract.DAL
     public interface IUserRepository
     {
         Task<UserLink> GetUserLink(Guid? userid);
+        Task<UserDetail> GetUser(Guid? userid);
     }
 }
