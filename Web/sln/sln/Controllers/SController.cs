@@ -385,6 +385,7 @@ namespace Michal.Project.Controllers
                 ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
                 var orderModel = await view.GetUser(shipId);
                 ViewBag.OrderNumber = shipping.Name;
+                ViewBag.Runners = new SelectList(orderModel.Runners, "Id", "FullName");
                 return View(orderModel);
             }
         }

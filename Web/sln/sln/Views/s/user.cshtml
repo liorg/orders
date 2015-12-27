@@ -49,12 +49,41 @@
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/jqueryui")
     <script src="~/Scripts/rantoolbx.js"></script>
+    <script>
+        $('#btnYesChange').click(function () {
+            $.unblockUI();
+
+         //   return false;
+        });
+        $('#btnNoChange').click(function () {
+            $.unblockUI();
+            return false;
+        });
+        $('#btnChangeUser').click(function () {
+            alert(1);
+            var message_width = "270";
+            var message_height = "200";
+
+            $.blockUI({
+                message: $('#dlgChangeRunner'),
+                css: {
+                    width: message_width + "px",
+                    height: message_height + "px",
+                    top: '50%',
+                    left: '50%',
+                    margin: (-message_height / 2) + 'px 0 0 ' + (-message_width / 2) + 'px'
+                },
+            }
+            );
+
+        });
+    </script>
 }
 
 <div id="dlgChangeRunner" style="display: none; cursor: default;">
     <h4><i class="fa fa-question-circle fa-2x"></i>העבר לשליח אחר  </h4>
-    שליח: 
+    שליח:    @Html.DropDownListFor(m => m.CurrentRunner.UserId, (SelectList)ViewBag.Runners)
     <br />
-    <a id="btnYesChange" class="btn  btn-success" href="#"><i class="fa fa-check-square-o"></i>כן </a>
-    <a id="btnNoChange" class="btn  btn-danger" href="#"><i class="fa fa-meh-o"></i>לא </a>
+    <a id="btnYesChange" class="btn  btn-success" href="#"><i class="fa fa-check-square-o"></i>החלף </a>
+    <a id="btnNoChange" class="btn  btn-danger" href="#"><i class="fa fa-meh-o"></i>ביטול </a>
 </div>

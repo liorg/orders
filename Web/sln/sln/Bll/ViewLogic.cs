@@ -166,8 +166,8 @@ namespace Michal.Project.Bll
             {
                 foreach (var user in company.Users)
                 {
-                    if (user.Id == orderModel.CurrentRunner.UserId)
-                        continue;
+                    //if (user.Id == orderModel.CurrentRunner.UserId)
+                    //    continue;
                     orderModel.Runners.Add(new Runner { FirstName = user.FirstName, Id = user.Id, Lastname = user.LastName });
                 }
             }
