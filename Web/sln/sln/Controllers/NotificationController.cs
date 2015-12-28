@@ -43,5 +43,18 @@ namespace Michal.Project.Controllers
                 return View(model);
             }
         }
+        public async Task<ActionResult> Remove(Guid id)
+        {
+            var user = new UserContext(AuthenticationManager);
+            using (var context = new ApplicationDbContext())
+            {
+                var notifyRepo = new NotificationRepository(context);
+                var logic = new NotifyLogic(notifyRepo);
+                await logic.Remove(id);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

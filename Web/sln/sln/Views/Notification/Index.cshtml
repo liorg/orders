@@ -5,57 +5,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4> שרות הודעות  </h4>
+<h4>שרות הודעות  </h4>
 
 <div class="row">
     <div class="col-md-12">
-        <a class="btn btn-primary" role="button" href="https://imaot.co.il/t/register.html?u=@(ViewBag.UserId==null?Guid.Empty:ViewBag.UserId)">קישור לרישום הודעות</a>
+        <a class="btn btn-primary" role="button" href="https://imaot.co.il/t/register.html?u=@(ViewBag.UserId == null ? Guid.Empty : ViewBag.UserId)">קישור לרישום הודעות</a>
     </div>
 
 </div>
 <div class="row">
-<div class="col-md-12">
-<table class="table table-striped table-hover">
-    <tr><th>
-            
-        </th>
-        
- <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Title)</th>
-     
- <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Body)</th>
-   <th>@Html.DisplayColumnNameFor(Model.Items, model => model.CreatedOnTxt)</th>    
-    </tr>
-@if( !Model.Items.Any() )
-{
- <tr>
-        <td colspan="4" ><h4 class="text-center">אן הודעות חדשות</h4> </td>
-</tr>
-}
-@foreach (var item in Model.Items) {
-    <tr>
-        <td> 
-        @if (!item.IsRead){
-            <img src="~/Content/img/star32x32bold.png" />
-         }
-        else{
-                <img src="~/Content/img/star32x32nobold.png" />
-        }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-         <td>
-            @Html.DisplayFor(modelItem => item.CreatedOnTxt)
-        </td>
-    </tr>
-}
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th></th>
 
-</table>
-  
-</div>
+                <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Title)</th>
+
+                <th>@Html.DisplayColumnNameFor(Model.Items, model => model.Body)</th>
+                <th>@Html.DisplayColumnNameFor(Model.Items, model => model.CreatedOnTxt)</th>
+                <th></th>
+            </tr>
+            @if (!Model.Items.Any())
+            {
+                <tr>
+                    <td colspan="4">
+                        <h4 class="text-center">אן הודעות חדשות</h4>
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @if (!item.IsRead)
+                        {
+                            <img src="~/Content/img/star32x32bold.png" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/img/star32x32nobold.png" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOnTxt)
+                    </td>
+                    <td>
+                          @Html.ActionLink("הסר", "Remove", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
 
 </div>
 @Html.Partial("_pager", Model)
@@ -63,5 +71,5 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/jqueryui")
     @Scripts.Render("~/bundles/jqueryui")
-   <script src="~/Scripts/rantoolbx.js?v=1"></script>
+    <script src="~/Scripts/rantoolbx.js?v=1"></script>
 }

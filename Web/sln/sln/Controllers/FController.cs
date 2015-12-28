@@ -146,9 +146,11 @@ namespace Michal.Project.Controllers
                 var newUserLink=await userRepository.GetUserLink(newuserid);
                 var olduseridLink = await userRepository.GetUserLink(olduserid);
                 NotificationManager notificationManager = new NotificationManager();
+                var url = System.Configuration.ConfigurationManager.AppSettings["server"].ToString() + "/S/ShipView/" + shipid;
+                var notifyItem = new NotifyItem { Body = "הועבר המשלוח " + result.Item1 + " מ" + olduseridLink.FullName + " ל" + newUserLink.FullName, CreatedOn = DateTime.Now, IsRead = false, Title = "העברת משלוח", Url = url };
 
-                await notificationManager.SendAsync(context, newuserid, new NotifyItem { Body = "הועבר המשלוח " + result.Item1 + " מ-" + olduseridLink.FullName + " ל" + newUserLink.FullName, CreatedOn = DateTime.Now, IsRead = false, Title = "העברת משלוח", Url = "/S/ShipView/shipid" });
-                await notificationManager.SendAsync(context, olduserid, new NotifyItem { Body = "הועבר המשלוח " + result.Item1 + " מ-" + olduseridLink.FullName + " ל" + newUserLink.FullName, CreatedOn = DateTime.Now, IsRead = false, Title = "העברת משלוח", Url = "/S/ShipView/shipid" });
+                await notificationManager.SendAsync(context, newuserid,notifyItem);
+                await notificationManager.SendAsync(context, olduserid, notifyItem);
 
                 return RedirectToAction("User", "S", new { id = shipid });
             }

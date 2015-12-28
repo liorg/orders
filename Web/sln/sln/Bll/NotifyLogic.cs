@@ -33,5 +33,10 @@ namespace Michal.Project.Bll
         {
             return  await _notificationRepository.GetNotifyForCloudMessageAsync(deviceid);
         }
+
+        public async Task Remove(Guid id)
+        {
+            await _notificationRepository.Delete(id);
+        }
     }
 }

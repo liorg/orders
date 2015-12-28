@@ -14,5 +14,6 @@ namespace Michal.Project.Contract.DAL
         Task<NotifiesView> GetNotifiesUserAsync(Guid userId, int? currentPage);
         Task Register(string userid, string deviceid);
         Task<NotifyItem> GetNotifyForCloudMessageAsync( string deviceid);
+        Task Delete(Guid id);
     }
 }

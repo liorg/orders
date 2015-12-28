@@ -125,6 +125,13 @@ namespace Michal.Project.Dal
                 model.Body = "..אן לך הודעות חדשות";
             return model;
         }
+
+        public async Task Delete(Guid id)
+        {
+            var notify=await _context.NotifyMessage.Where(m => m.NotifyMessageId == id).FirstOrDefaultAsync();
+            _context.Entry<NotifyMessage>(notify).State = EntityState.Deleted;
+
+        }
     }
 }
 

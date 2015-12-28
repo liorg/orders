@@ -19,14 +19,14 @@ namespace Michal.Project.Models
         {
             get
             {
-                if ((Items != null && Items.Any() && Items.Count > 1) || (Items==null) || (Items!=null && Items.Count==0))
+                if ((Items != null && Items.Any() && Items.Count > 1) || (Items == null) || (Items != null && Items.Count == 0))
                 {
                     return true;
                 }
                 return false;
             }
         }
-        
+
     }
 
     public class NotifyItem
@@ -39,8 +39,8 @@ namespace Michal.Project.Models
         [Display(Name = "לינק")]
         public string Url { get; set; }
         [Display(Name = "הודעה נצפתה")]
-        public bool  IsRead { get; set; }
-        
+        public bool IsRead { get; set; }
+
         public DateTime CreatedOn { get; set; }
         [Display(Name = "ת. יצירה")]
         public string CreatedOnTxt
@@ -49,8 +49,11 @@ namespace Michal.Project.Models
             {
                 if (CreatedOn != DateTime.MinValue)
                 {
+                    if (CreatedOn.Date == DateTime.Now.Date)
+                        return CreatedOn.ToString("HH:mm");
                     return CreatedOn.ToString("dd-MM-yy HH:mm");
                 }
+
                 return General.Empty;
             }
         }
