@@ -71,6 +71,9 @@
                         <td>
                             @Html.ActionLink("ערוך", "Edit", new { id = item.UserId })
                         </td>
+                        <td>
+                            @Html.ActionLink("הצג משלוחים", "ShippingByRunnerId","S", new { userid = item.UserId }, null)
+                        </td>
                     </tr>
                 }
 

@@ -1,4 +1,5 @@
 ﻿using Michal.Project.Contract.View;
+using Michal.Project.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,8 +21,10 @@ namespace Michal.Project.Models
 
 
         [Display(Name = "קצב התקדמות")]
-        public double  StatusPresent { get; set; }
+        public double StatusPresent { get; set; }
 
+        [Display(Name = "סדר הליכה")]
+        public int WalkOrder { get; set; }
 
         [Display(Name = "סטאטוס")]
         public Guid StatusId { get; set; }
@@ -29,7 +32,6 @@ namespace Michal.Project.Models
         [Display(Name = "חישוב היעד")]
         public Guid DistanceId { get; set; }
 
-       
 
         [Display(Name = "חישוב היעד")]
         public Guid DistanceIdState { get; set; }
@@ -102,6 +104,31 @@ namespace Michal.Project.Models
 
         [Display(Name = "תאריך התחלה ")]
         public string ActualStartDate { get; set; }
-      
+
+        [Display(Name = "תאריך התחלה ")]
+        public DateTime? ActualStartDateDt { get; set; }
+
+        [Display(Name = "תאריך סיום ")]
+        public DateTime? ActualEndDateDt { get; set; }
+
+        [Display(Name = "תאריך התחלה ")]
+        public string ActualStartDateS
+        {
+            get
+            {
+                if (ActualStartDateDt == null) return General.Empty;
+                return ActualStartDateDt.Value.ToString("dd/MM/yyyy HH:mm");
+            }
+        }
+
+        [Display(Name = "תאריך סיום משוער ")]
+        public string ActualEndDateS
+        {
+            get
+            {
+                if (ActualEndDateDt == null) return General.Empty;
+                return ActualEndDateDt.Value.ToString("dd/MM/yyyy HH:mm");
+            }
+        }
     }
 }

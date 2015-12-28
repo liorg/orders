@@ -1,4 +1,5 @@
 ﻿using Michal.Project.DataModel;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Michal.Project.Contract.DAL
         void Add(Shipping ship);
         Task<XbzCounter> GetCounter(Guid orgid);
         Task<IEnumerable<ShippingItem>> GetShipitems(Guid shipId);
+        Task<IEnumerable<ShippingVm>> GetShippingByUserId(Guid userId);
 
     }
 }

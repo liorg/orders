@@ -276,6 +276,7 @@
     <Compile Include="DataModel\BussinessClosure.cs" />
     <Compile Include="DataModel\City.cs" />
     <Compile Include="DataModel\DistanceCities.cs" />
+    <Compile Include="DataModel\RefreshToken.cs" />
     <Compile Include="DataModel\UserNotify.cs" />
     <Compile Include="DataModel\NotifyMessage.cs">
       <SubType>Code</SubType>
@@ -434,6 +435,10 @@
     <Compile Include="Migrations\201512121859436_sta.cs" />
     <Compile Include="Migrations\201512121859436_sta.Designer.cs">
       <DependentUpon>201512121859436_sta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512281532070_refreshtoken.cs" />
+    <Compile Include="Migrations\201512281532070_refreshtoken.Designer.cs">
+      <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
@@ -896,6 +901,7 @@
     <Content Include="Views\Shared\_orderToolbar.cshtml" />
     <Content Include="Views\s\tl.cshtml" />
     <Content Include="Views\s\user.cshtml" />
+    <Content Include="Views\s\ShippingByRunnerId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />
@@ -992,6 +998,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512121859436_sta.resx">
       <DependentUpon>201512121859436_sta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512281532070_refreshtoken.resx">
+      <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

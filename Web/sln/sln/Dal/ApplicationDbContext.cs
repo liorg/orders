@@ -41,5 +41,8 @@ namespace Michal.Project.Dal
         public DbSet<DistanceCities> DistanceCities { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<UserNotify> UserNotify { get; set; }
+        public DbSet<Client> Client { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
+
     }
 }

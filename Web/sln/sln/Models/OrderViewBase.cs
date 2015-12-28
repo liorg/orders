@@ -26,4 +26,14 @@ namespace Michal.Project.Models
         public UserDetail CurrentRunner { get; set; }
     }
 
+    public class RunnerDetail : OrderViewBase, IView
+    {
+        [Display(Name = "מזהה")]
+        public Guid Id { get; set; }
+
+        [Display(Name = "שם")]
+        public string Name { get; set; }
+
+        public IEnumerable<ShippingVm> Items { get; set; }
+    }
 }

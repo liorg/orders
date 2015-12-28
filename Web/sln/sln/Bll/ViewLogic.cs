@@ -29,6 +29,7 @@ namespace Michal.Project.Bll
         readonly IShippingRepository _shippingRepository;
         readonly IUserRepository _userRepository;
         readonly IOrgDetailRepostory _orgDetailRepostory;
+
         public ViewLogic(IShippingRepository shippingRepository, IUserRepository userRepository, IOrgDetailRepostory orgDetailRepostory)
         {
             _shippingRepository = shippingRepository;
@@ -180,6 +181,20 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.Name = orderModel.Name;
 
             return orderModel;
+        }
+
+        public async Task<RunnerDetail> GetShippingByUser(Guid userid)
+        {
+            var runnerModel = new RunnerDetail();
+            runnerModel.Id = userid;
+            var user = await _userRepository.GetUser(userid);
+            runnerModel.Name = user.FullName;
+
+            var shipping = await _shippingRepository.GetShippingByUserId(userid);
+            if (shipping == null) throw new ArgumentNullException("shipping");
+            runnerModel.Items = shipping;
+
+            return runnerModel;
         }
 
 

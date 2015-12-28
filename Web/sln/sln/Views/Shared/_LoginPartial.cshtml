@@ -15,6 +15,10 @@
                 <li class="page-scroll"><a href="@Url.Action("Index", "F")"><i class="fa fa-map"></i> כניסה ללקוחות </a></li>
                 <li class="page-scroll"><a href="@Url.Action("Manage", "Account")"><i class="fa fa-pencil-square-o"></i> שינוי סיסמא </a></li>
                 <li class="page-scroll"><a href="@Url.Action("Profile", "Account")"><i class="fa fa-user"></i>  פרטים </a></li>
+                 @if ((User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleRunner)))
+            {
+                 <li class="page-scroll"><a href="@Url.Action("ShippingByRunnerId", "S")"><i class="fa fa-inbox"></i>  הצג משלוחים שלי </a></li>
+                 }
                 <li class="divider"></li>
                 <li class="page-scroll"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> יציאה </a></li>
 

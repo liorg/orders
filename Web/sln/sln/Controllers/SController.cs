@@ -249,7 +249,7 @@ namespace Michal.Project.Controllers
             {
                 UserContext userContext = new UserContext(AuthenticationManager);
                 Guid shipId = Guid.Parse(id);
-                
+
                 List<Distance> distances = new List<Distance>();
 
                 IOfferRepository offerRepository = new OfferRepository(context);
@@ -300,7 +300,7 @@ namespace Michal.Project.Controllers
                 OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
 
                 await logic.OnPostUpdateShip(shippingVm, userContext);
-     
+
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "F");
             }
@@ -321,7 +321,7 @@ namespace Michal.Project.Controllers
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
-               // var runners = cacheProvider.GetRunners(context);
+                // var runners = cacheProvider.GetRunners(context);
                 var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
 
@@ -337,14 +337,14 @@ namespace Michal.Project.Controllers
 
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-               // var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                // var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
                 var shipping = await context.Shipping.Include(ic => ic.ShippingItems).Include(com => com.Comments).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 if (shipping.ShippingItems == null || shipping.ShippingItems.Count <= 0)
                     return RedirectToAction("Index", "ShipItem", new { Id = shipping.ShippingId.ToString(), order = shipping.Name, message = "יש לבחור פריטים  למשלוח" });
 
                 ViewLogic view = new ViewLogic();
-               // var runners = cacheProvider.GetRunners(context);
+                // var runners = cacheProvider.GetRunners(context);
                 var orderModel = view.GetOrder(new OrderRequest { UserContext = userContext, Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
@@ -380,16 +380,16 @@ namespace Michal.Project.Controllers
 
                 IUserRepository userRepository = new UserRepository(context);
                 Guid shipId = Guid.Parse(id);
-                var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+                //var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
                 ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
                 var orderModel = await view.GetUser(shipId);
-                ViewBag.OrderNumber = shipping.Name;
+                ViewBag.OrderNumber = orderModel.Name;
                 ViewBag.Runners = new SelectList(orderModel.Runners, "Id", "FullName");
                 return View(orderModel);
             }
         }
-     
+
         public async Task<ActionResult> Print(string id)
         {
             using (var context = new ApplicationDbContext())
@@ -398,10 +398,31 @@ namespace Michal.Project.Controllers
                 Guid shipId = Guid.Parse(id);
                 var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                ViewLogic view = new ViewLogic();      
+                ViewLogic view = new ViewLogic();
                 var orderModel = view.GetOrder(new OrderRequest { Shipping = shipping });
                 ViewBag.OrderNumber = shipping.Name;
                 return View(orderModel);
+            }
+        }
+
+        public async Task<ActionResult> ShippingByRunnerId(Guid? userid)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                UserContext userContext = new UserContext(AuthenticationManager);
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+
+                IUserRepository userRepository = new UserRepository(context);
+
+                if (!userid.HasValue)
+                    userid = userContext.UserId;
+                //var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+
+                ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
+                var result = await view.GetShippingByUser(userid.Value);
+                return View(result);
             }
         }
 
