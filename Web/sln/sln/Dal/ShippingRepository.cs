@@ -30,7 +30,12 @@ namespace Michal.Project.Dal
         {
             return await _context.Shipping.FindAsync(shipId);
         }
+        
+        public async Task<Shipping> GetShipTimelines(Guid shipId)
+        {
+            return await _context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
+        }
         public async Task<Shipping> GetShipIncludeItems(Guid shipId)
         {
             return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);

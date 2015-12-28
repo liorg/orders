@@ -359,12 +359,17 @@ namespace Michal.Project.Controllers
 
                 MemeryCacheDataService cacheProvider = new MemeryCacheDataService();
                 Guid shipId = Guid.Parse(id);
-                //var shipping = await context.Shipping.Include(fx => fx.FollowsBy).Include(ic => ic.ShippingItems).Include(att => att.AttachmentsShipping).Include(com => com.Comments).Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
-                var shipping = await context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+             //   var shipping = await context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
-                ViewLogic view = new ViewLogic();
-                var orderModel = view.GetTimeLine(new OrderRequest { UserContext = userContext, Shipping = shipping });
-                ViewBag.OrderNumber = shipping.Name;
+                IOfferRepository offerRepository = new OfferRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
+                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+
+                IUserRepository userRepository = new UserRepository(context);
+               
+                ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
+                var orderModel =await  view.GetTimeLine(shipId);
+                ViewBag.OrderNumber = orderModel.Name;
                 return View(orderModel);
             }
         }
@@ -380,8 +385,7 @@ namespace Michal.Project.Controllers
 
                 IUserRepository userRepository = new UserRepository(context);
                 Guid shipId = Guid.Parse(id);
-                //var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
-
+                
                 ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
                 var orderModel = await view.GetUser(shipId);
                 ViewBag.OrderNumber = orderModel.Name;

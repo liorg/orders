@@ -21,6 +21,6 @@ namespace Michal.Project.Contract.DAL
         Task<XbzCounter> GetCounter(Guid orgid);
         Task<IEnumerable<ShippingItem>> GetShipitems(Guid shipId);
         Task<IEnumerable<ShippingVm>> GetShippingByUserId(Guid userId);
-
+        Task<Shipping> GetShipTimelines(Guid shipId);
     }
 }
