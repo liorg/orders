@@ -23,10 +23,18 @@ namespace Michal.Project.Bll
             await _shippingRepository.AddOwnerFollowBy(ship, userid);
         }
 
+        public async Task GrantRunner(Guid shipId, Guid runner)
+        {
+            var ship = await _shippingRepository.GetShip(shipId);
+            ship.GrantRunner = runner;
+            await AddOwnerFollowBy(ship, runner);
+
+        }
+
         public IEnumerable<Guid> GetUsersByShip(Shipping shipIncludeFollows)
         {
             HashSet<Guid> users = new HashSet<Guid>();
-            
+
             foreach (var follow in shipIncludeFollows.FollowsBy)
             {
                 users.Add(Guid.Parse(follow.Id));

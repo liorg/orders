@@ -15,6 +15,7 @@ using System.Data.Entity;
 using Michal.Project.Bll;
 using System.Linq.Expressions;
 using Michal.Project.Models.View;
+using Michal.Project.Contract.DAL;
 
 namespace Michal.Project.Controllers
 {
@@ -37,8 +38,6 @@ namespace Michal.Project.Controllers
                 Guid orgId = Guid.Empty;
                 MemeryCacheDataService cache = new MemeryCacheDataService();
 
-                //if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
-                //    orgId = Guid.Empty; //user.OrgId;
                 orgId = cache.GetOrg(context);
 
                 List<Shipping> shippings = new List<Shipping>();
@@ -123,6 +122,26 @@ namespace Michal.Project.Controllers
             @ViewBag.UserId = user.UserId;
             return View();
 
+        }
+
+        public async Task<ActionResult> ChangeUser(string shipid,string olduser, string newuser)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var shippingItem = new ShippingItem();
+                var id=Guid.Parse(shipid);
+                var newuserid=Guid.Parse(newuser);
+                Guid userid = Guid.Empty;
+                UserContext user = new UserContext(AuthenticationManager);
+                userid = user.UserId;
+                IShippingRepository shippingRepository=new ShippingRepository(context);
+
+                FollowByLogic logic = new FollowByLogic(shippingRepository);
+                await logic.GrantRunner(id, newuserid);
+             
+                await context.SaveChangesAsync();
+                return RedirectToAction("User", "S", new { id = shipid });
+            }
         }
     }
 }

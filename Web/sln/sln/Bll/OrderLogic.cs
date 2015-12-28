@@ -32,6 +32,7 @@ namespace Michal.Project.Bll
             _userRepository = userRepository;
             _locationRepostory = locationRepostory;
         }
+
         public async Task<IEnumerable<ShippingItemVm>> GetItemsShip(Guid shipId)
         {
           

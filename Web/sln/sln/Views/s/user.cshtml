@@ -52,18 +52,22 @@
     <script>
         $('#btnYesChange').click(function () {
             $.unblockUI();
-
-         //   return false;
+           
+            var olduser = $('#olduser').val();
+            var changeuser = $('#CurrentRunner_UserId').val();
+            var shipid = $('#Id').val();
+            if (olduser == changeuser) return false;
+            var url = "/f/ChangeUser?shipid=" + shipid + "&olduser=" + olduser + "&newuser=" + changeuser;
+            changeUrl(url);
         });
         $('#btnNoChange').click(function () {
             $.unblockUI();
+
             return false;
         });
         $('#btnChangeUser').click(function () {
-            alert(1);
             var message_width = "270";
             var message_height = "200";
-
             $.blockUI({
                 message: $('#dlgChangeRunner'),
                 css: {
@@ -75,11 +79,11 @@
                 },
             }
             );
-
         });
     </script>
 }
-
+@Html.HiddenFor(model => Model.CurrentRunner.UserId, new { @id = "olduser" })
+@Html.HiddenFor(model => Model.Id)
 <div id="dlgChangeRunner" style="display: none; cursor: default;">
     <h4><i class="fa fa-question-circle fa-2x"></i>העבר לשליח אחר  </h4>
     שליח:    @Html.DropDownListFor(m => m.CurrentRunner.UserId, (SelectList)ViewBag.Runners)
