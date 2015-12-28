@@ -16,6 +16,7 @@ using Michal.Project.Bll;
 using System.Linq.Expressions;
 using Michal.Project.Models.View;
 using Michal.Project.Contract.DAL;
+using Michal.Project.Fasade;
 
 namespace Michal.Project.Controllers
 {
@@ -111,7 +112,7 @@ namespace Michal.Project.Controllers
         public ActionResult TimeLines()
         {
             StatusLogic logic = new StatusLogic();
-            var model=logic.GetAllTimeLines();
+            var model = logic.GetAllTimeLines();
             return View(model);
 
         }
@@ -124,22 +125,31 @@ namespace Michal.Project.Controllers
 
         }
 
-        public async Task<ActionResult> ChangeUser(string shipid,string olduser, string newuser)
+        public async Task<ActionResult> ChangeUser(string shipid, string olduser, string newuser)
         {
             using (var context = new ApplicationDbContext())
             {
                 var shippingItem = new ShippingItem();
-                var id=Guid.Parse(shipid);
-                var newuserid=Guid.Parse(newuser);
+                var id = Guid.Parse(shipid);
+                var newuserid = Guid.Parse(newuser);
+                var olduserid = Guid.Parse(olduser);
                 Guid userid = Guid.Empty;
                 UserContext user = new UserContext(AuthenticationManager);
                 userid = user.UserId;
-                IShippingRepository shippingRepository=new ShippingRepository(context);
+                IShippingRepository shippingRepository = new ShippingRepository(context);
 
                 FollowByLogic logic = new FollowByLogic(shippingRepository);
-                await logic.GrantRunner(id, newuserid);
-             
+                var result = await logic.GrantRunner(id, newuserid);
+
                 await context.SaveChangesAsync();
+                IUserRepository userRepository = new UserRepository(context);
+                var newUserLink=await userRepository.GetUserLink(newuserid);
+                var olduseridLink = await userRepository.GetUserLink(olduserid);
+                NotificationManager notificationManager = new NotificationManager();
+
+                await notificationManager.SendAsync(context, newuserid, new NotifyItem { Body = "הועבר המשלוח " + result.Item1 + " מ-" + olduseridLink.FullName + " ל" + newUserLink.FullName, CreatedOn = DateTime.Now, IsRead = false, Title = "העברת משלוח", Url = "/S/ShipView/shipid" });
+                await notificationManager.SendAsync(context, olduserid, new NotifyItem { Body = "הועבר המשלוח " + result.Item1 + " מ-" + olduseridLink.FullName + " ל" + newUserLink.FullName, CreatedOn = DateTime.Now, IsRead = false, Title = "העברת משלוח", Url = "/S/ShipView/shipid" });
+
                 return RedirectToAction("User", "S", new { id = shipid });
             }
         }

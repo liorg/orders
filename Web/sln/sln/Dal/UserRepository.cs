@@ -50,7 +50,7 @@ namespace Michal.Project.Dal
                 UserId = result.Id,
                 UserName = result.UserName,
                 IsActive = result.IsActive,
-                EmpId=result.EmpId
+                EmpId = String.IsNullOrEmpty(result.EmpId) ? General.Empty : result.EmpId
             };
         }
     }

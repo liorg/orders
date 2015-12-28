@@ -23,12 +23,13 @@ namespace Michal.Project.Bll
             await _shippingRepository.AddOwnerFollowBy(ship, userid);
         }
 
-        public async Task GrantRunner(Guid shipId, Guid runner)
+        public async Task<Tuple<string>> GrantRunner(Guid shipId, Guid runner)
         {
             var ship = await _shippingRepository.GetShip(shipId);
+           var  orderName = ship.Name;
             ship.GrantRunner = runner;
             await AddOwnerFollowBy(ship, runner);
-
+            return new Tuple<string>(orderName);
         }
 
         public IEnumerable<Guid> GetUsersByShip(Shipping shipIncludeFollows)
