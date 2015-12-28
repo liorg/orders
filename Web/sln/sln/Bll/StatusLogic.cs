@@ -157,7 +157,8 @@ namespace Michal.Project.Bll
             }
 
             var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
-            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm") + " והועברה לשליח" + " " + grantToText;
+            var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm");
+
 
             request.Title = title;
             request.Desc = text;

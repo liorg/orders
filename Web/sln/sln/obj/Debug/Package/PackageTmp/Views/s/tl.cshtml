@@ -12,6 +12,28 @@
 }
 <div class="row">
     <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">סטאטוס התקדמות </a>
+                </h4>
+            </div>
+            <div id="collapseOrder" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div class="pull-right" >@Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
     </div>
 </div>
