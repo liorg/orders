@@ -18,7 +18,7 @@ namespace Michal.Project.Models
         public string Streetcode { get; set; }
 
         [Required(ErrorMessage = "עיר שדה חובה")]
-        [Display(Name = "עיר")]
+        [Display(Name = "ישוב")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "עיר שדה חובה")]

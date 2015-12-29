@@ -422,8 +422,7 @@ namespace Michal.Project.Controllers
 
                 if (!userid.HasValue)
                     userid = userContext.UserId;
-                //var shipping = await context.Shipping.FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
-
+                
                 ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
                 var result = await view.GetShippingByUser(userid.Value);
                 return View(result);

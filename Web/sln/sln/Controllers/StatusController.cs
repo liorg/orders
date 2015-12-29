@@ -84,8 +84,8 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await followLogic.AppendAdminFollowBy(ship, admins, context.Users);
                 await context.SaveChangesAsync();
-
-                return RedirectToAction("Index", "F");
+                return RedirectToAction("ShipView", "S", new { id = id });
+                //return RedirectToAction("Index", "F");
             }
         }
 
@@ -119,7 +119,8 @@ namespace Michal.Project.Controllers
                 }
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
+                return RedirectToAction("ShipView", "S", new { id = id });
+                //return RedirectToAction("Index", "F");
             }
         }
 
@@ -142,7 +143,8 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
+                return RedirectToAction("ShipView", "S", new { id = id });
+                //return RedirectToAction("Index", "F");
             }
         }
 
@@ -166,6 +168,7 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
+               // return RedirectToAction("ShipView", "S", new { id = id });
                 return RedirectToAction("Index", "F");
             }
         }
@@ -189,7 +192,9 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
+
+                return RedirectToAction("ShipView", "S", new { id = id });
+                //return RedirectToAction("Index", "F");
             }
         }
 
@@ -212,7 +217,9 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
+
+                return RedirectToAction("ShipView", "S", new { id = id });
+                //return RedirectToAction("Index", "F");
             }
         }
 
@@ -270,7 +277,9 @@ namespace Michal.Project.Controllers
                 await followLogic.AppendOwnerFollowBy(shipping, userContext, context.Users);
                 await context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "F");
+
+                return RedirectToAction("ShipView", "S", new { id = shipId.ToString() });
+              //  return RedirectToAction("Index", "F");
             }
         }
 
