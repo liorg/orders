@@ -12,7 +12,7 @@
                 @Html.HiddenFor(m => m.ShipId)
 
                 @Html.HiddenFor(m => m.SigBackType)
-                @if (Model.StatusId.ToString() == Michal.Project.Helper.Status.AcceptByClient || Model.StatusId.ToString() == Michal.Project.Helper.Status.NoAcceptByClient)
+                @if (Model.StatusId.ToString() == Michal.Project.Helper.Status.AcceptByClient || Model.StatusId.ToString() == Michal.Project.Helper.Status.NoAcceptByClient || Model.StatusId.ToString() == Michal.Project.Helper.Status.Close)
                 {
                     <ul class="list-group">
                         @if (Model.IsTake)
