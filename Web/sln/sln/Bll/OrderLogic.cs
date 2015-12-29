@@ -267,6 +267,7 @@ namespace Michal.Project.Bll
         public OfferClient GetOfferClient(bool allowRemove, bool allowEdit, Shipping ship, Guid shippingCompanyId, UserContext user)
         {
             OfferClient offerClient = new OfferClient();
+            bool isPresent = false;
             offerClient.ObjectIdExcpetionPriceId = Guid.Parse(ProductType.ObjectIdExcpetionPrice);
 
             int qunitityType = 0;
@@ -310,15 +311,17 @@ namespace Michal.Project.Bll
                 priceValue = null;
                 price = priceList.Where(p => p.ObjectId == distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
                 if (price != null)
+                {
                     priceValue = price.PriceValue;
-
+                    isPresent = price.PriceValueType == 2 ? true : false;
+                }
                 offerClient.Distances.Add(new OfferClientItem
                 {
                     Amount = 1,
                     Desc = distance.Desc,
                     Id = distance.DistanceId,
                     IsDiscount = false,
-                    IsPresent = false,
+                    IsPresent = isPresent,//false,
                     Name = distance.Name,
                     ProductPrice = priceValue,
                     StatusRecord = 1,
@@ -336,6 +339,7 @@ namespace Michal.Project.Bll
                 if (price != null)
                 {
                     priceValue = price.PriceValue;
+                    isPresent = price.PriceValueType == 2 ? true : false;
                 }
 
                 offerClient.ShipTypes.Add(new OfferClientItem
@@ -344,7 +348,7 @@ namespace Michal.Project.Bll
                     Desc = shiptypeItem.Desc,
                     Id = shiptypeItem.ShipTypeId,
                     IsDiscount = false,
-                    IsPresent = false,
+                    IsPresent = isPresent,//false,
                     Name = shiptypeItem.Name,
                     ProductPrice = priceValue,
                     StatusRecord = 1,
@@ -359,15 +363,17 @@ namespace Michal.Project.Bll
                 priceValue = null;
                 price = priceList.Where(p => p.ObjectId == productItem.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
                 if (price != null)
+                {
                     priceValue = price.PriceValue;
-
+                    isPresent = price.PriceValueType == 2 ? true : false;
+                }
                 offerClient.Products.Add(new OfferClientItem
                 {
                     Amount = 1,
                     Desc = productItem.Desc,
                     Id = productItem.ProductId,
                     IsDiscount = false,
-                    IsPresent = false,
+                    IsPresent =isPresent,// false,
                     Name = productItem.Name,
                     ProductPrice = priceValue,
                     StatusRecord = 1,
@@ -386,7 +392,8 @@ namespace Michal.Project.Bll
         {
             int qunitityType = 0;
             decimal? priceValue;
-            PriceList price;
+            PriceList price; 
+            bool isPresent=false;
             offerClient.StateCode = (int)OfferVariables.OfferStateCode.New;
             var discountLists = _offerPriceRepository.GetDiscount();
             var priceList = _offerPriceRepository.GetPriceList();
@@ -432,13 +439,16 @@ namespace Michal.Project.Bll
                 priceValue = null;
                 var price2 = priceList.Where(p => p.ObjectId == item.Product.ProductId && p.ObjectTypeCode == (int)ObjectTypeCode.Product).FirstOrDefault();
                 if (price2 != null)
+                {
                     priceValue = price2.PriceValue;
+                    isPresent = price2.PriceValueType == 2 ? true : false;
+                }
 
                 offerClient.Items.Add(new OfferItem
                 {
                     Id = Guid.NewGuid(),
                     IsDiscount = false,
-                    IsPresent = false,
+                    IsPresent = isPresent,//false,
                     Name = item.Product.Name,
                     Desc = item.Product.Desc,
                     ObjectId = item.Product.ProductId,
@@ -456,6 +466,7 @@ namespace Michal.Project.Bll
             if (price != null)
             {
                 priceValue = price.PriceValue;
+                isPresent = price.PriceValueType == 2 ? true : false;
             }
             offerClient.Items.Add(new OfferItem
             {
@@ -463,7 +474,7 @@ namespace Michal.Project.Bll
                 Name = ship.ShipType.Name,
                 Desc = ship.ShipType.Desc,
                 IsDiscount = false,
-                IsPresent = false,
+                IsPresent =isPresent,// false,
                 ProductPrice = priceValue,
                 StatusRecord = 1,
                 Amount = 1,
@@ -477,15 +488,17 @@ namespace Michal.Project.Bll
             priceValue = null;
             price = priceList.Where(p => p.ObjectId == ship.Distance.DistanceId && p.ObjectTypeCode == (int)ObjectTypeCode.Distance).FirstOrDefault();
             if (price != null)
+            {
                 priceValue = price.PriceValue;
-
+                isPresent = price.PriceValueType == 2 ? true : false;
+            }
             offerClient.Items.Add(new OfferItem
             {
                 Id = Guid.NewGuid(),
                 Name = ship.Distance.Name,
                 Desc = ship.Distance.Desc,
                 IsDiscount = false,
-                IsPresent = false,
+                IsPresent = isPresent,//false,
                 ProductPrice = priceValue,
                 StatusRecord = 1,
                 Amount = 1,

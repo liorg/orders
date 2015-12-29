@@ -207,16 +207,25 @@ function AppViewModel(vmData) {
 
     function getTotalPrice() {
         var count = 0;
+        var countPersent = 0;
         for (var i = 0; i < self.Items().length; i++) {
-
-            if (self.Items()[i].IsDiscount() == true) continue;
-            if (self.Items()[i].PriceValue() == null) {
+            var item = self.Items()[i];
+            if (item.IsDiscount() == true) continue;
+            if (item.PriceValue() == null) {
                 count = null;
                 break;
             }
-            count += parseFloat(self.Items()[i].PriceValue());
+            if (item.IsPresent() == true) {
+                countPersent += parseFloat(item.PriceValue());
+            }
+            else {
+                count += parseFloat(self.Items()[i].PriceValue());
+            }
         }
-        return count;
+        if (countPersent == null && count == null)
+            return null;
+        var result = ((count * (countPersent / 100)) + count);
+        return result;//count;
     }
 
     function getTotalDiscount(total) {
