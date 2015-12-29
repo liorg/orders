@@ -123,7 +123,13 @@ namespace Michal.Project.Helper
             return MvcHtmlString.Create(builder.ToString());
             //return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="value"></param>
+        /// <param name="size">big ,"",small</param>
+        /// <returns></returns>
         public static MvcHtmlString Cyrcle(this HtmlHelper helper, double value, string size)
         {
             var builder = new TagBuilder("div");

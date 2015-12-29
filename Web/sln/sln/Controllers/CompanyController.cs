@@ -81,7 +81,7 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public ActionResult DaysOff(Guid companyid)
+        public ActionResult DaysOff(Guid companyid,int? year)
         {
             var bussinessClosureView = new BussinessClosureView();
             bussinessClosureView.Id = companyid;
@@ -92,8 +92,10 @@ namespace Michal.Project.Controllers
                 GeneralAgentRepository repository = new GeneralAgentRepository(context);
                 var orgId = repository.GetOrg();
                 CalcService calc = new CalcService(repository, repository, repository);
-                bussinessClosureView.Items = calc.GetDayOff(companyid,DateTime.Now.Year);
-                bussinessClosureView.Year = DateTime.Now.Year.ToString();
+                if (!year.HasValue)
+                    year = DateTime.Now.Year;
+                bussinessClosureView.Items = calc.GetDayOff(companyid, year.Value);
+                bussinessClosureView.Year = year.Value.ToString();
                 var company = calc.GetCompany(orgId, companyid);
                 bussinessClosureView.Name = company.Name;
                 return View(bussinessClosureView);
