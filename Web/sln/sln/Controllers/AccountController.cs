@@ -678,8 +678,59 @@ namespace Michal.Project.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
         private async Task SignInAsync(ApplicationUser user, bool isPersistent, Organization org)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            Helper.JobType jobType = Helper.JobType.Client;
+            string jobTitle = Helper.JobTitle.Client;
+            var claimAllRoles = identity.Claims.Where(ccl => ccl.Type == ClaimTypes.Role).AsEnumerable();
+            foreach (var claimRole in claimAllRoles)
+            {
+                if (claimRole != null && !String.IsNullOrWhiteSpace(claimRole.Value))
+                {
+                    if (claimRole.Value == Helper.HelperAutorize.RoleAdmin)
+                    {
+                        jobType = Helper.JobType.Admin;
+                        jobTitle = Helper.JobTitle.Admin;
+                        break;
+                    }
+                    if (claimRole.Value == Helper.HelperAutorize.RoleRunner)
+                    {
+                        jobType = Helper.JobType.Runner;
+                        jobTitle = Helper.JobTitle.DeliveryBoy;
+                    }
+                }
+            }
+            HelperSecurity.SetClaims(identity, user, org, jobType, jobTitle);
+
+            //identity.AddClaim(new Claim(CustomClaimTypes.JobTitle, jobTitle));
+            //identity.AddClaim(new Claim(CustomClaimTypes.JobType, ((int)jobType).ToString()));
+
+            //identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            //identity.AddClaim(new Claim(ClaimTypes.GroupSid, org.OrgId.ToString()));
+            //identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
+            //identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
+
+            //identity.AddClaim(new Claim(CustomClaimTypes.ShowAllView, user.ViewAll.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.DefaultView, user.DefaultView.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.Tel, user.Tel.ToString()));
+
+            //identity.AddClaim(new Claim(CustomClaimTypes.City, user.AddressUser.CityName.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.CityCode, user.AddressUser.CityCode.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.Street, user.AddressUser.StreetName.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.StreetCode, user.AddressUser.StreetCode.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.Num, user.AddressUser.StreetNum.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.External, String.IsNullOrEmpty(user.AddressUser.ExtraDetail) ? "" : user.AddressUser.ExtraDetail.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.UID, user.AddressUser.UID.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.Lat, user.AddressUser.Lat.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.Lng, user.AddressUser.Lng.ToString()));
+            //identity.AddClaim(new Claim(CustomClaimTypes.GrantUser, user.GrantUserManager.GetValueOrDefault().ToString()));
+
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+        }
+        
+        private async Task SignInAsyncOld(ApplicationUser user, bool isPersistent, Organization org)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);

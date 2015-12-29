@@ -12,5 +12,11 @@ namespace Michal.Project.Contract.DAL
     {
         Task<UserLink> GetUserLink(Guid? userid);
         Task<UserDetail> GetUser(Guid? userid);
+        Client FindClient(string clientId);
+        Task<bool> AddRefreshToken(RefreshToken token);
+        Task<bool> RemoveRefreshToken(string refreshTokenId);
+        Task<bool> RemoveRefreshToken(RefreshToken refreshToken);
+        Task<RefreshToken> FindRefreshToken(string refreshTokenId);
+        List<RefreshToken> GetAllRefreshTokens();
     }
 }
