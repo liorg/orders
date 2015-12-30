@@ -21,6 +21,7 @@ namespace Michal.Project.Providers
         //    context.Validated();
         //    return Task.FromResult<object>(null);
         //}
+        ///http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
 
@@ -116,7 +117,7 @@ namespace Michal.Project.Providers
 
         //}
 
-
+        //http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
@@ -140,6 +141,7 @@ namespace Michal.Project.Providers
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+           // identity.Name = user.UserName;
             HelperSecurity.SetClaims(identity,user, organization, JobType.Runner, Helper.JobTitle.DeliveryBoy);
             //identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             //identity.AddClaim(new Claim("sub", context.UserName));

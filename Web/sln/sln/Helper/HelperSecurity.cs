@@ -26,27 +26,7 @@ namespace Michal.Project.Helper
 
         public static void SetClaims(ClaimsIdentity identity, ApplicationUser user, Organization org, Helper.JobType jobType, string jobTitle)
         {
-
-            //Helper.JobType jobType = Helper.JobType.Runner;
-            //string jobTitle = Helper.JobTitle.DeliveryBoy;
-            //var claimAllRoles = identity.Claims.Where(ccl => ccl.Type == ClaimTypes.Role).AsEnumerable();
-            //foreach (var claimRole in claimAllRoles)
-            //{
-            //    if (claimRole != null && !String.IsNullOrWhiteSpace(claimRole.Value))
-            //    {
-            //        if (claimRole.Value == Helper.HelperAutorize.RoleAdmin)
-            //        {
-            //            jobType = Helper.JobType.Admin;
-            //            jobTitle = Helper.JobTitle.Admin;
-            //            break;
-            //        }
-            //        if (claimRole.Value == Helper.HelperAutorize.RoleRunner)
-            //        {
-            //            jobType = Helper.JobType.Runner;
-            //            jobTitle = Helper.JobTitle.DeliveryBoy;
-            //        }
-            //    }
-            //}
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
             identity.AddClaim(new Claim(CustomClaimTypes.JobTitle, jobTitle));
             identity.AddClaim(new Claim(CustomClaimTypes.JobType, ((int)jobType).ToString()));
 
