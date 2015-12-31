@@ -30,14 +30,8 @@ namespace Michal.Project.Api
     [RoutePrefix("api/OfferService")]
     public class OfferServiceController : ApiController
     {
-        [Authorize]
-        [Route("")]
-        public IHttpActionResult Get()
-        {
-            return Ok(Order.CreateOrders());
-        }
-        [System.Web.Http.AcceptVerbs("GET", "POST")]
        
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
         [Route("GetOffer")]
         //[EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<HttpResponseMessage> GetOffer(Guid shipid, Guid offerId, Guid shippingCompanyId)

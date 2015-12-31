@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Michal.Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace Michal.Project.Api
@@ -15,7 +17,9 @@ namespace Michal.Project.Api
         [Route("")]
         public IHttpActionResult Get()
         {
-            return Ok(Order.CreateOrders());
+            var userContext = HttpContext.Current.GetOwinContext().Authentication;
+            var user = new UserContext(userContext);
+            return Ok(Order.CreateOrders(user));
         }
         //ggg
     } 
@@ -28,16 +32,17 @@ namespace Michal.Project.Api
         public string CustomerName { get; set; }
         public string ShipperCity { get; set; }
         public Boolean IsShipped { get; set; }
+        public string UserName { get; set; }
 
-        public static List<Order> CreateOrders()
+        public static List<Order> CreateOrders( UserContext userContext)
         {
             List<Order> OrderList = new List<Order> 
             {
-                new Order {OrderID = 10248, CustomerName = "Taiseer Joudeh", ShipperCity = "Amman", IsShipped = true },
-                new Order {OrderID = 10249, CustomerName = "Ahmad Hasan", ShipperCity = "Dubai", IsShipped = false},
-                new Order {OrderID = 10250,CustomerName = "Tamer Yaser", ShipperCity = "Jeddah", IsShipped = false },
-                new Order {OrderID = 10251,CustomerName = "Lina Majed", ShipperCity = "Abu Dhabi", IsShipped = false},
-                new Order {OrderID = 10252,CustomerName = "Yasmeen Rami", ShipperCity = "Kuwait", IsShipped = true}
+                new Order {OrderID = 10248, CustomerName = "Taiseer Joudeh", ShipperCity = "Amman", IsShipped = true ,UserName=userContext.FullName},
+                new Order {OrderID = 10249, CustomerName = "Ahmad Hasan", ShipperCity = "Dubai", IsShipped = false ,UserName=userContext.FullName},
+                new Order {OrderID = 10250,CustomerName = "Tamer Yaser", ShipperCity = "Jeddah", IsShipped = false  ,UserName=userContext.FullName},
+                new Order {OrderID = 10251,CustomerName = "Lina Majed", ShipperCity = "Abu Dhabi", IsShipped = false ,UserName=userContext.FullName},
+                new Order {OrderID = 10252,CustomerName = "Yasmeen Rami", ShipperCity = "Kuwait", IsShipped = true ,UserName=userContext.FullName}
             };
 
             return OrderList;
