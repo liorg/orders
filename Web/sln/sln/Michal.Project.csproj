@@ -459,6 +459,9 @@
     <Content Include="Content\img\vespa-ran-bg.png" />
     <Content Include="Content\img\vespa-ran.gif" />
     <Content Include="Content\img\vespa-ran2.gif" />
+    <Content Include="Content\img\vespa-ranlogo128x128.png" />
+    <Content Include="Content\img\vespa-ranlogo152x152.png" />
+    <Content Include="Content\img\vespa-ranlogo192x192.png" />
     <Content Include="Content\img\whatsapp32x32.png" />
     <Content Include="Content\offer.css" />
     <Content Include="Content\Site.css" />
@@ -496,6 +499,9 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\img\vespa-ranlogo16x16.png" />
+    <Content Include="Content\img\vespa-ranlogo32x32.png" />
+    <Content Include="Content\img\vespa-ranlogo48x48.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
