@@ -1,10 +1,14 @@
 ﻿@model Michal.Project.Models.View.SpecialView
 
 @{
-    //ViewBag.Title = "הזמנות חדשות-טיוטות";
+    ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("_viewLists")
+@*@Html.Partial("_viewLists")*@
+
+@section ordernumber {
+ @Html.Partial("_viewToolbarLists", Model)
+}
 <div class="row">
     <div class="col-md-12">
         <h4><b class="centered">@Model.Title</b> </h4>

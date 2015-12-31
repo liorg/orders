@@ -802,6 +802,7 @@
     <Content Include="Views\s\tl.cshtml" />
     <Content Include="Views\s\user.cshtml" />
     <Content Include="Views\s\ShippingByRunnerId.cshtml" />
+    <Content Include="Views\Shared\_viewToolbarLists.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />

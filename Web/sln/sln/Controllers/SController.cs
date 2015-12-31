@@ -108,7 +108,8 @@ namespace Michal.Project.Controllers
                 //if (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleRunner))
                 //    orgId = Guid.Empty; //user.OrgId;
                 orgId = cache.GetOrg(context);
-                var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
+               // var showAll = viewAll == null ? user.ShowAll : viewAll.Value;
+                var showAll = true;
                 List<Shipping> shippings = new List<Shipping>();
                 var from = DateTime.Today.AddDays(-1).Date;
                 var to = DateTime.Today.AddDays(1).Date;
