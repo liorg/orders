@@ -1,6 +1,7 @@
 ﻿using Michal.Project.Dal;
 using Michal.Project.DataModel;
 using Michal.Project.Helper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
@@ -16,11 +17,6 @@ namespace Michal.Project.Providers
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
 
-        //public override  Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
-        //{
-        //    context.Validated();
-        //    return Task.FromResult<object>(null);
-        //}
         ///http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
@@ -85,67 +81,36 @@ namespace Michal.Project.Providers
             context.Validated();
             return Task.FromResult<object>(null);
         }
-
-
-        //public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
-        //{
-
-        //    context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-        //    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-
-        //    using (var dBContext = new ApplicationDbContext())
-        //    {
-        //        var userManager = new ApplicationUserManager(dBContext);
-        //        var user = await userManager.FindAsync(context.UserName, context.Password);
-
-        //        if (user == null)
-        //        {
-        //            context.SetError("invalid_grant", "The user name or password is incorrect.");
-        //            return;
-        //        }
-
-        //        //identity.AddClaim(new Claim(CustomClaimTypes.JobTitle, jobTitle));
-        //        //identity.AddClaim(new Claim(CustomClaimTypes.JobType, ((int)jobType).ToString()));
-
-        //        identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-        //        identity.AddClaim(new Claim(ClaimTypes.GroupSid, user.Organization_OrgId.HasValue ? user.Organization_OrgId.Value.ToString() : General.OrgIDWWW));
-        //        identity.AddClaim(new Claim(ClaimTypes.SerialNumber, String.IsNullOrEmpty(user.EmpId) ? "אן מספר עובד" : user.EmpId));
-        //        identity.AddClaim(new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName));
-        //    }
-
-        //    context.Validated(identity);
-
-        //}
-
-        //http://bitoftech.net/2014/07/16/enable-oauth-refresh-tokens-angularjs-app-using-asp-net-web-api-2-owin/
+        
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
             var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
-            Organization organization=null;
+            Organization organization = null;
             if (allowedOrigin == null) allowedOrigin = "*";
             ApplicationUser user = null;
+            ApplicationUserManager userManager;
+            var rolesStrs = "";
+            ClaimsIdentity identity; List<Claim> roles = new List<Claim>();
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-                using (var dBContext = new ApplicationDbContext())
-                {  MemeryCacheDataService cache = new MemeryCacheDataService();
-                    organization= cache.GetOrgEntity(dBContext); //await context.Organization.ToListAsync();
-                    var userManager = new ApplicationUserManager(dBContext);
-                     user = await userManager.FindAsync(context.UserName, context.Password);
+            using (var dBContext = new ApplicationDbContext())
+            {
+                MemeryCacheDataService cache = new MemeryCacheDataService();
+                organization = cache.GetOrgEntity(dBContext); //await context.Organization.ToListAsync();
+                userManager = new ApplicationUserManager(dBContext);
+                user = await userManager.FindAsync(context.UserName, context.Password);
 
                 if (user == null)
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
                 }
+                identity = await userManager.CreateIdentityAsync(user, context.Options.AuthenticationType);
+                roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+                rolesStrs = Newtonsoft.Json.JsonConvert.SerializeObject(roles.Select(x => x.Value));
             }
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-           // identity.Name = user.UserName;
-            HelperSecurity.SetClaims(identity,user, organization, JobType.Runner, Helper.JobTitle.DeliveryBoy);
-            //identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            //identity.AddClaim(new Claim("sub", context.UserName));
-            //identity.AddClaim(new Claim("role", "user"));
+            HelperSecurity.SetClaims(identity, user, organization, JobType.Runner, Helper.JobTitle.DeliveryBoy);
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
@@ -154,12 +119,13 @@ namespace Michal.Project.Providers
                     },
                     { 
                         "userName", context.UserName
-                    }
+                    },
+                    {
+                        "roles",rolesStrs
+                        }
                 });
-
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
-
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
