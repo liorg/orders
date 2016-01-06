@@ -12,9 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOSHOP", "PHOTOSHOP", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{418164C5-D8C5-4802-BC2C-0C2648F19248}"
 	ProjectSection(SolutionItems) = preProject
+		Resource\getJsonToken.png = Resource\getJsonToken.png
 		Resource\kipotest.zip = Resource\kipotest.zip
 		Resource\nice.txt = Resource\nice.txt
 		old.txt = old.txt
+		Resource\TestJsonToken.png = Resource\TestJsonToken.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migration", "Migration", "{56E12B5B-56DB-4BDA-BDF7-A8DD30C357B8}"

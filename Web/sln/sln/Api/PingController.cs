@@ -35,5 +35,18 @@ namespace Michal.Project.Api
         {
             return Ok("test=" + s);
         }
+
+        [Route("complex")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult Complex()
+        {
+            return Ok(new { key = "1", value = "ss" });
+        }
+        [Route("complexv")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult ComplexValue(string v)
+        {
+            return Ok(new { key = "1", value = v });
+        }
     }
 }
