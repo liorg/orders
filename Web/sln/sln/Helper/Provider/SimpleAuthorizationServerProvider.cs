@@ -74,6 +74,8 @@ namespace Michal.Project.Providers
                 context.SetError("invalid_clientId", "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
+             //http://leastprivilege.com/2013/11/15/adding-refresh-tokens-to-a-web-api-v2-authorization-server/
+            context.OwinContext.Set<string>("as:client_id", context.ClientId);
 
             context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
             context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
@@ -81,7 +83,7 @@ namespace Michal.Project.Providers
             context.Validated();
             return Task.FromResult<object>(null);
         }
-        
+
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
@@ -128,6 +130,35 @@ namespace Michal.Project.Providers
             context.Validated(ticket);
         }
 
+        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        {
+            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
+            var currentClient = context.OwinContext.Get<string>("as:client_id");
+     //       var currentClient = context.OwinContext.Request.Get<string>("as:client_id");
+
+            ////var currentClient = context.ClientId;
+            //http://leastprivilege.com/2013/11/15/adding-refresh-tokens-to-a-web-api-v2-authorization-server/
+            if (originalClient != currentClient)
+            {
+                context.SetError("invalid_clientId", "Refresh token is issued to a different clientId.");
+                return Task.FromResult<object>(null);
+            }
+
+            // Change auth ticket for refresh token requests
+            var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
+
+            var renwewRefreshToken = newIdentity.Claims.Where(c => c.Type == "RenwewRefreshToken").FirstOrDefault();
+            if (renwewRefreshToken != null)
+                newIdentity.RemoveClaim(renwewRefreshToken);
+
+            newIdentity.AddClaim(new Claim("RenwewRefreshToken", DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss")));
+
+            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            context.Validated(newTicket);
+
+            return Task.FromResult<object>(null);
+        }
+
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
@@ -138,4 +169,4 @@ namespace Michal.Project.Providers
             return Task.FromResult<object>(null);
         }
     }
-} 
+}
