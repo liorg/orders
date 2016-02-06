@@ -74,11 +74,12 @@ namespace Michal.Project.Providers
                 context.SetError("invalid_clientId", "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
-             //http://leastprivilege.com/2013/11/15/adding-refresh-tokens-to-a-web-api-v2-authorization-server/
+            //http://leastprivilege.com/2013/11/15/adding-refresh-tokens-to-a-web-api-v2-authorization-server/
             context.OwinContext.Set<string>("as:client_id", context.ClientId);
 
             context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
             context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+           
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -113,7 +114,8 @@ namespace Michal.Project.Providers
                 rolesStrs = Newtonsoft.Json.JsonConvert.SerializeObject(roles.Select(x => x.Value));
             }
             HelperSecurity.SetClaims(identity, user, organization, JobType.Runner, Helper.JobTitle.DeliveryBoy);
-
+            var currentTime = DateTime.UtcNow;
+            var expiredOn = currentTime.AddMinutes(General.MAXMinutesExpiredApiToken);
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
                     { 
@@ -122,9 +124,16 @@ namespace Michal.Project.Providers
                     { 
                         "userName", context.UserName
                     },
+                    { 
+                        "m:currentTime", currentTime.ToString("yyyy-MM-ddTHH:mm:ss")
+                    },
+                    { 
+                        "m:expiredOn", expiredOn.ToString("yyyy-MM-ddTHH:mm:ss")
+                    },
+
                     {
                         "roles",rolesStrs
-                        }
+                        },
                 });
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
@@ -134,7 +143,7 @@ namespace Michal.Project.Providers
         {
             var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
             var currentClient = context.OwinContext.Get<string>("as:client_id");
-     //       var currentClient = context.OwinContext.Request.Get<string>("as:client_id");
+            //       var currentClient = context.OwinContext.Request.Get<string>("as:client_id");
 
             ////var currentClient = context.ClientId;
             //http://leastprivilege.com/2013/11/15/adding-refresh-tokens-to-a-web-api-v2-authorization-server/

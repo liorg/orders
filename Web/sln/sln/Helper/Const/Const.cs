@@ -58,6 +58,8 @@ namespace Michal.Project.Helper
         public const string Shekel = "₪";
 
         public const string Empty = "---";
+
+        public const double MAXMinutesExpiredApiToken = 30;
     }
 
     public static class CustomClaimTypes
