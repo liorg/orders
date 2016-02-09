@@ -125,10 +125,10 @@ namespace Michal.Project.Providers
                         "userName", context.UserName
                     },
                     { 
-                        "m:currentTime", currentTime.ToString("yyyy-MM-ddTHH:mm:ss")
+                        "m:currentTime", currentTime.ToString("yyyy-MM-dd HH:mm:ss")
                     },
                     { 
-                        "m:expiredOn", expiredOn.ToString("yyyy-MM-ddTHH:mm:ss")
+                        "m:expiredOn", expiredOn.ToString("yyyy-MM-dd HH:mm:ss")
                     },
 
                     {
