@@ -84,9 +84,9 @@ namespace Michal.Project.Bll
             orderModel.Status.Recipient = shipping.Direction == 0 ? shipping.Recipient : shipping.NameSource;
             orderModel.Status.TelRecipient = shipping.Direction == 0 ? shipping.TelTarget : shipping.TelSource;
             orderModel.Status.NameTarget = shipping.Direction == 0 ? shipping.NameTarget : shipping.NameSource;
-            orderModel.Status.NameActualRecipient = shipping.ActualRecipient;
-            orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget;
-            orderModel.Status.NameActualTarget = shipping.ActualNameTarget;
+            orderModel.Status.NameActualRecipient = shipping.ActualRecipient != null ? shipping.ActualRecipient : General.Empty;
+            orderModel.Status.NameActualTelRecipient = shipping.ActualTelTarget != null ? shipping.ActualTelTarget : General.Empty; //shipping.ActualTelTarget;
+            orderModel.Status.NameActualTarget = shipping.ActualNameTarget != null ? shipping.ActualNameTarget : General.Empty; // shipping.ActualNameTarget;
             orderModel.Status.Name = shipping.StatusShipping != null ? shipping.StatusShipping.Desc : General.Empty;
             orderModel.Status.MessageType = (AlertStyle)shipping.NotifyType; //Notification.Warning; //Notification.Error;//Notification.Warning;
             orderModel.Status.Message = shipping.NotifyText;
@@ -95,8 +95,8 @@ namespace Michal.Project.Bll
             orderModel.Status.Desc = !String.IsNullOrEmpty(shipping.EndDesc) ? shipping.EndDesc : General.Empty;
             orderModel.Status.SigBackType = shipping.SigBackType.GetValueOrDefault();
             //orderModel.Status.Runners = runners;
-            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue ? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy HH:mm") : " ";
-            orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy HH:mm") : " ";
+            orderModel.Status.ActualEndDate = shipping.ActualEndDate.HasValue ? shipping.ActualEndDate.Value.ToString("dd-MM-yyyy HH:mm") : General.Empty; 
+            orderModel.Status.ActualStartDate = shipping.ActualStartDate.HasValue ? shipping.ActualStartDate.Value.ToString("dd-MM-yyyy HH:mm") : General.Empty;
 
             orderModel.Location = new Location();
             orderModel.Location.TargetLat = shipping.Target.Lat;
@@ -122,11 +122,11 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.CreatedOn = shipping.CreatedOn.Value.ToString("dd/MM/yyyy");
             orderModel.ShippingVm.ModifiedOn = shipping.ModifiedOn.Value.ToString("dd/MM/yyyy");
 
-            orderModel.ShippingVm.TelSource = shipping.TelSource;
-            orderModel.ShippingVm.TelTarget = shipping.TelTarget;
-            orderModel.ShippingVm.NameSource = shipping.NameSource;
-            orderModel.ShippingVm.NameTarget = shipping.NameTarget;
-            orderModel.ShippingVm.Recipient = shipping.Recipient;
+            orderModel.ShippingVm.TelSource = shipping.TelSource != null ? shipping.TelSource : General.Empty;
+            orderModel.ShippingVm.TelTarget = shipping.TelTarget != null ? shipping.TelTarget : General.Empty; //shipping.TelTarget;
+            orderModel.ShippingVm.NameSource = shipping.NameSource != null ? shipping.NameSource : General.Empty;// shipping.NameSource;
+            orderModel.ShippingVm.NameTarget = shipping.NameTarget != null ? shipping.NameTarget : General.Empty;//  shipping.NameTarget;
+            orderModel.ShippingVm.Recipient = shipping.Recipient != null ? shipping.Recipient : General.Empty;//  shipping.Recipient;
 
             orderModel.ShippingVm.SourceAddress = new AddressEditorViewModel();
             orderModel.ShippingVm.SourceAddress.City = shipping.Source.CityName;
