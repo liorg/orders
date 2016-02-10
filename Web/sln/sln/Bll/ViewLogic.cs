@@ -37,6 +37,7 @@ namespace Michal.Project.Bll
             _orgDetailRepostory = orgDetailRepostory;
 
         }
+
         public void SetViewerUserByRole(Michal.Project.Contract.IRole source, IViewerUser target)
         {
             bool showAll = true;
@@ -65,8 +66,6 @@ namespace Michal.Project.Bll
             }
             target.DefaultView = defaultView;
             target.ViewAll = showAll;
-
-
         }
 
         public OrderViewStatus GetOrderStatus(AttachmentShipping sign, OrderRequest request)
@@ -74,7 +73,6 @@ namespace Michal.Project.Bll
 
             var orderModel = new OrderViewStatus();
             var shipping = request.Shipping;
-            //var runners = request.Runners;
 
             orderModel.Status = new StatusVm();
             if (sign != null)
@@ -196,6 +194,13 @@ namespace Michal.Project.Bll
 
             return runnerModel;
         }
+      
+        public async Task<IEnumerable<ShippingVm>> GetMyShips(Guid userid)
+        {
+            var shipping = await _shippingRepository.GetShippingByUserId(userid);
+            if (shipping == null) throw new ArgumentNullException("shipping");
+            return shipping;
+        }
 
         public async Task<OrderView> GetTimeLine(Guid shipId)
         {
@@ -220,32 +225,8 @@ namespace Michal.Project.Bll
             return orderModel;
         }
 
-        //public OrderView GetTimeLine(OrderRequest request)
-        //{
-        //    var orderModel = new OrderView();
-
-        //    var shipping = request.Shipping;
-        //    orderModel.Id = shipping.ShippingId;
-        //    orderModel.Name = shipping.Name;
-        //    orderModel.ShippingVm = new ShippingVm();
-        //    orderModel.ShippingVm.Id = orderModel.Id;
-        //    orderModel.ShippingVm.Name = orderModel.Name;
-        //    orderModel.ShippingVm.StatusPresent = shipping.StatusShipping.OrderDirection == 0 ? 0 : (double)(shipping.StatusShipping.OrderDirection / (double)Status.Max) * 100;
-
-        //    var timeLineVms = new List<TimeLineVm>();
-        //    foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
-        //    {
-        //        timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
-        //    }
-
-        //    orderModel.TimeLineVms = timeLineVms;
-
-        //    return orderModel;
-        //}
-
         public OrderView GetOrder(OrderRequest request)
         {
-
             var orderModel = new OrderView();
 
             var shipping = request.Shipping;
@@ -318,14 +299,8 @@ namespace Michal.Project.Bll
             orderModel.ShippingVm.TargetAddress.Num = shipping.Target.StreetNum;
 
             orderModel.IsEyeOnHim = shipping.FollowsBy.Where(fx => fx.Id == request.UserContext.UserId.ToString()).Any();
-
             orderModel.JobTitle = request.UserContext;
 
-            //var timeLineVms = new List<TimeLineVm>();
-            //foreach (var timeline in shipping.TimeLines.OrderByDescending(t => t.CreatedOn))
-            //{
-            //    timeLineVms.Add(new TimeLineVm { Title = timeline.Name, CreatedOn = timeline.CreatedOn.GetValueOrDefault(), TimeLineId = timeline.TimeLineId, Desc = timeline.Desc, Status = timeline.Status });
-            //}
             var comments = new List<CommentVm>();
             if (shipping.Comments != null && shipping.Comments.Any())
             {
@@ -334,14 +309,12 @@ namespace Michal.Project.Bll
                     comments.Add(new CommentVm { Name = comment.Name, JobTitle = comment.JobTitle, JobType = comment.JobType, CreatedOn = comment.CreatedOn.GetValueOrDefault(), Desc = comment.Desc });
                 }
             }
-            // orderModel.TimeLineVms = timeLineVms;
             orderModel.CommentsVm = comments;
             return orderModel;
         }
 
         public void SetJob(IJob job, UserContext user)
         {
-
             job.JobTitle = user.JobTitle;
             job.JobType = user.JobType;
         }

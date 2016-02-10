@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Api\OrdersController.cs" />
     <Compile Include="Api\PingController.cs" />
+    <Compile Include="Api\ShipController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -813,6 +814,7 @@
   <ItemGroup>
     <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
+    <Folder Include="Helper\HttpModule\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>

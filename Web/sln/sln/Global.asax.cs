@@ -19,5 +19,21 @@ namespace Michal.Project
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles); //ggg
         }
+
+
+        //http://blog.nvise.com/?p=26
+        /// <summary>
+        /// ASP.NET MVC returning 302 (Found) HTTP status code on unauthorized Ajax calls instead of 401(Unauthorized) like classic ASP.NET
+        /// </summary>
+        protected void Application_EndRequest()
+        {
+            if (Context.Response.StatusCode == 302 &&
+                Context.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                Context.Response.Clear();
+                Context.Response.StatusCode = 401;
+            }
+        }
     }
+
 }

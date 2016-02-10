@@ -52,14 +52,7 @@ namespace Michal.Project
         //http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
         public void ConfigureOAuth(IAppBuilder app)
         {
-            //OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            //{
-            //    AllowInsecureHttp = true,
-            //    TokenEndpointPath = new PathString("/token"),
-            //    AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-            //    Provider = new SimpleAuthorizationServerProvider()
-            //};
-
+            
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
 
