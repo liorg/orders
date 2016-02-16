@@ -57,6 +57,7 @@ namespace Michal.Project.Fasade
                 response.IsError = true;
                 response.ErrDesc = "נוצרה שגיאה";
                 response.ErrCode = e.Message;
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
             }
             return response;
 
@@ -93,6 +94,7 @@ namespace Michal.Project.Fasade
                 response.IsError = true;
                 response.ErrDesc = "נוצרה שגיאה";
                 response.ErrCode = e.Message;
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
             }
             return response;
 

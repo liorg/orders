@@ -81,6 +81,7 @@ namespace Michal.Project.Agent
             }
             catch (Exception ee)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ee);
             }
         }
 
