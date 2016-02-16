@@ -79,7 +79,7 @@ namespace Michal.Project.Providers
 
             context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
             context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
-           
+
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -161,6 +161,16 @@ namespace Michal.Project.Providers
                 newIdentity.RemoveClaim(renwewRefreshToken);
 
             newIdentity.AddClaim(new Claim("RenwewRefreshToken", DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss")));
+
+
+            //  var currentClient = context.OwinContext.Get<string>("m:expiredOn");
+            if (context.Ticket.Properties.Dictionary != null && context.Ticket.Properties.Dictionary.ContainsKey("m:expiredOn"))
+            {
+                //refresh custom expire date
+                var expiredOn = DateTime.UtcNow.AddMinutes(General.MAXMinutesExpiredApiToken);
+                context.Ticket.Properties.Dictionary["m:expiredOn"] = expiredOn.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+
 
             var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
             context.Validated(newTicket);

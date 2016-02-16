@@ -10,8 +10,6 @@ namespace Michal.Project.Models
         public string ErrCode { get; set; }
         public bool IsError { get; set; }
         public string    ErrDesc { get; set; }
-       
-
     }
 
     public class Result<T> : Result
