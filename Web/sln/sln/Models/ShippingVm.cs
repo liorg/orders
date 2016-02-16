@@ -111,6 +111,9 @@ namespace Michal.Project.Models
         [Display(Name = "תאריך סיום ")]
         public DateTime? ActualEndDateDt { get; set; }
 
+        [Display(Name = "תאריך SLA ")]
+        public DateTime? SlaEndTime { get; set; }
+
         [Display(Name = "תאריך התחלה ")]
         public string ActualStartDateS
         {
@@ -130,5 +133,25 @@ namespace Michal.Project.Models
                 return ActualEndDateDt.Value.ToString("dd/MM/yyyy HH:mm");
             }
         }
+        [Display(Name = "תאריך סיום משוער ")]
+        public string SlaEndTimeS
+        {
+            get
+            {
+                if (SlaEndTime == null) return General.Empty;
+                return SlaEndTime.Value.ToString("dd/MM/yyyy HH:mm");
+            }
+        }
+        [Display(Name = "תיאור המשלוח ")]
+        public string TitleDesc
+        {
+            get
+            {
+                if (NameSource == null) return General.Empty;
+                return "המשלוח של " + NameSource;
+            }
+        }
     }
+
+
 }

@@ -30,7 +30,7 @@ namespace Michal.Project.Dal
         {
             return await _context.Shipping.FindAsync(shipId);
         }
-        
+
         public async Task<Shipping> GetShipTimelines(Guid shipId)
         {
             return await _context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
@@ -111,12 +111,15 @@ namespace Michal.Project.Dal
         {
 
             var shippings = await (from s in _context.Shipping
+                                   // join u in _context.Users
+                                   // on s.OwnerId.Value.ToString() equals u.Id
                                    where s.GrantRunner.HasValue && s.IsInProccess && s.GrantRunner == userId
                                    orderby s.WalkOrder
                                    select new ShippingVm
                                    {
-                                       ActualEndDateDt=s.ActualStartDate,
-                                       ActualStartDateDt=s.ActualEndDate,
+                                       ActualEndDateDt = s.ActualStartDate,
+                                       ActualStartDateDt = s.ActualEndDate,
+                                       SlaEndTime = s.SlaTime,
                                        DistanceName = s.Distance.Name,
                                        DistanceValue = s.DistanceText,
                                        Id = s.ShippingId,
@@ -124,10 +127,13 @@ namespace Michal.Project.Dal
                                        TelSource = s.TelSource,
                                        TelTarget = s.TelTarget,
                                        ShipTypeIdName = s.ShipType.Name,
-                                       WalkOrder=s.WalkOrder,
-                                       Status=s.StatusShipping.Name,
-                                       TargetAddress = new AddressEditorViewModel { City = s.Target.CityName, Citycode = s.Target.CityName, ExtraDetail = s.Target.ExtraDetail, Num = s.Target.StreetNum, Street = s.Target.StreetCode, Streetcode = s.Target.StreetName },
-                                       SourceAddress = new AddressEditorViewModel { City = s.Source.CityName, Citycode = s.Source.CityName, ExtraDetail = s.Source.ExtraDetail, Num = s.Source.StreetNum, Street = s.Source.StreetCode, Streetcode = s.Source.StreetName }
+                                       WalkOrder = s.WalkOrder,
+                                       Status = s.StatusShipping.Desc,
+                                       NameSource = s.NameSource,
+                                       NameTarget = s.NameTarget,
+
+                                       TargetAddress = new AddressEditorViewModel { Lat = s.Target.Lat, Lng = s.Target.Lng, City = s.Target.CityName, Citycode = s.Target.CityName, ExtraDetail = s.Target.ExtraDetail, Num = s.Target.StreetNum, Street = s.Target.StreetCode, Streetcode = s.Target.StreetName },
+                                       SourceAddress = new AddressEditorViewModel { Lat = s.Source.Lat, Lng = s.Source.Lng, City = s.Source.CityName, Citycode = s.Source.CityName, ExtraDetail = s.Source.ExtraDetail, Num = s.Source.StreetNum, Street = s.Source.StreetCode, Streetcode = s.Source.StreetName }
                                    }).ToListAsync();
             return shippings;
         }

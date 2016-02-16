@@ -47,7 +47,7 @@ namespace Michal.Project.Api
             {
                 result.IsError = true;
                 result.ErrDesc = e.ToString();
-                //Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
