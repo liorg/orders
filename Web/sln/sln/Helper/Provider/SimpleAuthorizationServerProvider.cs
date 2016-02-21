@@ -125,6 +125,9 @@ namespace Michal.Project.Providers
                         "userName", context.UserName
                     },
                     { 
+                        "m:userId", user.Id
+                    },
+                    { 
                         "m:currentTime", currentTime.ToString("yyyy-MM-dd HH:mm:ss")
                     },
                     { 
