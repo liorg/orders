@@ -33,12 +33,12 @@ public class SendNotify : IHttpHandler
         }
         if (context.Request["t"] != null)
         {
-            typemessge = context.Request["typemessge"];
+            typemessge = context.Request["t"];
             typemessge = HttpUtility.UrlEncode(typemessge);
         }
-        if (context.Request["RecID"] != null)
+        if (context.Request["recid"] != null)
         {
-            recID = context.Request["typemessge"];
+            recID = context.Request["recid"];
             recID = HttpUtility.UrlEncode(recID);
         }
         tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));
