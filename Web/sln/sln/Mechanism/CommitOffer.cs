@@ -72,9 +72,9 @@ namespace Michal.Project.Mechanism
               
               
                 var urlMessage = url + path;
-                
 
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage,messageClient);
+
+                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient, offer.Id);
             }
             else if (successor != null)
              return await successor.HandleRequest(offer, user);

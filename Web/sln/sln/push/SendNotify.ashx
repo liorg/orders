@@ -17,7 +17,8 @@ public class SendNotify : IHttpHandler
         string SERVER_API_KEY = "AIzaSyC2HKhSRdOyPmV7lGMj0tdcfoaOY9XWi8Q";
         var SENDER_ID = "530446261684"; 
         var value = "s";
-
+        var typemessge = "DEFAULT";
+        var recID = "";
         WebRequest tRequest;
         tRequest = WebRequest.Create("https://android.googleapis.com/gcm/send");
         tRequest.Method = "post";
@@ -30,8 +31,18 @@ public class SendNotify : IHttpHandler
             value = context.Request["b"];
             value=HttpUtility.UrlEncode(value);
         }
+        if (context.Request["t"] != null)
+        {
+            typemessge = context.Request["typemessge"];
+            typemessge = HttpUtility.UrlEncode(typemessge);
+        }
+        if (context.Request["RecID"] != null)
+        {
+            recID = context.Request["typemessge"];
+            recID = HttpUtility.UrlEncode(recID);
+        }
         tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));
-        string postData = "collapse_key=score_update&time_to_live=108&delay_while_idle=1&data.data=" + value + "&data.time=" + System.DateTime.Now.ToString() + "&registration_id=" + deviceid + "";
+        string postData = "collapse_key=score_update&time_to_live=108&delay_while_idle=1&data.data=" + value + "&data.recid=" + recID + "&data.typemessge=" + typemessge + "&data.time=" + System.DateTime.Now.ToString() + "&registration_id=" + deviceid + "";
         //string postData = "data.data=" + value + "&registration_id=" + deviceid + "";
         
         Byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(postData);

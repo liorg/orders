@@ -49,7 +49,7 @@ namespace Michal.Project.Mechanism
                 var urlMessage = url + path;
                 var users = follow.GetUsersByShip(ship);
 
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage,messageClient);
+                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient, offer.Id);
             }
             else if (successor != null)
             {

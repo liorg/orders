@@ -53,7 +53,7 @@ namespace Michal.Project.Fasade
 
             foreach (var userDevice in userDevices)
             {
-                bool isOk = await SendPushServerAsync(userDevice.DeviceId, notifyMessage.Body); //SendPushServer(userDevice.DeviceId);
+                bool isOk = await SendPushServerAsync(userDevice.DeviceId, notifyMessage.Body, notifyItem.RecID, notifyItem.TypeMessage); //SendPushServer(userDevice.DeviceId);
                 if (!isOk)
                 {
                     userDevice.IsActive = false;
@@ -65,7 +65,7 @@ namespace Michal.Project.Fasade
             }
         }
 
-        async Task<bool> SendPushServerAsync(string deviceid, string body)
+        async Task<bool> SendPushServerAsync(string deviceid, string body,string recid,string messageType)
         {
             try
             {
@@ -74,7 +74,9 @@ namespace Michal.Project.Fasade
                 var formContent = new FormUrlEncodedContent(new[]
                         {
                             new KeyValuePair<string, string>("d", deviceid), 
-                            new KeyValuePair<string, string>("b", body) 
+                            new KeyValuePair<string, string>("b", body) ,
+                            new KeyValuePair<string, string>("recid", recid) ,
+                            new KeyValuePair<string, string>("t", messageType) 
                         });
 
                 using (var myHttpClient = new HttpClient())

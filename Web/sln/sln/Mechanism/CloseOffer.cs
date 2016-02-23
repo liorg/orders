@@ -59,7 +59,7 @@ namespace Michal.Project.Mechanism
                 var titleMessage = "הזמנה  סגורה";
                 var bodyMessage = " ההזמנה נסגרה!" + ship.Name;
                 var urlMessage = url + path;
-                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient);
+                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient, offer.Id);
             }
             else if (successor != null)
             {

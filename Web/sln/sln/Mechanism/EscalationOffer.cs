@@ -42,7 +42,7 @@ namespace Michal.Project.Mechanism
                 if (!_isUserGrant)
                 {
                     messageClient = "חובה מאשר הזמנה עבור הזמנה חריגה";
-                    return await SetNotification(usersfollow, "", "חובה מאשר עבור הזמנה חריגה ", "חובה מאשר הזמנה חריג", messageClient);
+                    return await SetNotification(usersfollow, "", "חובה מאשר עבור הזמנה חריגה ", "חובה מאשר הזמנה חריג", messageClient, offer.Id);
                 }
                 logic.ChangeStatusOffer((int)OfferVariables.OfferStateCode.Request, offer, user, ship, offerModel);
 
@@ -54,7 +54,7 @@ namespace Michal.Project.Mechanism
                 var titleMessage = "הזמנה חריגה אושרה";
                 var bodyMessage = " בקשת אישור הזמנה חריגה עבור " + ship.Name;
                 var urlMessage = url + path;
-                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient);
+                return await SetNotification(usersfollow, urlMessage, titleMessage, bodyMessage, messageClient, offer.Id);
             }
             else if (successor != null)
             {

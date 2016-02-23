@@ -31,6 +31,10 @@ namespace Michal.Project.Models
 
     public class NotifyItem
     {
+        public const string MESSAGE_DEFAULT = "DEFAULT";
+        public const string MESSAGE_COMMENT = "COMMENT";
+        public const string MESSAGE_ORDER = "ORDER";
+        public const string MESSAGE_CHANGEUSER = "CHANGEUSER";
         public Guid Id { get; set; }
         [Display(Name = "כותרת")]
         public string Title { get; set; }
@@ -58,5 +62,10 @@ namespace Michal.Project.Models
             }
         }
 
+        [Display(Name = "סוג הודעה")]
+        public string TypeMessage { get; set; }
+
+        [Display(Name = "מזהה רשומה")]
+        public string RecID { get; set; }
     }
 }

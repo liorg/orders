@@ -79,7 +79,7 @@ namespace Michal.Project.Mechanism
 
                 var titleMessage = "הזמנה חדשה";
                 var urlMessage = url + path;
-                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient);
+                return await SetNotification(users, urlMessage, titleMessage, bodyMessage, messageClient, offer.Id);
             }
             else if (successor != null)
             {
