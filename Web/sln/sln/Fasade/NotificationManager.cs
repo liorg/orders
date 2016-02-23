@@ -34,9 +34,7 @@ namespace Michal.Project.Fasade
                 return;
             var userDevices = context.UserNotify.Where(u => u.UserId == user.Value && u.IsActive == true).ToList();
             var dt = DateTime.Now;
-            
-            context.NotifyMessage.Add(
-                new DataModel.NotifyMessage
+            var notifyMessage= new DataModel.NotifyMessage
                 {
                     Body = notifyItem.Body,
                     CreatedBy = user.Value,
@@ -49,12 +47,13 @@ namespace Michal.Project.Fasade
                     Title = notifyItem.Title,
                     ToUrl = notifyItem.Url,
                     UserId = user.Value
-                });
+                };
+            context.NotifyMessage.Add(notifyMessage);
             await context.SaveChangesAsync();
 
             foreach (var userDevice in userDevices)
             {
-                bool isOk = await SendPushServerAsync(userDevice.DeviceId, notifyItem.Body); //SendPushServer(userDevice.DeviceId);
+                bool isOk = await SendPushServerAsync(userDevice.DeviceId, notifyMessage.Body); //SendPushServer(userDevice.DeviceId);
                 if (!isOk)
                 {
                     userDevice.IsActive = false;
@@ -70,7 +69,7 @@ namespace Michal.Project.Fasade
         {
             try
             {
-
+            //    body = "ok מה קורה";
                 var url = System.Configuration.ConfigurationManager.AppSettings["NotificationServer"].ToString();
                 var formContent = new FormUrlEncodedContent(new[]
                         {

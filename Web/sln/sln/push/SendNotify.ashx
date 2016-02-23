@@ -28,6 +28,7 @@ public class SendNotify : IHttpHandler
         if (context.Request["b"] != null)
         {
             value = context.Request["b"];
+            value=HttpUtility.UrlEncode(value);
         }
         tRequest.Headers.Add(string.Format("Sender: id={0}", SENDER_ID));
         string postData = "collapse_key=score_update&time_to_live=108&delay_while_idle=1&data.data=" + value + "&data.time=" + System.DateTime.Now.ToString() + "&registration_id=" + deviceid + "";
