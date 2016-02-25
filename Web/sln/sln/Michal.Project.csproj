@@ -321,6 +321,9 @@
     <Compile Include="Helper\Infrastructure\HelperAutorize.cs" />
     <Compile Include="Helper\Razor\RazorHelper.cs" />
     <Compile Include="Helper\Infrastructure\UserProfileActionFilter.cs" />
+    <Compile Include="logs\MobileLog.ashx.cs">
+      <DependentUpon>MobileLog.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Mechanism\CommitOffer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -586,6 +589,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="logs\MobileLog.ashx" />
     <None Include="Properties\PublishProfiles\pcdev2.pubxml" />
     <None Include="Properties\PublishProfiles\realse.pubxml" />
     <Content Include="push\manifest.webapp" />
