@@ -816,6 +816,7 @@
     <Content Include="Views\Shared\_viewToolbarLists.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CollectLogs\" />
     <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
     <Folder Include="Helper\HttpModule\" />

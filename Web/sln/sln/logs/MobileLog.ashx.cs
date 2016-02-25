@@ -19,8 +19,8 @@ namespace Michal.Project.logs
             try
             {
                 StringBuilder err = new StringBuilder();
-                var path = context.Server.MapPath("\\logs");
-                var fileLog = Path.Combine(path, "error_" + DateTime.Now.Ticks + ".txt");
+                var path = context.Server.MapPath("\\CollectLogs");
+                var fileLog = Path.Combine(path, "android_" + DateTime.Now.Ticks + ".txt");
                 foreach (string name in context.Request.Form)
                 {
                     err.AppendLine(name + ": " + context.Request.Form[name]);
