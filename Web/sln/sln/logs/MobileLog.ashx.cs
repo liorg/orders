@@ -16,29 +16,37 @@ namespace Michal.Project.logs
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            StringBuilder err = new StringBuilder();
-            var path = context.Server.MapPath("\\logs");
-            var fileLog = Path.Combine(path, "error_" + DateTime.Now.Ticks + ".txt");
-            foreach (string name in context.Request.Form)
-            {
-                err.AppendLine(name + ": " + context.Request.Form[name]);
-            }
-
-            TextWriter tw = null;
-          
-           
             try
             {
-                tw = new StreamWriter(fileLog);
-                tw.WriteLine(err.ToString());
-            }
-            catch (Exception) { }
-            finally
-            {
-                if (tw != null)
-                    tw.Close();
-            }
+                StringBuilder err = new StringBuilder();
+                var path = context.Server.MapPath("\\logs");
+                var fileLog = Path.Combine(path, "error_" + DateTime.Now.Ticks + ".txt");
+                foreach (string name in context.Request.Form)
+                {
+                    err.AppendLine(name + ": " + context.Request.Form[name]);
+                }
+                string json = new StreamReader(context.Request.InputStream).ReadToEnd();
+                err.Append(json);
+                TextWriter tw = null;
+                try
+                {
+                    tw = new StreamWriter(fileLog);
+                    tw.WriteLine(err.ToString());
+                }
+                catch (Exception) { }
+                finally
+                {
+                    if (tw != null)
+                        tw.Close();
+                }
 
+
+            }
+            catch (Exception e)
+            {
+
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
             context.Response.Write("ok");
 
         }
