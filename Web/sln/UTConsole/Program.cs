@@ -19,8 +19,10 @@ namespace UTConsole
         {
             Console.WriteLine("1.0.0.5 framework 4.5");
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
+
+            Union();
            // Merge();
-            Init(file);
+            //Init(file);
           //  Test(file);
             //  ConvertXmlToJson();
             // Merge();
@@ -47,6 +49,77 @@ namespace UTConsole
                 var all = items.Count;
                 Console.WriteLine("file={0}, count={1}", f, all);
             }
+
+        }
+        static void Union()
+        {
+            StreetsGeoLocation location = new StreetsGeoLocation();
+            location.StreetsItems = new List<StreetLatAndLng>();
+            int idx = 0;
+            using (StreamReader rechovArrange = File.OpenText(@"rechov.json"))
+            using (StreamReader file = File.OpenText(@"rechovArrange2016-03-15 1158.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                StreetsGeoLocation locationTarget = (StreetsGeoLocation)serializer.Deserialize(file, typeof(StreetsGeoLocation));
+                StreetsGeoLocation locationSource = (StreetsGeoLocation)serializer.Deserialize(rechovArrange, typeof(StreetsGeoLocation));
+
+                var itemsTarget = locationTarget.StreetsItems.OrderBy(d => d.Id).ToList();
+                var itemsSource = locationSource.StreetsItems.OrderBy(d => d.Id).ToList();
+
+
+                var all = itemsSource.Count;
+                foreach (var streetSource in itemsSource)
+                {
+                    idx++;
+                    var streetLatAndLng = new StreetLatAndLng();
+                    streetLatAndLng.UId = idx;
+                    streetLatAndLng.Addr = streetSource.Addr;
+                    streetLatAndLng.City = streetSource.City;
+                    streetLatAndLng.CodeAddr = streetSource.CodeAddr;
+                    streetLatAndLng.CodeCity = streetSource.CodeCity;
+                    streetLatAndLng.Id = streetSource.Id;
+                    streetLatAndLng.Tbl = streetSource.Tbl;
+                    streetLatAndLng.GoogleApiUrl = streetSource.GoogleApiUrl;
+                    streetLatAndLng.GoogleFromatApiUrl = streetSource.GoogleFromatApiUrl;
+                    streetLatAndLng.Lat = streetSource.Lat;
+                    streetLatAndLng.Lng = streetSource.Lng;
+                    Console.WriteLine("item {0} of {1}", idx, all);
+
+
+                    foreach (var streetTarget in itemsTarget)
+                    {
+                        if (streetTarget.UId == streetLatAndLng.UId)
+                        {
+                            streetLatAndLng.Lat = streetTarget.Lat;
+                            streetLatAndLng.Lng = streetTarget.Lng;
+                            streetLatAndLng.Status = streetTarget.Status;
+                            break;
+                        }
+                        
+                    }
+                    //if (streetLatAndLng.Lat == 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
+                    //{
+                    //    streetLatAndLng.Status = "new";
+                    //}
+                    //else if (streetLatAndLng.Lat != 0.0 && String.IsNullOrEmpty(streetLatAndLng.Status))
+                    //{
+                    //    streetLatAndLng.Status = "ok";
+                    //}
+
+                    location.StreetsItems.Add(streetLatAndLng);
+
+                }
+            }
+            using (FileStream fs = File.Open(@"rechovUnion.json", FileMode.OpenOrCreate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(jw, location);
+            }
+
 
         }
 

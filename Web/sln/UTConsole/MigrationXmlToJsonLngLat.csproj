@@ -100,13 +100,12 @@
     <None Include="rechovArrange.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="rechovArrange2015-09-01 0358.json">
+    <None Include="rechovArrange2016-03-15 1134.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="rechovArrange2015-09-09 0414.json">
+    <None Include="rechovArrange2016-03-15 1158.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="rechovArrange2015-09-10 1201.json" />
     <None Include="rechovOk.json" />
   </ItemGroup>
   <ItemGroup>

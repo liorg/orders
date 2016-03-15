@@ -33,6 +33,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{9B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtConsole", "UnitTest\UtConsole\UtConsole.csproj", "{D608A9C7-1908-4ABB-B30D-015DAF32D243}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jobs", "Jobs", "{CA254372-1FE1-4751-B788-883613EB4EA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLatF4", "XmlToJsonF4\MigrationXmlToJsonLngLatF4.csproj", "{E164196C-8372-4D1B-923D-DEE699FEAE78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLat", "UTConsole\MigrationXmlToJsonLngLat.csproj", "{8ECD1E94-727A-4620-A630-39665E528D32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,11 +53,21 @@ Global
 		{D608A9C7-1908-4ABB-B30D-015DAF32D243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D608A9C7-1908-4ABB-B30D-015DAF32D243}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D608A9C7-1908-4ABB-B30D-015DAF32D243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E164196C-8372-4D1B-923D-DEE699FEAE78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECD1E94-727A-4620-A630-39665E528D32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D608A9C7-1908-4ABB-B30D-015DAF32D243} = {9B927577-8FBE-4F3C-9A88-9B6C5C732148}
+		{E164196C-8372-4D1B-923D-DEE699FEAE78} = {CA254372-1FE1-4751-B788-883613EB4EA3}
+		{8ECD1E94-727A-4620-A630-39665E528D32} = {CA254372-1FE1-4751-B788-883613EB4EA3}
 	EndGlobalSection
 EndGlobal
