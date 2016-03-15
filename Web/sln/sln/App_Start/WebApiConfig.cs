@@ -15,6 +15,8 @@ namespace Michal.Project
             config.MapHttpAttributeRoutes();
 
             //config.EnableCors(new EnableCorsAttribute("*", "*", "*") { SupportsCredentials = true });
+            // New code
+           
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

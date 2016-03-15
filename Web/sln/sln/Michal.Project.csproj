@@ -399,7 +399,7 @@
     <Compile Include="Models\View\base\ViewDataPage.cs" />
     <Compile Include="Models\ViewItem.cs" />
     <Compile Include="Models\ViewListsRequest.cs" />
-    <Compile Include="Models\WhoAmIResponse.cs" />
+    <Compile Include="Models\WhoAmI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\Provider\ExcelProvider.cs" />
     <Compile Include="Helper\Provider\SimpleAuthorizationServerProvider.cs" />

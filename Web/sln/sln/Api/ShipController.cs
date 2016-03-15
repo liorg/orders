@@ -62,8 +62,8 @@ namespace Michal.Project.Api
        [AcceptVerbs("GET")]
         public async Task<HttpResponseMessage> WhoAmI()
         {
-            ResponseBase<WhoAmIResponse> result = new ResponseBase<WhoAmIResponse>();
-            result.Model = new WhoAmIResponse();
+            ResponseBase<WhoAmI> result = new ResponseBase<WhoAmI>();
+            result.Model = new WhoAmI();
             result.Model.FullName = "Anonymous";
             result.Model.UserName = "Anonymous";
 
@@ -90,7 +90,7 @@ namespace Michal.Project.Api
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<ResponseBase<WhoAmIResponse>>(result,
+                Content = new ObjectContent<ResponseBase<WhoAmI>>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
