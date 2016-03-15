@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>לוח מחוונים </h4>
+<div id="error_container"></div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">הצג מחיר מומלץ לצרכן</a>
+        </h4>
+    </div>
+    <div id="collapseOrder" class="panel-collapse collapse in">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                    <div class='claro'>
+                <div dojoType="dojox.widget.AnalogGauge" id='mailminute' width="450" height="350"
+                    cx="225" cy="175" radius="150" startAngle="-90" endAngle="90" useRangeStyles="0"
+                hideValues="true" color: "white" majorTicks="{length: 10, offset: 105, interval: 10, color: 'gray'}"
+                minorTicks="{length: 5, offset: 105, interval: 5, color: 'gray'}">
+                    <div dojoType="dojox.widget.gauge.Range" low="0" high="100" color="{'color': 'white'}">
+                    </div>
+                    <div dojoType="dojox.widget.gauge.Range" low="100" high="200" color="{'color': 'white'}">
+                    </div>
+                </div>
+                Mail / Minute
+    
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+    <script>
+
+        dojo.require("dojox.widget.AnalogGauge");
+        dojo.require("dojox.widget.gauge.AnalogArcIndicator");
+        dojo.require("dojox.widget.gauge.AnalogNeedleIndicator");
+
+        dojo.addOnLoad(function () {
+            dojo.parser.parse();
+            var gauge = dijit.byId('mailminute');
+            // Used for a gradient arc indicator below:
+            var fillRed = {
+                'type': 'linear',
+                'x1': 50,
+                'y1': 50,
+                'x2': 250,
+                'y2': 250,
+                'colors': [{
+                    offset: 0,
+                    color: 'green'
+                },
+                {
+                    offset: 0.5,
+                    color: 'lightyellow'
+                },
+                {
+                    offset: 0.75,
+                    color: 'yellow'
+                },
+                {
+                    offset: 1,
+                    color: 'red'
+                }]
+            };
+            gauge.addIndicator(new dojox.widget.gauge.AnalogArcIndicator({
+                'value': 200,
+                'width': 20,
+                'offset': 150,
+                'color': fillRed,
+                'noChange': true,
+                'hideValues': true
+            }));
+            /*gauge.addIndicator(new dojox.widget.gauge.AnalogArcIndicator({
+                        'value': 80,
+                        'width': 10,
+                        'offset': 150,
+                        'color': 'blue',
+                        'title': 'Arc',
+                        'hover': 'Arc: 80'
+                    }));
+                    */
+            var ind = new dojox.widget.gauge.AnalogNeedleIndicator({
+                'value': 180,
+                'width': 8,
+                'length': 150,
+                'color': 'gray',
+                'title': 'Mail/min',
+                'hover': 'Mail/minute 100',
+                //   easing: dojo.fx.easing.bounceOut
+                easing: dojo.fx.easing.linear,
+                duration: 1999
+            });
+
+            gauge.addIndicator(ind);
+
+            setInterval(dojo.partial(function (i) {
+                //alert('test');
+                i.update(Math.floor(Math.random() * 20) + 80);
+            }, ind), 2000);
+
+
+        });
+    </script>
+   
+
+
+}

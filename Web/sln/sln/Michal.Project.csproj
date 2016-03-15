@@ -246,6 +246,7 @@
     <Compile Include="Contract\View\IViewType.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -398,6 +399,7 @@
     <Compile Include="Models\View\base\ViewDataPage.cs" />
     <Compile Include="Models\ViewItem.cs" />
     <Compile Include="Models\ViewListsRequest.cs" />
+    <Compile Include="Models\WhoAmIResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\Provider\ExcelProvider.cs" />
     <Compile Include="Helper\Provider\SimpleAuthorizationServerProvider.cs" />
@@ -814,6 +816,7 @@
     <Content Include="Views\s\user.cshtml" />
     <Content Include="Views\s\ShippingByRunnerId.cshtml" />
     <Content Include="Views\Shared\_viewToolbarLists.cshtml" />
+    <Content Include="Views\Dashboard\Org.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CollectLogs\" />

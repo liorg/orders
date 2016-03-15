@@ -16,4 +16,9 @@ namespace Michal.Project.Models
     {
         public T Model { get; set; }
     }
+
+    public class ResponseBase<T>: Result<T> 
+    {
+        public bool IsAuthenticated { get; set; }
+    }
 }
