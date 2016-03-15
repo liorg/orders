@@ -20,7 +20,7 @@ namespace XmlToJsonF4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("1.0.0.3 (4.0)");
+            Console.WriteLine("1.0.0.5 framework 4");
             // Merge();
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
 
@@ -97,12 +97,14 @@ namespace XmlToJsonF4
                                 if (status.Value == "ZERO_RESULTS")
                                 {
                                     Console.WriteLine("ZERO_RESULTS,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+                                    location.StreetsItems.Add(streetLatAndLng);
                                     continue;
                                 }
                                 if (status.Value == "OVER_QUERY_LIMIT")
                                 {
                                     Console.WriteLine("OVER_QUERY_LIMIT,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
                                     stopService = true;
+                                    location.StreetsItems.Add(streetLatAndLng);
                                     continue;
                                 }
 
@@ -125,7 +127,7 @@ namespace XmlToJsonF4
                     location.StreetsItems.Add(streetLatAndLng);
 
                 }
-                using (FileStream fs = File.Open(@"rechovArrange" + DateTime.Now.ToString("yyyy-MM-dd hhmm") + ".json", FileMode.OpenOrCreate))
+                using (FileStream fs = File.Open(@"rechovArrange" + DateTime.Now.ToString("yyyy-MM-dd HHmm") + ".json", FileMode.OpenOrCreate))
                 using (StreamWriter sw = new StreamWriter(fs))
                 using (JsonWriter jw = new JsonTextWriter(sw))
                 {

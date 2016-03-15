@@ -17,7 +17,7 @@ namespace UTConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("1.0.0.5");
+            Console.WriteLine("1.0.0.5 framework 4.5");
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
            // Merge();
             Init(file);
@@ -184,12 +184,14 @@ namespace UTConsole
                                 if (status.Value == "ZERO_RESULTS")
                                 {
                                     Console.WriteLine("ZERO_RESULTS,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
+                                    location.StreetsItems.Add(streetLatAndLng);
                                     continue;
                                 }
                                 if (status.Value == "OVER_QUERY_LIMIT")
                                 {
                                     Console.WriteLine("OVER_QUERY_LIMIT,City ={0},Addr={1} ", streetLatAndLng.City, streetLatAndLng.Addr);
                                     stopService = true;
+                                    location.StreetsItems.Add(streetLatAndLng);
                                     continue;
                                 }
 
