@@ -67,7 +67,7 @@ namespace XmlToJsonF4
                     {
                        // if (!stopService)
                         //{
-                        if (!stopService && (street.Status == "new" || street.Status == "OVER_QUERY_LIMIT"))
+                        if (!stopService && (street.Status ==null|| street.Status == "new" || street.Status == "OVER_QUERY_LIMIT"))
                         {
                             try
                             {
