@@ -43,6 +43,9 @@ namespace Michal.Project.Dal
         public DbSet<UserNotify> UserNotify { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
+        public DbSet<SyncTable> SyncTable { get; set; }
+
+        
 
     }
 }

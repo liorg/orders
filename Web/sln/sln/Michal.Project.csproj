@@ -240,6 +240,7 @@
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Contract\View\IComapnyView.cs" />
     <Compile Include="Contract\View\IShipView.cs" />
+    <Compile Include="Contract\View\ISync.cs" />
     <Compile Include="Contract\View\IView.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\BussinessClosure.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\SyncTable.cs" />
     <Compile Include="DataModel\DistanceCities.cs" />
     <Compile Include="DataModel\RefreshToken.cs" />
     <Compile Include="DataModel\UserNotify.cs" />
@@ -311,6 +313,7 @@
     <Compile Include="DataModel\Product.cs" />
     <Compile Include="DataModel\Distance.cs" />
     <Compile Include="DataModel\Organization.cs" />
+    <Compile Include="Fasade\SyncManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -325,15 +328,15 @@
     <Compile Include="logs\MobileLog.ashx.cs">
       <DependentUpon>MobileLog.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Mechanism\CommitOffer.cs">
+    <Compile Include="Mechanism\Offer\CommitOffer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Mechanism\CanceClient.cs" />
-    <Compile Include="Mechanism\CancelOffer.cs" />
-    <Compile Include="Mechanism\CloseOffer.cs" />
-    <Compile Include="Mechanism\EscalationOffer.cs" />
-    <Compile Include="Mechanism\RequestOffer.cs" />
-    <Compile Include="Mechanism\Handler.cs">
+    <Compile Include="Mechanism\Offer\CanceClient.cs" />
+    <Compile Include="Mechanism\Offer\CancelOffer.cs" />
+    <Compile Include="Mechanism\Offer\CloseOffer.cs" />
+    <Compile Include="Mechanism\Offer\EscalationOffer.cs" />
+    <Compile Include="Mechanism\Offer\RequestOffer.cs" />
+    <Compile Include="Mechanism\Offer\Handler.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Migrations\201512121859436_sta.cs" />
@@ -343,6 +346,10 @@
     <Compile Include="Migrations\201512281532070_refreshtoken.cs" />
     <Compile Include="Migrations\201512281532070_refreshtoken.Designer.cs">
       <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603301500262_newtable.cs" />
+    <Compile Include="Migrations\201603301500262_newtable.Designer.cs">
+      <DependentUpon>201603301500262_newtable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
@@ -372,6 +379,7 @@
     <Compile Include="Models\OrderRequest.cs" />
     <Compile Include="Models\OrderViewBase.cs" />
     <Compile Include="Models\Runner.cs" />
+    <Compile Include="Models\ShippingVmSync.cs" />
     <Compile Include="Models\SlaView.cs" />
     <Compile Include="Models\StatusVm.cs" />
     <Compile Include="Contract\IUserContext.cs" />
@@ -391,6 +399,9 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
+    <Compile Include="Models\View\base\ItemSync.cs" />
+    <Compile Include="Models\View\base\Request.cs" />
+    <Compile Include="Models\View\base\Response.cs" />
     <Compile Include="Models\View\base\Result.cs" />
     <Compile Include="Models\View\NotifiesView.cs" />
     <Compile Include="Models\View\UsersView.cs" />
@@ -822,6 +833,7 @@
     <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
     <Folder Include="Helper\HttpModule\" />
+    <Folder Include="Mechanism\Sync\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
@@ -839,6 +851,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512281532070_refreshtoken.resx">
       <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301500262_newtable.resx">
+      <DependentUpon>201603301500262_newtable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

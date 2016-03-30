@@ -202,6 +202,14 @@ namespace Michal.Project.Bll
             return shipping;
         }
 
+        public async Task<IEnumerable<ItemSync<ShippingVm>>> GetMyShipsAsync(Guid userid, string deviceid, string clientid)
+        {
+            var shipping = await _shippingRepository.GetShippingAsyncByUserId(userid, deviceid, clientid);
+
+            if (shipping == null) throw new ArgumentNullException("shipping");
+            return shipping;
+        }
+
         public async Task<OrderView> GetTimeLine(Guid shipId)
         {
             var orderModel = new OrderView();
@@ -336,5 +344,8 @@ namespace Michal.Project.Bll
             job.JobTitle = Helper.JobTitle.Client;
             job.JobType = ((int)Helper.JobType.Client).ToString();
         }
+
+        
+
     }
 }

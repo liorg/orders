@@ -183,6 +183,13 @@ namespace Michal.Project.Bll
             // context.Entry<Shipping>(shipping).State = EntityState.Modified;
         }
 
+        public async Task<ItemSync<ShippingVm>> OnPostUpdateShipSync(ItemSync<ShippingVm> syncShippingVm, 
+            UserContext userContext)
+        {
+            await OnPostUpdateShip(syncShippingVm.Model, userContext);
+            _shippingRepository.AddRecordTableAsync(userContext.UserId, syncShippingVm);
+            return syncShippingVm;
+        }
         public async Task<ShippingVm> OnPreUpdateShip(Guid id, UserContext userContext)
         {
             var shipping = await _shippingRepository.GetShip(id);

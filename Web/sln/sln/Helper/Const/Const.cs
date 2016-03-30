@@ -152,4 +152,24 @@ namespace Michal.Project.Helper
         }
 
     }
+
+    public static class ObjectTableCode
+    {
+        public const int SHIP = 1;
+       
+    }
+    public static class SyncStatus
+    {
+        public const int NoSync = 0;
+        public const int SyncFromClient= 1;
+        public const int SyncFromServer = 2;
+    }
+    public static class SyncStateRecord
+    {
+        public const int No = 0;
+        public const int Add= 1;
+        public const int Remove = 2;
+        public const int Cancel = 2;
+    }
+    
 }
