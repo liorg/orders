@@ -19,9 +19,9 @@ namespace Michal.Project.Api
     [RoutePrefix("api/Ship")]
     public class ShipController : ApiController
     {
-        [Route("GetMyShipsSync")]
+        [Route("GetShipsSync")]
         [AcceptVerbs("POST")]
-        public async Task<HttpResponseMessage> GetMyShipsSync(RequestSync request)
+        public async Task<HttpResponseMessage> GetShipsSync(RequestSync request)
         {
             ResponseBase<IEnumerable<ItemSync< ShippingVm>>> result = new ResponseBase<IEnumerable<ItemSync< ShippingVm>>>();
             result.Model = new List<ItemSync<ShippingVm>>();
@@ -63,7 +63,7 @@ namespace Michal.Project.Api
 
         [Route("UpdateShipSync")]
         [AcceptVerbs("POST")]
-        public async Task<HttpResponseMessage> UpdateMyShipSync(ItemSync<ShippingVm> request)
+        public async Task<HttpResponseMessage> UpdateShipSync(ItemSync<ShippingVm> request)
         {
             ResponseBase<ItemSync<ShippingVm>> result = new ResponseBase<ItemSync<ShippingVm>>();
             result.Model = new ItemSync<ShippingVm>();
