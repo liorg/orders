@@ -111,12 +111,13 @@ namespace Michal.Project.Controllers
 
         public ActionResult TimeLines()
         {
-            StatusLogic logic = new StatusLogic();
+            TimeLineLogic logic = new TimeLineLogic();
             var model = logic.GetAllTimeLines();
             return View(model);
 
         }
 
+        
         public ActionResult Register()
         {
             var user = new UserContext(AuthenticationManager);

@@ -44,10 +44,14 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.RemoveOrder(request);
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "F");
@@ -67,7 +71,7 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic();
                 statusLogic.ApprovalRequest(request);
 
                 context.Entry<Shipping>(ship).State = EntityState.Modified;
@@ -83,12 +87,29 @@ namespace Michal.Project.Controllers
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await followLogic.AppendAdminFollowBy(ship, admins, context.Users);
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
                 await context.SaveChangesAsync();
                 return RedirectToAction("ShipView", "S", new { id = id });
-                //return RedirectToAction("Index", "F");
+                
             }
         }
+      
+        StatusLogic GetLogin(ApplicationDbContext context)
+        {
+            IShippingRepository shippingRepository = new ShippingRepository(context);
+            return new StatusLogic(shippingRepository);
+        }
 
+        NotifyLogic GetNotifyLogin(ApplicationDbContext context)
+        {
+            var notifyRepo = new NotificationRepository(context);
+            var shipRepo = new ShippingRepository(context);
+            return new NotifyLogic(notifyRepo, shipRepo);
+        }
+       
         public async Task<ActionResult> ConfirmRequest(string id, string assignTo)
         {
             using (var context = new ApplicationDbContext())
@@ -107,8 +128,8 @@ namespace Michal.Project.Controllers
                 request.Ship = ship;
                 request.UserContext = user;
                 request.AssignTo = assignTo;
-            
-                StatusLogic statusLogic = new StatusLogic();
+
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.ConfirmRequest(request, func);
 
                 FollowLogic followLogic = new FollowLogic();
@@ -117,6 +138,10 @@ namespace Michal.Project.Controllers
                 {
                     await followLogic.AppendOwnerFollowBy(ship, new UserContext { UserId = Guid.Parse(assignTo) }, context.Users);
                 }
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("ShipView", "S", new { id = id });
@@ -136,11 +161,15 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.Accept(request);
 
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("ShipView", "S", new { id = id });
@@ -161,11 +190,15 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.Accept(request);
 
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
                 await context.SaveChangesAsync();
 
                // return RedirectToAction("ShipView", "S", new { id = id });
@@ -185,13 +218,15 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.Arrived(request);
 
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
                 await context.SaveChangesAsync();
 
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
 
                 return RedirectToAction("ShipView", "S", new { id = id });
                 //return RedirectToAction("Index", "F");
@@ -210,13 +245,16 @@ namespace Michal.Project.Controllers
                 var request = new StatusRequestBase();
                 request.Ship = ship;
                 request.UserContext = user;
-                StatusLogic statusLogic = new StatusLogic();
+                StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                 statusLogic.ArrivedGet(request);
 
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(ship, user, context.Users);
-                await context.SaveChangesAsync();
 
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(ship, user);
+
+                await context.SaveChangesAsync();
 
                 return RedirectToAction("ShipView", "S", new { id = id });
                 //return RedirectToAction("Index", "F");
@@ -265,16 +303,20 @@ namespace Michal.Project.Controllers
                 request.ActualEndDate = DateTime.Now;
                 if (StatusVm.Status.IsTake)
                 {
-                    StatusLogic statusLogic = new StatusLogic();
+                    StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                     statusLogic.Take(request, StatusVm.Status.Desc, shipping.ActualRecipient);
                 }
                 else
                 {
-                    StatusLogic statusLogic = new StatusLogic();
+                    StatusLogic statusLogic = GetLogin(context);// new StatusLogic(); new StatusLogic();
                     statusLogic.NoTake(request, StatusVm.Status.Desc);
                 }
                 FollowLogic followLogic = new FollowLogic();
                 await followLogic.AppendOwnerFollowBy(shipping, userContext, context.Users);
+
+                NotifyLogic notifyLogic = GetNotifyLogin(context);
+                notifyLogic.NotifyShipUser(shipping, userContext);
+
                 await context.SaveChangesAsync();
 
 

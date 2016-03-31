@@ -156,7 +156,7 @@ namespace Michal.Project.Helper
     public static class ObjectTableCode
     {
         public const int SHIP = 1;
-       
+        public const int COMMENT = 2;
     }
     public static class SyncStatus
     {
@@ -169,7 +169,8 @@ namespace Michal.Project.Helper
         public const int No = 0;
         public const int Add= 1;
         public const int Remove = 2;
-        public const int Cancel = 2;
+        public const int Cancel = 3;
+        public const int Change = 4;
     }
     
 }

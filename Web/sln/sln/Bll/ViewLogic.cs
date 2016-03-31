@@ -202,9 +202,9 @@ namespace Michal.Project.Bll
             return shipping;
         }
 
-        public async Task<IEnumerable<ItemSync<ShippingVm>>> GetMyShipsAsync(Guid userid, string deviceid, string clientid)
+        public async Task<IEnumerable<ItemSync<MobileShipVm>>> GetMyShipsAsync(Guid userid, string deviceid, string clientid)
         {
-            var shipping = await _shippingRepository.GetShippingAsyncByUserId(userid, deviceid, clientid);
+            var shipping = await _shippingRepository.GetShippingSyncByUserId(userid, deviceid, clientid);
 
             if (shipping == null) throw new ArgumentNullException("shipping");
             return shipping;

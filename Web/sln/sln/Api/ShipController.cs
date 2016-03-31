@@ -23,11 +23,11 @@ namespace Michal.Project.Api
         [AcceptVerbs("POST")]
         public async Task<HttpResponseMessage> GetShipsSync(RequestSync request)
         {
-            ResponseBase<IEnumerable<ItemSync< ShippingVm>>> result = new ResponseBase<IEnumerable<ItemSync< ShippingVm>>>();
-            result.Model = new List<ItemSync<ShippingVm>>();
+            ResponseBase<IEnumerable<ItemSync<MobileShipVm>>> result = new ResponseBase<IEnumerable<ItemSync<MobileShipVm>>>();
+            result.Model = new List<ItemSync<MobileShipVm>>();
             try
             {
-                if (User!=null && User.Identity!=null && User.Identity.IsAuthenticated)
+                if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
                 {
                     result.IsAuthenticated = true;
                     using (var context = new ApplicationDbContext())
@@ -41,7 +41,7 @@ namespace Michal.Project.Api
                         IUserRepository userRepository = new UserRepository(context);
 
                         ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
-                        result.Model = await view.GetMyShipsAsync(user.UserId, request.DeviceId,request.ClientId);
+                        result.Model = await view.GetMyShipsAsync(user.UserId, request.DeviceId, request.ClientId);
 
                     }
                 }
@@ -54,7 +54,7 @@ namespace Michal.Project.Api
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<ResponseBase<IEnumerable<ItemSync<ShippingVm>>>>(result,
+                Content = new ObjectContent<ResponseBase<IEnumerable<ItemSync<MobileShipVm>>>>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
@@ -63,10 +63,10 @@ namespace Michal.Project.Api
 
         [Route("UpdateShipSync")]
         [AcceptVerbs("POST")]
-        public async Task<HttpResponseMessage> UpdateShipSync(ItemSync<ShippingVm> request)
+        public async Task<HttpResponseMessage> UpdateShipSync(ItemSync<MobileShipStatusVm> request)
         {
-            ResponseBase<ItemSync<ShippingVm>> result = new ResponseBase<ItemSync<ShippingVm>>();
-            result.Model = new ItemSync<ShippingVm>();
+            ResponseBase<ItemSync<MobileShipVm>> result = new ResponseBase<ItemSync<MobileShipVm>>();
+            result.Model = new ItemSync<MobileShipVm>();
             try
             {
                 if (User.Identity.IsAuthenticated)
@@ -82,9 +82,9 @@ namespace Michal.Project.Api
                         IUserRepository userRepository = new UserRepository(context);
                         ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
 
-                        OrderLogic logic = new OrderLogic(offerRepository, shippingRepository, generalRepo, generalRepo, userRepository, locationRepository);
+                        StatusLogic logic = new StatusLogic(shippingRepository);
 
-                        result.Model = await logic.OnPostUpdateShipSync(request, user);
+                       result.Model = await logic.ChangeStatusSync(request, user.UserId);
                         await context.SaveChangesAsync();
                     }
                 }
@@ -97,7 +97,7 @@ namespace Michal.Project.Api
             }
             var response = new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new ObjectContent<ResponseBase<ItemSync<ShippingVm>>>(result,
+                Content = new ObjectContent<ResponseBase<ItemSync<MobileShipVm>>>(result,
                            new JsonMediaTypeFormatter(),
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
@@ -146,8 +146,8 @@ namespace Michal.Project.Api
         }
 
         [Route("WhoAmI")]
-       [AcceptVerbs("GET")]
-        public  HttpResponseMessage WhoAmI()
+        [AcceptVerbs("GET")]
+        public HttpResponseMessage WhoAmI()
         {
             ResponseBase<WhoAmI> result = new ResponseBase<WhoAmI>();
             result.Model = new WhoAmI();
@@ -182,6 +182,13 @@ namespace Michal.Project.Api
                             new MediaTypeWithQualityHeaderValue("application/json"))
             };
             return response;
+        }
+
+
+        public StatusLogic GetLogin(ApplicationDbContext context)
+        {
+            IShippingRepository shippingRepository = new ShippingRepository(context);
+            return new StatusLogic(shippingRepository);
         }
     }
 }

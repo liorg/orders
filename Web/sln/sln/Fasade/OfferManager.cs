@@ -87,7 +87,6 @@ namespace Michal.Project.Fasade
                     NotificationManager manager = new NotificationManager();
                     await manager.SendItemsAsync(context, messages);
                 }
-
             }
             catch (Exception e)
             {

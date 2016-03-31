@@ -37,7 +37,8 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var notifyRepo = new NotificationRepository(context);
-                var logic = new NotifyLogic(notifyRepo);
+                var shipRepo = new ShippingRepository(context);
+                var logic = new NotifyLogic(notifyRepo, shipRepo);
                 var model = await logic.GetNotifiesUserAsync(user, currentPage);
                 ViewBag.UserId = user.UserId;
                 return View(model);
@@ -49,7 +50,8 @@ namespace Michal.Project.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var notifyRepo = new NotificationRepository(context);
-                var logic = new NotifyLogic(notifyRepo);
+                var shipRepo = new ShippingRepository(context);
+                var logic = new NotifyLogic(notifyRepo, shipRepo);
                 await logic.Remove(id);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");

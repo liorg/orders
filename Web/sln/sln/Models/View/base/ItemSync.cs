@@ -6,10 +6,8 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-	 public class ItemSync<T> : ISyncItem
+    public class ItemSync : ISyncItem
     {
-        public T Model { get; set; }
-
         public int SyncStatus
         {
             get;
@@ -43,5 +41,12 @@ namespace Michal.Project.Models
         public int SyncStateRecord { get; set; }
 
         public DateTime LastUpdateRecord { get; set; } 
+    }
+   
+    public class ItemSync<T> : ItemSync
+    {
+        public T Model { get; set; }
+
+      
     }
 }

@@ -14,7 +14,6 @@ namespace Michal.Project.Fasade
 {
     public class NotificationManager 
     {
-      
         public NotificationManager()
         {
 
@@ -65,7 +64,7 @@ namespace Michal.Project.Fasade
             }
         }
 
-        async Task<bool> SendPushServerAsync(string deviceid, string body,string recid,string messageType)
+        public async Task<bool> SendPushServerAsync(string deviceid, string body,string recid,string messageType)
         {
             try
             {

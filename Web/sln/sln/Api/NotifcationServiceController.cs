@@ -33,7 +33,8 @@ namespace Michal.Project.Api
                 try
                 {
                     var notifyRepo = new NotificationRepository(context);
-                    var logic = new NotifyLogic(notifyRepo);
+                    var shipRepo = new ShippingRepository(context);
+                    var logic = new NotifyLogic(notifyRepo, shipRepo);
                     await logic.Register(userid, deviceid);
                     await context.SaveChangesAsync();
                 }
@@ -66,7 +67,8 @@ namespace Michal.Project.Api
                 try
                 {
                     var notifyRepo = new NotificationRepository(context);
-                    var logic = new NotifyLogic(notifyRepo);
+                    var shipRepo = new ShippingRepository(context);
+                    var logic = new NotifyLogic(notifyRepo, shipRepo);
                     result.Model = await logic.GetNotifyForCloudMessage(deviceid);
                     await context.SaveChangesAsync();
                 }

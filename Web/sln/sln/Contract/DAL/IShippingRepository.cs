@@ -23,7 +23,7 @@ namespace Michal.Project.Contract.DAL
         Task<IEnumerable<ShippingItem>> GetShipitems(Guid shipId);
         Task<IEnumerable<ShippingVm>> GetShippingByUserId(Guid userId);
         Task<Shipping> GetShipTimelines(Guid shipId);
-        Task<IEnumerable<ItemSync<ShippingVm>>> GetShippingAsyncByUserId(Guid userId, string deviceid,
+        Task<IEnumerable<ItemSync<MobileShipVm>>> GetShippingSyncByUserId(Guid userId, string deviceid,
             string clientid, bool isForceAll = true);
 
         void AddRecordTableAsync(Guid userid, ISyncItem syncRequest);

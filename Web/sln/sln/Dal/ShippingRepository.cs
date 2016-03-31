@@ -38,9 +38,10 @@ namespace Michal.Project.Dal
             return await _context.Shipping.Include(tl => tl.TimeLines).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
 
         }
+        
         public async Task<Shipping> GetShipIncludeItems(Guid shipId)
         {
-            return await _context.Shipping.Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
+            return await _context.Shipping.Include(f=>f.FollowsBy).Include(ic => ic.ShippingItems).FirstOrDefaultAsync(shp => shp.ShippingId == shipId);
         }
 
         public async Task AddOwner(Shipping ship, Guid userid)
@@ -140,25 +141,21 @@ namespace Michal.Project.Dal
             return shippings;
         }
 
-        public async Task<IEnumerable<ItemSync<ShippingVm>>> GetShippingAsyncByUserId(Guid userId,
+        public async Task<IEnumerable<ItemSync<MobileShipVm>>> GetShippingSyncByUserId(Guid userId,
             string deviceid, string clientid, bool isForceAll = true)
         {
-            List<ItemSync<ShippingVm>> items = new List<ItemSync<ShippingVm>>();
-
-            var SyncStatusRecords = _context.SyncTable.Where(s => s.UserId == userId && s.SyncStatus != SyncStateRecord.No).ToList();
+            List<ItemSync<MobileShipVm>> items = new List<ItemSync<MobileShipVm>>();
 
             var shippings = await (from s in _context.Shipping
                                    // join u in _context.Users
                                    // on s.OwnerId.Value.ToString() equals u.Id
                                    where s.GrantRunner.HasValue && s.IsInProccess && s.GrantRunner == userId
                                    orderby s.WalkOrder
-                                   select new ShippingVm
+                                   select new MobileShipVm
                                    {
                                        ActualEndDateDt = s.ActualStartDate,
                                        ActualStartDateDt = s.ActualEndDate,
                                        SlaEndTime = s.SlaTime,
-                                       DistanceName = s.Distance.Name,
-                                       DistanceValue = s.DistanceText,
                                        Id = s.ShippingId,
                                        Name = s.Name,
                                        TelSource = s.TelSource,
@@ -174,12 +171,10 @@ namespace Michal.Project.Dal
                                    }).ToListAsync();
             foreach (var shipping in shippings)
             {
-                SyncTable syncRecord = SyncStatusRecords.Where(idd => idd.ObjectId == shipping.Id && idd.ObjectTableCode == ObjectTableCode.SHIP).OrderByDescending(mm => mm.LastUpdateRecord).FirstOrDefault();
-
-                if (syncRecord == null)
-                    syncRecord = new SyncTable
+               
+              SyncTable  syncRecord = new SyncTable
                     {
-                        SyncStatus = SyncStatus.NoSync,
+                        SyncStatus = SyncStatus.SyncFromServer,
                         ObjectId = shipping.Id,
                         ObjectTableCode = ObjectTableCode.SHIP,
                         UserId = userId,
@@ -187,7 +182,7 @@ namespace Michal.Project.Dal
                         LastUpdateRecord = DateTime.Now
                     };
 
-                items.Add(new ItemSync<ShippingVm>
+              items.Add(new ItemSync<MobileShipVm>
                 {
                     Model = shipping,
                     LastUpdateRecord = syncRecord.LastUpdateRecord,
@@ -203,15 +198,18 @@ namespace Michal.Project.Dal
         public void AddRecordTableAsync(Guid userid, ISyncItem syncRequest)
         {
             SyncTable tablSync = new SyncTable();
-            tablSync.LastUpdateRecord = DateTime.Now;
+            tablSync.SyncTableId = Guid.NewGuid();
+            tablSync.LastUpdateRecord = syncRequest.LastUpdateRecord;
             tablSync.ObjectId = syncRequest.ObjectId;
             tablSync.ObjectTableCode = syncRequest.ObjectTableCode;
             tablSync.SyncStateRecord = syncRequest.SyncStateRecord;
             tablSync.SyncStatus = syncRequest.SyncStatus;
-            tablSync.SyncTableId = new Guid();
             tablSync.CreatedOn = DateTime.Now;
             tablSync.ModifiedOn = DateTime.Now;
+            tablSync.UserId = userid;
             _context.SyncTable.Add(tablSync); 
         }
+
+
     }
 }

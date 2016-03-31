@@ -1,5 +1,8 @@
 ﻿using Michal.Project.Contract;
+using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
+using Michal.Project.Helper;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -20,7 +23,6 @@ namespace Michal.Project.Bll
         {
             if (!ship.FollowsBy.Where(u => u.Id == context.UserId.ToString()).Any())
                 await AddOwnerFollowBy(ship, context, dbUser);
-
         }
 
         public async Task AppendAdminFollowBy(Shipping ship, IEnumerable<IUserContext> admins, IDbSet<ApplicationUser> dbUser)
@@ -36,4 +38,20 @@ namespace Michal.Project.Bll
 
         
     }
+
+
+    //public class NotifyLogic
+    //{
+    //    IShippingRepository _shippingRepository;
+
+    //    public NotifyLogic(IShippingRepository shipRepo)
+    //    {
+    //        _shippingRepository = shipRepo;
+    //    }
+
+        
+    //    {
+
+    //    }
+    //}
 }

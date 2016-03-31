@@ -6,24 +6,13 @@ using Michal.Project.Models.Status;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Michal.Project.Bll
 {
-    public class StatusLogic
+    public class TimeLineLogic
     {
-        IShippingRepository _shippingRepository;
-
-        public StatusLogic()
-        {
-
-        }
-
-        public StatusLogic(IShippingRepository shippingRepository)
-        {
-            _shippingRepository = shippingRepository;
-        }
-
         public List<TimeLinedDetailVm> GetAllTimeLines()
         {
             List<TimeLinedDetailVm> timeLines = new List<TimeLinedDetailVm>();
@@ -62,7 +51,7 @@ namespace Michal.Project.Bll
                 Title = "לא מאושר ע''י חברת שליחים",
                 ProgressBar = 4
             });
-            
+
             timeLines.Add(new TimeLinedDetailVm
             {
                 Status = (int)TimeStatus.Arrived,
@@ -107,6 +96,50 @@ namespace Michal.Project.Bll
             });
 
             return timeLines;
+        }
+
+    }
+    public class StatusLogic
+    {
+        IShippingRepository _shippingRepository;
+
+        //public StatusLogic()
+        //{
+
+        //}
+
+        public StatusLogic(IShippingRepository shippingRepository)
+        {
+            _shippingRepository = shippingRepository;
+        }
+
+        public async Task<ItemSync<MobileShipVm>> ChangeStatusSync(ItemSync<MobileShipStatusVm> request,Guid userid)
+        {
+            ItemSync<MobileShipVm> returnShipSyn = new ItemSync<MobileShipVm>();
+            
+            var ship= await _shippingRepository.GetShip(request.Model.ShipId);
+            //TODO Switch case.. statusid 
+            // change status on ship 
+            returnShipSyn.Model = new MobileShipVm();
+            //TODO Mapping
+            returnShipSyn.Model.ActualEndDateDt = ship.ActualEndDate;
+            returnShipSyn.Model.ActualStartDateDt = ship.ActualStartDate;
+            returnShipSyn.Model.Direction = ship.Direction;
+
+            returnShipSyn.Model.Id = request.Model.ShipId;
+           
+           
+            returnShipSyn.ClientId = request.ClientId;
+            returnShipSyn.LastUpdateRecord = request.LastUpdateRecord;
+            returnShipSyn.ObjectId = request.ObjectId;
+            returnShipSyn.ObjectTableCode = request.ObjectTableCode;
+            returnShipSyn.SyncStateRecord = request.SyncStateRecord;
+            returnShipSyn.SyncStatus = request.SyncStatus;
+            returnShipSyn.DeviceId = request.DeviceId;
+
+            _shippingRepository.AddRecordTableAsync(userid, returnShipSyn);
+
+            return returnShipSyn;
         }
 
         public void RemoveOrder(StatusRequestBase requestBase)
@@ -317,6 +350,7 @@ namespace Michal.Project.Bll
 
             ship.StatusShipping_StatusShippingId = request.StatusShipping;
 
+
             var tl = new TimeLine
             {
                 Name = request.Title,
@@ -341,7 +375,6 @@ namespace Michal.Project.Bll
 
             request.Ship.GrantRunner = request.UserContext.UserId;
             grantToText = request.UserContext.FullName;
-
 
             var title = "המשלוח אושר ע'' חברת השליחות" + " ע''י " + request.UserContext.FullName + " (" + request.UserContext.EmpId + ")";
             var text = title + System.Environment.NewLine + " " + "המשלוח אושר " + " " + request.Ship.Name + " " + "בתאריך " + request.CurrentDate.ToString("dd/MM/yyyy HH:mm") + " והועברה לשליח" + " " + grantToText;
@@ -378,6 +411,7 @@ namespace Michal.Project.Bll
             request.Ship.ApprovalShip = request.UserContext.UserId;
 
             ChangeStatus(request);
+
             if (_shippingRepository != null)
                 _shippingRepository.Update(request.Ship);
 
@@ -405,6 +439,7 @@ namespace Michal.Project.Bll
         {
             StatusRequest request = new StatusRequest(requestBase);
             var text = "המשלוח בוטל ע''י" + " " + request.UserContext.FullName;
+            
             request.Title = text;
             request.Desc = text;
             request.Status = TimeStatus.Cancel;
@@ -413,7 +448,9 @@ namespace Michal.Project.Bll
             request.Ship.IsInProccess = false;
 
             request.Ship.CancelByUser = request.UserContext.UserId;
+            
             ChangeStatus(request);
+           
             if (_shippingRepository != null)
                 _shippingRepository.Update(request.Ship);
         }

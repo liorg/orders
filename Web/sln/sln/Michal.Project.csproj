@@ -354,6 +354,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
+    <Compile Include="Models\MobileShipVm.cs" />
     <Compile Include="Models\ProductsView.cs" />
     <Compile Include="Models\DistancesView.cs" />
     <Compile Include="Models\OrgVm.cs" />
