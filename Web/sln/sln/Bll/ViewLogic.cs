@@ -206,7 +206,7 @@ namespace Michal.Project.Bll
         {
             var shipping = await _shippingRepository.GetShippingSyncByUserId(userid, deviceid, clientid);
 
-            if (shipping == null) throw new ArgumentNullException("shipping");
+            if (shipping == null) new List<ItemSync<MobileShipVm>>(); //throw new ArgumentNullException("shipping");
             return shipping;
         }
 

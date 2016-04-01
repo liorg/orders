@@ -63,10 +63,10 @@ namespace Michal.Project.Models
         public string NameTarget { get; set; }
 
         [Display(Name = "כתובת יעד")]
-        public AddressEditorViewModel TargetAddress { get; set; }
+        public AddressViewModel TargetAddress { get; set; }
 
         [Display(Name = "כתובת מקור")]
-        public AddressEditorViewModel SourceAddress { get; set; }
+        public AddressViewModel SourceAddress { get; set; }
 
         [Display(Name = "החזרת אסמכתא")]
         public int SigBackType { get; set; }

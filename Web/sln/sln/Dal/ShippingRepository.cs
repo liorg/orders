@@ -165,9 +165,8 @@ namespace Michal.Project.Dal
                                        Status = s.StatusShipping.Desc,
                                        NameSource = s.NameSource,
                                        NameTarget = s.NameTarget,
-
-                                       TargetAddress = new AddressEditorViewModel { Lat = s.Target.Lat, Lng = s.Target.Lng, City = s.Target.CityName, Citycode = s.Target.CityName, ExtraDetail = s.Target.ExtraDetail, Num = s.Target.StreetNum, Street = s.Target.StreetCode, Streetcode = s.Target.StreetName },
-                                       SourceAddress = new AddressEditorViewModel { Lat = s.Source.Lat, Lng = s.Source.Lng, City = s.Source.CityName, Citycode = s.Source.CityName, ExtraDetail = s.Source.ExtraDetail, Num = s.Source.StreetNum, Street = s.Source.StreetCode, Streetcode = s.Source.StreetName }
+                                       TargetAddress = new AddressViewModel { Lat = s.Target.Lat, Lng = s.Target.Lng, City = s.Target.CityName, Citycode = s.Target.CityName, ExtraDetail = s.Target.ExtraDetail, Num = s.Target.StreetNum, Street = s.Target.StreetCode, Streetcode = s.Target.StreetName },
+                                       SourceAddress = new AddressViewModel { Lat = s.Source.Lat, Lng = s.Source.Lng, City = s.Source.CityName, Citycode = s.Source.CityName, ExtraDetail = s.Source.ExtraDetail, Num = s.Source.StreetNum, Street = s.Source.StreetCode, Streetcode = s.Source.StreetName }
                                    }).ToListAsync();
             foreach (var shipping in shippings)
             {

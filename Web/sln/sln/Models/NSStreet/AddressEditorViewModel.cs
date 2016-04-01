@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class AddressEditorViewModel
+    public class AddressViewModel
     {
         public int? UId { get; set; }
 
@@ -27,13 +27,9 @@ namespace Michal.Project.Models
         [Required(ErrorMessage = "מספר בית שדה חובה")]
         [Display(Name = "מספר בית")]
         public string Num { get; set; }
-        public string NumOld { get; set; }
-
+    
         [Display(Name = "פרטים נוספים")]
         public string ExtraDetail { get; set; }
-
-        public string CitycodeOld { get; set; }
-        public string StreetcodeOld { get; set; }
 
         public double Lat { get; set; }
         public double Lng { get; set; }
@@ -43,5 +39,12 @@ namespace Michal.Project.Models
         {
             return this.Street + " " + this.Num + "," + this.City;
         }
+    }
+    public class AddressEditorViewModel : AddressViewModel
+    {
+        public string NumOld { get; set; }
+        public string CitycodeOld { get; set; }
+        public string StreetcodeOld { get; set; }
+
     }
 }
