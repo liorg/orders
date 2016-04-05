@@ -327,6 +327,7 @@
     <Compile Include="Helper\Const\AlertStyle.cs" />
     <Compile Include="Helper\Const\ClientViewType.cs" />
     <Compile Include="Helper\Const\CustomClaimTypes.cs" />
+    <Compile Include="Helper\Const\NotifyItemMessage.cs" />
     <Compile Include="Helper\Const\Order\DefaultShip.cs" />
     <Compile Include="Helper\Const\Job\JobTitle.cs" />
     <Compile Include="Helper\Const\Job\JobType.cs" />

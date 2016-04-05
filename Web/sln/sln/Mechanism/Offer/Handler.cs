@@ -1,5 +1,6 @@
 ﻿using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
+using Michal.Project.Helper;
 using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace Michal.Project.Mechanism
                 Title = title,
                 Body = body,
                 Url = url,
-                TypeMessage = NotifyItem.MESSAGE_ORDER
+                TypeMessage = NotifyItemMessage.MESSAGE_ORDER
             };
             result.Users = users.ToList();
             return await Task.FromResult<MessageForUsers>(result);

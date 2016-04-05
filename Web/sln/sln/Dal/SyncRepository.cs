@@ -38,6 +38,29 @@ namespace Michal.Project.Dal
                _context.Entry<SyncTable>(item).State = EntityState.Deleted;
            }
         }
+
+
+        public async Task FlagOn(Contract.View.ISyncItem sync)
+        {
+            var items = await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId && d.ObjectId == sync.ObjectId && d.ObjectTableCode == sync.ObjectTableCode).ToListAsync();
+            if (!items.Any())
+            {
+                _context.SyncTable.Add(new SyncTable
+                {
+                    ClientId = sync.ClientId,
+                    CurrentUserId = sync.CurrentUserId,
+                    DeviceId = sync.DeviceId,
+                    IsActive = true,
+                    LastUpdateRecord = DateTime.Now,
+                    ObjectId = sync.ObjectId,
+                    ObjectTableCode = sync.ObjectTableCode,
+                    SyncStateRecord = sync.SyncStateRecord,
+                    SyncStatus = sync.SyncStatus,
+                    SyncTableId = Guid.NewGuid(),
+                    UserId = sync.CurrentUserId
+                });
+            }
+        }
     }
 }
 

@@ -49,7 +49,7 @@ namespace Michal.Project.Bll
             return shipping;
         }
 
-        public async Task<ItemSync<WhoAmI>> GetMyDetail( ISyncItem request)
+        public async Task<ItemSync<WhoAmI>> GetMyDetail(ISyncItem request)
         {
             var itemSync = new ItemSync<WhoAmI>();
 
@@ -73,8 +73,12 @@ namespace Michal.Project.Bll
 
         public async Task DeleteSyncFlags(ISync request)
         {
-            var itemSync = new ItemSync<WhoAmI>();
             await _syncRepository.DeleteUnused(request);
+        }
+
+        public async Task SyncFlagOn(ISyncItem request)
+        {
+           await _syncRepository.FlagOn(request);
         }
     }
 }
