@@ -106,5 +106,25 @@ namespace Michal.Project.Dal
         {
             return _context.RefreshToken.ToList();
         }
+
+        public async Task<WhoAmI> GetMyDetail(Guid? userid)
+        {
+            if (userid == null || userid.Value == Guid.Empty)
+                return await Task.FromResult<WhoAmI>(new WhoAmI { 
+                                UserId = Guid.Empty.ToString(),
+                                FullName = "Anonimous",
+                                UserName = "Anonimous"
+                });
+
+            var result = await _context.Users.FirstOrDefaultAsync(u => u.Id == userid.Value.ToString());
+            
+            return new WhoAmI
+            {
+                UserId = result.Id,
+                UserName = result.UserName,
+                FullName=result.FirstName+" "+result.LastName
+            };
+
+        }
     }
 }

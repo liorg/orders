@@ -18,5 +18,6 @@ namespace Michal.Project.Contract.DAL
         Task<bool> RemoveRefreshToken(RefreshToken refreshToken);
         Task<RefreshToken> FindRefreshToken(string refreshTokenId);
         List<RefreshToken> GetAllRefreshTokens();
+        Task<WhoAmI> GetMyDetail(Guid? userid);
     }
 }

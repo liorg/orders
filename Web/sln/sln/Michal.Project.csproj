@@ -212,8 +212,13 @@
     <Compile Include="Bll\NotifyLogic.cs" />
     <Compile Include="Bll\OrderLogic.cs" />
     <Compile Include="Bll\StatusLogic.cs" />
+    <Compile Include="Bll\SyncLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\Agent\ILocationAgent.cs" />
+    <Compile Include="Contract\DAL\ICommentRepository.cs" />
+    <Compile Include="Contract\DAL\ISyncRepository.cs" />
     <Compile Include="Contract\DAL\ILocationRepository.cs" />
     <Compile Include="Contract\DAL\IUserRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IBussinessClosureRepository.cs" />
@@ -240,7 +245,7 @@
     <Compile Include="Contract\IRole.cs" />
     <Compile Include="Contract\View\IComapnyView.cs" />
     <Compile Include="Contract\View\IShipView.cs" />
-    <Compile Include="Contract\View\ISync.cs" />
+    <Compile Include="Contract\Sync\ISync.cs" />
     <Compile Include="Contract\View\IView.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />
@@ -267,6 +272,8 @@
     <Compile Include="Dal\ApplicationUserManager.cs" />
     <Compile Include="Dal\AttachmentRepository.cs" />
     <Compile Include="Contract\DAL\IGeneralAgent\IOfferPriceRepostory.cs" />
+    <Compile Include="Dal\CommentRepository.cs" />
+    <Compile Include="Dal\SyncRepository.cs" />
     <Compile Include="Dal\LocationRepository.cs" />
     <Compile Include="Dal\UserRepository.cs" />
     <Compile Include="Dal\ShipComapnyRepository.cs" />
@@ -317,6 +324,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Const\AlertStyle.cs" />
+    <Compile Include="Helper\Const\ClientViewType.cs" />
+    <Compile Include="Helper\Const\CustomClaimTypes.cs" />
+    <Compile Include="Helper\Const\Order\DefaultShip.cs" />
+    <Compile Include="Helper\Const\Job\JobTitle.cs" />
+    <Compile Include="Helper\Const\Job\JobType.cs" />
+    <Compile Include="Helper\Const\Order\Notification.cs" />
+    <Compile Include="Helper\Const\Sync\ObjectTableCode.cs" />
+    <Compile Include="Helper\Const\Order\ObjectTypeCode.cs" />
+    <Compile Include="Helper\Const\Order\OfferVariables.cs" />
+    <Compile Include="Helper\Const\Order\ProductSystemIds.cs" />
+    <Compile Include="Helper\Const\Order\ProductType.cs" />
+    <Compile Include="Helper\Const\Status.cs" />
+    <Compile Include="Helper\Const\Sync\SyncStateRecord.cs" />
+    <Compile Include="Helper\Const\Sync\SyncStatus.cs" />
+    <Compile Include="Helper\Const\TimeStatus.cs" />
     <Compile Include="Helper\HelperSecurity.cs" />
     <Compile Include="Helper\Razor\Alert\AlertHtmlHelper.cs" />
     <Compile Include="Helper\Provider\CacheMemoryProvider.cs" />
@@ -339,6 +362,11 @@
     <Compile Include="Mechanism\Offer\Handler.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mechanism\Sync\Base\PollAdaptor.cs" />
+    <Compile Include="Mechanism\Sync\Base\PushAdaptor.cs" />
+    <Compile Include="Mechanism\Sync\Base\SyncAdaptorBase.cs" />
+    <Compile Include="Mechanism\Sync\User\UserGetData.cs" />
+    <Compile Include="Mechanism\Sync\User\UserChangeData.cs" />
     <Compile Include="Migrations\201512121859436_sta.cs" />
     <Compile Include="Migrations\201512121859436_sta.Designer.cs">
       <DependentUpon>201512121859436_sta.cs</DependentUpon>
@@ -400,7 +428,7 @@
     <Compile Include="Models\UserManagement\RegisterViewModel.cs" />
     <Compile Include="Models\UserManagement\SelectUserRolesViewModel.cs" />
     <Compile Include="Models\UserManagement\UserContext.cs" />
-    <Compile Include="Models\View\base\ItemSync.cs" />
+    <Compile Include="Models\Sync\ItemSync.cs" />
     <Compile Include="Models\View\base\Request.cs" />
     <Compile Include="Models\View\base\Response.cs" />
     <Compile Include="Models\View\base\Result.cs" />
@@ -834,7 +862,6 @@
     <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
     <Folder Include="Helper\HttpModule\" />
-    <Folder Include="Mechanism\Sync\" />
     <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
