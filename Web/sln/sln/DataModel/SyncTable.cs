@@ -85,5 +85,11 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
+
+        public Guid CurrentUserId
+        {
+            get;
+            set;
+        }
     }
 }

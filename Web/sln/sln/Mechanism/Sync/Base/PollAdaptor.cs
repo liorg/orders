@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Michal.Project.Mechanism.Sync.Base
 {
-    public abstract class PollAdaptor : SyncAdaptorBase
+    public abstract class PollAdaptor<T> : SyncAdaptorBase  where T : ISyncItem
     {
 
         public PollAdaptor(ApplicationDbContext context)
@@ -19,9 +19,9 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         }
 
-        public abstract Task<IEnumerable<T>> Poll<T>(ISync request) where T : ISyncItem;
+        public abstract Task<IEnumerable<T>> Poll(ISync request) ;
 
-        public abstract Task<T> PollItem<T>(ISyncItem request) where T : ISyncItem;
+        public abstract Task<T> PollItem(ISyncItem request);
 
     }
    

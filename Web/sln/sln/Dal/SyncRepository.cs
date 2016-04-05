@@ -25,9 +25,19 @@ namespace Michal.Project.Dal
         }
         public async Task<IEnumerable<SyncTable>> GetSyn(Guid userId, Guid objectId, int objectTableCode)
         {
-           return await _context.SyncTable.Where(d => d.UserId == userId && d.ObjectId == objectId && d.ObjectTableCode == objectTableCode).ToListAsync();
+           return await _context.SyncTable.Where(d => d.UserId == userId && d.SyncStatus==SyncStatus.SyncFromServer && d.ObjectId == objectId && d.ObjectTableCode == objectTableCode).ToListAsync();
         }
-        
+
+
+
+        public async Task DeleteUnused(Contract.View.ISync sync)
+        {
+           var items= await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId).ToListAsync();
+           foreach (var item in items)
+           {
+               _context.Entry<SyncTable>(item).State = EntityState.Deleted;
+           }
+        }
     }
 }
 

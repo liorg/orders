@@ -40,7 +40,13 @@ namespace Michal.Project.Models
 
         public int SyncStateRecord { get; set; }
 
-        public DateTime LastUpdateRecord { get; set; } 
+        public DateTime LastUpdateRecord { get; set; }
+
+        public Guid CurrentUserId
+        {
+            get;
+            set;
+        }
     }
    
     public class ItemSync<T> : ItemSync

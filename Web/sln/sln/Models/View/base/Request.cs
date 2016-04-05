@@ -20,6 +20,12 @@ namespace Michal.Project.Models
             get;
             set;
         }
+
+        public Guid CurrentUserId
+        {
+            get;
+            set;
+        }
     }
 
     //public class RequestItemSync<T> : RequestSync, ISyncItem

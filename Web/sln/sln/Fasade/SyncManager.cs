@@ -17,20 +17,20 @@ namespace Michal.Project.Fasade
             await pushAdaptor.Push(request);
         }
 
-        public async Task<IEnumerable<T>>  pull<T>(ISync request,PollAdaptor pullAdaptor) where T : ISyncItem
+        public async Task<IEnumerable<T>>  pull<T>(ISync request,PollAdaptor<T> pullAdaptor) where T : ISyncItem
         {
-            return await pullAdaptor.Poll<T>(request);
+            return await pullAdaptor.Poll(request);
         }
 
-        public async Task<T> pull<T>(ISyncItem request, PollAdaptor pullAdaptor) where T : ISyncItem
+        public async Task<T> pull<T>(ISyncItem request, PollAdaptor<T> pullAdaptor) where T : ISyncItem
         {
-            return await pullAdaptor.PollItem<T>(request);
+            return await pullAdaptor.PollItem(request);
         }
 
         public async Task Sync(ISync request, PushAdaptor syncAllAdaptor)
         {
             await syncAllAdaptor.SyncAll(request);
         }
-
+         
     }
 }

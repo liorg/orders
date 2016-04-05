@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Security.Principal;
 using Michal.Project.Contract.DAL;
+using Michal.Project.Contract.View;
 
 namespace Michal.Project.Bll
 {
@@ -48,10 +49,32 @@ namespace Michal.Project.Bll
             return shipping;
         }
 
-        public async Task<IEnumerable<ItemSync<MobileShipVm>>> GetMyDetail(Guid? userid)
+        public async Task<ItemSync<WhoAmI>> GetMyDetail( ISyncItem request)
         {
-           var dataChanged=await _syncRepository.GetSyn(userid.Value, userid.Value, ObjectTableCode.USER);
-           return null;
+            var itemSync = new ItemSync<WhoAmI>();
+
+            var dataChanged = await _syncRepository.GetSyn(request.CurrentUserId, request.ObjectId, ObjectTableCode.USER);
+            if (dataChanged.Any())
+            {
+                itemSync.Model = await _userRepository.GetMyDetail(request.CurrentUserId);
+                itemSync.ClientId = request.ClientId;
+                itemSync.DeviceId = request.DeviceId;
+                itemSync.LastUpdateRecord = DateTime.Now;
+                itemSync.ObjectId = request.ObjectId;
+                itemSync.ObjectTableCode = request.ObjectTableCode;
+                itemSync.SyncStateRecord = request.SyncStateRecord;
+            }
+            else
+            {
+                itemSync.SyncStatus = SyncStatus.NoSync;
+            }
+            return itemSync;
+        }
+
+        public async Task DeleteSyncFlags(ISync request)
+        {
+            var itemSync = new ItemSync<WhoAmI>();
+            await _syncRepository.DeleteUnused(request);
         }
     }
 }
