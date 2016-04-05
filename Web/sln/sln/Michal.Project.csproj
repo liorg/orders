@@ -331,15 +331,23 @@
     <Compile Include="Helper\Const\Job\JobTitle.cs" />
     <Compile Include="Helper\Const\Job\JobType.cs" />
     <Compile Include="Helper\Const\Order\Notification.cs" />
+    <Compile Include="Helper\Const\Order\OfferVariables.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\Const\Order\ProductType.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helper\Const\Sync\ObjectTableCode.cs" />
     <Compile Include="Helper\Const\Order\ObjectTypeCode.cs" />
-    <Compile Include="Helper\Const\Order\OfferVariables.cs" />
     <Compile Include="Helper\Const\Order\ProductSystemIds.cs" />
-    <Compile Include="Helper\Const\Order\ProductType.cs" />
     <Compile Include="Helper\Const\Status.cs" />
     <Compile Include="Helper\Const\Sync\SyncStateRecord.cs" />
-    <Compile Include="Helper\Const\Sync\SyncStatus.cs" />
-    <Compile Include="Helper\Const\TimeStatus.cs" />
+    <Compile Include="Helper\Const\Sync\SyncStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\Const\TimeStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helper\HelperSecurity.cs" />
     <Compile Include="Helper\Razor\Alert\AlertHtmlHelper.cs" />
     <Compile Include="Helper\Provider\CacheMemoryProvider.cs" />
