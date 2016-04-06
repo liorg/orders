@@ -60,7 +60,7 @@ namespace Michal.Project.Bll
             var dataChanged = await _syncRepository.GetSyn(request.CurrentUserId, request.ObjectId, ObjectTableCode.USER);
             if (dataChanged.Any())
             {
-                itemSync.Model = await _userRepository.GetMyDetail(request.CurrentUserId);
+                itemSync.SyncObject = await _userRepository.GetMyDetail(request.CurrentUserId);
                 itemSync.ClientId = request.ClientId;
                 itemSync.DeviceId = request.DeviceId;
                 itemSync.LastUpdateRecord = DateTime.Now;

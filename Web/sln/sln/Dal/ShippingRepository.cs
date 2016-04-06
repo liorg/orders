@@ -183,7 +183,7 @@ namespace Michal.Project.Dal
 
               items.Add(new ItemSync<MobileShipVm>
                 {
-                    Model = shipping,
+                    SyncObject = shipping,
                     LastUpdateRecord = syncRecord.LastUpdateRecord,
                     ObjectId = syncRecord.ObjectId,
                     ObjectTableCode = syncRecord.ObjectTableCode,

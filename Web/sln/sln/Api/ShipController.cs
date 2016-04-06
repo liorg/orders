@@ -2,6 +2,8 @@
 using Michal.Project.Bll;
 using Michal.Project.Contract.DAL;
 using Michal.Project.Dal;
+using Michal.Project.Fasade;
+using Michal.Project.Mechanism.Sync.User;
 using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
@@ -184,6 +186,51 @@ namespace Michal.Project.Api
             return response;
         }
 
+        //[Route("WhoAmISync")]
+        //[AcceptVerbs("GET")]
+        //public async HttpResponseMessage WhoAmISync()
+        //{
+        //    ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
+        //    result.Model = new ItemSync<Models.WhoAmI>();
+
+        //    result.Model.SyncObject.FullName = "Anonymous";
+        //    result.Model.SyncObject.UserName = "Anonymous";
+
+        //    try
+        //    {
+        //        if (User.Identity.IsAuthenticated)
+        //        {
+        //            ItemSync<Guid> userContextSync=new ItemSync<Guid>();
+
+        //            SyncManager syncManager = new SyncManager();
+        //            result.IsAuthenticated = true;
+        //            using (var context = new ApplicationDbContext())
+        //            {
+        //                var userContext = HttpContext.Current.GetOwinContext().Authentication;
+        //               // userContextSync.u
+        //                var pollItem =await syncManager.pull(userContextSync, new UserGetData(context));
+
+        //                var user = new UserContext(userContext);
+        //                result.Model.SyncObject.UserName = user.FullName;
+        //                result.Model.SyncObject.FullName = pollItem.SyncObject.FullName;
+        //                result.Model.SyncObject.UserId = user.UserId.ToString();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        result.IsError = true;
+        //        result.ErrDesc = e.ToString();
+        //        Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+        //    }
+        //    var response = new HttpResponseMessage(HttpStatusCode.OK)
+        //    {
+        //        Content = new ObjectContent<ResponseBase<ItemSync<WhoAmI>>>(result,
+        //                   new JsonMediaTypeFormatter(),
+        //                    new MediaTypeWithQualityHeaderValue("application/json"))
+        //    };
+        //    return response;
+        //}
 
         public StatusLogic GetLogin(ApplicationDbContext context)
         {

@@ -9,9 +9,9 @@ using System.Web;
 
 namespace Michal.Project.Mechanism.Sync.User
 {
-    public class UserChange : PollAdaptor<ItemSync<WhoAmI>>
+    public class UserGetData : PollAdaptor<ItemSync<WhoAmI>>
     {
-        public UserChange(ApplicationDbContext context)
+        public UserGetData(ApplicationDbContext context)
             : base(context)
         {
 

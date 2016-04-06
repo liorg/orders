@@ -97,7 +97,7 @@ namespace Michal.Project.Models
    
     public class ItemSync<T> : ItemSync
     {
-        public T Model { get; set; }
+        public T SyncObject { get; set; }
 
       
     }

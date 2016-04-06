@@ -14,6 +14,7 @@ namespace Michal.Project.Mechanism.Sync.User
     {
         EditUserViewModel _request;
         ISyncObject _syncObject;
+
         public UserUpdateData(ApplicationDbContext context, EditUserViewModel request)
             : base(context)
         {
@@ -27,6 +28,7 @@ namespace Michal.Project.Mechanism.Sync.User
                 
 
         }
+
         public override Contract.View.ISyncObject GetConfig()
         {
 
@@ -39,9 +41,8 @@ namespace Michal.Project.Mechanism.Sync.User
             var logic = GetLogic(_context);
             var notifyRunners = logic.GetRunners();
             foreach (var runner in notifyRunners)
-            {
-                users.Add(Guid.Parse(runner.Id), SyncStateRecord.Change);
-            }
+              users.Add(Guid.Parse(runner.Id), SyncStateRecord.Change);
+            
             return users;
         }
     }

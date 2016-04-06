@@ -117,16 +117,16 @@ namespace Michal.Project.Bll
         {
             ItemSync<MobileShipVm> returnShipSyn = new ItemSync<MobileShipVm>();
             
-            var ship= await _shippingRepository.GetShip(request.Model.ShipId);
+            var ship= await _shippingRepository.GetShip(request.SyncObject.ShipId);
             //TODO Switch case.. statusid 
             // change status on ship 
-            returnShipSyn.Model = new MobileShipVm();
+            returnShipSyn.SyncObject = new MobileShipVm();
             //TODO Mapping
-            returnShipSyn.Model.ActualEndDateDt = ship.ActualEndDate;
-            returnShipSyn.Model.ActualStartDateDt = ship.ActualStartDate;
-            returnShipSyn.Model.Direction = ship.Direction;
+            returnShipSyn.SyncObject.ActualEndDateDt = ship.ActualEndDate;
+            returnShipSyn.SyncObject.ActualStartDateDt = ship.ActualStartDate;
+            returnShipSyn.SyncObject.Direction = ship.Direction;
 
-            returnShipSyn.Model.Id = request.Model.ShipId;
+            returnShipSyn.SyncObject.Id = request.SyncObject.ShipId;
            
            
             returnShipSyn.ClientId = request.ClientId;
