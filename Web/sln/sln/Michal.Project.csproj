@@ -244,9 +244,13 @@
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
+    <Compile Include="Contract\Sync\ISync.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Contract\Sync\ISyncItem.cs" />
+    <Compile Include="Contract\Sync\ISyncObject.cs" />
     <Compile Include="Contract\View\IComapnyView.cs" />
     <Compile Include="Contract\View\IShipView.cs" />
-    <Compile Include="Contract\Sync\ISync.cs" />
     <Compile Include="Contract\View\IView.cs" />
     <Compile Include="Contract\View\IViewAll.cs" />
     <Compile Include="Contract\View\IViewDays.cs" />

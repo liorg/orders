@@ -1,4 +1,5 @@
-﻿using Michal.Project.Dal;
+﻿using Michal.Project.Contract.View;
+using Michal.Project.Dal;
 using Michal.Project.Mechanism.Sync.Base;
 using Michal.Project.Models;
 using System;
@@ -17,12 +18,12 @@ namespace Michal.Project.Mechanism.Sync.User
 
         }
        
-        public override Task<IEnumerable<ItemSync<WhoAmI>>> Poll(Contract.View.ISync request)
+        public override Task<IEnumerable<ItemSync<WhoAmI>>> Poll(ISync request)
         {
             throw new NotImplementedException();
         }
 
-        public override async Task<ItemSync<WhoAmI>> PollItem(Contract.View.ISyncItem request)
+        public override async Task<ItemSync<WhoAmI>> PollItem(ISyncItem request)
         {
             var logic = GetLogic(_context);
             return await logic.GetMyDetail(request);
