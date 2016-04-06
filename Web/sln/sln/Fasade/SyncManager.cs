@@ -12,9 +12,18 @@ namespace Michal.Project.Fasade
 {
     public class SyncManager
     {
-        public async Task Push(ISyncItem request,PushAdaptor pushAdaptor)
+        public async Task Push(PushAdaptor pushAdaptor)
         {
-            await pushAdaptor.Push(request);
+            try
+            {
+                await pushAdaptor.Push();
+            }
+            catch (Exception e)
+            {
+
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+         
         }
 
         public async Task<IEnumerable<T>>  pull<T>(ISync request,PollAdaptor<T> pullAdaptor) where T : ISyncItem
@@ -27,9 +36,9 @@ namespace Michal.Project.Fasade
             return await pullAdaptor.PollItem(request);
         }
 
-        public async Task Sync(ISync request, PushAdaptor syncAllAdaptor)
+        public async Task Sync(PushAdaptor syncAllAdaptor)
         {
-            await syncAllAdaptor.SyncAll(request);
+            await syncAllAdaptor.SyncAll();
         }
          
     }

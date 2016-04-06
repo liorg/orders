@@ -6,8 +6,54 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
+    public class Sync : ISync
+    {
+        public Guid CurrentUserId
+        {
+            get;
+            set;
+        }
+
+        public string DeviceId
+        {
+            get;
+            set;
+        }
+
+        public string ClientId
+        {
+            get;
+            set;
+        }
+    }
+   
     public class ItemSync : ISyncItem
     {
+        public ItemSync()
+        {
+
+        }
+        public ItemSync(ISyncItem copy)
+        {
+            this.ClientId = copy.ClientId;
+            this.DeviceId = copy.DeviceId;
+            this.CurrentUserId = copy.CurrentUserId;
+            this.LastUpdateRecord = copy.LastUpdateRecord;
+            this.ObjectId = copy.ObjectId;
+            this.ObjectTableCode = copy.ObjectTableCode;
+            this.SyncStateRecord = copy.SyncStateRecord;
+            this.SyncStatus = copy.SyncStatus;
+
+        }
+        public ItemSync(ISyncObject copy)
+        {
+          
+            this.ObjectId = copy.ObjectId;
+            this.ObjectTableCode = copy.ObjectTableCode;
+        
+           
+        }
+
         public int SyncStatus
         {
             get;
@@ -54,5 +100,19 @@ namespace Michal.Project.Models
         public T Model { get; set; }
 
       
+    }
+    public class SyncObject : ISyncObject
+    {
+        public int ObjectTableCode
+        {
+            get;
+            set;
+        }
+
+        public Guid ObjectId
+        {
+            get;
+            set;
+        }
     }
 }

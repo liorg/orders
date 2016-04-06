@@ -17,6 +17,8 @@ using System.Data.Entity;
 using Michal.Project.Bll;
 using Michal.Project.Models.View;
 using Michal.Project.Agent;
+using Michal.Project.Mechanism.Sync.User;
+using Michal.Project.Fasade;
 
 namespace Michal.Project.Controllers
 {
@@ -270,6 +272,7 @@ namespace Michal.Project.Controllers
                     viewLogic.SetViewerUserByRole(model, user);
 
                     await context.SaveChangesAsync();
+
                     if (user.Roles != null && user.Roles.Any())
                     {
                         var cloneRules = new List<string>();
@@ -295,6 +298,12 @@ namespace Michal.Project.Controllers
                         return RedirectToAction("Index", "Account");
                     else
                         return RedirectToAction("GetShippers", "Account");
+
+                   SyncManager syncManager = new SyncManager();
+                   await syncManager.Push(new UserUpdateData(context, model));
+
+                    
+                    
                     //return RedirectToAction("Index");
 
                 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Data.Entity;
 using Michal.Project.Helper;
+using Michal.Project.Contract.View;
 namespace Michal.Project.Dal
 {
     public class NotificationRepository : INotificationRepository
@@ -130,6 +131,23 @@ namespace Michal.Project.Dal
         {
             var notify=await _context.NotifyMessage.Where(m => m.NotifyMessageId == id).FirstOrDefaultAsync();
             _context.Entry<NotifyMessage>(notify).State = EntityState.Deleted;
+
+        }
+
+        public async Task<IEnumerable<ISync>> GetDevicesByUserId(Guid userid)
+        {
+            var devices = await (from d in _context.UserNotify
+                                 where d.UserId == userid && d.IsActive == true
+                                 select new Sync
+                                 {
+                                     ClientId = "",
+                                     CurrentUserId = userid,
+                                     DeviceId = d.DeviceId
+                                 }).ToListAsync();
+            return devices;
+            //var registersAlreadyDevices = await _context.UserNotify.Where(u => u.UserId == userid && u.IsActive == true)
+                
+            //    .ToListAsync();
 
         }
     }

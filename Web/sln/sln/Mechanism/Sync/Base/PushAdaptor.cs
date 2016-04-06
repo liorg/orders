@@ -17,43 +17,62 @@ namespace Michal.Project.Mechanism.Sync.Base
 {
     public abstract class PushAdaptor : SyncAdaptorBase
     {
-        Dictionary<Guid, int> _users;
-
-        protected Dictionary<Guid, int> Users
-        {
-            get
-            {
-                return _users;
-            }
-        }
-     
+       
         public PushAdaptor(ApplicationDbContext context)
             : base(context)
         {
-          
-            _users = new Dictionary<Guid, int>();
-            NotifyUsers(_users);
+
 
         }
+      
+        public abstract ISyncObject GetConfig();
 
-        protected abstract void NotifyUsers(Dictionary<Guid, int> users);
+        public abstract Dictionary<Guid, int> AdditionUsers();
 
-        public virtual async Task Push(ISyncItem request)
+        public virtual async Task Push()
         {
             var logic = GetLogic(_context);
-            foreach (var user in _users)
+            var config = GetConfig();
+            var users = new Dictionary<Guid, int>();
+
+           users= AdditionUsers();
+
+            foreach (var user in users)
             {
-                await logic.SyncFlagOn(request);
-                await _context.SaveChangesAsync();
-                await SendPushServerAsync(request.DeviceId, "data has changed", request.ObjectId.ToString(), NotifyItemMessage.MESSAGE_CHANGEDATA);    
+                var devices = await logic.GetDevicesByUserId(user.Key);
+                foreach (var deviceUser in devices)
+                {
+                    ItemSync itemSync = new ItemSync(config);
+                    itemSync.DeviceId = deviceUser.DeviceId;
+                    itemSync.CurrentUserId = deviceUser.CurrentUserId;
+                    itemSync.ClientId = deviceUser.ClientId;
+                    itemSync.LastUpdateRecord = DateTime.UtcNow;
+                    await logic.SyncFlagOn(itemSync);
+                    await _context.SaveChangesAsync();
+                    await SendPushServerAsync(itemSync.DeviceId, "data has changed", itemSync.ObjectId.ToString(), NotifyItemMessage.MESSAGE_CHANGEDATA);
+                }
             }
         }
 
-        public virtual async Task SyncAll(ISync request)
+        public virtual async Task SyncAll()
         {
-            var logic = GetLogic(_context);
-            await logic.DeleteSyncFlags(request);
-            await _context.SaveChangesAsync();
+           var users= AdditionUsers();
+           var config = GetConfig();
+           var logic = GetLogic(_context);
+           foreach (var user in users)
+           { var devices = await logic.GetDevicesByUserId(user.Key);
+           foreach (var deviceUser in devices)
+           {
+               ItemSync itemSync = new ItemSync(config);
+               itemSync.DeviceId = deviceUser.DeviceId;
+               itemSync.CurrentUserId = deviceUser.CurrentUserId;
+               itemSync.ClientId = deviceUser.ClientId;
+               itemSync.LastUpdateRecord = DateTime.UtcNow;
+               await logic.DeleteSyncFlags(itemSync);
+               await _context.SaveChangesAsync();
+           }
+           }
+          
         }
 
         protected virtual async Task<bool> SendPushServerAsync(string deviceid, string body, string recid, string messageType)

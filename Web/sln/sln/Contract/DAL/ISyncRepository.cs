@@ -13,7 +13,7 @@ namespace Michal.Project.Contract.DAL
     public interface ISyncRepository
     {
         Task<IEnumerable<SyncTable>> GetSyn(Guid userId, Guid objectId, int objectTableCode);
-        Task DeleteUnused(ISync sync);
+        Task DeleteUnused(ISyncItem sync);
         Task FlagOn(ISyncItem sync);
     
     }

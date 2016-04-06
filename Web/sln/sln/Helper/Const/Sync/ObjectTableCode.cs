@@ -9,6 +9,6 @@ namespace Michal.Project.Helper
     {
         public const int SHIP = 1;
         public const int COMMENT = 2;
-        public const int USER = 2;
+        public const int USER = 3;
     }
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Data.Entity;
 using Michal.Project.Helper;
+using Michal.Project.Contract.View;
 namespace Michal.Project.Dal
 {
     public class SyncRepository : ISyncRepository
@@ -30,7 +31,7 @@ namespace Michal.Project.Dal
 
 
 
-        public async Task DeleteUnused(Contract.View.ISync sync)
+        public async Task DeleteUnused(ISyncItem sync)
         {
            var items= await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId).ToListAsync();
            foreach (var item in items)

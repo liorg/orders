@@ -1,4 +1,5 @@
-﻿using Michal.Project.DataModel;
+﻿using Michal.Project.Contract.View;
+using Michal.Project.DataModel;
 using Michal.Project.Models;
 using Michal.Project.Models.View;
 using System;
@@ -15,5 +16,6 @@ namespace Michal.Project.Contract.DAL
         Task Register(string userid, string deviceid);
         Task<NotifyItem> GetNotifyForCloudMessageAsync( string deviceid);
         Task Delete(Guid id);
+        Task<IEnumerable<ISync>> GetDevicesByUserId(Guid userid);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Michal.Project.Contract.DAL;
 using Michal.Project.DataModel;
+using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace Michal.Project.Dal
 {
-    public class GeneralAgentRepository : IOfferPriceRepostory, IOrgDetailRepostory, IBussinessClosureRepository, ISlaRepository
+    public class GeneralAgentRepository :ISupplierRepostory, IOfferPriceRepostory, IOrgDetailRepostory, IBussinessClosureRepository, ISlaRepository
     {
         ApplicationDbContext _context;
 
@@ -16,7 +17,6 @@ namespace Michal.Project.Dal
             _context = context;//ok
 
         }
-
 
         public List<DataModel.Discount> GetDiscount()
         {
@@ -72,12 +72,6 @@ namespace Michal.Project.Dal
             return memory.GetOrgEntity(_context);
         }
 
-        //public List<DataModel.Product> GetProducts(Guid orgId)
-        //{
-        //    MemeryCacheDataService memory = new MemeryCacheDataService();
-        //    return memory.GetProducts(_context, orgId);
-        //}
-
         public List<KeyValuePair<int, string>> GetBackOrder()
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
@@ -116,19 +110,16 @@ namespace Michal.Project.Dal
 
         }
 
-        //public IEnumerable<ApplicationUser> GetManagersOfCompany()
-        //{
-        //    MemeryCacheDataService memory = new MemeryCacheDataService();
-        //    var items = memory.GetManagersOfCompanies(_context);
-
-        //    return items.Where(it => it.ShippingCompany_ShippingCompanyId.HasValue && it.ShippingCompany_ShippingCompanyId.Value == companyid).AsEnumerable();
-
-        //}
-
         public List<Product> GetProducts(Guid orgid)
         {
             MemeryCacheDataService memory = new MemeryCacheDataService();
             return memory.GetProducts(_context, orgid);
+        }
+
+        public List<Runner> GetRunners()
+        {
+            MemeryCacheDataService memory = new MemeryCacheDataService();
+            return memory.GetRunners(_context);
         }
         
     }

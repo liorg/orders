@@ -25,8 +25,9 @@ namespace Michal.Project.Mechanism.Sync.Base
             IUserRepository userRepository = new UserRepository(context);
             ICommentRepository commentRepository = new CommentRepository(context);
             ISyncRepository syncRepository = new SyncRepository(context);
+            INotificationRepository notificationRepository = new NotificationRepository(context);
 
-            return new SyncLogic(shippingRepository, userRepository, commentRepository, syncRepository);
+            return new SyncLogic(shippingRepository, userRepository, commentRepository, syncRepository, notificationRepository, generalRepo);
         }
     }
 

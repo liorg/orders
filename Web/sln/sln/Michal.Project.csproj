@@ -218,6 +218,7 @@
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\Agent\ILocationAgent.cs" />
     <Compile Include="Contract\DAL\ICommentRepository.cs" />
+    <Compile Include="Contract\DAL\IGeneralAgent\ISupplierRepostory.cs" />
     <Compile Include="Contract\DAL\ISyncRepository.cs" />
     <Compile Include="Contract\DAL\ILocationRepository.cs" />
     <Compile Include="Contract\DAL\IUserRepository.cs" />
@@ -374,8 +375,8 @@
     <Compile Include="Mechanism\Sync\Base\PollAdaptor.cs" />
     <Compile Include="Mechanism\Sync\Base\PushAdaptor.cs" />
     <Compile Include="Mechanism\Sync\Base\SyncAdaptorBase.cs" />
-    <Compile Include="Mechanism\Sync\User\UserGetData.cs" />
-    <Compile Include="Mechanism\Sync\User\UserChangeData.cs" />
+    <Compile Include="Mechanism\Sync\User\Poll\UserGetData.cs" />
+    <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />
     <Compile Include="Migrations\201512121859436_sta.cs" />
     <Compile Include="Migrations\201512121859436_sta.Designer.cs">
       <DependentUpon>201512121859436_sta.cs</DependentUpon>

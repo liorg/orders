@@ -13,11 +13,15 @@ namespace Michal.Project.Contract.View
         string ClientId { get; set; } //optional TODO
        
     }
-    public interface ISyncItem : ISync
+    public interface ISyncObject
     {
-        int SyncStatus { get; set; } // 0=No Sync,1=From Client ,2=From Server
         int ObjectTableCode { get; set; }//ObjectTableCode
         Guid ObjectId { get; set; }
+    }
+    public interface ISyncItem : ISync, ISyncObject
+    {
+        int SyncStatus { get; set; } // 0=No Sync,1=From Client ,2=From Server
+      
         int SyncStateRecord { get; set; } //0=No,1=Add,2=Remove,3=Cancel
         DateTime LastUpdateRecord { get; set; }
     }

@@ -27,18 +27,22 @@ namespace Michal.Project.Bll
         readonly IUserRepository _userRepository;
         readonly ICommentRepository _commentRepostory;
         readonly ISyncRepository _syncRepository;
+        readonly INotificationRepository _notificationRepository;
+        readonly ISupplierRepostory _supplierRepostory;
 
         public SyncLogic(IShippingRepository shippingRepository, 
             IUserRepository userRepository,
             ICommentRepository commentRepostory,
-            ISyncRepository syncRepository
+            ISyncRepository syncRepository,
+            INotificationRepository notificationRepository, ISupplierRepostory supplierRepostory
             )
         {
             _shippingRepository = shippingRepository;
             _userRepository = userRepository;
             _commentRepostory = commentRepostory;
             _syncRepository = syncRepository;
-
+            _notificationRepository = notificationRepository;
+            _supplierRepostory = supplierRepostory;
         }
 
         public async Task<IEnumerable<ItemSync<MobileShipVm>>> GetMyShipsAsync(Guid userid, string deviceid, string clientid)
@@ -71,14 +75,24 @@ namespace Michal.Project.Bll
             return itemSync;
         }
 
-        public async Task DeleteSyncFlags(ISync request)
+        public async Task DeleteSyncFlags(ISyncItem request)
         {
             await _syncRepository.DeleteUnused(request);
+        }
+
+        public async Task<IEnumerable<ISync>> GetDevicesByUserId(Guid userid)
+        {
+            return await _notificationRepository.GetDevicesByUserId(userid);
         }
 
         public async Task SyncFlagOn(ISyncItem request)
         {
            await _syncRepository.FlagOn(request);
+        }
+
+        public List<Runner> GetRunners()
+        {
+            return _supplierRepostory.GetRunners();
         }
     }
 }

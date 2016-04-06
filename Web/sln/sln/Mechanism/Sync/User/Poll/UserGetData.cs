@@ -4,6 +4,7 @@ using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Michal.Project.Mechanism.Sync.User
@@ -16,12 +17,12 @@ namespace Michal.Project.Mechanism.Sync.User
 
         }
        
-        public override System.Threading.Tasks.Task<IEnumerable<ItemSync<WhoAmI>>> Poll(Contract.View.ISync request)
+        public override Task<IEnumerable<ItemSync<WhoAmI>>> Poll(Contract.View.ISync request)
         {
             throw new NotImplementedException();
         }
 
-        public override async System.Threading.Tasks.Task<ItemSync<WhoAmI>> PollItem(Contract.View.ISyncItem request)
+        public override async Task<ItemSync<WhoAmI>> PollItem(Contract.View.ISyncItem request)
         {
             var logic = GetLogic(_context);
             return await logic.GetMyDetail(request);
