@@ -6,26 +6,7 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-    public class Sync : ISync
-    {
-        public Guid CurrentUserId
-        {
-            get;
-            set;
-        }
-
-        public string DeviceId
-        {
-            get;
-            set;
-        }
-
-        public string ClientId
-        {
-            get;
-            set;
-        }
-    }
+   
    
     public class ItemSync : ISyncItem
     {
@@ -101,18 +82,6 @@ namespace Michal.Project.Models
 
       
     }
-    public class SyncObject : ISyncObject
-    {
-        public int ObjectTableCode
-        {
-            get;
-            set;
-        }
+    
 
-        public Guid ObjectId
-        {
-            get;
-            set;
-        }
-    }
 }

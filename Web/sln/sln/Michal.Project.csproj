@@ -215,6 +215,7 @@
     <Compile Include="Bll\SyncLogic.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bll\UserLogic.cs" />
     <Compile Include="Bll\ViewLogic.cs" />
     <Compile Include="Contract\Agent\ILocationAgent.cs" />
     <Compile Include="Contract\DAL\ICommentRepository.cs" />
@@ -380,6 +381,7 @@
     <Compile Include="Mechanism\Sync\Base\PushAdaptor.cs" />
     <Compile Include="Mechanism\Sync\Base\SyncAdaptorBase.cs" />
     <Compile Include="Mechanism\Sync\User\Poll\UserGetData.cs" />
+    <Compile Include="Mechanism\Sync\User\Push\WhoAmIUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />
     <Compile Include="Migrations\201512121859436_sta.cs" />
     <Compile Include="Migrations\201512121859436_sta.Designer.cs">
@@ -429,6 +431,8 @@
     <Compile Include="Models\Status\StatusDesc.cs" />
     <Compile Include="Models\Status\StatusRequestBase.cs" />
     <Compile Include="Models\NSStreet\Streets.cs" />
+    <Compile Include="Models\Sync\Sync.cs" />
+    <Compile Include="Models\Sync\SyncObject.cs" />
     <Compile Include="Models\UserLink.cs" />
     <Compile Include="Models\UserManagement\UserDetail.cs" />
     <Compile Include="Models\UserProfiler.cs" />
@@ -873,7 +877,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CollectLogs\" />
-    <Folder Include="Contract\Fasade\" />
     <Folder Include="Controllers\BaseController\" />
     <Folder Include="Helper\HttpModule\" />
     <Folder Include="Temp\" />

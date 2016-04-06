@@ -3,6 +3,7 @@ using Michal.Project.Bll;
 using Michal.Project.Contract.DAL;
 using Michal.Project.Dal;
 using Michal.Project.Fasade;
+using Michal.Project.Helper;
 using Michal.Project.Mechanism.Sync.User;
 using Michal.Project.Models;
 using System;
@@ -21,91 +22,6 @@ namespace Michal.Project.Api
     [RoutePrefix("api/Ship")]
     public class ShipController : ApiController
     {
-        [Route("GetShipsSync")]
-        [AcceptVerbs("POST")]
-        public async Task<HttpResponseMessage> GetShipsSync(RequestSync request)
-        {
-            ResponseBase<IEnumerable<ItemSync<MobileShipVm>>> result = new ResponseBase<IEnumerable<ItemSync<MobileShipVm>>>();
-            result.Model = new List<ItemSync<MobileShipVm>>();
-            try
-            {
-                if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
-                {
-                    result.IsAuthenticated = true;
-                    using (var context = new ApplicationDbContext())
-                    {
-                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
-                        var user = new UserContext(userContext);
-
-                        IOfferRepository offerRepository = new OfferRepository(context);
-                        IShippingRepository shippingRepository = new ShippingRepository(context);
-                        GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-                        IUserRepository userRepository = new UserRepository(context);
-
-                        ViewLogic view = new ViewLogic(shippingRepository, userRepository, generalRepo);
-                        result.Model = await view.GetMyShipsAsync(user.UserId, request.DeviceId, request.ClientId);
-
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                result.IsError = true;
-                result.ErrDesc = e.ToString();
-                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
-            }
-            var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new ObjectContent<ResponseBase<IEnumerable<ItemSync<MobileShipVm>>>>(result,
-                           new JsonMediaTypeFormatter(),
-                            new MediaTypeWithQualityHeaderValue("application/json"))
-            };
-            return response;
-        }
-
-        [Route("UpdateShipSync")]
-        [AcceptVerbs("POST")]
-        public async Task<HttpResponseMessage> UpdateShipSync(ItemSync<MobileShipStatusVm> request)
-        {
-            ResponseBase<ItemSync<MobileShipVm>> result = new ResponseBase<ItemSync<MobileShipVm>>();
-            result.Model = new ItemSync<MobileShipVm>();
-            try
-            {
-                if (User.Identity.IsAuthenticated)
-                {
-                    using (var context = new ApplicationDbContext())
-                    {
-                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
-                        var user = new UserContext(userContext);
-
-                        IOfferRepository offerRepository = new OfferRepository(context);
-                        IShippingRepository shippingRepository = new ShippingRepository(context);
-                        GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
-                        IUserRepository userRepository = new UserRepository(context);
-                        ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
-
-                        StatusLogic logic = new StatusLogic(shippingRepository);
-
-                       result.Model = await logic.ChangeStatusSync(request, user.UserId);
-                        await context.SaveChangesAsync();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                result.IsError = true;
-                result.ErrDesc = e.ToString();
-                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
-            }
-            var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new ObjectContent<ResponseBase<ItemSync<MobileShipVm>>>(result,
-                           new JsonMediaTypeFormatter(),
-                            new MediaTypeWithQualityHeaderValue("application/json"))
-            };
-            return response;
-        }
-
 
         [Route("GetMyShips")]
         public async Task<HttpResponseMessage> GetMyShips()
@@ -186,34 +102,124 @@ namespace Michal.Project.Api
             return response;
         }
 
-        //[Route("WhoAmISync")]
-        //[AcceptVerbs("GET")]
-        //public async HttpResponseMessage WhoAmISync()
-        //{
-        //    ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
-        //    result.Model = new ItemSync<Models.WhoAmI>();
+        [Route("GetWhoAmISync")]
+        [AcceptVerbs("GET")]
+        public async Task<HttpResponseMessage> GetWhoAmISync([FromUri] Sync request)
+        {
+            ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
+            result.Model = new ItemSync<Models.WhoAmI>();
 
-        //    result.Model.SyncObject.FullName = "Anonymous";
-        //    result.Model.SyncObject.UserName = "Anonymous";
+            result.Model.SyncObject.FullName = "Anonymous";
+            result.Model.SyncObject.UserName = "Anonymous";
+
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    ItemSync<Guid> userContextSync = new ItemSync<Guid>();
+                    userContextSync.ClientId = request.ClientId;
+                    userContextSync.DeviceId = request.DeviceId;
+
+                    SyncManager syncManager = new SyncManager();
+                    result.IsAuthenticated = true;
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                        var user = new UserContext(userContext);
+                        userContextSync.ObjectId = user.UserId;
+                        userContextSync.CurrentUserId = user.UserId;
+                        userContextSync.ObjectTableCode = ObjectTableCode.USER;
+
+                        var pollItem = await syncManager.pull(userContextSync, new UserGetData(context));
+
+                        result.Model.ClientId = pollItem.ClientId;
+                        result.Model.CurrentUserId = pollItem.CurrentUserId;
+                        result.Model.DeviceId = pollItem.DeviceId;
+                        result.Model.LastUpdateRecord = pollItem.LastUpdateRecord;
+                        result.Model.ObjectId = pollItem.ObjectId;
+                        result.Model.ObjectTableCode = pollItem.ObjectTableCode;
+                        result.Model.SyncObject = pollItem.SyncObject;
+                        result.Model.SyncStateRecord = pollItem.SyncStateRecord;
+                        result.Model.SyncStatus = pollItem.SyncStatus;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrDesc = e.ToString();
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<ResponseBase<ItemSync<WhoAmI>>>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
+
+        [Route("UpdateWhoAmISync")]
+        [AcceptVerbs("Post")]
+        public async Task<HttpResponseMessage> UpdateWhoAmISync([FromBody] ItemSync<WhoAmI> request)
+        {
+            ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
+
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    result.IsAuthenticated = true;
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                        var user = new UserContext(userContext);
+                        IUserRepository userRepository = new UserRepository(context);
+                        UserLogic logic = new UserLogic(userRepository);
+
+                        result.Model.SyncObject = await logic.UpadateQuick(request.SyncObject);
+                        await context.SaveChangesAsync();
+
+                        SyncManager syncManager = new SyncManager();
+                        await syncManager.Push(new WhoAmIUpdateData(context, result.Model));
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrDesc = e.ToString();
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<ResponseBase<ItemSync<WhoAmI>>>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
+
+        //[Route("SyncAllWhoAmI")]
+        //[AcceptVerbs("Get")]
+        //public async Task<HttpResponseMessage> SyncWhoAmI([FromBody] ItemSync<WhoAmI> request)
+        //{
+        //    ResponseBase<ItemSync> result = new ResponseBase<ItemSync>();
 
         //    try
         //    {
         //        if (User.Identity.IsAuthenticated)
         //        {
-        //            ItemSync<Guid> userContextSync=new ItemSync<Guid>();
-
-        //            SyncManager syncManager = new SyncManager();
         //            result.IsAuthenticated = true;
         //            using (var context = new ApplicationDbContext())
         //            {
         //                var userContext = HttpContext.Current.GetOwinContext().Authentication;
-        //               // userContextSync.u
-        //                var pollItem =await syncManager.pull(userContextSync, new UserGetData(context));
-
         //                var user = new UserContext(userContext);
-        //                result.Model.SyncObject.UserName = user.FullName;
-        //                result.Model.SyncObject.FullName = pollItem.SyncObject.FullName;
-        //                result.Model.SyncObject.UserId = user.UserId.ToString();
+                      
+        //                SyncManager syncManager = new SyncManager();
+        //                await syncManager.Sync(new WhoAmIUpdateData(context, request));
+
         //            }
         //        }
         //    }
@@ -232,10 +238,55 @@ namespace Michal.Project.Api
         //    return response;
         //}
 
+
         public StatusLogic GetLogin(ApplicationDbContext context)
         {
             IShippingRepository shippingRepository = new ShippingRepository(context);
             return new StatusLogic(shippingRepository);
         }
+
+        //[Route("UpdateShipSync")]
+        //[AcceptVerbs("POST")]
+        //public async Task<HttpResponseMessage> UpdateShipSync(ItemSync<MobileShipStatusVm> request)
+        //{
+        //    ResponseBase<ItemSync<MobileShipVm>> result = new ResponseBase<ItemSync<MobileShipVm>>();
+        //    result.Model = new ItemSync<MobileShipVm>();
+        //    try
+        //    {
+        //        if (User.Identity.IsAuthenticated)
+        //        {
+        //            using (var context = new ApplicationDbContext())
+        //            {
+        //                var userContext = HttpContext.Current.GetOwinContext().Authentication;
+        //                var user = new UserContext(userContext);
+
+        //                IOfferRepository offerRepository = new OfferRepository(context);
+        //                IShippingRepository shippingRepository = new ShippingRepository(context);
+        //                GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+        //                IUserRepository userRepository = new UserRepository(context);
+        //                ILocationRepository locationRepository = new LocationRepository(context, new GoogleAgent());
+
+        //                StatusLogic logic = new StatusLogic(shippingRepository);
+
+        //                result.Model = await logic.ChangeStatusSync(request, user.UserId);
+        //                await context.SaveChangesAsync();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        result.IsError = true;
+        //        result.ErrDesc = e.ToString();
+        //        Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+        //    }
+        //    var response = new HttpResponseMessage(HttpStatusCode.OK)
+        //    {
+        //        Content = new ObjectContent<ResponseBase<ItemSync<MobileShipVm>>>(result,
+        //                   new JsonMediaTypeFormatter(),
+        //                    new MediaTypeWithQualityHeaderValue("application/json"))
+        //    };
+        //    return response;
+        //}
+
     }
 }

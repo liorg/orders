@@ -126,5 +126,28 @@ namespace Michal.Project.Dal
             };
 
         }
+
+        public async Task<WhoAmI> UpdateWhoAmI(WhoAmI whoAmI)
+        {
+            var result = await _context.Users.FirstOrDefaultAsync(u => u.Id == whoAmI.UserId.ToString());
+            if (result != null)
+            {
+                result.FirstName = whoAmI.FullName;
+                result.LastName = whoAmI.FullName;
+                _context.Entry<ApplicationUser>(result).State = EntityState.Modified;
+                
+                return new WhoAmI
+                {
+                    UserId = result.Id,
+                    UserName = result.UserName,
+                    FullName = result.FirstName + " " + result.LastName
+                };
+            }
+            return whoAmI;
+
+        }
+    
     }
+
+
 }
