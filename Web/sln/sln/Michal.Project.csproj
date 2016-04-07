@@ -380,6 +380,7 @@
     <Compile Include="Mechanism\Sync\Base\PollAdaptor.cs" />
     <Compile Include="Mechanism\Sync\Base\PushAdaptor.cs" />
     <Compile Include="Mechanism\Sync\Base\SyncAdaptorBase.cs" />
+    <Compile Include="Mechanism\Sync\Common\SyncAllPusher.cs" />
     <Compile Include="Mechanism\Sync\User\Poll\UserGetData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\WhoAmIUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />

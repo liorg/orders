@@ -33,7 +33,13 @@ namespace Michal.Project.Dal
 
         public async Task DeleteUnused(ISyncItem sync)
         {
-           var items= await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId).ToListAsync();
+           var noTable= ObjectTableCode.NONE;
+            var items = await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId 
+                 && (sync.DeviceId == null  ||sync.DeviceId == "" || d.DeviceId==sync.DeviceId)
+                 && (sync.ClientId == null || sync.ClientId == "" || d.ClientId == sync.ClientId)
+                 && (sync.ObjectTableCode == noTable || d.ObjectTableCode == sync.ObjectTableCode)
+                 && (sync.ObjectId == Guid.Empty || d.ObjectId == sync.ObjectId)
+                 ).ToListAsync();
            foreach (var item in items)
            {
                _context.Entry<SyncTable>(item).State = EntityState.Deleted;

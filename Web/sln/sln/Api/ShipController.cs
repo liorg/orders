@@ -201,42 +201,42 @@ namespace Michal.Project.Api
             return response;
         }
 
-        //[Route("SyncAllWhoAmI")]
-        //[AcceptVerbs("Get")]
-        //public async Task<HttpResponseMessage> SyncWhoAmI([FromBody] ItemSync<WhoAmI> request)
-        //{
-        //    ResponseBase<ItemSync> result = new ResponseBase<ItemSync>();
+        [Route("SyncAllWhoAmI")]
+        [AcceptVerbs("Get")]
+        public async Task<HttpResponseMessage> SyncWhoAmI([FromBody] ItemSync<WhoAmI> request)
+        {
+            ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
 
-        //    try
-        //    {
-        //        if (User.Identity.IsAuthenticated)
-        //        {
-        //            result.IsAuthenticated = true;
-        //            using (var context = new ApplicationDbContext())
-        //            {
-        //                var userContext = HttpContext.Current.GetOwinContext().Authentication;
-        //                var user = new UserContext(userContext);
-                      
-        //                SyncManager syncManager = new SyncManager();
-        //                await syncManager.Sync(new WhoAmIUpdateData(context, request));
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    result.IsAuthenticated = true;
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                        var user = new UserContext(userContext);
+                        result.Model = request;
+                        SyncManager syncManager = new SyncManager();
+                        await syncManager.Sync(new SyncUserPusher(context, request));
 
-        //            }
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        result.IsError = true;
-        //        result.ErrDesc = e.ToString();
-        //        Elmah.ErrorSignal.FromCurrentContext().Raise(e);
-        //    }
-        //    var response = new HttpResponseMessage(HttpStatusCode.OK)
-        //    {
-        //        Content = new ObjectContent<ResponseBase<ItemSync<WhoAmI>>>(result,
-        //                   new JsonMediaTypeFormatter(),
-        //                    new MediaTypeWithQualityHeaderValue("application/json"))
-        //    };
-        //    return response;
-        //}
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrDesc = e.ToString();
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<ResponseBase<ItemSync<WhoAmI>>>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
 
 
         public StatusLogic GetLogin(ApplicationDbContext context)
