@@ -38,7 +38,7 @@ namespace Michal.Project.Mechanism.Sync.User
 
             ItemSync itemSync = new ItemSync(config);
             itemSync.DeviceId = "";
-            itemSync.CurrentUserId = _request.CurrentUserId;
+            itemSync.UserId = _request.UserId;
             itemSync.ClientId = "";
             itemSync.ObjectId = Guid.Empty;
             itemSync.ObjectTableCode = ObjectTableCode.NONE;

@@ -53,14 +53,19 @@ namespace Michal.Project.Bll
             return shipping;
         }
 
+        public async Task<WhoAmI> GetWhoAmI(Guid userid)
+        {
+            return await _userRepository.GetMyDetail(userid);
+        }
+
         public async Task<ItemSync<WhoAmI>> GetMyDetail(ISyncItem request)
         {
             var itemSync = new ItemSync<WhoAmI>();
 
-            var dataChanged = await _syncRepository.GetSyn(request.CurrentUserId, request.ObjectId, ObjectTableCode.USER);
+            var dataChanged = await _syncRepository.GetSyn(request.UserId, request.ObjectId, ObjectTableCode.USER);
             if (dataChanged.Any())
             {
-                itemSync.SyncObject = await _userRepository.GetMyDetail(request.CurrentUserId);
+                itemSync.SyncObject = await _userRepository.GetMyDetail(request.UserId);
                 itemSync.ClientId = request.ClientId;
                 itemSync.DeviceId = request.DeviceId;
                 itemSync.LastUpdateRecord = DateTime.Now;

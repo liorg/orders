@@ -122,7 +122,10 @@ namespace Michal.Project.Dal
             {
                 UserId = result.Id,
                 UserName = result.UserName,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
                 FullName=result.FirstName+" "+result.LastName
+
             };
 
         }
@@ -132,8 +135,8 @@ namespace Michal.Project.Dal
             var result = await _context.Users.FirstOrDefaultAsync(u => u.Id == whoAmI.UserId.ToString());
             if (result != null)
             {
-                result.FirstName = whoAmI.FullName;
-                result.LastName = whoAmI.FullName;
+                result.FirstName = whoAmI.FirstName;
+                result.LastName = whoAmI.LastName;
                 _context.Entry<ApplicationUser>(result).State = EntityState.Modified;
                 
                 return new WhoAmI

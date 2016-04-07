@@ -65,7 +65,7 @@ namespace Michal.Project.Api
 
         [Route("WhoAmI")]
         [AcceptVerbs("GET")]
-        public HttpResponseMessage WhoAmI()
+        public async Task<HttpResponseMessage> WhoAmI()
         {
             ResponseBase<WhoAmI> result = new ResponseBase<WhoAmI>();
             result.Model = new WhoAmI();
@@ -81,9 +81,16 @@ namespace Michal.Project.Api
                     {
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
-                        result.Model.UserName = user.FullName;
-                        result.Model.FullName = user.FullName;
-                        result.Model.UserId = user.UserId.ToString();
+                        IShippingRepository shippingRepository = new ShippingRepository(context);
+                        GeneralAgentRepository generalRepo = new GeneralAgentRepository(context);
+                        IUserRepository userRepository = new UserRepository(context);
+                        ICommentRepository commentRepository = new CommentRepository(context);
+                        ISyncRepository syncRepository = new SyncRepository(context);
+                        INotificationRepository notificationRepository = new NotificationRepository(context);
+
+                        var syncLogic = new SyncLogic(shippingRepository, userRepository, commentRepository, syncRepository, notificationRepository, generalRepo);
+                        result.Model = await  syncLogic.GetWhoAmI(user.UserId);
+
                     }
                 }
             }
@@ -101,6 +108,8 @@ namespace Michal.Project.Api
             };
             return response;
         }
+
+
 
         [Route("GetWhoAmISync")]
         [AcceptVerbs("GET")]
@@ -127,13 +136,13 @@ namespace Michal.Project.Api
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
                         userContextSync.ObjectId = user.UserId;
-                        userContextSync.CurrentUserId = user.UserId;
+                        userContextSync.UserId = user.UserId;
                         userContextSync.ObjectTableCode = ObjectTableCode.USER;
 
                         var pollItem = await syncManager.pull(userContextSync, new UserGetData(context));
 
                         result.Model.ClientId = pollItem.ClientId;
-                        result.Model.CurrentUserId = pollItem.CurrentUserId;
+                        result.Model.UserId = pollItem.UserId;
                         result.Model.DeviceId = pollItem.DeviceId;
                         result.Model.LastUpdateRecord = pollItem.LastUpdateRecord;
                         result.Model.ObjectId = pollItem.ObjectId;

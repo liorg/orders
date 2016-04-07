@@ -18,7 +18,7 @@ namespace Michal.Project.Models
         {
             this.ClientId = copy.ClientId;
             this.DeviceId = copy.DeviceId;
-            this.CurrentUserId = copy.CurrentUserId;
+            this.UserId = copy.UserId;
             this.LastUpdateRecord = copy.LastUpdateRecord;
             this.ObjectId = copy.ObjectId;
             this.ObjectTableCode = copy.ObjectTableCode;
@@ -69,7 +69,7 @@ namespace Michal.Project.Models
 
         public DateTime LastUpdateRecord { get; set; }
 
-        public Guid CurrentUserId
+        public Guid UserId
         {
             get;
             set;

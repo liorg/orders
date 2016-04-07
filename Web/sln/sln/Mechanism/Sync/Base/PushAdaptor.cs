@@ -44,7 +44,7 @@ namespace Michal.Project.Mechanism.Sync.Base
                 {
                     ItemSync itemSync = new ItemSync(config);
                     itemSync.DeviceId = deviceUser.DeviceId;
-                    itemSync.CurrentUserId = deviceUser.CurrentUserId;
+                    itemSync.UserId = deviceUser.UserId;
                     itemSync.ClientId = deviceUser.ClientId;
                     itemSync.LastUpdateRecord = DateTime.UtcNow;
                     await logic.SyncFlagOn(itemSync);
@@ -65,7 +65,7 @@ namespace Michal.Project.Mechanism.Sync.Base
            {
                ItemSync itemSync = new ItemSync(config);
                itemSync.DeviceId = deviceUser.DeviceId;
-               itemSync.CurrentUserId = deviceUser.CurrentUserId;
+               itemSync.UserId = deviceUser.UserId;
                itemSync.ClientId = deviceUser.ClientId;
                itemSync.LastUpdateRecord = DateTime.UtcNow;
                await logic.DeleteSyncFlags(itemSync);

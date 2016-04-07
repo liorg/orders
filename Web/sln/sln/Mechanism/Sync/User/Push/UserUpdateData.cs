@@ -37,12 +37,15 @@ namespace Michal.Project.Mechanism.Sync.User
 
         public override Dictionary<Guid, int> AdditionUsers()
         {
+          
             Dictionary<Guid, int> users = new Dictionary<Guid, int>();
-            var logic = GetLogic(_context);
-            var notifyRunners = logic.GetRunners();
-            foreach (var runner in notifyRunners)
-              users.Add(Guid.Parse(runner.Id), SyncStateRecord.Change);
-            
+            if (_request.IsAdmin || _request.IsRunner)
+            {
+                var logic = GetLogic(_context);
+                var notifyRunners = logic.GetRunners();
+                foreach (var runner in notifyRunners)
+                    users.Add(Guid.Parse(runner.Id), SyncStateRecord.Change);
+            }
             return users;
         }
     }

@@ -294,13 +294,16 @@ namespace Michal.Project.Controllers
 
                     if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.ApprovalExceptionalBudget);//// "ApprovalExceptionalBudget");
 
+
+                    SyncManager syncManager = new SyncManager();
+                    await syncManager.Push(new UserUpdateData(context, model));
+
                     if (model.IsClientUser)
                         return RedirectToAction("Index", "Account");
                     else
                         return RedirectToAction("GetShippers", "Account");
 
-                   SyncManager syncManager = new SyncManager();
-                   await syncManager.Push(new UserUpdateData(context, model));
+                 
 
                     
                     

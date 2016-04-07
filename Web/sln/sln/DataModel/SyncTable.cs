@@ -86,10 +86,10 @@ namespace Michal.Project.DataModel
             set;
         }
 
-        public Guid CurrentUserId
-        {
-            get;
-            set;
-        }
+        //public Guid CurrentUserId
+        //{
+        //    get;
+        //    set;
+        //}
     }
 }

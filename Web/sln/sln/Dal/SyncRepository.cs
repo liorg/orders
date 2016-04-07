@@ -34,7 +34,7 @@ namespace Michal.Project.Dal
         public async Task DeleteUnused(ISyncItem sync)
         {
            var noTable= ObjectTableCode.NONE;
-            var items = await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId 
+            var items = await _context.SyncTable.Where(d => d.UserId == sync.UserId 
                  && (sync.DeviceId == null  ||sync.DeviceId == "" || d.DeviceId==sync.DeviceId)
                  && (sync.ClientId == null || sync.ClientId == "" || d.ClientId == sync.ClientId)
                  && (sync.ObjectTableCode == noTable || d.ObjectTableCode == sync.ObjectTableCode)
@@ -49,13 +49,14 @@ namespace Michal.Project.Dal
 
         public async Task FlagOn(Contract.View.ISyncItem sync)
         {
-            var items = await _context.SyncTable.Where(d => d.UserId == sync.CurrentUserId && d.ObjectId == sync.ObjectId && d.ObjectTableCode == sync.ObjectTableCode).ToListAsync();
+            var items = await _context.SyncTable.Where(d => d.UserId == sync.UserId && 
+                d.ObjectId == sync.ObjectId && d.ObjectTableCode == sync.ObjectTableCode).ToListAsync();
             if (!items.Any())
             {
                 _context.SyncTable.Add(new SyncTable
                 {
                     ClientId = sync.ClientId,
-                    CurrentUserId = sync.CurrentUserId,
+                    UserId = sync.UserId,
                     DeviceId = sync.DeviceId,
                     IsActive = true,
                     LastUpdateRecord = DateTime.Now,
@@ -63,8 +64,7 @@ namespace Michal.Project.Dal
                     ObjectTableCode = sync.ObjectTableCode,
                     SyncStateRecord = sync.SyncStateRecord,
                     SyncStatus = sync.SyncStatus,
-                    SyncTableId = Guid.NewGuid(),
-                    UserId = sync.CurrentUserId
+                    SyncTableId = Guid.NewGuid()
                 });
             }
         }

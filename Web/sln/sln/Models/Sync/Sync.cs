@@ -9,7 +9,7 @@ namespace Michal.Project.Models
 {
     public class Sync : ISync
     {
-        public Guid CurrentUserId
+        public Guid UserId
         {
             get;
             set;

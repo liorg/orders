@@ -21,7 +21,7 @@ namespace Michal.Project.Models
             set;
         }
 
-        public Guid CurrentUserId
+        public Guid UserId
         {
             get;
             set;

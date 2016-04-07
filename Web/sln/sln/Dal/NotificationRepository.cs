@@ -141,7 +141,7 @@ namespace Michal.Project.Dal
                                  select new Sync
                                  {
                                      ClientId = "",
-                                     CurrentUserId = userid,
+                                     UserId = userid,
                                      DeviceId = d.DeviceId
                                  }).ToListAsync();
             return devices;
