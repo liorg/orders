@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Michal.Project.Models
 {
-   
-   
-    public class ItemSync : ISyncItem
+
+
+    public class ItemSync : Sync,ISyncItem
     {
         public ItemSync()
         {
@@ -53,27 +53,27 @@ namespace Michal.Project.Models
             set;
         }
 
-        public string DeviceId
-        {
-            get;
-            set;
-        }
+        //public string DeviceId
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public string ClientId
-        {
-            get;
-            set;
-        }
+        //public string ClientId
+        //{
+        //    get;
+        //    set;
+        //}
 
         public int SyncStateRecord { get; set; }
 
         public DateTime LastUpdateRecord { get; set; }
 
-        public Guid UserId
-        {
-            get;
-            set;
-        }
+        //public Guid UserId
+        //{
+        //    get;
+        //    set;
+        //}
     }
    
     public class ItemSync<T> : ItemSync
