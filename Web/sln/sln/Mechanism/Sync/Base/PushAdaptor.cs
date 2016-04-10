@@ -17,17 +17,33 @@ namespace Michal.Project.Mechanism.Sync.Base
 {
     public abstract class PushAdaptor : SyncAdaptorBase
     {
-       
+
         public PushAdaptor(ApplicationDbContext context)
             : base(context)
         {
 
 
         }
-      
+
         public abstract ISyncObject GetConfig();
 
         public abstract Dictionary<Guid, int> AdditionUsers();
+
+        public virtual int SyncDirection
+        {
+            get
+            {
+                return SyncStatus.SyncFromServer;
+            }
+        }
+
+        public virtual string ClientId
+        {
+            get
+            {
+                return General.NgAutoApp;
+            }
+        }
 
         public virtual async Task Push()
         {
@@ -35,7 +51,7 @@ namespace Michal.Project.Mechanism.Sync.Base
             var config = GetConfig();
             var users = new Dictionary<Guid, int>();
 
-           users= AdditionUsers();
+            users = AdditionUsers();
 
             foreach (var user in users)
             {
@@ -46,6 +62,9 @@ namespace Michal.Project.Mechanism.Sync.Base
                     itemSync.DeviceId = deviceUser.DeviceId;
                     itemSync.UserId = deviceUser.UserId;
                     itemSync.ClientId = deviceUser.ClientId;
+                    itemSync.SyncStateRecord = user.Value;// SyncStateRecord.Change;
+                    itemSync.SyncStatus = SyncDirection;
+                    itemSync.ClientId = ClientId;
                     itemSync.LastUpdateRecord = DateTime.UtcNow;
                     await logic.SyncFlagOn(itemSync);
                     await _context.SaveChangesAsync();
@@ -56,23 +75,24 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         public virtual async Task SyncAll()
         {
-           var users= AdditionUsers();
-           var config = GetConfig();
-           var logic = GetLogic(_context);
-           foreach (var user in users)
-           { var devices = await logic.GetDevicesByUserId(user.Key);
-           foreach (var deviceUser in devices)
-           {
-               ItemSync itemSync = new ItemSync(config);
-               itemSync.DeviceId = deviceUser.DeviceId;
-               itemSync.UserId = deviceUser.UserId;
-               itemSync.ClientId = deviceUser.ClientId;
-               itemSync.LastUpdateRecord = DateTime.UtcNow;
-               await logic.DeleteSyncFlags(itemSync);
-               await _context.SaveChangesAsync();
-           }
-           }
-          
+            var users = AdditionUsers();
+            var config = GetConfig();
+            var logic = GetLogic(_context);
+            foreach (var user in users)
+            {
+                var devices = await logic.GetDevicesByUserId(user.Key);
+                foreach (var deviceUser in devices)
+                {
+                    ItemSync itemSync = new ItemSync(config);
+                    itemSync.DeviceId = deviceUser.DeviceId;
+                    itemSync.UserId = deviceUser.UserId;
+                    itemSync.ClientId = deviceUser.ClientId;
+                    itemSync.LastUpdateRecord = DateTime.UtcNow;
+                    await logic.DeleteSyncFlags(itemSync);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
         }
 
         protected virtual async Task<bool> SendPushServerAsync(string deviceid, string body, string recid, string messageType)

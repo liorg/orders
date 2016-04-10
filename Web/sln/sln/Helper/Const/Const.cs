@@ -20,6 +20,8 @@ namespace Michal.Project.Helper
         public const string Empty = "---";
 
         public const double MAXMinutesExpiredApiToken = 30;
+
+        public const string NgAutoApp = "ngAutoApp";
     }
 
 }

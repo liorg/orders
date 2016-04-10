@@ -117,9 +117,12 @@ namespace Michal.Project.Api
         {
             ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
             result.Model = new ItemSync<Models.WhoAmI>();
-
-            result.Model.SyncObject.FullName = "Anonymous";
-            result.Model.SyncObject.UserName = "Anonymous";
+            result.Model.SyncObject = new Models.WhoAmI
+            {
+                FullName = "Anonymous",
+                UserName = "Anonymous"
+            };
+          
 
             try
             {
@@ -193,6 +196,10 @@ namespace Michal.Project.Api
                         await syncManager.Push(new WhoAmIUpdateData(context, result.Model));
 
                     }
+                }
+                else
+                {
+                    result.IsAuthenticated = false;
                 }
             }
             catch (Exception e)
