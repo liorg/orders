@@ -26,6 +26,14 @@ namespace Michal.Project.Mechanism.Sync.User
             return _request;
         }
 
+        public override int SyncDirection
+        {
+            get
+            {
+                return _request.SyncStatus;
+            }
+        }
+
         public override Dictionary<Guid, int> AdditionUsers()
         {
             Dictionary<Guid, int> users = new Dictionary<Guid, int>();

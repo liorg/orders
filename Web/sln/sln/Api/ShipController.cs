@@ -109,6 +109,60 @@ namespace Michal.Project.Api
             return response;
         }
 
+        [Route("UpdateWhoAmI")]
+        [AcceptVerbs("Post")]
+        public async Task<HttpResponseMessage> UpdateWhoAmI([FromBody]WhoAmI request)
+        {
+            ResponseBase<WhoAmI> result = new ResponseBase<WhoAmI>();
+
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    result.IsAuthenticated = true;
+                    using (var context = new ApplicationDbContext())
+                    {
+                        var userContext = HttpContext.Current.GetOwinContext().Authentication;
+                        var user = new UserContext(userContext);
+                        IUserRepository userRepository = new UserRepository(context);
+                        UserLogic logic = new UserLogic(userRepository);
+
+                        result.Model = await logic.UpadateQuick(request);
+                        await context.SaveChangesAsync();
+                         ItemSync<WhoAmI> sync = new ItemSync<Models.WhoAmI>();
+
+                         sync.ObjectId = Guid.Parse(request.UserId);
+                         sync.ObjectTableCode = ObjectTableCode.USER;
+                         sync.SyncStateRecord = SyncStateRecord.Change;
+                         sync.SyncStatus = SyncStatus.SyncFromClient;
+                         sync.SyncObject = result.Model;
+                         sync.LastUpdateRecord = DateTime.Now;
+
+
+                        SyncManager syncManager = new SyncManager();
+                        await syncManager.Push(new WhoAmIUpdateData(context, sync));
+
+                    }
+                }
+                else
+                {
+                    result.IsAuthenticated = false;
+                }
+            }
+            catch (Exception e)
+            {
+                result.IsError = true;
+                result.ErrDesc = e.ToString();
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<ResponseBase<WhoAmI>>(result,
+                           new JsonMediaTypeFormatter(),
+                            new MediaTypeWithQualityHeaderValue("application/json"))
+            };
+            return response;
+        }
 
 
         [Route("GetWhoAmISync")]
@@ -191,7 +245,7 @@ namespace Michal.Project.Api
 
                         result.Model.SyncObject = await logic.UpadateQuick(request.SyncObject);
                         await context.SaveChangesAsync();
-
+                       
                         SyncManager syncManager = new SyncManager();
                         await syncManager.Push(new WhoAmIUpdateData(context, result.Model));
 
