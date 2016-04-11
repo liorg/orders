@@ -184,6 +184,9 @@ namespace Michal.Project.DataModel
         public double FixedDistanceValue { get; set; }
         public string DistanceText { get; set; }
 
+        public Guid? ParentId { get; set; }
+
+        public string GroupName { get; set; }
     }
 
 }

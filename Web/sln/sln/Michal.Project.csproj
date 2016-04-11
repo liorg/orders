@@ -384,18 +384,6 @@
     <Compile Include="Mechanism\Sync\User\Poll\UserGetData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\WhoAmIUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />
-    <Compile Include="Migrations\201512121859436_sta.cs" />
-    <Compile Include="Migrations\201512121859436_sta.Designer.cs">
-      <DependentUpon>201512121859436_sta.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512281532070_refreshtoken.cs" />
-    <Compile Include="Migrations\201512281532070_refreshtoken.Designer.cs">
-      <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603301500262_newtable.cs" />
-    <Compile Include="Migrations\201603301500262_newtable.Designer.cs">
-      <DependentUpon>201603301500262_newtable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
@@ -890,17 +878,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512121859436_sta.resx">
-      <DependentUpon>201512121859436_sta.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512281532070_refreshtoken.resx">
-      <DependentUpon>201512281532070_refreshtoken.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603301500262_newtable.resx">
-      <DependentUpon>201603301500262_newtable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

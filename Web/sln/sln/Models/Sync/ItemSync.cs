@@ -14,6 +14,7 @@ namespace Michal.Project.Models
         {
 
         }
+
         public ItemSync(ISyncItem copy)
         {
             this.ClientId = copy.ClientId;
@@ -26,6 +27,7 @@ namespace Michal.Project.Models
             this.SyncStatus = copy.SyncStatus;
 
         }
+       
         public ItemSync(ISyncObject copy)
         {
           
