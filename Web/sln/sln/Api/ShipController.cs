@@ -230,7 +230,7 @@ namespace Michal.Project.Api
         public async Task<HttpResponseMessage> UpdateWhoAmISync([FromBody] ItemSync<WhoAmI> request)
         {
             ResponseBase<ItemSync<WhoAmI>> result = new ResponseBase<ItemSync<WhoAmI>>();
-
+            result.Model = new ItemSync<WhoAmI>();
             try
             {
                 if (User.Identity.IsAuthenticated)
@@ -270,6 +270,9 @@ namespace Michal.Project.Api
             };
             return response;
         }
+
+
+      
 
         [Route("SyncAllWhoAmI")]
         [AcceptVerbs("Get")]

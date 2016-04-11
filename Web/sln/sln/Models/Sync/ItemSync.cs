@@ -1,4 +1,5 @@
 ﻿using Michal.Project.Contract.View;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Web;
 namespace Michal.Project.Models
 {
 
-
+    [JsonObject(Title = "ItemSync")]
     public class ItemSync : Sync,ISyncItem
     {
+   
         public ItemSync()
         {
 
@@ -55,27 +57,10 @@ namespace Michal.Project.Models
             set;
         }
 
-        //public string DeviceId
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public string ClientId
-        //{
-        //    get;
-        //    set;
-        //}
-
         public int SyncStateRecord { get; set; }
 
         public DateTime LastUpdateRecord { get; set; }
 
-        //public Guid UserId
-        //{
-        //    get;
-        //    set;
-        //}
     }
    
     public class ItemSync<T> : ItemSync
