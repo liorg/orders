@@ -271,9 +271,6 @@ namespace Michal.Project.Api
             return response;
         }
 
-
-      
-
         [Route("SyncAllWhoAmI")]
         [AcceptVerbs("Get")]
         public async Task<HttpResponseMessage> SyncWhoAmI([FromBody] ItemSync<WhoAmI> request)
@@ -310,7 +307,6 @@ namespace Michal.Project.Api
             };
             return response;
         }
-
 
         public StatusLogic GetLogin(ApplicationDbContext context)
         {
