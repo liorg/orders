@@ -143,6 +143,8 @@ namespace Michal.Project.Dal
                 {
                     UserId = result.Id,
                     UserName = result.UserName,
+                    FirstName=result.FirstName,
+                    LastName=result.LastName,
                     FullName = result.FirstName + " " + result.LastName
                 };
             }
