@@ -47,7 +47,7 @@ namespace Michal.Project.Dal
         }
 
 
-        public async Task FlagOn(Contract.View.ISyncItem sync)
+        public async Task SyncOn(Contract.View.ISyncItem sync)
         {
             var items = await _context.SyncTable.Where(d => d.UserId == sync.UserId && 
                 d.ObjectId == sync.ObjectId && d.ObjectTableCode == sync.ObjectTableCode).ToListAsync();

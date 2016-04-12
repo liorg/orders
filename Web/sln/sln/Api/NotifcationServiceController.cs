@@ -2,6 +2,9 @@
 using Michal.Project.Bll;
 using Michal.Project.Dal;
 using Michal.Project.DataModel;
+using Michal.Project.Fasade;
+using Michal.Project.Helper;
+using Michal.Project.Mechanism.Sync.User;
 using Michal.Project.Models;
 using System;
 using System.Collections.Generic;
@@ -32,11 +35,16 @@ namespace Michal.Project.Api
             {
                 try
                 {
+                    Guid user=Guid.Parse(userid);
                     var notifyRepo = new NotificationRepository(context);
                     var shipRepo = new ShippingRepository(context);
                     var logic = new NotifyLogic(notifyRepo, shipRepo);
                     await logic.Register(userid, deviceid);
                     await context.SaveChangesAsync();
+                    SyncManager syncManager = new SyncManager();
+                    await syncManager.Register(new Sync { ClientId = General.NgAutoApp, DeviceId = deviceid, UserId = user }, new UserRegisterNotify(context));
+
+
                 }
                 catch (Exception e)
                 {

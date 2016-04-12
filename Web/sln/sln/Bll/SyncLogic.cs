@@ -92,7 +92,7 @@ namespace Michal.Project.Bll
 
         public async Task SyncFlagOn(ISyncItem request)
         {
-           await _syncRepository.FlagOn(request);
+           await _syncRepository.SyncOn(request);
         }
 
         public List<Runner> GetRunners()

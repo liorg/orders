@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Michal.Project.Mechanism.Sync.Base
 {
-    public abstract class RegisterAdaptor : SyncAdaptorBase 
+    public abstract class RegisterAdaptor : SyncAdaptorBase
     {
         public RegisterAdaptor(ApplicationDbContext context)
             : base(context)
@@ -17,15 +17,16 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         }
 
-        protected  abstract Task<IEnumerable<ISyncItem>> GetItems (ISync syncDetail);
+        protected abstract Task<IEnumerable<ISyncItem>> GetItems(ISync syncDetail);
 
         public virtual async Task NotifyDataToUser(ISync syncDetail)
         {
-          var items= await GetItems(syncDetail);
-          foreach (var item in items)
-          {
-              
-          }
+            var logic = GetLogic(_context);
+            var items = await GetItems(syncDetail);
+            foreach (var item in items)
+              await logic.SyncFlagOn(item);
+            
+            await _context.SaveChangesAsync();
         }
     }
 }

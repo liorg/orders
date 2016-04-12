@@ -14,7 +14,7 @@ namespace Michal.Project.Contract.DAL
     {
         Task<IEnumerable<SyncTable>> GetSyn(Guid userId, Guid objectId, int objectTableCode);
         Task DeleteUnused(ISyncItem sync);
-        Task FlagOn(ISyncItem sync);
+        Task SyncOn(ISyncItem sync);
     
     }
 }

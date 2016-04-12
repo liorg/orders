@@ -385,6 +385,7 @@
     <Compile Include="Mechanism\Sync\User\Poll\UserGetData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\WhoAmIUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />
+    <Compile Include="Mechanism\Sync\User\Register\UserRegisterNotify.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
