@@ -14,10 +14,12 @@ namespace Michal.Project.Mechanism.Sync.Base
     public abstract class SyncAdaptorBase
     {
         protected ApplicationDbContext _context;
+
         public SyncAdaptorBase(ApplicationDbContext context)
         {
             _context = context;
         }
+
         protected SyncLogic GetLogic(ApplicationDbContext context)
         {
             IShippingRepository shippingRepository = new ShippingRepository(context);

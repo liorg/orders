@@ -40,6 +40,18 @@ namespace Michal.Project.Fasade
         {
             await syncAllAdaptor.SyncAll();
         }
+
+        public async Task Register(ISync request, RegisterAdaptor registerAdaptor)
+        {
+            try
+            {
+                await registerAdaptor.NotifyDataToUser(request);
+            }
+            catch (Exception e)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(e);
+            }
+        }
          
     }
 }

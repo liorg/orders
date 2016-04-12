@@ -224,7 +224,7 @@ namespace Michal.Project.Api
             };
             return response;
         }
-
+         
         [Route("UpdateWhoAmISync")]
         [AcceptVerbs("Post")]
         public async Task<HttpResponseMessage> UpdateWhoAmISync([FromBody] ItemSync<WhoAmI> request)
