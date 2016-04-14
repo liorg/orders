@@ -58,20 +58,20 @@ namespace Michal.Project.Bll
             return await _userRepository.GetMyDetail(userid);
         }
 
-        public async Task<ItemSync<WhoAmI>> GetMyDetail(ISyncItem request)
+        public async Task<ItemSync<WhoAmI>> GetMyDetail(ISync request)
         {
             var itemSync = new ItemSync<WhoAmI>();
 
-            var dataChanged = await _syncRepository.GetSyn(request.UserId, request.ObjectId, ObjectTableCode.USER);
+            var dataChanged = await _syncRepository.GetSyn(request.UserId, request.UserId, ObjectTableCode.USER);
             if (dataChanged.Any())
             {
                 itemSync.SyncObject = await _userRepository.GetMyDetail(request.UserId);
                 itemSync.ClientId = request.ClientId;
                 itemSync.DeviceId = request.DeviceId;
                 itemSync.LastUpdateRecord = DateTime.Now;
-                itemSync.ObjectId = request.ObjectId;
-                itemSync.ObjectTableCode = request.ObjectTableCode;
-                itemSync.SyncStateRecord = request.SyncStateRecord;
+                itemSync.ObjectId = request.UserId;
+                itemSync.ObjectTableCode = ObjectTableCode.USER;
+                itemSync.SyncStateRecord = SyncStateRecord.Change;
             }
             else
             {
