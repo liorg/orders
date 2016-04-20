@@ -90,7 +90,7 @@ namespace Michal.Project.Bll
             return await _notificationRepository.GetDevicesByUserId(userid);
         }
 
-        public async Task SyncFlagOn(ISyncItem request)
+        public async Task SyncOn(ISyncItem request)
         {
            await _syncRepository.SyncOn(request);
         }

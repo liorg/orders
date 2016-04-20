@@ -21,12 +21,19 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         public virtual async Task NotifyDataToUser(ISync syncDetail)
         {
+            await TransNotifyData(syncDetail);
+            
+            await _context.SaveChangesAsync();
+        }
+
+        public virtual async Task TransNotifyData(ISync syncDetail)
+        {
             var logic = GetLogic(_context);
             var items = await GetItems(syncDetail);
             foreach (var item in items)
-              await logic.SyncFlagOn(item);
-            
-            await _context.SaveChangesAsync();
+                await logic.SyncOn(item);
+
+           
         }
     }
 }

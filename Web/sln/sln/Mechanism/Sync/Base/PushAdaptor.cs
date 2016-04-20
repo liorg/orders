@@ -66,7 +66,7 @@ namespace Michal.Project.Mechanism.Sync.Base
                     itemSync.SyncStatus = SyncDirection;
                     itemSync.ClientId = ClientId;
                     itemSync.LastUpdateRecord = DateTime.UtcNow;
-                    await logic.SyncFlagOn(itemSync);
+                    await logic.SyncOn(itemSync);
                     await _context.SaveChangesAsync();
                     await SendPushServerAsync(itemSync.DeviceId, "data has changed", itemSync.ObjectId.ToString(), NotifyItemMessage.MESSAGE_CHANGEDATA);
                 }

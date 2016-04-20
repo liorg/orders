@@ -245,6 +245,7 @@
     <Compile Include="Contract\IPricesForItems.cs" />
     <Compile Include="Contract\IPriceCalc.cs" />
     <Compile Include="Contract\IRole.cs" />
+    <Compile Include="Contract\Sync\IExcuteRegisterTransaction.cs" />
     <Compile Include="Contract\Sync\ISync.cs">
       <SubType>Code</SubType>
     </Compile>

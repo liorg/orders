@@ -10,7 +10,7 @@ using System.Web;
 
 namespace Michal.Project.Fasade
 {
-    public class SyncManager
+    public class SyncManager 
     {
         /// <summary>
         /// Notify To users over GSM and save records On Db
@@ -82,6 +82,8 @@ namespace Michal.Project.Fasade
                 Elmah.ErrorSignal.FromCurrentContext().Raise(e);
             }
         }
-         
+
+
+        
     }
 }
