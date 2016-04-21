@@ -44,8 +44,7 @@ namespace Michal.Project.Dal
         public DbSet<Client> Client { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
         public DbSet<SyncTable> SyncTable { get; set; }
-
-        
-
+        public DbSet<Member> Member { get; set; }
+        public DbSet<MoreAddress> MoreAddress { get; set; }
     }
 }

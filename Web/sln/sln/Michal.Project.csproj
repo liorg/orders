@@ -294,6 +294,8 @@
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\BussinessClosure.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\Member.cs" />
+    <Compile Include="DataModel\MoreAddress.cs" />
     <Compile Include="DataModel\SyncTable.cs" />
     <Compile Include="DataModel\DistanceCities.cs" />
     <Compile Include="DataModel\RefreshToken.cs" />
@@ -387,6 +389,14 @@
     <Compile Include="Mechanism\Sync\User\Push\WhoAmIUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Push\UserUpdateData.cs" />
     <Compile Include="Mechanism\Sync\User\Register\UserRegisterNotify.cs" />
+    <Compile Include="Migrations\201604210627448_Add.cs" />
+    <Compile Include="Migrations\201604210627448_Add.Designer.cs">
+      <DependentUpon>201604210627448_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604210638296_AddADDR.cs" />
+    <Compile Include="Migrations\201604210638296_AddADDR.Designer.cs">
+      <DependentUpon>201604210638296_AddADDR.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
@@ -881,6 +891,14 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604210627448_Add.resx">
+      <DependentUpon>201604210627448_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604210638296_AddADDR.resx">
+      <DependentUpon>201604210638296_AddADDR.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
