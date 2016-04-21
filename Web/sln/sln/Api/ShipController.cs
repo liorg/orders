@@ -185,15 +185,16 @@ namespace Michal.Project.Api
                     ItemSync<Guid> userContextSync = new ItemSync<Guid>();
                     userContextSync.ClientId = request.ClientId;
                     userContextSync.DeviceId = request.DeviceId;
-
+                    userContextSync.UserId = request.UserId;
+                    userContextSync.ObjectId = request.UserId;
                     SyncManager syncManager = new SyncManager();
                     result.IsAuthenticated = true;
                     using (var context = new ApplicationDbContext())
                     {
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
-                        userContextSync.ObjectId = user.UserId;
-                        userContextSync.UserId = user.UserId;
+                        //userContextSync.ObjectId = user.UserId;
+                       // userContextSync.UserId = user.UserId;
                         userContextSync.ObjectTableCode = ObjectTableCode.USER;
 
                         var pollItem = await syncManager.pull(userContextSync, new UserGetData(context));
