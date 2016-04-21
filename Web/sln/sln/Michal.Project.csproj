@@ -347,9 +347,10 @@
     <Compile Include="Helper\Const\Order\ProductType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helper\Const\Sync\ObjectTableCode.cs" />
+    <Compile Include="Helper\Const\ObjectTableCode.cs" />
     <Compile Include="Helper\Const\Order\ObjectTypeCode.cs" />
     <Compile Include="Helper\Const\Order\ProductSystemIds.cs" />
+    <Compile Include="Helper\Const\OrganizationCode.cs" />
     <Compile Include="Helper\Const\Status.cs" />
     <Compile Include="Helper\Const\Sync\SyncStateRecord.cs" />
     <Compile Include="Helper\Const\Sync\SyncStatus.cs">
@@ -396,6 +397,10 @@
     <Compile Include="Migrations\201604210638296_AddADDR.cs" />
     <Compile Include="Migrations\201604210638296_AddADDR.Designer.cs">
       <DependentUpon>201604210638296_AddADDR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604210800024_OrganizationCode.cs" />
+    <Compile Include="Migrations\201604210800024_OrganizationCode.Designer.cs">
+      <DependentUpon>201604210800024_OrganizationCode.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
@@ -898,6 +903,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604210638296_AddADDR.resx">
       <DependentUpon>201604210638296_AddADDR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604210800024_OrganizationCode.resx">
+      <DependentUpon>201604210800024_OrganizationCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,5 +12,6 @@ namespace Michal.Project.Helper
         public const int COMMENT = 2;
         public const int USER = 3;
         public const int COMPANY = 4;
+        public const int ORG = 5;
     }
 }

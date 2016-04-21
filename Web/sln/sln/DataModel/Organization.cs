@@ -79,6 +79,9 @@ namespace Michal.Project.DataModel
         }
 
         public decimal? PriceValueException { get; set; }
+
+        // null (default) 1 = private (like bb),2=public(whatsup,public,facebook,gmail)
+        public int? OrganizationCode { get; set; }
       
     }
 }

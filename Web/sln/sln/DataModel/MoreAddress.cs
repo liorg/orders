@@ -24,7 +24,7 @@ namespace Michal.Project.DataModel
         public Guid ObjectId { get; set; }
 
         /*
-           NONE = 0, SHIP = 1, COMMENT = 2, USER = 3,COMPANY = 4;
+           NONE = 0, SHIP = 1, COMMENT = 2, USER = 3,COMPANY = 4,ORG = 5;
          */
         [Required]
         public int ObjectTableCode
