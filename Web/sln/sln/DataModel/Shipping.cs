@@ -187,6 +187,9 @@ namespace Michal.Project.DataModel
         public Guid? ParentId { get; set; }
 
         public string GroupName { get; set; }
+
+        public Guid? OrganizationTarget_OrgId { get; set; }
+
     }
 
 }
