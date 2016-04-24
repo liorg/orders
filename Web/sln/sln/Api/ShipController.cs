@@ -191,6 +191,8 @@ namespace Michal.Project.Api
                     result.IsAuthenticated = true;
                     using (var context = new ApplicationDbContext())
                     {
+                        // for test
+                        
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
                         userContextSync.ObjectTableCode = ObjectTableCode.USER;
@@ -206,6 +208,18 @@ namespace Michal.Project.Api
                         result.Model.SyncObject = pollItem.SyncObject;
                         result.Model.SyncStateRecord = pollItem.SyncStateRecord;
                         result.Model.SyncStatus = pollItem.SyncStatus;
+
+                        var test = context.TableTest.FirstOrDefault();
+                        if (test != null)
+                        {
+                            if (test.Code == 1)
+                                result.IsAuthenticated = false;
+                            if (test.Code == 2)
+                                result.IsError = true;
+                       
+
+
+                        }
                     }
                 }
             }

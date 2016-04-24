@@ -10,6 +10,7 @@ namespace Michal.Project.Helper
         public const int Private = 1;
         public const int WP = 2;// whatsup org
         public const int GMAIL = 3;//emails org
-        public const int WWW = 4;// ROOT www
+        public const int WWW = 4;// ROOT www for entry shipping comapny into common site
+
     }
 }

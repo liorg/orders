@@ -103,5 +103,7 @@ namespace Michal.Project.DataModel
         public string ContactFullName { get; set; }
 
         public string ContactTel { get; set; }
+
+        public string Perfix { get; set; } // for @ to detect username like d@ran d is user and ran is the comapny
     }
 }

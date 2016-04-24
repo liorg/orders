@@ -13,3 +13,6 @@
 4. Dashboard עבור ספק
 5. Dashboard עבור ארגון
 6. wizard create account(organisation)
+7. price list מחירונים
+8. prefix login in www for supplier delivery
+
