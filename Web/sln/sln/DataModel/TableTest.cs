@@ -12,15 +12,18 @@ namespace Michal.Project.DataModel
         [Key]
         public Guid TableTestId { get; set; }
 
-        public Address ShippingAddress { get; set; }
-        public Address BillingAddress { get; set; }
+        //public Address ShippingAddress { get; set; }
+        //public Address BillingAddress { get; set; }
+        [Required]
+        public int Code { get; set; }
+        public string    Name { get; set; }
 
         public TableTest()
         {
 
 
-            this.BillingAddress = new Address();
-            this.ShippingAddress = new Address();
+         //   this.BillingAddress = new Address();
+          //  this.ShippingAddress = new Address();
 
         }
         public DateTime? CreatedOn

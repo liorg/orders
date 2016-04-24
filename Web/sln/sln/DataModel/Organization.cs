@@ -79,9 +79,13 @@ namespace Michal.Project.DataModel
         }
 
         public decimal? PriceValueException { get; set; }
+        //Michal.Project.Helper.OrganizationCode
+        // null (default) 1 = (like bb),2=public(whatsup,public,facebook,gmail)
+        [Required]
+        public int OrganizationCode { get; set; }
 
-        // null (default) 1 = private (like bb),2=public(whatsup,public,facebook,gmail)
-        public int? OrganizationCode { get; set; }
+        public Guid? ShippingCompanyIdDefault { get; set; } // OrganizationCode=4 then supplier and organization is the sone
+
       
     }
 }

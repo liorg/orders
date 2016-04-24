@@ -193,8 +193,6 @@ namespace Michal.Project.Api
                     {
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
-                        //userContextSync.ObjectId = user.UserId;
-                       // userContextSync.UserId = user.UserId;
                         userContextSync.ObjectTableCode = ObjectTableCode.USER;
 
                         var pollItem = await syncManager.pull(userContextSync, new UserGetData(context));

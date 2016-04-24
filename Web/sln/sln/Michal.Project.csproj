@@ -406,6 +406,10 @@
     <Compile Include="Migrations\201604211228273_OrganizationTarget.Designer.cs">
       <DependentUpon>201604211228273_OrganizationTarget.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604240511065_addextrafields.cs" />
+    <Compile Include="Migrations\201604240511065_addextrafields.Designer.cs">
+      <DependentUpon>201604240511065_addextrafields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
     <Compile Include="Models\CompanyVm.cs" />
@@ -913,6 +917,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604211228273_OrganizationTarget.resx">
       <DependentUpon>201604211228273_OrganizationTarget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604240511065_addextrafields.resx">
+      <DependentUpon>201604240511065_addextrafields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

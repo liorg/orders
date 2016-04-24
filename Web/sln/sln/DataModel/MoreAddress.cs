@@ -63,6 +63,12 @@ namespace Michal.Project.DataModel
             get;
             set;
         }
+        public string Tel1 { get; set; }
+      //  public string Tel2 { get; set; }
+
+        public string Name1 { get; set; }
+
+        public string Name2 { get; set; }
 
     }
 }

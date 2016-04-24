@@ -8,7 +8,8 @@ namespace Michal.Project.Helper
     public class OrganizationCode
     {
         public const int Private = 1;
-        public const int WP = 2;
-        public const int GMAIL = 2;
+        public const int WP = 2;// whatsup org
+        public const int GMAIL = 3;//emails org
+        public const int WWW = 4;// ROOT www
     }
 }
