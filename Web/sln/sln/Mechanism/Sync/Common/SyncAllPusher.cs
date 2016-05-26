@@ -27,11 +27,11 @@ namespace Michal.Project.Mechanism.Sync.User
             return _request;
         }
 
-        public override Dictionary<Guid, int> AdditionUsers()
+        public override Dictionary<Guid, int> AdditionUsers(UserContext currentUser)
         {
             return null;
         }
-        public override async Task SyncAll()
+        public override async Task SyncAll(UserContext currentUser)
         {
             var config = GetConfig();
             var logic = GetLogic(_context);

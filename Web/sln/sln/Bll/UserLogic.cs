@@ -20,6 +20,9 @@ namespace Michal.Project.Bll
             return await _userRepository.UpdateWhoAmI(user);
         }
 
-
+        public async Task<WhoAmI> UpdateSync( ItemSync<WhoAmI> request)
+        {
+            return await _userRepository.UpdateWhoAmI(request.SyncObject);
+        }
     }
 }

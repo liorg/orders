@@ -236,7 +236,7 @@ namespace Michal.Project.Controllers
                     var id = model.UserId.ToString();
                     var viewLogic = new ViewLogic();
                     MemeryCacheDataService cache = new MemeryCacheDataService();
-                    
+                    var userContext = new UserContext(AuthenticationManager);
                     var context = DBContext;
                     var org=cache.GetOrgEntity(context);
                     var orgid = org.OrgId;
@@ -295,7 +295,7 @@ namespace Michal.Project.Controllers
                     if (model.IsApprovalExceptionalBudget) await UserManager.AddToRoleAsync(user.Id, Helper.HelperAutorize.ApprovalExceptionalBudget);//// "ApprovalExceptionalBudget");
 
 
-                    SyncManager syncManager = new SyncManager();
+                    SyncManager syncManager = new SyncManager(userContext);
                     await syncManager.Push(new UserUpdateData(context, model));
 
                     if (model.IsClientUser)

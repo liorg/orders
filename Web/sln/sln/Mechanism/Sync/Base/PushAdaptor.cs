@@ -25,9 +25,15 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         }
 
+        public virtual DateTime? GetLastUpdate
+        {
+            get;
+            set;
+        }
+        
         public abstract ISyncObject GetConfig();
 
-        public abstract Dictionary<Guid, int> AdditionUsers();
+        public abstract Dictionary<Guid, int> AdditionUsers(UserContext currentUser);
 
         public virtual int SyncDirection
         {
@@ -45,13 +51,13 @@ namespace Michal.Project.Mechanism.Sync.Base
             }
         }
 
-        public virtual async Task Push()
+        public virtual async Task Push(UserContext currentUser)
         {
             var logic = GetLogic(_context);
             var config = GetConfig();
             var users = new Dictionary<Guid, int>();
 
-            users = AdditionUsers();
+            users = AdditionUsers(currentUser);
 
             foreach (var user in users)
             {
@@ -65,7 +71,7 @@ namespace Michal.Project.Mechanism.Sync.Base
                     itemSync.SyncStateRecord = user.Value;// SyncStateRecord.Change;
                     itemSync.SyncStatus = SyncDirection;
                     itemSync.ClientId = ClientId;
-                    itemSync.LastUpdateRecord = DateTime.UtcNow;
+                    itemSync.LastUpdateRecord = GetLastUpdate.HasValue?GetLastUpdate.Value: DateTime.UtcNow;
                     await logic.SyncOn(itemSync);
                     await _context.SaveChangesAsync();
                     await SendPushServerAsync(itemSync.DeviceId, "data has changed", itemSync.ObjectId.ToString(), NotifyItemMessage.MESSAGE_CHANGEDATA);
@@ -73,9 +79,9 @@ namespace Michal.Project.Mechanism.Sync.Base
             }
         }
 
-        public virtual async Task SyncAll()
+        public virtual async Task SyncAll(UserContext currentUser)
         {
-            var users = AdditionUsers();
+            var users = AdditionUsers(currentUser);
             var config = GetConfig();
             var logic = GetLogic(_context);
             foreach (var user in users)

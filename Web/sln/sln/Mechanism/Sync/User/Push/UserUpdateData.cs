@@ -35,7 +35,7 @@ namespace Michal.Project.Mechanism.Sync.User
             return _syncObject;
         }
 
-        public override Dictionary<Guid, int> AdditionUsers()
+        public override Dictionary<Guid, int> AdditionUsers(UserContext currentUser)
         {
           
             Dictionary<Guid, int> users = new Dictionary<Guid, int>();

@@ -139,7 +139,7 @@ namespace Michal.Project.Api
                          sync.LastUpdateRecord = DateTime.Now;
 
 
-                        SyncManager syncManager = new SyncManager();
+                         SyncManager syncManager = new SyncManager(user);
                         await syncManager.Push(new WhoAmIUpdateData(context, sync));
 
                     }
@@ -187,7 +187,7 @@ namespace Michal.Project.Api
                     userContextSync.DeviceId = request.DeviceId;
                     userContextSync.UserId = request.UserId;
                     userContextSync.ObjectId = request.UserId;
-                    SyncManager syncManager = new SyncManager();
+                    
                     result.IsAuthenticated = true;
                     using (var context = new ApplicationDbContext())
                     {
@@ -196,7 +196,7 @@ namespace Michal.Project.Api
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
                         userContextSync.ObjectTableCode = ObjectTableCode.USER;
-
+                        SyncManager syncManager = new SyncManager(user);
                         var pollItem = await syncManager.pull(userContextSync, new UserGetData(context));
 
                         result.Model.ClientId = pollItem.ClientId;
@@ -246,6 +246,7 @@ namespace Michal.Project.Api
             result.Model = new ItemSync<WhoAmI>();
             try
             {
+                //throw new  ArgumentNullException("erro on "+request.LastUpdateRecord.ToString("yyyy-MM-dd HH:mm"));
                 if (User.Identity.IsAuthenticated)
                 {
                     result.IsAuthenticated = true;
@@ -256,10 +257,10 @@ namespace Michal.Project.Api
                         IUserRepository userRepository = new UserRepository(context);
                         UserLogic logic = new UserLogic(userRepository);
 
-                        result.Model.SyncObject = await logic.UpadateQuick(request.SyncObject);
+                        result.Model.SyncObject = await logic.UpdateSync(request);
                         await context.SaveChangesAsync();
-                       
-                        SyncManager syncManager = new SyncManager();
+
+                        SyncManager syncManager = new SyncManager(user);
                         await syncManager.Push(new WhoAmIUpdateData(context, result.Model));
 
                     }
@@ -300,7 +301,7 @@ namespace Michal.Project.Api
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
                         result.Model = request;
-                        SyncManager syncManager = new SyncManager();
+                        SyncManager syncManager = new SyncManager(user);
                         await syncManager.Sync(new SyncUserPusher(context, request));
 
                     }

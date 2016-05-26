@@ -51,7 +51,7 @@ namespace Michal.Project.Dal
         {
             var items = await _context.SyncTable.Where(d => d.UserId == sync.UserId && 
                 d.ObjectId == sync.ObjectId && d.ObjectTableCode == sync.ObjectTableCode).ToListAsync();
-            if (!items.Any())
+           // if (!items.Any())
             {
                 _context.SyncTable.Add(new SyncTable
                 {

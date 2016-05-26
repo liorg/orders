@@ -10,8 +10,18 @@ using System.Web;
 
 namespace Michal.Project.Fasade
 {
-    public class SyncManager 
+    public class SyncManager
     {
+        public UserContext CurrentUser { get;protected set; }
+
+        public SyncManager()
+        {
+
+        }
+        public SyncManager(UserContext userContext)
+        {
+            CurrentUser = userContext;
+        }
         /// <summary>
         /// Notify To users over GSM and save records On Db
         /// </summary>
@@ -21,7 +31,7 @@ namespace Michal.Project.Fasade
         {
             try
             {
-                await pushAdaptor.Push();
+                await pushAdaptor.Push(CurrentUser);
             }
             catch (Exception e)
             {
@@ -62,7 +72,7 @@ namespace Michal.Project.Fasade
         /// <returns></returns>
         public async Task Sync(PushAdaptor syncAllAdaptor)
         {
-            await syncAllAdaptor.SyncAll();
+            await syncAllAdaptor.SyncAll(CurrentUser);
         }
 
         /// <summary>
