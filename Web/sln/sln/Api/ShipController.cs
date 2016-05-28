@@ -252,12 +252,15 @@ namespace Michal.Project.Api
                     result.IsAuthenticated = true;
                     using (var context = new ApplicationDbContext())
                     {
+                        result.Model.LastUpdateRecord = request.LastUpdateRecord;
+
                         var userContext = HttpContext.Current.GetOwinContext().Authentication;
                         var user = new UserContext(userContext);
                         IUserRepository userRepository = new UserRepository(context);
                         UserLogic logic = new UserLogic(userRepository);
 
                         result.Model.SyncObject = await logic.UpdateSync(request);
+                       
                         await context.SaveChangesAsync();
 
                         SyncManager syncManager = new SyncManager(user);

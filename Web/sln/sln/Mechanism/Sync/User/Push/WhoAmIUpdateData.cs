@@ -14,7 +14,7 @@ namespace Michal.Project.Mechanism.Sync.User
     {
          ItemSync<WhoAmI> _request;
 
-         public override DateTime? GetLastUpdate
+         public override DateTime GetLastUpdate
          {
              get
              {
@@ -22,7 +22,7 @@ namespace Michal.Project.Mechanism.Sync.User
              }
              set
              {
-                 _request.LastUpdateRecord = value.Value;
+                 _request.LastUpdateRecord = value;
              }
          }
 

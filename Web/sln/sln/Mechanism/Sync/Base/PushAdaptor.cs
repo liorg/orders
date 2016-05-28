@@ -25,7 +25,7 @@ namespace Michal.Project.Mechanism.Sync.Base
 
         }
 
-        public virtual DateTime? GetLastUpdate
+        public virtual DateTime GetLastUpdate
         {
             get;
             set;
@@ -71,7 +71,7 @@ namespace Michal.Project.Mechanism.Sync.Base
                     itemSync.SyncStateRecord = user.Value;// SyncStateRecord.Change;
                     itemSync.SyncStatus = SyncDirection;
                     itemSync.ClientId = ClientId;
-                    itemSync.LastUpdateRecord = GetLastUpdate.HasValue?GetLastUpdate.Value: DateTime.UtcNow;
+                    itemSync.LastUpdateRecord = GetLastUpdate;
                     await logic.SyncOn(itemSync);
                     await _context.SaveChangesAsync();
                     await SendPushServerAsync(itemSync.DeviceId, "data has changed", itemSync.ObjectId.ToString(), NotifyItemMessage.MESSAGE_CHANGEDATA);

@@ -59,7 +59,7 @@ namespace Michal.Project.Dal
                     UserId = sync.UserId,
                     DeviceId = sync.DeviceId,
                     IsActive = true,
-                    LastUpdateRecord = DateTime.Now,
+                    LastUpdateRecord = sync.LastUpdateRecord,
                     ObjectId = sync.ObjectId,
                     ObjectTableCode = sync.ObjectTableCode,
                     SyncStateRecord = sync.SyncStateRecord,
