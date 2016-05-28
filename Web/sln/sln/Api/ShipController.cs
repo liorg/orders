@@ -269,6 +269,7 @@ namespace Michal.Project.Api
                 {
                     result.IsAuthenticated = false;
                 }
+                result.Model.LastUpdateRecord = request.LastUpdateRecord;
             }
             catch (Exception e)
             {

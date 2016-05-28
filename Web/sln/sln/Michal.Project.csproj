@@ -75,6 +75,7 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -897,6 +898,7 @@
   <ItemGroup>
     <Folder Include="CollectLogs\" />
     <Folder Include="Controllers\BaseController\" />
+    <Folder Include="Helper\Convert\" />
     <Folder Include="Helper\HttpModule\" />
     <Folder Include="Temp\" />
   </ItemGroup>
