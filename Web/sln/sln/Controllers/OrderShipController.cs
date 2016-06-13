@@ -26,7 +26,7 @@ namespace Michal.Project.Controllers
             }
         }
 
-        public  Task<ActionResult> Index()
+        public ActionResult Index()
         {
             return View();
         }

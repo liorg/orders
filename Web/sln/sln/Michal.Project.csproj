@@ -898,6 +898,7 @@
     <Content Include="Views\s\ShippingByRunnerId.cshtml" />
     <Content Include="Views\Shared\_viewToolbarLists.cshtml" />
     <Content Include="Views\Dashboard\Org.cshtml" />
+    <Content Include="Views\OrderShip\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CollectLogs\" />
@@ -906,7 +907,6 @@
     <Folder Include="Helper\HttpModule\" />
     <Folder Include="Temp\" />
     <Folder Include="Views\Contact\" />
-    <Folder Include="Views\OrderShip\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
