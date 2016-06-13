@@ -1,0 +1,93 @@
+﻿@model RunnerView
+
+@{
+    ViewBag.Title = " פרטי משלוח " + Model.ShippingVm.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4>פרטי שליח למשלוח  @Model.ShippingVm.Name</h4>
+@section ordernumber {
+    @Html.Partial("_orderToolbar", Model)
+}
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="  col-md-12 well well-lg ">
+            @if ((User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnChangeUser" data-toggle="tooltip" title="ביטול" data-placement="top" class="btn btn-danger btn-circle btn-xl">
+                        <img src="~/Content/img/assign32x32.png" />
+                    </button>
+                </div>
+            }
+            <div class="btn-group" style="margin-left: 4px">
+                <button type="button"   data-toggle="tooltip"  title="חזרה" data-placement="top" 
+                     data-url="@Url.Action("ShipView", "S", new { @id = @Model.Id })" 
+            class="btn btn-primary btn-circle btn-xl deliv">
+                    <img src="~/Content/img/back32x32.png" />
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    @if (Model.CurrentRunner.UserId == Guid.Empty.ToString())
+    {
+        <div class="col-md-12 well">
+            <b class="center">לא הוקצאה עדיין שליח למשלוח הנוכחי </b>
+        </div>
+    }
+    else
+    {
+        @Html.Partial("UserDetail", Model.CurrentRunner)
+    }
+</div>
+
+@section Scripts {
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/rantoolbx.js"></script>
+    <script>
+        $('#btnYesChange').click(function () {
+            $.unblockUI();
+           
+            var olduser = $('#olduser').val();
+            var changeuser = $('#CurrentRunner_UserId').val();
+            var shipid = $('#Id').val();
+            if (olduser == changeuser) return false;
+            var url = "/f/ChangeUser?shipid=" + shipid + "&olduser=" + olduser + "&newuser=" + changeuser;
+            changeUrl(url);
+        });
+        $('#btnNoChange').click(function () {
+            $.unblockUI();
+
+            return false;
+        });
+        $('#btnChangeUser').click(function () {
+            var message_width = "270";
+            var message_height = "200";
+            $.blockUI({
+                message: $('#dlgChangeRunner'),
+                css: {
+                    width: message_width + "px",
+                    height: message_height + "px",
+                    top: '50%',
+                    left: '50%',
+                    margin: (-message_height / 2) + 'px 0 0 ' + (-message_width / 2) + 'px'
+                },
+            }
+            );
+        });
+    </script>
+}
+@Html.HiddenFor(model => Model.CurrentRunner.UserId, new { @id = "olduser" })
+@Html.HiddenFor(model => Model.Id)
+<div id="dlgChangeRunner" style="display: none; cursor: default;">
+    <h4><i class="fa fa-question-circle fa-2x"></i>העבר לשליח אחר  </h4>
+    שליח:    @Html.DropDownListFor(m => m.CurrentRunner.UserId, (SelectList)ViewBag.Runners)
+    <br />
+    <a id="btnYesChange" class="btn  btn-success" href="#"><i class="fa fa-check-square-o"></i>החלף </a>
+    <a id="btnNoChange" class="btn  btn-danger" href="#"><i class="fa fa-meh-o"></i>ביטול </a>
+</div>

@@ -1,0 +1,34 @@
+﻿@model Michal.Project.Models.OrderView
+<div class="  col-md-12 well well-lg ">
+    <!-- http://www.flaticon.com/free-icon/facebook-placeholder-for-locate-places-on-maps_34250-->
+    <div class="btn-group" style="margin-left: 4px">
+        <button type="button" data-toggle="tooltip" title="whatsapp!" data-placement="top"  id="whatsup" 
+            data-url="@HttpContext.Current.Server.UrlEncode(HttpContext.Current.Request.Url.AbsoluteUri)"
+             class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/whatsapp32x32.png" />
+        </button>
+    </div>
+    <div class="btn-group" style="margin-left: 4px">
+        <button type="button" id="print" data-toggle="tooltip"  title="הדפס משלוח" data-placement="top" 
+             data-url="@Url.Action("Print", "S", new { id = @Model.ShippingVm.Id })" class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/printer32x32.png" />
+        </button>
+    </div>
+    <div class="btn-group" style="margin-left: 4px">
+        <button type="button" id="waze" data-toggle="tooltip"  title="הצג מפה של כתובת המשלוח " data-placement="top"  data-url="@Url.Action("Show", "Map", new { id = @Model.ShippingVm.Id })"
+            class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/map32x32.png" />
+        </button>
+    </div>
+
+    <div class="btn-group" style="margin-left: 4px">
+        <button type="button" id="calc"  data-url="@Url.Action("OrderItem", "Offer", new { shipId = @Model.ShippingVm.Id })" data-toggle="tooltip" title="מחשבון מחיר" data-placement="top" data-url="#" class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/calc32x32.png" />
+        </button>
+    </div>
+    <div class="btn-group" style="margin-left: 4px">
+        <button type="button" id="end"  data-toggle="tooltip"  title="סיום המשלוח" data-placement="top"  data-url="@Url.Action("EndStatusDesc", "Status", new { id = @Model.ShippingVm.Id })"  class="btn btn-success btn-circle btn-xl">
+            <img src="~/Content/img/sign2_32x32.png" />
+        </button>
+    </div>
+</div>

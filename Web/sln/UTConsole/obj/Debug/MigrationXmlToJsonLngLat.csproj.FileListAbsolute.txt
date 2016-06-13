@@ -1,0 +1,21 @@
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\rechov.json
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\rechov_150630.xml
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\rechovArrange.json
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\UTConsole.exe.config
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\UTConsole.exe.manifest
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\UTConsole.application
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\UTConsole.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\UTConsole.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\EntityFramework.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\EntityFramework.xml
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\Newtonsoft.Json.xml
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\obj\Debug\UTConsole.exe.manifest
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\obj\Debug\UTConsole.application
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\obj\Debug\UTConsole.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\obj\Debug\UTConsole.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\rechovArrange2016-03-15 1134.json
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\rechovArrange2016-03-15 1158.json
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\obj\Debug\MigrationXmlToJsonLngLat.csprojResolveAssemblyReference.cache
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UTConsole\bin\Debug\EntityFramework.SqlServer.xml

@@ -1,0 +1,17 @@
+﻿@model UserDetail
+
+@{
+    ViewBag.Title = "פרטי משתמש";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+@Html.Partial("UserDetail",Model)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+ 
+}

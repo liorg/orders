@@ -1,0 +1,21 @@
+﻿
+@model Michal.Project.Contract.View.IView
+
+ <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-motorcycle "></i>@Model.Name  <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Details", "Company", new { companyid=@Model.Id})"><i class="fa fa-motorcycle"></i> פרטים </a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Sla", "Company", new { companyid=@Model.Id})"><i class="fa fa-rocket"></i> זמני תגובה  </a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("bussinessClosure", "Company", new { companyid=@Model.Id})"><i class="fa fa-clock-o"></i> מועדי פתיחת העסק </a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("DaysOff", "Company", new { companyid=@Model.Id})"><i class="fa fa-coffee"></i> לוח חופשות  </a></li>
+                                <li class="divider"></li>
+                                 @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
+                            {
+                                <li><a href="/Account/GetShippers"><i class="fa fa-user-plus"></i>משתמשי ספק </a></li>
+                              
+                            }
+                            </ul>
+</li>

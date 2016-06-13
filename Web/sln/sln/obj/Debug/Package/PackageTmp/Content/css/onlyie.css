@@ -1,0 +1,19 @@
+﻿html[data-useragent*='MSIE 10.0'] .label {
+   border-radius: 0 !important;
+    /*color: blue;*/
+
+}
+html[data-useragent*='MSIE 10.0']  .price, .lead p {
+        line-height: 0px!important;
+    }
+
+html[data-useragent*='rv:11.0'] .price, .lead p {
+        line-height: 0px!important;
+    }
+
+
+html[data-useragent*='rv:11.0'] .label {
+   border-radius: 0 !important;
+    /*color: red;*/
+
+}

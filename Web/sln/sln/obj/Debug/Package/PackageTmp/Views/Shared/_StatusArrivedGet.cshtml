@@ -1,0 +1,19 @@
+﻿@model StatusVm
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b><i class="fa fa-clock-o"></i> הגעה לקבלת משלוח </b></h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <div class="switch">
+                        <input id="chkCheckinGet" class="cmn-toggle cmn-toggle-yes-no" type="checkbox">
+                        <label for="chkCheckinGet" data-on="הגעתי" data-off="לא הגעתי"></label>
+                    </div>
+                </div>
+                @Html.Partial("_editOrder")
+            </div>
+        </div>
+    </div>
+</div>

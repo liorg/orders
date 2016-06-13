@@ -1,0 +1,79 @@
+﻿@model Michal.Project.Models.OrderView
+
+@*<div class="row">
+    <div class=" col-md-12 ">
+        <div class="row">
+            <div class=" col-md-9 col-sm-12  col-xs-12  ">
+                @Html.Partial("_rantoolbox")
+            </div>
+            <div class=" col-md-3  col-sm-12 col-xs-12">
+                @Html.Partial("_qrcode")
+            </div>
+        </div>
+    </div>
+</div>*@
+@Html.Partial("_StatusConfirm", Model.Status)
+<div class="row">
+    <div class="col-lg-9">
+        @Html.Partial("_orderDetail")
+    </div>
+    <div class="col-lg-3">
+        <div class="visible-lg">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">סטאטוס התקדמות </a>
+                    </h4>
+                </div>
+                <div id="collapseOrder" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_locations", Model.ShippingVm)
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_comments")
+    </div>
+</div>
+<div class="row visible-md visible-xs  visible-sm">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOrder">סטאטוס התקדמות </a>
+                </h4>
+            </div>
+            <div id="collapseOrder" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                            <div class=" pull-right">
+                                @Html.Cyrcle(@Model.ShippingVm.StatusPresent, "big")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("_TimeLinePartial", Model.TimeLineVms)
+    </div>
+</div>*@
+
+

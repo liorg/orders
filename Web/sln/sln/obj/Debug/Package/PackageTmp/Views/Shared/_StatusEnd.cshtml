@@ -1,0 +1,21 @@
+﻿@model StatusVm
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b>קו הסיום</b></h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <a class="btn btn-lg btn-primary" data-toggle="modal"  href="@Url.Action("EndStatusDesc", "Status", new { id = Model.ShipId })">
+                        <span class="visible-md visible-lg"><i class="fa fa-gift fa-fw fa-2x"></i>סיום</span><i class="visible-xs visible-sm fa fa-gift fa-fw fa-2x"></i> </a>
+                </div>
+               @* <div class="btn-group">
+                    <a class="btn btn-lg btn-danger" data-toggle="modal" data-target="#noOkModel" href="#">
+                        <span class="visible-md visible-lg">לא התקבל<i class="fa  fa-hand-rock-o  fa-2x pull-right"></i></span><i class="visible-xs visible-sm fa fa-hand-rock-o  fa-2x pull-right"></i></a>
+                </div>*@
+                @Html.Partial("_editOrder")
+            </div>
+        </div>
+    </div>
+</div>

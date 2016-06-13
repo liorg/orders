@@ -1,0 +1,9 @@
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\rechov.json
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\XmlToJsonF4.exe.config
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\XmlToJsonF4.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\XmlToJsonF4.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\bin\Debug\Newtonsoft.Json.xml
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\obj\Debug\XmlToJsonF4.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\obj\Debug\XmlToJsonF4.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\XmlToJsonF4\obj\Debug\MigrationXmlToJsonLngLatF4.csprojResolveAssemblyReference.cache

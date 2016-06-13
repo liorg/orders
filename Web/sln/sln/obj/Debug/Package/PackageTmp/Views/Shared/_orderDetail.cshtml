@@ -1,0 +1,53 @@
+﻿@model Michal.Project.Models.OrderView
+
+
+<h4>סטאטוס משלוח הזמנה @Model.ShippingVm.Name</h4>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.Name</span>
+        <span class="prefix  pull-right">מספר משלוח:</span>
+    </li>
+    <li class="list-group-item">
+
+        @if (@Model.ShippingVm.Direction == 0)
+        {
+            <span class="label label-success">מיוצר הזמנה אל היעד</span>
+            <span class="prefix  pull-right">כיוון:</span>
+        }
+        else
+        {
+            <span class="label label-danger">מהיעד אל יוצר ההזמנה</span>
+            <span class="prefix  pull-right">כיוון:</span>
+        }
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.Status</span>
+        <span class="prefix  pull-right">סטאטוס:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.DistanceName</span>
+        <span class="prefix  pull-right">מרחק:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.ShipTypeIdName</span>
+        <span class="prefix  pull-right">סוג משלוח:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.ActualStartDate</span>
+        <span class="prefix pull-right">תאריך התחלה:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.SlaDate</span>
+        <span class="prefix pull-right">תאריך סיום משוער:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.CreatedOn</span>
+        <span class="prefix pull-right">תאריך יצירה:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.ShippingVm.ModifiedOn</span>
+        <span class="prefix pull-right">תאריך אחרון שעודכן:</span>
+    </li>
+
+</ul>

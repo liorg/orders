@@ -1,0 +1,124 @@
+﻿<div class="price-box">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="price-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/additem32green.png" />
+                                מחיר לפני הנחה (₪):
+                            </label>
+                            <span class="help-text">המחיר לפני הנחה לא כולל זמני המתנה</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <!-- <p class="price lead" id="total"></p> -->
+                            <input class="price lead" name="totalprice" type="text" id="total" disabled="disabled" data-bind="value: TotalPrice" style="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/discount32green.png" />
+                                הנחה (₪):
+                            </label>
+                            <span class="help-text">הנחה כולל עבור הפריטים</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <!-- <p class="price lead" id="total12"></p> -->
+                            <input class="price lead" name="totalprice12" type="text" id="total12" data-bind="value: TotalDiscount" disabled="disabled" style="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="amount_amirol" class="control-label">
+                                <img src="~/Content/img/sum32green.png" />
+                                סה"כ (₪):
+                            </label>
+                            <span class="help-text">סה"כ המחיר</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="hidden" id="amount_amirol" class="form-control">
+                            <input class="price lead" name="totalprice52" type="text" id="total52" data-bind="value: Total" disabled="disabled" style="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-pricing">
+                <div class="panel panel-primary ">
+                    <div class="panel-heading">
+                        הצג פרטי ההזמנה 
+                                            <!-- ko if: AllowAddDiscount() == true ||  AllowAddItem() ==true -->
+                        <div class="pull-right action-buttons">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <!-- ko if: AllowAddItem() == true -->
+                                    <li><a href="#" data-bind="click: createNewItem"><span class="glyphicon glyphicon-plus"></span>הוסף פריט למשלוח</a></li>
+                                    <!-- /ko -->
+                                    <!-- ko if: AllowAddDiscount() == true && Discounts().length >0 -->
+                                    <li><a href="#" data-bind="click: createNewDiscount"><span class="glyphicon glyphicon-ok-sign"></span>הוסף הנחה</a></li>
+                                    <!-- /ko -->
+                                    <!-- ko if: AllowAddDiscount() == true  && !hasOneMorePriceException()-->
+                                    <li><a href="#" data-bind="click: createExceptionPriceItem"><span class="glyphicon glyphicon-flag"></span>הוסף תוספת מחיר </a></li>
+                                    <!-- /ko -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group" data-bind="foreach: Items">
+                            <li class="list-group-item">
+                                <!-- ko if: IsDiscount() ==true -->
+                                <img class="pull-right" src="~/Content/img/percent16.png" />
+                                <!-- /ko -->
+
+                                <a href="#" data-bind="click: $parent.viewModal"><i style="display: inline-block; max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" data-bind="    text: Name"></i></a>
+                                <!-- ko if: Amount()>1-->
+                                <i class="addplus pull-right badge" data-bind="text: Amount"></i>
+                                <!-- /ko -->
+                                <!-- ko if: ObjectIdType()==5-->
+                                <i class="fa fa-flag  pull-right"></i>
+                                <!-- /ko -->
+                                @*<span class="pull-right badge">5</span>*@
+                                <!-- ko if: HasPrice()==false -->
+                                <span style="color: white; font-size: 18px; font-weight: 600; background-color: red" class="badge pull-left">אן מחיר</span>
+                                <!-- /ko -->
+                                <!-- ko if: HasPrice()==true -->
+                                <span style="color: white; font-size: 18px; font-weight: 600; background-color: yellowgreen" class="badge pull-left addsimbol" data-bind="text: PriceValue, css: { 'addpresent': IsPresent() == true, 'addsimbol': IsPresent() == false }"></span>
+                                <!-- /ko -->
+                                <div class="pull-left action-buttons">
+                                    <!-- ko if: AllowEdit() ==true -->
+                                    <a href="#" data-bind="click: $parent.openModal"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <!-- /ko -->
+                                    <!-- ko if: AllowRemove() ==true -->
+                                    <a href="#" data-bind="click: $parent.cancelOffer" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <!-- /ko -->
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

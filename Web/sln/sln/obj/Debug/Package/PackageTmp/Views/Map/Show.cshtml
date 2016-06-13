@@ -1,0 +1,182 @@
+﻿@model OrderViewBase
+
+@{
+    ViewBag.Title = " מפה של משלוח מספר " + @Model.ShippingVm.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section ordernumber {
+ @Html.Partial("_orderToolbar", Model.ShippingVm)
+}
+<div class="row">
+    <div class="  col-md-12 well well-lg ">
+
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="wazetarget"  data-toggle="tooltip" title="כתובת ב WAZE ליעד המשלוח" data-placement="top"
+                class="btn btn-success btn-circle btn-xl">
+                <img src="~/Content/img/location32x32.png" />
+            </button>
+        </div>
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="wazesource"  data-toggle="tooltip" title="כתובת ב WAZE לשליחת המשלוח"  data-placement="top"
+                class="btn btn-danger btn-circle btn-xl">
+                <img src="~/Content/img/location32x32.png" />
+            </button>
+        </div>
+        <div class="btn-group" style="margin-left: 4px">
+            <button type="button" id="back"   data-toggle="tooltip" title="חזרה לדף המשלוח" data-placement="top"  data-url="@Url.Action("Show", "S", new { id = @Model.ShippingVm.Id })" 
+            class="btn btn-primary btn-circle btn-xl">
+                <img src="~/Content/img/back32x32.png" />
+            </button>
+        </div>
+    </div>
+</div>
+<h4>מפה של פרטי משלוח הזמנה @Model.ShippingVm.Name</h4>
+@Html.Partial("_locations", Model.ShippingVm)
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.HiddenFor(o => o.Location.TargetLat)
+        @Html.HiddenFor(o => o.Location.TargetLng)
+        @Html.HiddenFor(o => o.Location.TargetName)
+
+        @Html.HiddenFor(o => o.Location.SourceLng)
+        @Html.HiddenFor(o => o.Location.SourceLat)
+        @Html.HiddenFor(o => o.Location.SourceName)
+        <div id="map" style="height: 350px; margin: 10px"></div>
+    </div>
+</div>
+
+@section Scripts {
+
+     
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script>
+        $(document).ready(function () {
+            $('#wazetarget').click(function () {
+
+                var lng = $("#Location_TargetLng").val();
+                var lat = $("#Location_TargetLat").val();
+                var point = { lat: parseFloat(lat), lng: parseFloat(lng) };
+                //waze://?ll=<lat>,<lon>&navigate=yes
+                if (point.lat == 0) {
+                    alert("לא מצא מיקום");
+                }
+                window.location.href = "waze://?ll=" + point.lat + "," + point.lng + "navigate=yes";
+
+            });
+            $('#wazesource').click(function () {
+                var slng = $("#Location_SourceLng").val();
+                var slat = $("#Location_SourceLat").val();
+                var spoint = { lat: parseFloat(slat), lng: parseFloat(slng) };
+                if (spoint.lat == 0) {
+                    alert("לא מצא מיקום");
+                }
+                window.location.href = "waze://?ll=" + spoint.lat + "," + spoint.lng + "navigate=yes";
+
+            });
+            $('#back').click(function () {
+                var url = $(this).attr("data-url");
+                // alert(url);
+                changeUrl(url);
+            });
+
+        });
+        var map;
+        function initMap() {
+            var lng = $("#Location_TargetLng").val();
+            var lat = $("#Location_TargetLat").val();
+            var tname = $("#Location_TargetName").val();
+
+            var slng = $("#Location_SourceLng").val();
+            var slat = $("#Location_SourceLat").val();
+            var sname = $("#Location_SourceName").val();
+            // alert(slng + "," + slat);
+            var point = { lat: parseFloat(lat), lng: parseFloat(lng) };
+            var spoint = { lat: parseFloat(slat), lng: parseFloat(slng) };
+
+            var center = new google.maps.LatLng(0, 0);
+            var zoom = 0;
+            if (point.lat == 0 && spoint.lat == 0) {
+                alert("לא נמצא מיקומים");
+                return;
+            }
+            else if (point.lat == 0) {
+                alert("לא נמצא יעד");
+                zoom = 100;
+                center = new google.maps.LatLng(spoint.lat, spoint.lng);
+            }
+            else if (spoint.lat == 0) {
+                alert("לא נמצא כתובת שולח");
+                zoom = 100;
+                center = new google.maps.LatLng(point.lat, point.lng);
+            }
+            else {
+                zoom = 0;
+                center = new google.maps.LatLng(0, 0);
+
+            }
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: center,
+                zoom: zoom,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var infowindow = new google.maps.InfoWindow;
+            infowindow.setContent('<b>' + tname + '</b>');
+
+            var sinfowindow = new google.maps.InfoWindow;
+            sinfowindow.setContent('<b>' + sname + '</b>');
+            if (point.lat != 0) {
+                var marker = new google.maps.Marker({ map: map, position: point });
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            } if (spoint.lat != 0) {
+                var smarker = new google.maps.Marker({ map: map, position: spoint, icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' });
+                smarker.addListener('click', function () {
+                    sinfowindow.open(map, smarker);
+                });
+            }
+
+
+
+
+            //http://salman-w.blogspot.co.il/2011/03/zoom-to-fit-all-markers-on-google-map.html
+            var bounds = new google.maps.LatLngBounds();
+            if (lat != 0) {
+                bounds.extend(new google.maps.LatLng(parseFloat(lat), parseFloat(lng)));
+            }
+            if (slat != 0) {
+                bounds.extend(new google.maps.LatLng(parseFloat(slat), parseFloat(slng)));
+            }
+            map.fitBounds(bounds);
+
+            new google.maps.Rectangle({
+                bounds: bounds,
+                map: map,
+                fillColor: "#000000",
+                fillOpacity: 0.2,
+                strokeWeight: 0
+            });
+        }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=@System.Web.Configuration.WebConfigurationManager.AppSettings["googleapi"]&callback=initMap"
+    async defer></script>
+    <!-- 
+    prod
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDN5IIadRYEhkXYfL-velSE46dRHQ5wmI0&callback=initMap"
+    async defer></script>
+
+
+    dev
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
+    async defer></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js??v=3&amp;sensor=false&amp;key=AIzaSyBe9b-j46UufjGHjOYbc8051cR0fW5UZN8&callback=initMap"
+    async defer></script>
+    -->
+}

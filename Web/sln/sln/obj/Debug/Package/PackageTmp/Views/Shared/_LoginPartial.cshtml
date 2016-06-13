@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-user-secret "></i>שלום @User.Identity.GetUserName()<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">
+                <li class="page-scroll"><a href="@Url.Action("Index", "F")"><i class="fa fa-map"></i> כניסה ללקוחות </a></li>
+                <li class="page-scroll"><a href="@Url.Action("Manage", "Account")"><i class="fa fa-pencil-square-o"></i> שינוי סיסמא </a></li>
+                <li class="page-scroll"><a href="@Url.Action("Profile", "Account")"><i class="fa fa-user"></i>  פרטים </a></li>
+                 @if ((User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager) || User.IsInRole(HelperAutorize.RoleRunner)))
+            {
+                 <li class="page-scroll"><a href="@Url.Action("ShippingByRunnerId", "S")"><i class="fa fa-inbox"></i>  הצג משלוחים שלי </a></li>
+                 }
+                <li class="divider"></li>
+                <li class="page-scroll"><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> יציאה </a></li>
+
+            </ul>
+        </li>
+
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+       
+        <li class="page-scroll"><a href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i>כניסה</a></li>
+    </ul>
+}

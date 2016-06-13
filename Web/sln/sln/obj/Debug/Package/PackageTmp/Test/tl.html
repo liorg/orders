@@ -1,0 +1,419 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Header Curtain Effect - Bootsnipp.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../Content/css/bootstrap-rtl.css" rel="stylesheet" />
+    <style>
+        /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
+        body {
+            padding-top: 70px;
+        }
+    </style>
+    <style type="text/css">
+        @import url("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+        /* HERE STARTS THE MAGIC */
+        header {
+            text-align: center;
+            color: #fff;
+            background: #18bc9c;
+            position: fixed;
+            width: 100%;
+            z-index: 1;
+            height: 88%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+
+        .content-wrapper {
+            background-color: white;
+            top: 87%;
+            min-height: 12%;
+            position: absolute;
+            z-index: 2;
+            width: 100%;
+        }
+        /* HERE ENDS THE MAGIC */
+        header .container {
+            padding-top: 150px;
+            padding-bottom: 50px;
+        }
+
+        header img {
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        header .intro-text .name {
+            display: block;
+            text-transform: uppercase;
+            font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        header .intro-text .skills {
+            font-size: 1.25em;
+            font-weight: 300;
+        }
+
+        section {
+            padding: 100px 0;
+            width: 100%;
+        }
+
+            section h2 {
+                margin: 0;
+                font-size: 3em;
+            }
+
+        hr.star-light,
+        hr.star-primary {
+            margin: 25px auto 30px;
+            padding: 0;
+            max-width: 250px;
+            border: 0;
+            border-top: solid 5px;
+            text-align: center;
+        }
+
+            hr.star-light:after,
+            hr.star-primary:after {
+                content: "\f005";
+                display: inline-block;
+                position: relative;
+                top: -.8em;
+                padding: 0 .25em;
+                font-family: FontAwesome;
+                font-size: 2em;
+            }
+
+        hr.star-light {
+            border-color: #fff;
+        }
+
+            hr.star-light:after {
+                color: #fff;
+                background-color: #18bc9c;
+            }
+
+        hr.star-primary {
+            border-color: #2c3e50;
+        }
+
+            hr.star-primary:after {
+                color: #2c3e50;
+                background-color: #fff;
+            }
+
+        section.primary h2 {
+            color: #2c3e50;
+        }
+
+        section.success {
+            background-color: #18bc9c;
+            color: #fff;
+        }
+    </style>
+  
+    <style>
+        .timeline {
+            list-style: none;
+            padding: 20px 0 20px;
+            position: relative;
+        }
+
+            .timeline:before {
+                top: 0;
+                bottom: 0;
+                position: absolute;
+                content: " ";
+                width: 3px;
+                background-color: #eeeeee;
+                left: 25px;
+                margin-right: -1.5px;
+            }
+
+            .timeline > li {
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+                .timeline > li:before,
+                .timeline > li:after {
+                    content: " ";
+                    display: table;
+                }
+
+                .timeline > li:after {
+                    clear: both;
+                }
+
+                .timeline > li:before,
+                .timeline > li:after {
+                    content: " ";
+                    display: table;
+                }
+
+                .timeline > li:after {
+                    clear: both;
+                }
+
+                .timeline > li > .timeline-panel {
+                    width: calc( 100% - 75px );
+                    float: right;
+                    border: 1px solid #d4d4d4;
+                    border-radius: 2px;
+                    padding: 20px;
+                    position: relative;
+                    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+                    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+                }
+
+                    .timeline > li > .timeline-panel:before {
+                        position: absolute;
+                        top: 26px;
+                        left: -15px;
+                        display: inline-block;
+                        border-top: 15px solid transparent;
+                        border-right: 15px solid #ccc;
+                        border-left: 0 solid #ccc;
+                        border-bottom: 15px solid transparent;
+                        content: " ";
+                    }
+
+                    .timeline > li > .timeline-panel:after {
+                        position: absolute;
+                        top: 27px;
+                        left: -14px;
+                        display: inline-block;
+                        border-top: 14px solid transparent;
+                        border-right: 14px solid #fff;
+                        border-left: 0 solid #fff;
+                        border-bottom: 14px solid transparent;
+                        content: " ";
+                    }
+
+                .timeline > li > .timeline-badge {
+                    color: #fff;
+                    width: 50px;
+                    height: 50px;
+                    line-height: 50px;
+                    font-size: 1.4em;
+                    text-align: center;
+                    position: absolute;
+                    top: 16px;
+                    left: 0px;
+                    margin-right: -25px;
+                    background-color: #999999;
+                    z-index: 100;
+                    border-top-right-radius: 50%;
+                    border-top-left-radius: 50%;
+                    border-bottom-right-radius: 50%;
+                    border-bottom-left-radius: 50%;
+                }
+
+                .timeline > li.timeline-inverted > .timeline-panel {
+                    float: left;
+                }
+
+                    .timeline > li.timeline-inverted > .timeline-panel:before {
+                        border-right-width: 0;
+                        border-left-width: 15px;
+                        right: -15px;
+                        left: auto;
+                    }
+
+                    .timeline > li.timeline-inverted > .timeline-panel:after {
+                        border-right-width: 0;
+                        border-left-width: 14px;
+                        right: -14px;
+                        left: auto;
+                    }
+
+        .timeline-badge.primary {
+            background-color: #2e6da4 !important;
+        }
+
+        .timeline-badge.success {
+            background-color: #3f903f !important;
+        }
+
+        .timeline-badge.warning {
+            background-color: #f0ad4e !important;
+        }
+
+        .timeline-badge.danger {
+            background-color: #d9534f !important;
+        }
+
+        .timeline-badge.info {
+            background-color: #5bc0de !important;
+        }
+
+        .timeline-title {
+            margin-top: 0;
+            color: inherit;
+        }
+
+        .timeline-body > p,
+        .timeline-body > ul {
+            margin-bottom: 0;
+        }
+
+            .timeline-body > p + p {
+                margin-top: 5px;
+            }
+
+        .timeline-body {
+            display: none;
+        }
+    </style>
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+
+    <script src="../Scripts/bootstrap-rtl.js"></script>
+    <script type="text/javascript">
+        window.alert = function () { };
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css) {
+            if (css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+            else $('head > link').filter(':first').replaceWith(defaultCSS);
+        }
+        $(document).ready(function () {
+            var iframe_height = parseInt($('html').height());
+            window.parent.postMessage(iframe_height, 'http://bootsnipp.com');
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top"><img src="../Content/img/c32.png" /> <span>רן שליחויות</span></a>
+
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio"><span class="glyphicon glyphicon-plus"> </span> צור משלוח חדש </a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about"><span class="glyphicon glyphicon-info-sign"> </span> אודותינו </a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact"><span class="glyphicon glyphicon-pencil"> </span> צור קשר</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact"><span class="fa fa-ban fa-fw"> </span> כניסה </a>
+
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact"><span class="fa fa-user fa-fw"> </span> רישום </a>
+
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <ul class="timeline">
+            <li>
+                <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small></p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-badge info"><i class="glyphicon glyphicon-floppy-disk"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                        <hr>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

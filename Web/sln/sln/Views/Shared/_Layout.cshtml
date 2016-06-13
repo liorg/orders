@@ -26,7 +26,7 @@
         body {
             padding-top: 70px;
         }
-        
+
         #top-link-block.affix-top {
             position: absolute; /* allows it to "slide" up into view */
             bottom: -82px; /* negative of the offset - height of link element */
@@ -38,9 +38,52 @@
             bottom: 18px; /* height of link element */
             right: 10px; /* padding from the left side of the window */
         }
-        a.ranlink:link {color:white;}
-        a.ranlink:visited {color:white;}
-        a.ranlink:hover {color:white;}
+
+        a.ranlink:link {
+            color: white;
+        }
+
+        a.ranlink:visited {
+            color: white;
+        }
+
+        a.ranlink:hover {
+            color: white;
+        }
+
+
+       
+        .flexcroll {
+            scrollbar-face-color:  #18bc9c;
+            scrollbar-shadow-color: #FFFFFF;
+            scrollbar-highlight-color: #FFFFFF;
+            scrollbar-3dlight-color: #FFFFFF;
+            scrollbar-darkshadow-color: #FFFFFF;
+            scrollbar-track-color: #FFFFFF;
+            scrollbar-arrow-color: #FFFFFF;
+            overflow-y:scroll;
+            overflow-x:hidden;
+        }
+
+            /* Let's get this party started */
+            .flexcroll::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            /* Track */
+            .flexcroll::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px #18bc9c;
+                -webkit-border-radius: 1px;
+                border-radius: 1px;
+            }
+
+            /* Handle */
+            .flexcroll::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 1px;
+                border-radius: 1px;
+                background:  #18bc9c;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+            }
     </style>
 
     <script>
@@ -54,7 +97,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
+            <div class="navbar-header page-scroll ">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -63,11 +106,12 @@
                 </button>
                 <a class="navbar-brand" href="/">
                     <img src="/Content/img/c32.png" />
-                    <span>משלוחים</span></a>
+                    <span>משלוחים</span>
+                </a>
 
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse flexcroll" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
                     <li class="hidden">
                         <a href="#page-top"></a>
@@ -81,7 +125,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ראשי  <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                           
+
                             @if (Request.IsAuthenticated && User.IsInRole(HelperAutorize.RoleAdmin))
                             {
                                 <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache </a></li>
@@ -91,9 +135,9 @@
                             <li class="divider"></li>
                             <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i>מחשבון מחיר </a></li>
                             <li class="divider"></li>
-                             <li><a href="@Url.Action("TimeLines", "F")"><i class="fa fa-sort-amount-asc"></i>ציר הזמן </a></li>
+                            <li><a href="@Url.Action("TimeLines", "F")"><i class="fa fa-sort-amount-asc"></i>ציר הזמן </a></li>
                             <li class="divider"></li>
-                             <li><a href="@Url.Action("Details", "Org")"><i class="fa fa-university"></i>פרטי ארגון </a></li>
+                            <li><a href="@Url.Action("Details", "Org")"><i class="fa fa-university"></i>פרטי ארגון </a></li>
                             <li class="divider"></li>
                             <li><a href="@Url.Action("Details", "Company")"><i class="fa fa-motorcycle"></i>פרטי הספק </a></li>
                             <li class="divider"></li>
@@ -131,10 +175,10 @@
     <div class="container">
         @RenderBody()
         <hr />
-        @*  
-        <footer>
-            <p>&copy; @DateTime.Now.Year רן שליחויות</p>
-        </footer>
+        @*
+            <footer>
+                <p>&copy; @DateTime.Now.Year רן שליחויות</p>
+            </footer>
         *@
         <span id="top-link-block" class="hidden">
             <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
@@ -393,7 +437,7 @@
             var url = $(this).attr("data-url");
             changeUrl(url);
         });
-     
+
         function submitComment() {
             $.blockUI({
                 message: "נא המתן שולח את הערה...",

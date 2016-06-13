@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <input id="url_field" type="url" value="http://google.com">
+    <input id="copy_btn" type="button" value="copy">
+    <script>
+        var copyBtn = document.querySelector('#copy_btn');
+        copyBtn.addEventListener('click', function () {
+            var urlField = document.querySelector('#url_field');
+            // select the contents
+            urlField.select();
+
+            document.execCommand('copy'); // or 'cut'
+        }, false);
+    </script>
+</body>
+</html>

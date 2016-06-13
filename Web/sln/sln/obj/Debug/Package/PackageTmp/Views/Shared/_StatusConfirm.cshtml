@@ -1,0 +1,137 @@
+﻿@model StatusVm
+@*@if (Model.Message != "")
+{
+
+    <div class="row">
+
+        <div class="alert @(Model.MessageType == 2 ? "alert-danger" : "alert-warning") ">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @Model.Message
+        </div>
+    </div>
+}*@
+@if (Model.Message != "")
+{    
+    @Html.Alert(Model.Message, Model.MessageType)
+}
+<input type="hidden" value="@Model.ShipId" id="hdShipId" name="hdShipId" />
+@switch (Model.StatusId.ToString())
+{
+    case Michal.Project.Helper.Status.Draft:
+        if (ViewBag.userProfiler.AllowConfirm)
+        { 
+    @Html.Partial("_StatusAllowConfirm")
+        }
+        break;
+    case Michal.Project.Helper.Status.ApporvallRequest:
+        if (ViewBag.userProfiler.AllowAccept)
+        {
+    @Html.Partial("_StatusApporvallRequest")
+        }
+        break;
+    case Michal.Project.Helper.Status.Confirm:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
+    @Html.Partial("_StatusArrivedGet")
+        }
+        break;
+    case Michal.Project.Helper.Status.ArrivedSender:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
+    @Html.Partial("_StatusConfirmShip")
+        }
+        break;
+    case Michal.Project.Helper.Status.AcceptByRunner:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
+   
+    @Html.Partial("_StatusAcceptByRunner")
+        }
+        break;
+    case Michal.Project.Helper.Status.Arrived:
+        if (ViewBag.userProfiler.AllowRunner)
+        {
+    @Html.Partial("_StatusEnd")
+        
+        }
+        break;
+    case Michal.Project.Helper.Status.AcceptByClient:
+    case Michal.Project.Helper.Status.NoAcceptByClient:
+        if (ViewBag.userProfiler.AllowAccept)
+        {
+    @Html.Partial("_StatusClose")
+        
+        }
+        break;
+    default:
+    <div></div>
+        break;
+
+}
+
+@if (Model.StatusId.ToString() == Michal.Project.Helper.Status.Arrived)
+{
+    
+    <div class="modal fade" id="okModel" tabindex="-1" role="dialog" aria-labelledby="okModelLabel">
+        <div class="modal-dialog" role="document">
+            @using (Html.BeginForm("TakeOk", "Status", FormMethod.Post, new { @id = "frmTake", @name = "frmTake" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="okModelLabel">המשלוח התקבל אצל הלקוח</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" value="@Model.ShipId" id="takeOkId" name="takeOkId" />
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">שם המקבל:</label>
+                            <input type="text" value="@Model.Recipient" class="form-control" id="recipient" name="recipient" />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">טקסט חופשי:</label>
+                            <textarea class="form-control" id="freeText" name="freeText"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-primary">שלח</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="noOkModel" tabindex="-1" role="dialog" aria-labelledby="noOkModelLabel">
+        <div class="modal-dialog" role="document">
+            @using (Html.BeginForm("NoTake", "Status", FormMethod.Post, new { @id = "frmNoTake", @name = "frmNoTake" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="noOkModelLabel">המשלוח לא התקבל</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="@Model.ShipId" id="noTakeOkId" name="noTakeOkId" />
+
+
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">סיבה :</label>
+                            <textarea class="form-control" name="desc"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                        <button type="submit" class="btn btn-danger">שלח</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+}

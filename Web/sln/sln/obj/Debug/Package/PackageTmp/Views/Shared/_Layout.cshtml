@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/admin")
+    @Styles.Render("~/Content/admin")
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.66.0-2013.10.09/jquery.blockUI.min.js"></script>
+    <link href="~/Content/css/circle.css" rel="stylesheet" />
+    <style>
+        /*http://stackoverflow.com/questions/14735274/bootstrap-css-hides-portion-of-container-below-navbar-navbar-fixed-top*/
+        body {
+            padding-top: 70px;
+        }
+        
+        #top-link-block.affix-top {
+            position: absolute; /* allows it to "slide" up into view */
+            bottom: -82px; /* negative of the offset - height of link element */
+            right: 10px; /* padding from the left side of the window */
+        }
+
+        #top-link-block.affix {
+            position: fixed; /* keeps it on the bottom once in view */
+            bottom: 18px; /* height of link element */
+            right: 10px; /* padding from the left side of the window */
+        }
+        a.ranlink:link {color:white;}
+        a.ranlink:visited {color:white;}
+        a.ranlink:hover {color:white;}
+    </style>
+
+    <script>
+        var doc = document.documentElement;
+        doc.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+    <link href="/Content/css/onlyie.css" rel="stylesheet" />
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/Content/img/c32.png" />
+                    <span>משלוחים</span></a>
+
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    @if (Request.IsAuthenticated && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleUser) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.RoleAccept)))
+                    {
+                        <li class="page-scroll">
+                            <a href="@Url.Action("Create", "S")"><i class="fa fa-cart-plus"></i>צור משלוח חדש</a>
+                        </li>
+                    }
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars "></i>ראשי  <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                           
+                            @if (Request.IsAuthenticated && User.IsInRole(HelperAutorize.RoleAdmin))
+                            {
+                                <li><a href="@Url.Action("Index", "Cache")"><i class="fa fa-refresh"></i>רענון Cache </a></li>
+                                <li class="divider"></li>
+                            }
+                            <li><a href="@Url.Action("Index", "Notification")"><i class="fa fa-bell-o"></i>הודעות </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Calc", "Offer")"><i class="fa fa-calculator"></i>מחשבון מחיר </a></li>
+                            <li class="divider"></li>
+                             <li><a href="@Url.Action("TimeLines", "F")"><i class="fa fa-sort-amount-asc"></i>ציר הזמן </a></li>
+                            <li class="divider"></li>
+                             <li><a href="@Url.Action("Details", "Org")"><i class="fa fa-university"></i>פרטי ארגון </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Details", "Company")"><i class="fa fa-motorcycle"></i>פרטי הספק </a></li>
+                            <li class="divider"></li>
+                            <li><a href="@Url.Action("Version", "Home")"><i class="fa fa-key"></i>פרטי מוצר </a></li>
+
+                        </ul>
+                    </li>
+                    @RenderSection("ordernumber", required: false)
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bar-chart"></i>תצוגות <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @Html.Partial("_viewListsHeader")
+                        </ul>
+                    </li>
+                    @Html.Partial("_LoginPartial")
+                </ul>
+                <div class="col-sm-3 col-md-3">
+                    @using (Html.BeginForm("Search", "S", FormMethod.Post, new { @class = "navbar-form", @role = "search" }))
+                    {
+                        <div class="input-group">
+                            <input type="text" autocomplete="off" class="form-control" placeholder="חיפוש הזמנה" name="term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        @RenderBody()
+        <hr />
+        @*  
+        <footer>
+            <p>&copy; @DateTime.Now.Year רן שליחויות</p>
+        </footer>
+        *@
+        <span id="top-link-block" class="hidden">
+            <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                <i class="glyphicon glyphicon-chevron-up"></i>חזרה למעלה
+            </a>
+        </span>
+        <!-- /top-link-block -->
+    </div>
+
+    @RenderSection("scripts", required: false)
+    <script>
+
+        $(document).ready(function () {
+            $('.switchboot').bootstrapSwitch();
+            //http://jsfiddle.net/panman8201/mkzrm/10/
+            //if ($('#viewAll') != null && $('#viewAll').val() != null && $('#viewAll').val() != "") {
+            //    alert($('#viewAll').val());
+            //}
+            // Only enable if the document has a long scroll bar
+            // Note the window height + offset
+            if (($(window).height() + 100) < $(document).height()) {
+                $('#top-link-block').removeClass('hidden').affix({
+                    // how far to scroll down before link "slides" into view
+                    offset: { top: 100 }
+                });
+            }
+
+            //   $(document).tooltip();
+            $('#chkAll').click(function () {
+                var viewAll = $("#chkAll").prop('checked');
+                var viewType = $('#viewType').val();
+                var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+                $('#viewAll').val(viewAll);
+                changeView(viewType, viewAll, currentPage);
+            });
+
+            $('#chkCheckin').click(function () {
+                // alert(4);
+                $.blockUI({
+                    centerX: false,
+                    centerY: false, message: $('#questionIsArrived'), css: { width: '200px' }
+                });
+            });
+
+            $('#btnCheckin').click(function () {
+                var shipId = $('#hdShipId').val();
+                var changeStatus = "/status/Arrived?id=" + shipId;
+                window.location.href = changeStatus;
+
+            });
+            $('#btnCheckout').click(function () {
+                $.unblockUI();
+                $("#chkCheckin").prop("checked", false);
+                return false;
+            });
+
+            $('#chkCheckinGet').click(function () {
+                $.blockUI({
+                    centerX: false,
+                    centerY: false, message: $('#questionIsArrivedGet'), css: { width: '200px' }
+                });
+            });
+
+            $('#btnCheckinGet').click(function () {
+                debugger;
+                var shipId = $('#hdShipId').val();
+                var changeStatus = "/status/ArrivedGet?id=" + shipId;
+                window.location.href = changeStatus;
+
+            });
+            $('#btnCheckoutGet').click(function () {
+                $.unblockUI();
+                $("#chkCheckinGet").prop("checked", false);
+                return false;
+            });
+        });
+
+        function changeDay(isNext, t) {
+
+            var currentPage = 1;
+            var toMinus = isNext == true ? 1 : -1;
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            var nextDayDate = new Date(nextDay);
+            var prevDayDate = new Date(prevDay);
+
+            nextDayDate.setDate(nextDayDate.getDate() + (1 * toMinus));
+            prevDayDate.setDate(prevDayDate.getDate() + (1 * toMinus));
+
+            var nextToStr = nextDayDate.toISOString().split('T')[0];
+            var prevToStr = prevDayDate.toISOString().split('T')[0];
+
+            switch (t) {
+                case "Follows":
+                    followView(currentPage, prevToStr, nextToStr);
+                    break;
+                case "Views":
+                    viewer(null, null, currentPage, prevToStr, nextToStr);
+                    break;
+                default:
+                    changeView(page);
+            }
+            // changeView(viewType, viewAll, currentPage, prevToStr, nextToStr);
+
+        }
+
+        function changeViewType(viewType) {
+            $('#viewType').val(viewType);
+            var viewAll = $('#viewAll').val();
+            var currentPage = 1;// $('#currentPage').val() == null ? 1 : $('#currentPage').val();
+            changeView(viewType, viewAll, currentPage);
+            // window.location.replace=
+        }
+
+        function nextPage(t) {
+            if ($('#currentPage').val() == null)
+                return;
+
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) + 1;
+            switch (t) {
+                case "Users":
+                    usersView(page);
+                    break;
+                case "Follows":
+                    followView(page);
+                    break;
+                case "Views":
+                    viewer(null, null, page, null, null);
+                    break;
+                case "General":
+                    baseView(page);
+                    break;
+
+                default:
+                    changePage(page);
+            }
+
+        }
+
+        function prevPage(t) {
+            if ($('#currentPage').val() == null)
+                return;
+
+            var currentPage = $('#currentPage').val();
+            page = parseInt(currentPage) - 1;
+            switch (t) {
+                case "Users":
+                    usersView(page);
+                    break;
+                case "Follows":
+                    followView(page);
+                    break;
+                case "Views":
+                    viewer(null, null, page, null, null);
+                    break;
+                case "General":
+                    baseView(page);
+                    break;
+                default:
+                    changePage(page);
+            }
+        }
+
+        function changePage(page) {
+            var viewAll = $('#viewAll').val();
+            var viewType = $('#viewType').val();
+
+            var nextDay = $('#nextDay').val();
+            var prevDay = $('#prevDay').val();
+
+            changeView(viewType, viewAll, page, prevDay, nextDay);
+
+        }
+        function usersView(page, prevDay, nextDay) {
+            if (page == null)
+                page = $('#currentPage').val();
+
+
+            var viewUrl = "/Account?&currentPage=" + page;
+            changeUrl(viewUrl);
+        }
+        function baseView(page, prevDay, nextDay) {
+            if (page == null)
+                page = $('#currentPage').val();
+
+            // var viewUrl = "/Notification?&currentPage=" + page;
+            var url = window.location.href.match(/^[^\#\?]+/)[0];
+            var viewUrl = url + "?currentPage=" + page;
+            //   alert(url);
+            changeUrl(viewUrl);
+        }
+        function clickToOrder(url) {
+            changeUrl(url);
+        }
+
+        function followView(page, prevDay, nextDay) {
+            if (page == null)
+                page = $('#currentPage').val();
+
+            if (prevDay == null)
+                prevDay = $('#prevDay').val();
+
+            if (nextDay == null)
+                nextDay = $('#nextDay').val();
+
+            var viewUrl = "/f?&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            changeUrl(viewUrl);
+        }
+
+        function viewer(viewType, viewAll, page, prevDay, nextDay) {
+
+            if (viewAll == null)
+                viewAll = $('#viewAll').val();
+
+            if (viewType == null)
+                viewType = $('#viewType').val();
+
+            if (page == null)
+                page = $('#currentPage').val();
+
+            if (prevDay == null)
+                prevDay = $('#prevDay').val();
+
+            if (nextDay == null)
+                nextDay = $('#nextDay').val();
+
+
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            changeUrl(viewUrl);
+        }
+
+        function changeView(viewType, viewAll, page, prevDay, nextDay) {
+            var viewUrl = "/s?viewType=" + viewType + "&viewAll=" + viewAll + "&currentPage=" + page;
+            if (prevDay != null)
+                viewUrl = viewUrl + "&prevDay=" + prevDay;
+            if (nextDay != null)
+                viewUrl = viewUrl + "&nextDay=" + nextDay;
+
+            changeUrl(viewUrl);
+        }
+
+        $('.deliv').click(function () {
+            var url = $(this).attr("data-url");
+            changeUrl(url);
+        });
+     
+        function submitComment() {
+            $.blockUI({
+                message: "נא המתן שולח את הערה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                document.getElementById('frmComment').submit();
+                //window.location.href = changeUrl;
+            }
+            , 600);
+        }
+        function changeUrl(changeUrl) {
+            $.blockUI({
+                message: "נא המתן מעבד את הבקשה...",
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+            setTimeout(function () {
+                window.location.href = changeUrl;
+            }
+            , 600);
+        }
+
+    </script>
+    @Html.Partial("_questionIsArrived")
+    @Html.Partial("_questionIsArrivedGet")
+</body>
+
+
+</html>

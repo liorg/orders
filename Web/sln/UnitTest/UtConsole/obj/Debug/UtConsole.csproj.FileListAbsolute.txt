@@ -1,0 +1,6 @@
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\obj\Debug\UtConsole.csprojResolveAssemblyReference.cache
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\bin\Debug\UtConsole.exe.config
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\bin\Debug\UtConsole.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\bin\Debug\UtConsole.pdb
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\obj\Debug\UtConsole.exe
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\UnitTest\UtConsole\obj\Debug\UtConsole.pdb

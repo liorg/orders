@@ -1,0 +1,12 @@
+﻿@model  IEnumerable<Michal.Project.Models.TimeLineVm>
+<ul class="timeline">
+    @foreach (var timeline in Model)
+    {
+        <li>
+            @Html.TimeLineIcon(timeline.Status)
+            <div class="timeline-panel">
+                <div class="timeline-body">@timeline.Desc</div>
+            </div>
+        </li>
+    }
+</ul>

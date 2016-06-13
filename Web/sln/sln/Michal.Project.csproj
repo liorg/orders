@@ -23,6 +23,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -260,6 +261,7 @@
     <Compile Include="Contract\View\IViewType.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -268,6 +270,7 @@
     <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\OfferController.cs" />
+    <Compile Include="Controllers\OrderShipController.cs" />
     <Compile Include="Controllers\OrgController.cs" />
     <Compile Include="Controllers\FController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
@@ -901,6 +904,9 @@
     <Folder Include="Helper\Convert\" />
     <Folder Include="Helper\HttpModule\" />
     <Folder Include="Temp\" />
+    <Folder Include="Views\Contact\" />
+    <Folder Include="Views\OrderShip\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

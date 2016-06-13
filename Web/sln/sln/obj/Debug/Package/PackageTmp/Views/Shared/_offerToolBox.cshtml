@@ -1,0 +1,93 @@
+﻿@model OrderDetail
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="  col-md-12 well well-lg ">
+            @if (Model.StateCode == 1)
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnCreate" data-toggle="tooltip" title="בקשה לאישור" data-placement="top"
+                        data-url=""
+                        class="btn btn-success btn-circle btn-xl">
+                        <img src="~/Content/img/send32x32.png" />
+                    </button>
+                </div>
+            }
+            else if (Model.StateCode == 2 && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnConfirm" data-toggle="tooltip" 
+                         data-url="@Url.Action("ShipView", "S", new { @id = @Model.Id })" 
+                        title="אישור סופי" data-placement="top" class="btn btn-success btn-circle btn-xl">
+                        <img src="~/Content/img/thumbs32x32.png" />
+                    </button>
+                </div>
+            }
+            else if (Model.StateCode == 7 && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.ApprovalExceptionalBudget)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnGrant" data-toggle="tooltip" 
+                          data-url="@Url.Action("ShipView", "S", new { @id = @Model.Id })" 
+                        title="אישור חריגה" data-placement="top" class="btn btn-success btn-circle btn-xl">
+                        <img src="~/Content/img/flag32x32.png" />
+                    </button>
+                </div>
+            }
+            else if (Model.StateCode == 3 && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnClose" data-toggle="tooltip" title="סגור הזמנה" 
+                           data-url="@Url.Action("ShipView", "S", new { @id = @Model.Id })" 
+                        data-placement="top" class="btn btn-success btn-circle btn-xl">
+
+                        <img src="~/Content/img/finish32x32.png" />
+                    </button>
+                </div>
+            }
+
+
+@*<div class="btn-group" style="margin-left: 4px">
+                <button type="button" id="btnRefresh" data-bind="click: refreshWatch" data-toggle="tooltip" title="רענון זמן המתנה" data-placement="top" class="btn btn-primary btn-circle btn-xl">
+                    <img src="~/Content/img/refresh32x32tw.png" />
+                </button>
+            </div>*@
+            @if (Model.StateCode == 1)
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnCancel" data-toggle="tooltip" title="ביטול" data-placement="top" class="btn btn-danger btn-circle btn-xl">
+                        <img src="~/Content/img/delete32x32.png" />
+                    </button>
+                </div>
+            }
+            else if (Model.StateCode == 7 && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RoleOrgManager) || User.IsInRole(HelperAutorize.ApprovalExceptionalBudget)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnCancelByAdmin" data-toggle="tooltip" title="ביטול" data-placement="top" class="btn btn-danger btn-circle btn-xl">
+                        <img src="~/Content/img/delete32x32.png" />
+                    </button>
+                </div>
+            }
+           else if (Model.StateCode == 2 && (User.IsInRole(HelperAutorize.RoleAdmin) || User.IsInRole(HelperAutorize.RunnerManager)))
+            {
+                <div class="btn-group" style="margin-left: 4px">
+                    <button type="button" id="btnNoCommit" data-toggle="tooltip" title="ביטול" data-placement="top" class="btn btn-danger btn-circle btn-xl">
+                        <img src="~/Content/img/thumbsdown32x32.png" />
+                    </button>
+                </div>
+            }
+            <div class="btn-group" style="margin-left: 4px">
+                <button type="button" id="btnBack"   data-toggle="tooltip"  title="חזרה" data-placement="top" 
+                     data-url="@Url.Action("ShipView", "S", new { @id = @Model.Id })" 
+            class="btn btn-primary btn-circle btn-xl">
+                    <img src="~/Content/img/back32x32.png" />
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="clientMessage" style="display: none; cursor: default">
+    <h1 id="vmclientMessage"></h1>
+    <input type="button" id="btnOk" value="Ok" />
+
+</div>

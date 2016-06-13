@@ -1,0 +1,30 @@
+﻿@model UserDetail
+
+<h4>פרטי משתמש של @Model.FullName</h4>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.FirstName</span>
+        <span class="prefix  pull-right">שם פרטי:</span>
+    </li>
+
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.LastName</span>
+        <span class="prefix  pull-right">שם משפחה:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.EmpId</span>
+        <span class="prefix pull-right">מספר עובד:</span>
+    </li>
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.Tel</span>
+        <span class="prefix pull-right">טלפון:</span>
+    </li>
+    @if (@Model.IsClientUser)
+        {
+    <li class="list-group-item">
+        <span class="label label-primary">@Model.Department</span>
+        <span class="prefix  pull-right">יחידה ארגונית:</span>
+    </li>
+    }
+</ul>

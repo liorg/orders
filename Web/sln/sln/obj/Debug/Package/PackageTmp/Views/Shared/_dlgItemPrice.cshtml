@@ -1,0 +1,97 @@
+﻿<!--http://jsfiddle.net/YmQTW/1/ -->
+<div class="modal fade" data-bind="modal: !!currentModalItem(), with: currentModalItem, dialogVisible: isOpen">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" data-bind="text: Name"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">שם:</label>
+                        <div class="col-md-6">
+
+                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() ==3 -->
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Discounts,
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר הנחה...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==1 -->
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Products,
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר פריט...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==4 -->
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.ShipTypes,
+    optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+    optionsCaption: 'בחר סוג משלוח...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==3 -->
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.Distances,
+                            optionsText: 'Name', optionsValue: 'Id', value: ObjectId,
+                            optionsCaption: 'בחר מרחק...'">
+                            </select>
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==99 && StatusRecord() !=3-->
+                            <input class="form-control" type="text" data-bind="disable: !AllowEdit(), textInput: Name" />
+
+                            <!-- /ko -->
+                            <!-- ko if: ObjectIdType() ==5 -->
+                                <input class="form-control" type="text" data-bind="disable: StatusRecord() != 3, textInput: Name" />
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" data-bind="css: { 'addpresent2': IsPresent() == true, 'addsimbol2': IsPresent() == false }" for="DistanceId">מחיר ליחידה:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" data-bind="disable: !AllowEdit(), textInput: ProductPrice" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">סוג המחיר:</label>
+                        <div class="col-md-6">
+                            <select class="form-control" data-bind="disable: !AllowEdit(), options: $parent.priceTypeList,
+    optionsText: 'value', optionsValue: 'key', value: IsPresent,
+    optionsCaption: 'סוג מחיר...'">
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">כמות ב<i data-bind="text: QuntityType"></i>:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" data-bind="disable: !AllowEdit(), textInput: Amount" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">סה"כ:</label>
+                        <div class="col-md-6">
+                            <input class="form-control" readonly data-bind="disable: !AllowEdit(), textInput: Total" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="DistanceId">תיאור:</label>
+                        <div class="col-md-6">
+                         <!-- ko if: ObjectIdType() ==5 -->
+                                <input class="form-control" type="text" data-bind="textInput: Desc" />
+                            <!-- /ko -->
+                         <!-- ko if: ObjectIdType()!=5 -->
+                            <div style="overflow-y: scroll; height: 70px; width: 100%; border-width: thin; border-bottom-style: solid"><span data-bind="text: Desc"></span></div>
+                          <!-- /ko -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- ko if: AllowEdit() ==true -->
+                <button type="button" class="btn btn-primary btn-xs" data-bind="click: $parent.save">שמור</button>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

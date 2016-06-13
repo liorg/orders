@@ -1,0 +1,11 @@
+﻿@model UserLink
+
+@if (Model.UserId == Guid.Empty)
+{
+    <span>@General.Empty</span>
+}
+else
+{
+    <i class="fa fa-user"></i><a class="ranlink" href="@Url.Action("Profile", "Account", new { id = Model.UserId } )"> @Model.FullName </a>
+}
+

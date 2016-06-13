@@ -80,8 +80,8 @@ namespace Michal.Project.Dal
                     if (_getDirection == null)
                     {
                         _getDirection = new List<KeyValuePair<int, string>>();
-                        _getDirection.Add(new KeyValuePair<int, string>(0, "משולח ההזמנה אל היעד"));
-                        _getDirection.Add(new KeyValuePair<int, string>(1, "מהיעד לשולח הזמנה"));
+                        _getDirection.Add(new KeyValuePair<int, string>(0, "המזמין הוא השולח"));
+                        _getDirection.Add(new KeyValuePair<int, string>(1, "המזמין הוא המקבל"));
 
                     }
                 }

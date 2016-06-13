@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Styling Radio Buttons in pure CSS</title>
+<meta name="description" content="A simple CSS trick to style radio buttons" />
+<style>
+
+
+/*form*/
+
+/*form{
+	padding: 0 30px;
+	font-size: 16px;
+	background: transparent url(img/form.png) no-repeat 30px top;
+	margin-bottom: 30px;
+	width: 630px;
+}*/
+
+.myradio fieldset{
+	position: relative;
+	margin: 0;
+	border: 0;
+	background: url(img/form-footer.png) no-repeat left bottom;
+}
+
+.myradio label{
+	margin-right: 10px;
+	line-height: 35px; /*center the label vertically*/
+}
+
+/*the trick*/
+
+.myradio span{
+	font-size: 14px;
+	position: absolute;
+	right: 0;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	padding: 3px;
+	color: #FFF;
+	text-align: center;
+	font-weight: bold;
+	background: #c06f59;
+	/*adding some CSS3 eye-candy - optional*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c06f59), to(#9e5844));
+	border: 1px solid #c06f59;
+	border-top-color: #ccc;
+	border-bottom-color: #000;
+	text-shadow: 0px 1px 1px #616262;
+}
+
+.myradio span:after{
+	content: "לא"; /*if CSS are disbled span elements are not displayed*/
+}
+
+.myradio input{
+	position: absolute;
+	right: 0;
+	margin: 0;
+	width: 31px;
+	height: 31px;
+	/*hide the radio button*/
+	filter:alpha(opacity=0);
+	-moz-opacity:0;
+	-khtml-opacity: 0;
+	opacity: 0;
+    cursor: pointer;
+}
+
+.myradio input + span{
+	visibility: hidden; /*temporarily hide the "YES" label*/
+	background: #6EB558;
+	/*adding some CSS3 eye-candy - optional*/
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4e813f), to(#6EB558));
+	border: 1px solid #4e813f;
+	border-bottom-color: #ccc;
+	border-top-color: #000;
+	text-shadow: 0px 1px 1px #4e813f;
+}
+
+.myradio input[type="radio"] + span:after{
+	content: "כן"; /*if CSS are disbled span elements are not displayed*/
+}
+
+
+.myradio input[type="radio"]:checked + span{
+	visibility: visible; /*show the "YES" label only if the radio is checked*/
+}
+
+
+</style>
+</head>
+
+<body>
+<div id="container">
+	
+    <div class="myradio" style="width:50%">
+        <form>
+        <fieldset >
+        	<ul>
+            	<li><span></span><input type="radio" id="radio1" name="myRadio" checked="checked"/><span></span><label for="radio1">ככ</label></li>
+        		<li><label for="radio2">I like it, I'm gonna save this page to my bookmarks</label><span></span><input type="radio" id="radio2" name="myRadio" /><span></span></li>
+        		<li><label for="radio3">I'm an usability Taliban and don't like this solution</label><span></span><input type="radio" id="radio3" name="myRadio" /><span></span></li>
+        		<li><label for="radio4">I think it's useless, I'll never use this trick</label><span></span><input type="radio" id="radio4" name="myRadio" /><span></span></li>
+            </ul>
+        </fieldset>
+        </form>
+        </div>
+        <p><a href="http://www.andreapinchi.it/how-to-style-radio-buttons-with-pure-css/">Read the trick explanation</a> and take a look to the code.</p>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+﻿@model Michal.Project.Models.StatusVm
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b>פרטי המשלוח ליעד</b></h3>
+            </div>
+            <div class="panel-body">
+                @Html.HiddenFor(m => m.StatusId)
+                @Html.HiddenFor(m => m.ShipId)
+
+                @Html.HiddenFor(m => m.SigBackType)
+                @if (Model.StatusId.ToString() == Michal.Project.Helper.Status.AcceptByClient || Model.StatusId.ToString() == Michal.Project.Helper.Status.NoAcceptByClient || Model.StatusId.ToString() == Michal.Project.Helper.Status.Close)
+                {
+                    <ul class="list-group">
+                        @if (Model.IsTake)
+                        {
+                            <li class="list-group-item">
+                                <span class="label label-success">המשלוח הגיע לשולח</span>
+                                <span class="prefix  pull-right">האם המשלוח התקבל:</span>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <span class="label label-danger">המשלוח לא הגיע לשולח</span>
+                                <span class="prefix  pull-right">האם המשלוח התקבל:</span>
+                            </li>
+                        }
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.ActualStartDate</span>
+                            <span class="prefix  pull-right">תאריך תחילת משלוח:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.ActualEndDate</span>
+                            <span class="prefix  pull-right">תאריך סיום משלוח:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.NameActualRecipient</span>
+                            <span class="prefix  pull-right">שם איש הקשר:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.NameActualTelRecipient</span>
+                            <span class="prefix pull-right">טלפון איש הקשר:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.NameActualTarget</span>
+                            <span class="prefix pull-right">שם המקבל:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.Desc</span>
+                            <span class="prefix pull-right">פרטים נוספים:</span>
+                        </li>
+
+                    </ul>
+                }
+                else
+                {
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="label label-warning">המשלוח טרם נשלח</span>
+                            <span class="prefix  pull-right">האם המשלוח התקבל:</span>
+                        </li>
+                         <li class="list-group-item">
+                            <span class="label label-info">@Model.ActualStartDate</span>
+                            <span class="prefix  pull-right">תאריך תחילת משלוח:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.Recipient</span>
+                            <span class="prefix  pull-right">שם איש הקשר:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.TelRecipient</span>
+                            <span class="prefix pull-right">טלפון איש הקשר:</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="label label-info">@Model.NameTarget</span>
+                            <span class="prefix pull-right">שם המקבל:</span>
+                        </li>
+
+
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.SigBackType == 1)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>חתימה</b></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group">
+                        <img src="@Model.PathSig" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+}

@@ -1,0 +1,228 @@
+﻿ /*start :my*/
+    .truncate {
+        width: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .priceb {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        background-color: yellowgreen;
+    }
+
+    .addplus:after {
+        content: "x";
+    }
+     .addminute::after {
+        content: "דק'";
+    }
+    .addpresent::after {
+        content: "%";
+    }
+
+    .addsimbol::after {
+        content: "₪";
+    }
+
+    .addpresent2::after {
+        content: "(%)";
+    }
+
+    .addsimbol2::after {
+        content: "(₪)";
+    }
+    /* end :my*/
+    /*
+      start:  http://bootsnipp.com/snippets/featured/bootstrap-loan-calculator
+        */
+
+    .price-box {
+        margin: 0 auto;
+        background: #E9E9E9;
+        border-radius: 10px;
+        padding: 20px 1px;
+        /*width: 500px;*/
+    }
+
+    .price, .lead p {
+        font-weight: 600;
+        font-size: 32px;
+        display: inline-block;
+        line-height: 60px;
+        border: 0;
+        width: 245px;
+    }
+
+
+    h4.great {
+        background: #00ac98;
+        margin: 0 0 25px -60px;
+        padding: 7px 15px;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 5px;
+        display: inline-block;
+        -moz-box-shadow: 2px 4px 5px 0 #ccc;
+        -webkit-box-shadow: 2px 4px 5px 0 #ccc;
+        box-shadow: 2px 4px 5px 0 #ccc;
+    }
+
+        h4.great span {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+    .total {
+        border-bottom: 1px solid #7f8c8d;
+        /*display: inline;
+  padding: 10px 5px;*/
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+        .total:before {
+            content: "";
+            display: inline;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+            width: 100%;
+            height: 3px;
+            background: #7f8c8d;
+            opacity: 0.5;
+        }
+
+    .price-slider {
+        margin-bottom: 70px;
+    }
+
+        .price-slider span {
+            font-weight: 200;
+            display: inline-block;
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+    .form-pricing {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 4px;
+    }
+
+    .price-form {
+        background: #ffffff;
+        margin-bottom: 10px;
+        padding: 20px;
+        border: 1px solid #eeeeee;
+        /*min-height: 520px;*/
+        border-radius: 4px;
+        /*-moz-box-shadow:    0 5px 5px 0 #ccc;
+    -webkit-box-shadow: 0 5px 5px 0 #ccc;
+    box-shadow:         0 5px 5px 0 #ccc;*/
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
+
+        .form-group span.price {
+            font-weight: 200;
+            display: inline-block;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+    .help-text {
+        display: block;
+        margin-top: -10px;
+        margin-bottom: 10px;
+        color: #737373;
+        /*position: absolute;*/
+        /*margin-left: 20px;*/
+        font-weight: 200;
+        /*text-align: right;*/
+        width: 188px;
+    }
+
+    .price-form label {
+        font-weight: 200;
+        font-size: 21px;
+    }
+
+    img.payment {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ui-slider-range-min {
+        background: #2980b9;
+    }
+
+    .active-month,
+    .active-term {
+        background: #3276b1;
+    }
+
+    /* HR */
+
+    hr.style {
+        margin-top: 0;
+        border: 0;
+        border-bottom: 1px dashed #ccc;
+        background: #999;
+    }
+
+    /*
+      end:  http://bootsnipp.com/snippets/featured/bootstrap-loan-calculator
+        */
+    /*
+      start:  http://bootsnipp.com/snippets/featured/admin-lists-panel
+        */
+    .trash {
+        color: rgb(209, 91, 71);
+    }
+
+    .flag {
+        color: rgb(248, 148, 6);
+    }
+
+    .panel-body {
+        padding: 0px;
+    }
+
+    .panel-footer .pagination {
+        margin: 0;
+    }
+
+    .panel .glyphicon, .list-group-item .glyphicon {
+        margin-left: 5px;
+    }
+
+    .panel-body .radio, .checkbox {
+        display: inline-block;
+        margin: 0px;
+    }
+
+    .panel-body input[type=checkbox]:checked + label {
+        text-decoration: line-through;
+        color: rgb(128, 144, 160);
+    }
+
+    .list-group-item:hover, a.list-group-item:focus {
+        text-decoration: none;
+        background-color: rgb(245, 245, 245);
+    }
+
+    .list-group {
+        margin-bottom: 0px;
+    }
+    /*
+      end:  http://bootsnipp.com/snippets/featured/admin-lists-panel
+        */
