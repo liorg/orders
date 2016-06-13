@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ArrangeFile.json" />
     <None Include="MigrationXmlToJsonLngLat_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <Content Include="rechov.json">

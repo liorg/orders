@@ -13,27 +13,96 @@ using System.Xml.Serialization;
 
 namespace UTConsole
 {
+
+    //public class StreetValue
+    //{
+     
+    //    public string CodeCity { get; set; }
+    //    public string City { get; set; }
+    //    public string CodeAddr { get; set; }
+    //    public string Addr { get; set; }
+
+    //}
+    public class StreetNames
+    {
+        // public Directory<string, StreetValue> StreetNames { get; set; }
+
+        public Dictionary<string, List<StreetLatAndLng>> Streets { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("1.0.0.5 framework 4.5");
             var file = System.Configuration.ConfigurationSettings.AppSettings["file"].ToString();
+            DesArrangeFile();
+          //  ArrangeFile(file);
 
-            Union();
+           // Union();
            // Merge();
-            //Init(file);
-          //  Test(file);
-            //  ConvertXmlToJson();
-            // Merge();
-            //  
-         
+           //Init(file);
+           //  Test(file);
+           //  ConvertXmlToJson();
+           // Merge();
+           //  
+
             //Init(file);
             //
             // Test(file);
             //Test(@"rechovArrange2015-08-30 1127.json");
             //Test(@"rechovArrange2015-08-30 1228.json");
             //Test(@"rechovArrange2.json");
+        }
+        static void DesArrangeFile()
+        {
+            using (StreamReader rechovArrange = File.OpenText(@"ArrangeFile.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                StreetNames streetNames = (StreetNames)serializer.Deserialize(rechovArrange, typeof(StreetNames));
+                foreach (var key in streetNames.Streets.Keys)
+                {
+
+                }
+            }
+        }
+        static void ArrangeFile(string file)
+        {
+            StreetNames streetNames = new StreetNames();
+            streetNames.Streets = new Dictionary<string, List<StreetLatAndLng>>();
+            List<StreetLatAndLng> streetValue = null;
+            using (StreamReader rechovArrange = File.OpenText(file))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                StreetsGeoLocation location= (StreetsGeoLocation)serializer.Deserialize(rechovArrange, typeof(StreetsGeoLocation));
+                foreach (var streetsItem in location.StreetsItems)
+                {
+                    streetValue = null;
+                    if(streetNames.Streets.TryGetValue(streetsItem.Addr.Trim().ToLower(),out streetValue))
+                    {
+                        streetValue.Add(streetsItem);
+                    }
+                    else
+                    {
+                        streetValue = new List<StreetLatAndLng>();
+                        streetValue.Add(streetsItem);
+                        streetNames.Streets.Add(streetsItem.Addr.Trim().ToLower(), streetValue);
+
+                    }
+                }
+
+            }
+            using (FileStream fs = File.Open(@"ArrangeFile.json", FileMode.OpenOrCreate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(jw, streetNames);
+            }
+            // if(streetNames.Streets.TryGetValue()
+
         }
 
         static void Test(string f)

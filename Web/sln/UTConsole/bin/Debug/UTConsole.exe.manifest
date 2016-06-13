@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UTConsole.exe" size="27576">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UTConsole.exe" size="26552">
       <assemblyIdentity name="UTConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PS3kTFBGu4TJ/2QsYwsWQxAOOwsezkgVL+CnVsBwG0M=</dsig:DigestValue>
+        <dsig:DigestValue>neaTkBZ8byhQPGvsPckBXVjVw9vnBnJhbb+ggSs3KTw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
