@@ -46,5 +46,7 @@ namespace Michal.Project.Dal
         public DbSet<SyncTable> SyncTable { get; set; }
         public DbSet<Member> Member { get; set; }
         public DbSet<MoreAddress> MoreAddress { get; set; }
+
+        public DbSet<Friend> Friends { get; set; }
     }
 }

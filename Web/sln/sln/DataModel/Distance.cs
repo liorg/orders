@@ -15,14 +15,17 @@ namespace Michal.Project.DataModel
         {
            Organizations = new HashSet<Organization>();
            Shippings = new HashSet<Shipping>();
-           //PriceLists = new HashSet<PriceList>();
-         //  Discounts = new HashSet<Discount>();
+            ShippingCompanies = new HashSet<ShippingCompany>();
+            //PriceLists = new HashSet<PriceList>();
+            //  Discounts = new HashSet<Discount>();
         }
 
         // many to many
         public ICollection<Organization> Organizations { get; set; }
+        // many to many
+        public ICollection<ShippingCompany> ShippingCompanies { get; set; }
 
-      //  public ICollection<PriceList> PriceLists { get; set; }
+        //  public ICollection<PriceList> PriceLists { get; set; }
 
         public ICollection<Shipping> Shippings { get; set; }
 

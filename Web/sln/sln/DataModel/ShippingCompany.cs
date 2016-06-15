@@ -46,12 +46,21 @@ namespace Michal.Project.DataModel
             Users = new HashSet<ApplicationUser>();
             PriceLists = new HashSet<PriceList>();
             RequestShipping = new HashSet<RequestShipping>();
+            Distances = new HashSet<Distance>();
+            Products = new HashSet<Product>();
+
         }
         public ICollection<RequestShipping> RequestShipping { get; set; }
 
         public ICollection<PriceList> PriceLists { get; set; }
         // many to many
         public ICollection<Organization> Organizations { get; set; }
+
+        // many to many
+        public ICollection<Distance> Distances { get; set; }
+
+        // many to many
+        public ICollection<Product> Products { get; set; }
 
         public ICollection<ApplicationUser> Users { get; set; }
 

@@ -298,6 +298,7 @@
     <Compile Include="DataModel\ApplicationUser.cs" />
     <Compile Include="DataModel\BussinessClosure.cs" />
     <Compile Include="DataModel\City.cs" />
+    <Compile Include="DataModel\Friend.cs" />
     <Compile Include="DataModel\Member.cs" />
     <Compile Include="DataModel\MoreAddress.cs" />
     <Compile Include="DataModel\SyncTable.cs" />
@@ -417,6 +418,18 @@
     <Compile Include="Migrations\201604240539299_addextrafields2.cs" />
     <Compile Include="Migrations\201604240539299_addextrafields2.Designer.cs">
       <DependentUpon>201604240539299_addextrafields2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606151226021_sss.cs" />
+    <Compile Include="Migrations\201606151226021_sss.Designer.cs">
+      <DependentUpon>201606151226021_sss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606151235368_sss2.cs" />
+    <Compile Include="Migrations\201606151235368_sss2.Designer.cs">
+      <DependentUpon>201606151235368_sss2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606151238337_sss3.cs" />
+    <Compile Include="Migrations\201606151238337_sss3.Designer.cs">
+      <DependentUpon>201606151238337_sss3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BussinessClosureView.cs" />
@@ -936,6 +949,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604240539299_addextrafields2.resx">
       <DependentUpon>201604240539299_addextrafields2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606151226021_sss.resx">
+      <DependentUpon>201606151226021_sss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606151235368_sss2.resx">
+      <DependentUpon>201606151235368_sss2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606151238337_sss3.resx">
+      <DependentUpon>201606151238337_sss3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

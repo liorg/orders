@@ -24,6 +24,8 @@ namespace Michal.Project.DataModel
         public Address AddressOrg { get; set; }
         // many to many
         public ICollection<Distance> Distances { get; set; }
+
+
         // many to many
         public ICollection<ShippingCompany> ShippingCompany { get; set; }
 

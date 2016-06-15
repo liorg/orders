@@ -15,13 +15,18 @@ namespace Michal.Project.DataModel
         {
             //PriceLists = new HashSet<PriceList>();
             ShippingItems = new HashSet<ShippingItem>();
+            ShippingCompanies = new HashSet<ShippingCompany>();
         }
+
         
         //public ICollection<PriceList> PriceLists { get; set; }
         public ICollection<ShippingItem> ShippingItems { get; set; }
 
         // many to many
         public ICollection<Organization> Organizations { get; set; }
+
+        // many to many
+        public ICollection<ShippingCompany> ShippingCompanies { get; set; }
         [Key]
         public Guid ProductId { get; set; }
 
@@ -62,6 +67,6 @@ namespace Michal.Project.DataModel
 
         public bool IsCalculatingShippingInclusive { get; set; }
 
-
+        public Guid? ParentProductId { get; set; }
     }
 }
