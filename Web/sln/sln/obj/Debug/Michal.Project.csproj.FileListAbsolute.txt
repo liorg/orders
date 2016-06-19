@@ -85,3 +85,5 @@ C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\bin\Microsoft.Owin.xml
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\Michal.Project.Migrations.sss.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\Michal.Project.Migrations.sss2.resources
 C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\obj\Debug\Michal.Project.Migrations.sss3.resources
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\bin\WhatsAppApi.dll
+C:\Users\lior_gr\Documents\GitHub\orders\Web\sln\sln\bin\WhatsAppApi.pdb

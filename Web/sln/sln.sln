@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Michal.Project", "sln\Michal.Project.csproj", "{9C18C3B7-5463-4F3B-A929-F4402DDEE822}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOSHOP", "PHOTOSHOP", "{D0B77621-3F5F-4626-995C-B435A2A50F23}"
@@ -39,6 +41,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLatF4", "XmlToJsonF4\MigrationXmlToJsonLngLatF4.csproj", "{E164196C-8372-4D1B-923D-DEE699FEAE78}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationXmlToJsonLngLat", "UTConsole\MigrationXmlToJsonLngLat.csproj", "{8ECD1E94-727A-4620-A630-39665E528D32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDlls", "SharedDlls", "{92D2BAF1-6932-4E7C-B65B-635B76AEED75}"
+	ProjectSection(SolutionItems) = preProject
+		SharedDlls\WhatsAppApi.dll = SharedDlls\WhatsAppApi.dll
+		SharedDlls\WhatsAppApi.pdb = SharedDlls\WhatsAppApi.pdb
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

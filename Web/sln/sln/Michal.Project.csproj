@@ -140,6 +140,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WhatsAppApi">
+      <HintPath>..\SharedDlls\WhatsAppApi.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +199,7 @@
     <Compile Include="Agent\GoogleAgent.cs" />
     <Compile Include="Agent\LocationAgent.cs" />
     <Compile Include="Api\AddressController.cs" />
+    <Compile Include="Api\MessagesController.cs" />
     <Compile Include="Api\NotifcationServiceController.cs" />
     <Compile Include="Api\OfferServiceController.cs">
       <SubType>Code</SubType>
@@ -1032,6 +1036,9 @@
     <EmbeddedResource Include="Migrations\201606151238337_sss3.resx">
       <DependentUpon>201606151238337_sss3.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
